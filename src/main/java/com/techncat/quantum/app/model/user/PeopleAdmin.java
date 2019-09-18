@@ -1,16 +1,16 @@
 package com.techncat.quantum.app.model.user;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
 @Table(name = "people_admin")
 public class PeopleAdmin {
+    @Id
+    private Long id;
     private Date updateAt;
     private Date createdAt;
-
-    @Id
-    private Long people_id;
 
     @OneToOne
     @JoinColumn(name = "people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
@@ -23,7 +23,7 @@ public class PeopleAdmin {
     private Date contractStartDate;
     private Date contractEndDate;
 
-    private float annualSalary;
-    private float monthlySalary;
-    private float housingSubsidy;
+    private BigDecimal annualSalary;
+    private BigDecimal monthlySalary;
+    private BigDecimal housingSubsidy;
 }

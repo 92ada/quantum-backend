@@ -1,24 +1,17 @@
-package com.techncat.quantum.app.model.user;
+package com.techncat.quantum.app.vos.people;
 
-import javax.persistence.*;
+import com.techncat.quantum.app.model.user.Lab;
+import com.techncat.quantum.app.model.user.People;
+import org.springframework.beans.BeanUtils;
+
 import java.util.Date;
 
-@Entity
-@Table(name = "people")
-public class People {
-    public enum Type {
-        admin, postdoctoral, researcher, student, teacher, visitor
-    }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class PeopleVO {
     private Long id;
-
     private Date updateAt;
     private Date createdAt;
-
-    @Enumerated
-    private Type type;
+    // base info
+    private People.Type type;
     private String status;
     private String name;
     private String identityType;
@@ -28,18 +21,16 @@ public class People {
     private String phone;
     private String email;
     private String politicalStatus;
-    @Column(columnDefinition="text")
     private String description;
     private String emergencyContact;
     private Date entryDate;
     private Date departureDate;
     private String gender;
-
-    @ManyToOne
-    @JoinColumn(name = "lab_id", referencedColumnName = "id")
     private Lab lab;
 
-
+    public PeopleVO(People people) {
+        BeanUtils.copyProperties(people, this);
+    }
 
     public Long getId() {
         return id;
@@ -65,11 +56,11 @@ public class People {
         this.createdAt = createdAt;
     }
 
-    public Type getType() {
+    public People.Type getType() {
         return type;
     }
 
-    public void setType(Type type) {
+    public void setType(People.Type type) {
         this.type = type;
     }
 

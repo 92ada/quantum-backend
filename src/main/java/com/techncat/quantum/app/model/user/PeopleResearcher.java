@@ -10,8 +10,8 @@ public class PeopleResearcher {
     private Date createdAt;
 
     @Id
-    private Long people_id;
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @OneToOne
     @JoinColumn(name = "people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People people;
