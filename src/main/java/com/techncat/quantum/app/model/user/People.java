@@ -9,6 +9,12 @@ public class People {
     public enum Type {
         admin, postdoctoral, researcher, student, teacher, visitor
     }
+    public enum Gender {
+        male, female, other
+    }
+    public enum Status {
+        normal, abnormal, dismissed, on_vacation
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +25,8 @@ public class People {
 
     @Enumerated
     private Type type;
-    private String status;
+    @Enumerated
+    private Status status;
     private String name;
     private String identityType;
     private String identityNo;
@@ -33,7 +40,8 @@ public class People {
     private String emergencyContact;
     private Date entryDate;
     private Date departureDate;
-    private String gender;
+    @Enumerated
+    private Gender gender;
 
     @ManyToOne
     @JoinColumn(name = "lab_id", referencedColumnName = "id")
@@ -73,11 +81,11 @@ public class People {
         this.type = type;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
@@ -177,11 +185,11 @@ public class People {
         this.departureDate = departureDate;
     }
 
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 

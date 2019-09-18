@@ -11,7 +11,6 @@ import java.util.Date;
 
 public class PeopleVisitorVO extends PeopleVO {
     // detail
-    private String status;
     private String position_title;
     private String salaryCardNo;
     private String bank;
@@ -34,16 +33,6 @@ public class PeopleVisitorVO extends PeopleVO {
         this.setId(id);
         this.setCreatedAt(createdAt);
         this.setUpdateAt(updatedAt);
-    }
-
-    @Override
-    public String getStatus() {
-        return status;
-    }
-
-    @Override
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public String getPosition_title() {

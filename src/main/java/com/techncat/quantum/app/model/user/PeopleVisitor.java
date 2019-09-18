@@ -17,7 +17,6 @@ public class PeopleVisitor {
     @JoinColumn(name = "people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People people;
 
-    private String status;
     private String position_title;
 
     private String salaryCardNo;

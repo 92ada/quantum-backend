@@ -1,31 +1,62 @@
 package com.techncat.quantum.app.vos.people;
 
+import com.techncat.quantum.app.common.annotation.ValueType;
 import com.techncat.quantum.app.model.user.Lab;
 import com.techncat.quantum.app.model.user.People;
 import org.springframework.beans.BeanUtils;
 
 import java.util.Date;
 
+/**
+ * [{
+ *     value: 300123199901014444
+ *     type: string
+ *     index: identityNo
+ * },
+ * {
+ *     value: 300123199901014444
+ *     type: enum
+ *     index: type
+ *     options: ["admin", "researcher"]
+ * }
+ * {
+ *     value: [
+ *          {
+ *              value: null
+ *              type: string
+ *              index: description
+ *          },
+ *     ]
+ *     type: object
+ *     index: lab,
+ *     // option_url: "/api/labs/options"
+ * }]
+ */
 public class PeopleVO {
     private Long id;
     private Date updateAt;
     private Date createdAt;
     // base info
+    @ValueType("enum")
     private People.Type type;
-    private String status;
+    private People.Status status;
     private String name;
     private String identityType;
     private String identityNo;
     private String identityPhotoUrl;
     private Date birthDate;
+    @ValueType("phone")
     private String phone;
+    @ValueType("email")
     private String email;
     private String politicalStatus;
     private String description;
     private String emergencyContact;
     private Date entryDate;
     private Date departureDate;
-    private String gender;
+    @ValueType("enum")
+    private People.Gender gender;
+    @ValueType(value = "object", option_url = "/api/labs/options")
     private Lab lab;
 
     public PeopleVO(People people) {
@@ -64,11 +95,11 @@ public class PeopleVO {
         this.type = type;
     }
 
-    public String getStatus() {
+    public People.Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(People.Status status) {
         this.status = status;
     }
 
@@ -168,11 +199,11 @@ public class PeopleVO {
         this.departureDate = departureDate;
     }
 
-    public String getGender() {
+    public People.Gender getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(People.Gender gender) {
         this.gender = gender;
     }
 
