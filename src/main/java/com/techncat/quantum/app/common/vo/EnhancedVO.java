@@ -1,7 +1,5 @@
 package com.techncat.quantum.app.common.vo;
 
-import java.util.List;
-
 public class EnhancedVO {
     private String index;
     private String value;
@@ -12,7 +10,6 @@ public class EnhancedVO {
 
     private Boolean require;
     private Boolean editable;
-
 
     public EnhancedVO(String index, String value, String type) {
         this.index = index;
@@ -33,7 +30,6 @@ public class EnhancedVO {
         this.type = type;
         this.option_url = option_url;
     }
-
 
     public String getIndex() {
         return index;
