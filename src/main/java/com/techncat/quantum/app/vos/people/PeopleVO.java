@@ -37,7 +37,7 @@ public class PeopleVO {
     private Date updateAt;
     private Date createdAt;
     // base info
-    @ValueType("enum")
+    @ValueType("enumerated")
     private People.Type type;
     private People.Status status;
     private String name;
@@ -54,7 +54,7 @@ public class PeopleVO {
     private String emergencyContact;
     private Date entryDate;
     private Date departureDate;
-    @ValueType("enum")
+    @ValueType("enumerated")
     private People.Gender gender;
     @ValueType(value = "object", option_url = "/api/labs/options")
     private Lab lab;

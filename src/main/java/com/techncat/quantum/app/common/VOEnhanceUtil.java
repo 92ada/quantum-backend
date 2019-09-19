@@ -51,19 +51,13 @@ public class VOEnhanceUtil {
     private TypeResult getType(Field field) {
         Class type = field.getType();
         if (field.isAnnotationPresent(ValueType.class)) {
-//            Annotation[] annotations = field.getAnnotationsByType(ValueType.class);
-//            for (Annotation annotation: annotations) {
-            Annotation annotation = field.getAnnotation(ValueType.class);
-            if (annotation instanceof ValueType) {
-                ValueType anno = (ValueType) annotation;
-                String optionUrl = anno.option_url();
-                if ("".equals(optionUrl)) {
-                    return new TypeResult(anno.value());
-                } else {
-                    return new TypeResult(anno.value(), optionUrl);
-                }
+            ValueType anno = field.getAnnotation(ValueType.class);
+            String optionUrl = anno.option_url();
+            if ("".equals(optionUrl)) {
+                return new TypeResult(anno.value());
+            } else {
+                return new TypeResult(anno.value(), optionUrl);
             }
-//            }
         } else {
             if (type == Date.class) {
                 return new TypeResult("date");
@@ -77,7 +71,6 @@ public class VOEnhanceUtil {
                 return new TypeResult("object");
             }
         }
-        return null;
     }
 
     private Object[] getEnumValues(Field field) {
@@ -97,6 +90,8 @@ public class VOEnhanceUtil {
             date,
             enumerated,
             object,
+            phone,
+            email
         }
         private Type value;
         private String optionUrl;

@@ -93,11 +93,17 @@ public class EnhancedVO {
 
     @Override
     public String toString() {
+        String optionsStr = "";
+        if (options != null) {
+            for (Object option : options) {
+                optionsStr += option + " ";
+            }
+        }
         return "EnhancedVO{" +
                 "index='" + index + '\'' +
                 ", value='" + value + '\'' +
                 ", type='" + type + '\'' +
-                ", options=" + options +
+                ", options=[" + optionsStr + ']' +
                 ", option_url='" + option_url + '\'' +
                 ", require=" + require +
                 ", editable=" + editable +
