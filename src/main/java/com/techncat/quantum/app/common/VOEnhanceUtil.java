@@ -1,5 +1,6 @@
 package com.techncat.quantum.app.common;
 
+import com.sun.tools.javac.util.ArrayUtils;
 import com.techncat.quantum.app.common.annotation.ValueType;
 import com.techncat.quantum.app.common.vo.EnhancedVO;
 import org.springframework.stereotype.Service;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -14,7 +16,9 @@ import java.util.List;
 public class VOEnhanceUtil {
 
     public List<EnhancedVO> enhance(Object object) throws IllegalAccessException {
-        Field[] fields = object.getClass().getDeclaredFields();
+        Field[] childFields = object.getClass().getDeclaredFields();
+        Field[] fatherFields = object.getClass().getSuperclass().getDeclaredFields();
+        Field[] fields = concat(fatherFields, childFields);
         List<EnhancedVO> vos = new ArrayList<>();
         for (Field field : fields) {
             field.setAccessible(true);
@@ -120,4 +124,11 @@ public class VOEnhanceUtil {
             this.optionUrl = optionUrl;
         }
     }
+
+    public static <T> T[] concat(T[] first, T[] second) {
+        T[] result = Arrays.copyOf(first, first.length + second.length);
+        System.arraycopy(second, 0, result, first.length, second.length);
+        return result;
+    }
+
 }
