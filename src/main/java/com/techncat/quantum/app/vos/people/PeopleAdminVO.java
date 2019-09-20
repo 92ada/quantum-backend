@@ -26,6 +26,7 @@ public class PeopleAdminVO extends PeopleVO {
     }
 
     private void copyProperties(PeopleAdmin peopleAdmin) {
+        if (null == peopleAdmin) return;
         Long id = this.getId();
         Date createdAt = this.getCreatedAt();
         Date updatedAt = this.getUpdateAt();

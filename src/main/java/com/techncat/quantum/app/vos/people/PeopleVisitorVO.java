@@ -11,7 +11,7 @@ import java.util.Date;
 
 public class PeopleVisitorVO extends PeopleVO {
     // detail
-    private String position_title;
+    private String positionTitle;
     private String salaryCardNo;
     private String bank;
     private String citizenship;
@@ -35,12 +35,12 @@ public class PeopleVisitorVO extends PeopleVO {
         this.setUpdateAt(updatedAt);
     }
 
-    public String getPosition_title() {
-        return position_title;
+    public String getPositionTitle() {
+        return positionTitle;
     }
 
-    public void setPosition_title(String position_title) {
-        this.position_title = position_title;
+    public void setPositionTitle(String positionTitle) {
+        this.positionTitle = positionTitle;
     }
 
     public String getSalaryCardNo() {

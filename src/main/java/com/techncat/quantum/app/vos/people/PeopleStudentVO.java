@@ -14,10 +14,10 @@ import java.util.Date;
 
 public class PeopleStudentVO extends PeopleVO {
     // detail
-    private String edu_system;
+    private String eduSystem;
     private String category;
     private People advisor;
-    private People vice_advisor;
+    private People viceAdvisor;
     private String midtermAssessmentStatus;
     private String openingAssessmentStatus;
 
@@ -36,12 +36,12 @@ public class PeopleStudentVO extends PeopleVO {
         this.setUpdateAt(updatedAt);
     }
 
-    public String getEdu_system() {
-        return edu_system;
+    public String getEduSystem() {
+        return eduSystem;
     }
 
-    public void setEdu_system(String edu_system) {
-        this.edu_system = edu_system;
+    public void setEduSystem(String eduSystem) {
+        this.eduSystem = eduSystem;
     }
 
     public String getCategory() {
@@ -60,12 +60,12 @@ public class PeopleStudentVO extends PeopleVO {
         this.advisor = advisor;
     }
 
-    public People getVice_advisor() {
-        return vice_advisor;
+    public People getViceAdvisor() {
+        return viceAdvisor;
     }
 
-    public void setVice_advisor(People vice_advisor) {
-        this.vice_advisor = vice_advisor;
+    public void setViceAdvisor(People viceAdvisor) {
+        this.viceAdvisor = viceAdvisor;
     }
 
     public String getMidtermAssessmentStatus() {

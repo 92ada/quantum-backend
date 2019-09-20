@@ -17,7 +17,7 @@ public class PeoplePostdoctoral {
     @JoinColumn(name = "people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People people;
 
-    private String edu_system;
+    private String eduSystem;
     private String category;
 
     @OneToOne
@@ -25,7 +25,7 @@ public class PeoplePostdoctoral {
     private People advisor;
     @OneToOne
     @JoinColumn(name = "vice_advisor_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
-    private People vice_advisor;
+    private People viceAdvisor;
 
     private String midtermAssessmentStatus;
     private String openingAssessmentStatus;
