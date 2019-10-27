@@ -1,6 +1,6 @@
 package com.techncat.quantum.app.service;
 
-import com.techncat.quantum.app.model.user.People;
+import com.techncat.quantum.app.model.people.People;
 import com.techncat.quantum.app.repository.UserRepository;
 import com.techncat.quantum.app.vos.PeopleHomePageVO;
 import org.springframework.beans.BeanUtils;

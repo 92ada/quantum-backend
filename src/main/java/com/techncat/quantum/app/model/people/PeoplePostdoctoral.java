@@ -1,11 +1,11 @@
-package com.techncat.quantum.app.model.user;
+package com.techncat.quantum.app.model.people;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "people_student")
-public class PeopleStudent {
+@Table(name = "people_postdoctoral")
+public class PeoplePostdoctoral {
     private Date updateAt;
     private Date createdAt;
 
@@ -20,10 +20,10 @@ public class PeopleStudent {
     private String eduSystem;
     private String category;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "advisor_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People advisor;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "vice_advisor_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People viceAdvisor;
 

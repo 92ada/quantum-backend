@@ -1,8 +1,8 @@
 package com.techncat.quantum.app.vos.people;
 
 import com.techncat.quantum.app.common.annotation.ValueType;
-import com.techncat.quantum.app.model.user.Lab;
-import com.techncat.quantum.app.model.user.People;
+import com.techncat.quantum.app.model.people.Lab;
+import com.techncat.quantum.app.model.people.People;
 import org.springframework.beans.BeanUtils;
 
 import java.util.Date;
@@ -213,5 +213,30 @@ public class PeopleVO {
 
     public void setLab(Lab lab) {
         this.lab = lab;
+    }
+
+    @Override
+    public String toString() {
+        return "PeopleVO{" +
+                "id=" + id +
+                ", updateAt=" + updateAt +
+                ", createdAt=" + createdAt +
+                ", type=" + type +
+                ", status=" + status +
+                ", name='" + name + '\'' +
+                ", identityType='" + identityType + '\'' +
+                ", identityNo='" + identityNo + '\'' +
+                ", identityPhotoUrl='" + identityPhotoUrl + '\'' +
+                ", birthDate=" + birthDate +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", politicalStatus='" + politicalStatus + '\'' +
+                ", description='" + description + '\'' +
+                ", emergencyContact='" + emergencyContact + '\'' +
+                ", entryDate=" + entryDate +
+                ", departureDate=" + departureDate +
+                ", gender=" + gender +
+                ", lab=" + lab +
+                '}';
     }
 }

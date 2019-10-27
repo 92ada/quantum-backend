@@ -1,6 +1,6 @@
 package com.techncat.quantum.app.model.research;
 
-import com.techncat.quantum.app.model.user.People;
+import com.techncat.quantum.app.model.people.People;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -24,7 +24,7 @@ public class Paper {
     private int sustechInstitutionRank;
 
     @ManyToOne
-    @JoinColumn(name = "author_people_id", referencedColumnName = "id")
+    @JoinColumn(name = "author_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People people;
 
     private int authorRank;

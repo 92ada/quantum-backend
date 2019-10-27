@@ -1,4 +1,4 @@
-package com.techncat.quantum.app.model.user;
+package com.techncat.quantum.app.model.people;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -44,7 +44,7 @@ public class People {
     private Gender gender;
 
     @ManyToOne
-    @JoinColumn(name = "lab_id", referencedColumnName = "id")
+    @JoinColumn(name = "lab_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private Lab lab;
 
 

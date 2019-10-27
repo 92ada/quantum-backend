@@ -2,7 +2,9 @@ package com.techncat.quantum;
 
 import com.techncat.quantum.app.common.VOEnhanceUtil;
 import com.techncat.quantum.app.common.vo.EnhancedVO;
-import com.techncat.quantum.app.model.user.People;
+import com.techncat.quantum.app.model.people.People;
+import com.techncat.quantum.app.model.people.PeoplePostdoctoral;
+import com.techncat.quantum.app.vos.people.PeoplePostdoctoralVO;
 import com.techncat.quantum.app.vos.people.PeopleVO;
 
 import java.util.Date;
@@ -17,9 +19,23 @@ public class VOEnhanceUtilTest {
         people.setGender(People.Gender.female);
         people.setId(001l);
 
+        PeoplePostdoctoral peoplePostdoctoral = new PeoplePostdoctoral();
+
         PeopleVO peopleVO = new PeopleVO(people);
+        PeoplePostdoctoralVO peoplePostdoctoralVO = new PeoplePostdoctoralVO(people, peoplePostdoctoral);
+
         List<EnhancedVO> vos = util.enhance(peopleVO);
         pr(vos);
+        System.out.println("---------------");
+        System.out.println(peopleVO);
+
+
+        System.out.println("---------------");
+        List<EnhancedVO> vos_update = util.enhance(peoplePostdoctoralVO);
+        pr(vos_update);
+        System.out.println("---------------");
+        System.out.println(peoplePostdoctoralVO);
+
     }
 
     private static void pr(List<EnhancedVO> voList) {
@@ -27,5 +43,4 @@ public class VOEnhanceUtilTest {
             System.out.println(vo);
         }
     }
-
 }

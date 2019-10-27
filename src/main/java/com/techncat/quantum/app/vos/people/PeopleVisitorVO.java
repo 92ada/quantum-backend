@@ -1,11 +1,9 @@
 package com.techncat.quantum.app.vos.people;
 
-import com.techncat.quantum.app.model.user.People;
-import com.techncat.quantum.app.model.user.PeopleAdmin;
-import com.techncat.quantum.app.model.user.PeopleVisitor;
+import com.techncat.quantum.app.model.people.People;
+import com.techncat.quantum.app.model.people.PeopleVisitor;
 import org.springframework.beans.BeanUtils;
 
-import javax.persistence.Column;
 import java.math.BigDecimal;
 import java.util.Date;
 

@@ -1,11 +1,9 @@
 package com.techncat.quantum.app.vos.people;
 
-import com.techncat.quantum.app.model.user.People;
-import com.techncat.quantum.app.model.user.PeopleAdmin;
-import com.techncat.quantum.app.model.user.PeoplePostdoctoral;
+import com.techncat.quantum.app.model.people.People;
+import com.techncat.quantum.app.model.people.PeoplePostdoctoral;
 import org.springframework.beans.BeanUtils;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 public class PeoplePostdoctoralVO extends PeopleVO {
@@ -79,5 +77,17 @@ public class PeoplePostdoctoralVO extends PeopleVO {
 
     public void setOpeningAssessmentStatus(String openingAssessmentStatus) {
         this.openingAssessmentStatus = openingAssessmentStatus;
+    }
+
+    @Override
+    public String toString() {
+        return "PeoplePostdoctoralVO{" +
+                "eduSystem='" + eduSystem + '\'' +
+                ", category='" + category + '\'' +
+                ", advisor=" + advisor +
+                ", viceAdvisor=" + viceAdvisor +
+                ", midtermAssessmentStatus='" + midtermAssessmentStatus + '\'' +
+                ", openingAssessmentStatus='" + openingAssessmentStatus + '\'' +
+                '}';
     }
 }

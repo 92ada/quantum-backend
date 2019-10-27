@@ -1,6 +1,6 @@
 package com.techncat.quantum.app.service.people;
 
-import com.techncat.quantum.app.model.user.People;
+import com.techncat.quantum.app.model.people.People;
 import com.techncat.quantum.app.repository.people.*;
 import com.techncat.quantum.app.vos.people.*;
 import org.springframework.stereotype.Service;

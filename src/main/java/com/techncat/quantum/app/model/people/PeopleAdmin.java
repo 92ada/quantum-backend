@@ -1,4 +1,4 @@
-package com.techncat.quantum.app.model.user;
+package com.techncat.quantum.app.model.people;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

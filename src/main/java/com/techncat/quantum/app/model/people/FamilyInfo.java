@@ -1,4 +1,4 @@
-package com.techncat.quantum.app.model.user;
+package com.techncat.quantum.app.model.people;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -13,7 +13,7 @@ public class FamilyInfo {
     private Date updateAt;
     private Date createdAt;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People people;
 

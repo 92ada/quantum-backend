@@ -1,15 +1,9 @@
 package com.techncat.quantum.app.vos.people;
 
-import com.techncat.quantum.app.model.user.People;
-import com.techncat.quantum.app.model.user.PeopleAdmin;
-import com.techncat.quantum.app.model.user.PeopleStudent;
+import com.techncat.quantum.app.model.people.People;
+import com.techncat.quantum.app.model.people.PeopleStudent;
 import org.springframework.beans.BeanUtils;
 
-import javax.persistence.ConstraintMode;
-import javax.persistence.ForeignKey;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import java.math.BigDecimal;
 import java.util.Date;
 
 public class PeopleStudentVO extends PeopleVO {
