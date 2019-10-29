@@ -25,9 +25,9 @@ public class PeopleTeacher {
     @Column(columnDefinition="text")
     private String achievements;
 
-    private boolean isPhdMentor;
-    private boolean isMasterMentor;
-    private boolean isUnionMember;
+    private Boolean isPhdMentor;
+    private Boolean isMasterMentor;
+    private Boolean isUnionMember;
 
     private String salaryCardNo;
     private String bank;

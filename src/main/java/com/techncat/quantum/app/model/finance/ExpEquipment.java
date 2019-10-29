@@ -26,7 +26,7 @@ public class ExpEquipment {
     private Exp exp;
 
     private Type purchase_type;
-    private int payment_status;
+    private Integer payment_status;
     private String inbound_no;
     private BigDecimal warranty_amount;
     private Date warranty_date;

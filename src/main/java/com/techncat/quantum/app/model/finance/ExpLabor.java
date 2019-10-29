@@ -23,7 +23,7 @@ public class ExpLabor {
     private String category;
     private String matter;
     private BigDecimal standard;
-    private int days;
+    private Integer days;
 
     @ManyToOne
     @JoinColumn(name = "handler_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))

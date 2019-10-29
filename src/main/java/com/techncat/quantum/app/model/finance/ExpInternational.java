@@ -32,5 +32,5 @@ public class ExpInternational {
 
     private String matter;
     private String location;
-    private int number_of_people;
+    private Integer number_of_people;
 }

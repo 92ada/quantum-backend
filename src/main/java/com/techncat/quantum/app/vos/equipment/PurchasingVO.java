@@ -1,17 +1,12 @@
-package com.techncat.quantum.app.model.equipment;
+package com.techncat.quantum.app.vos.equipment;
 
-
+import com.techncat.quantum.app.common.annotation.ValueType;
 import com.techncat.quantum.app.model.people.People;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
-@Entity
-@Table(name = "purchasings")
-public class Purchasing {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class PurchasingVO {
     private Long id;
 
     private Date updateAt;
@@ -24,11 +19,9 @@ public class Purchasing {
     private String argument_method;
     private Date request_date;
 
-    @ManyToOne
-    @JoinColumn(name = "handler_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+    @ValueType(value = "object", option_url = "/api/people/options") // TODO
     private People handler;
-    @ManyToOne
-    @JoinColumn(name = "pi_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+    @ValueType(value = "object", option_url = "/api/people/options") // TODO
     private People pi;
 
     private Boolean is_finished;

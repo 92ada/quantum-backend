@@ -1,15 +1,11 @@
-package com.techncat.quantum.app.model.research;
+package com.techncat.quantum.app.vos.research;
 
+import com.techncat.quantum.app.common.annotation.ValueType;
 import com.techncat.quantum.app.model.people.People;
 
-import javax.persistence.*;
 import java.util.Date;
 
-@Entity
-@Table(name = "papers")
-public class Paper {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class PaperVO {
     private Long id;
 
     private Date updateAt;
@@ -23,8 +19,7 @@ public class Paper {
     private Boolean isUnderSustech;
     private Integer sustechInstitutionRank;
 
-    @ManyToOne
-    @JoinColumn(name = "author_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+    @ValueType(value = "object", option_url = "/api/people/options") // TODO
     private People people;
 
     private Integer authorRank;
@@ -34,6 +29,6 @@ public class Paper {
     private String journalAcceptanceType;
     private String jcrPartition;
     private float impactFactor;
-    @Column(columnDefinition="text")
+    @ValueType("text")
     private String articleThanks;
 }

@@ -39,6 +39,7 @@ public class PeopleVO {
     // base info
     @ValueType("enumerated")
     private People.Type type;
+    @ValueType("enumerated")
     private People.Status status;
     private String name;
     private String identityType;

@@ -9,7 +9,7 @@ import java.util.Date;
 
 public class PeopleAdminVO extends PeopleVO {
     // detail
-    private boolean isUnionMember;
+    private Boolean isUnionMember;
     private String salaryCardNo;
     private String bank;
     private String contractNo;

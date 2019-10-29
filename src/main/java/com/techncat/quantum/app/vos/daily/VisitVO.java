@@ -1,38 +1,29 @@
-package com.techncat.quantum.app.model.daily;
+package com.techncat.quantum.app.vos.daily;
 
-
+import com.techncat.quantum.app.common.annotation.ValueType;
+import com.techncat.quantum.app.model.daily.Visit;
 import com.techncat.quantum.app.model.people.People;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
-@Entity
-@Table(name = "visits")
-public class Visit {
-    public enum Status {
-        unsubmitted, in_progress, approved
-    }
-    public enum IdentityType {
-        id_card, passport
-    }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class VisitVO {
     private Long id;
 
     private Date updateAt;
     private Date createdAt;
 
     private String name;
-    private Status approval_status;
+    @ValueType("enumerated")
+    private Visit.Status approval_status;
     private String remark;
     private String visitor_institution;
     private String job_title;
-    @ManyToOne
-    @JoinColumn(name = "receptionist_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+
+    @ValueType(value = "object", option_url = "/api/people/options") // TODO
     private People receptionist;
-    private IdentityType identity_type;
+    @ValueType("enumerated")
+    private Visit.IdentityType identity_type;
     private String identity_no;
     private String phone_no;
     private String email;

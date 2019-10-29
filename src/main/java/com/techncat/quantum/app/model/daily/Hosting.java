@@ -23,5 +23,5 @@ public class Hosting {
     private Date time;
     private String title;
     private String site;
-    private boolean is_reimbursement;
+    private Boolean is_reimbursement;
 }

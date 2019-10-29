@@ -26,8 +26,8 @@ public class ExpConference {
     private Date start_date;
     private Date end_date;
     private String place_of_participation;
-    private int planned_attendance;
-    private int actual_attendance;
+    private Integer planned_attendance;
+    private Integer actual_attendance;
     private BigDecimal budget;
     private BigDecimal actual_total_cost;
     private BigDecimal meeting_expenses;

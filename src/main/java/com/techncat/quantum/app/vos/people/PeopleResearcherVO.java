@@ -13,9 +13,9 @@ public class PeopleResearcherVO extends PeopleVO {
     private String job;
     private String socialJob;
     private String achievements;
-    private boolean isPhdMentor;
-    private boolean isMasterMentor;
-    private boolean isUnionMember;
+    private Boolean isPhdMentor;
+    private Boolean isMasterMentor;
+    private Boolean isUnionMember;
     private String salaryCardNo;
     private String bank;
     private String contractNo;

@@ -34,6 +34,6 @@ public class Patent {
     private Date approve_date;
     private String apply_no;
     private String patent_no;
-    private boolean is_pct;
-    private int inventor_rank;
+    private Boolean is_pct;
+    private Integer inventor_rank;
 }

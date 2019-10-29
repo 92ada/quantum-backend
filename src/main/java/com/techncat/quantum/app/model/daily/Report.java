@@ -23,6 +23,6 @@ public class Report {
     private Date time;
     private String title;
     private String invitee_name;
-    private int people_count;
+    private Integer people_count;
     private String location;
 }

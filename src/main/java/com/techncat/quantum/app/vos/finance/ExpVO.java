@@ -1,31 +1,22 @@
-package com.techncat.quantum.app.model.finance;
+package com.techncat.quantum.app.vos.finance;
 
-
+import com.techncat.quantum.app.common.annotation.ValueType;
+import com.techncat.quantum.app.model.finance.*;
 import com.techncat.quantum.app.model.people.Lab;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
-@Entity
-@Table(name = "exps")
-public class Exp {
-    public enum Type {
-        equipment, material, processing, travel, conference, international, publication, labor, consultation, other, indirective
-    }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ExpVO {
     private Long id;
 
     private Date updateAt;
     private Date createdAt;
 
-    @ManyToOne
-    @JoinColumn(name = "lab_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+    @ValueType(value = "object", option_url = "/api/labs/options")
     private Lab lab;
 
-    private Type type;
+    private Exp.Type type;
     private Date date;
     private String reservation_no;
     private BigDecimal amount;
@@ -33,6 +24,7 @@ public class Exp {
     private String document_no;
     private String remark;
 
+    // TODO
     private ExpConference expConference;
     private ExpConsultation expConsultation;
     private ExpEquipment expEquipment;

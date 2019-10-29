@@ -81,7 +81,7 @@ public class VOEnhanceUtil {
         return typeClass.getEnumConstants();
     }
 
-    private boolean isEmpty(String value) {
+    private Boolean isEmpty(String value) {
         return value == null || "".equals(value);
     }
 

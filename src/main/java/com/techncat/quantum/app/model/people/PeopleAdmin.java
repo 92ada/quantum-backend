@@ -16,7 +16,7 @@ public class PeopleAdmin {
     @JoinColumn(name = "people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People people;
 
-    private boolean isUnionMember;
+    private Boolean isUnionMember;
     private String salaryCardNo;
     private String bank;
     private String contractNo;
