@@ -1,6 +1,6 @@
 package com.techncat.quantum.app.vos.finance;
 
-import com.techncat.quantum.app.common.annotation.ValueType;
+import com.techncat.quantum.app.common.voenhance.annotation.ValueType;
 import com.techncat.quantum.app.model.finance.*;
 import com.techncat.quantum.app.model.people.Lab;
 import org.springframework.beans.BeanUtils;
@@ -25,6 +25,7 @@ public class ExpVO {
     private String document_no;
     private String remark;
 
+    // TODO
     private ExpConference expConference;
     private ExpConsultation expConsultation;
     private ExpEquipment expEquipment;
@@ -36,10 +37,6 @@ public class ExpVO {
     private ExpProcessing expProcessing;
     private ExpPublication expPublication;
     private ExpTravel expTravel;
-
-    public ExpVO(Exp exp) {
-        BeanUtils.copyProperties(exp, this);
-    }
 
     public Long getId() {
         return id;

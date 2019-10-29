@@ -27,4 +27,60 @@ public class ExpIndirective {
     private People handler;
     @Column(columnDefinition="text")
     private String handlerJson;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getUpdateAt() {
+        return updateAt;
+    }
+
+    public void setUpdateAt(Date updateAt) {
+        this.updateAt = updateAt;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Exp getExp() {
+        return exp;
+    }
+
+    public void setExp(Exp exp) {
+        this.exp = exp;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public String getMatter() {
+        return matter;
+    }
+
+    public void setMatter(String matter) {
+        this.matter = matter;
+    }
+
+    public People getHandler() {
+        return handler;
+    }
+
+    public void setHandler(People handler) {
+        this.handler = handler;
+    }
 }

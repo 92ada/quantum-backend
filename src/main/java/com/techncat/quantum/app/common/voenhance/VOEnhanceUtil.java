@@ -1,19 +1,25 @@
-package com.techncat.quantum.app.common;
+package com.techncat.quantum.app.common.voenhance;
 
-import com.sun.tools.javac.util.ArrayUtils;
-import com.techncat.quantum.app.common.annotation.ValueType;
-import com.techncat.quantum.app.common.vo.EnhancedVO;
+import com.techncat.quantum.app.common.voenhance.annotation.ValueType;
+import com.techncat.quantum.app.common.voenhance.vo.EnhancedVO;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
+/**
+ * 仅作用一个对象，不可作用于 List
+ */
 @Service
 public class VOEnhanceUtil {
+
+    public Map<String, List<EnhancedVO>> enhance(String key, Object object) throws IllegalAccessException {
+        List<EnhancedVO> list = enhance(object);
+        HashMap<String, List<EnhancedVO>> map = new HashMap<String, List<EnhancedVO>>();
+        map.put(key, list);
+        return map;
+    }
 
     public List<EnhancedVO> enhance(Object object) throws IllegalAccessException {
         Field[] childFields = object.getClass().getDeclaredFields();
@@ -35,7 +41,7 @@ public class VOEnhanceUtil {
                     vos.add(new EnhancedVO(index, value_, typeResult.getValue().name(), enumValue));
                     break;
                 case object:
-                    if (!isEmpty(typeResult.getOptionUrl())){
+                    if (!isEmpty(typeResult.getOptionUrl())) {
                         vos.add(new EnhancedVO(index, value_, typeResult.getValue().name(), typeResult.getOptionUrl()));
                         break;
                     }
@@ -96,6 +102,7 @@ public class VOEnhanceUtil {
             phone,
             email
         }
+
         private Type value;
         private String optionUrl;
 

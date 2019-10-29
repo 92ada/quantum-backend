@@ -22,4 +22,43 @@ public class Achievement {
 
     private String achievementType;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getUpdateAt() {
+        return updateAt;
+    }
+
+    public void setUpdateAt(Date updateAt) {
+        this.updateAt = updateAt;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Set<People> getPeople() {
+        return people;
+    }
+
+    public void setPeople(Set<People> people) {
+        this.people = people;
+    }
+
+    public String getAchievementType() {
+        return achievementType;
+    }
+
+    public void setAchievementType(String achievementType) {
+        this.achievementType = achievementType;
+    }
 }

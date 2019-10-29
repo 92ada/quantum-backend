@@ -47,60 +47,25 @@ public class People {
     @JoinColumn(name = "lab_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private Lab lab;
 
+    @OneToOne
+    @JoinColumn(name = "people_admin_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private PeopleAdmin peopleAdmin;
+    @OneToOne
+    @JoinColumn(name = "people_postdoctoral_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private PeoplePostdoctoral peoplePostdoctoral;
+    @OneToOne
+    @JoinColumn(name = "people_researcher_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private PeopleResearcher peopleResearcher;
+    @OneToOne
+    @JoinColumn(name = "people_student_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private PeopleStudent peopleStudent;
+    @OneToOne
+    @JoinColumn(name = "people_teacher_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private PeopleTeacher peopleTeacher;
+    @OneToOne
+    @JoinColumn(name = "people_visitor_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private PeopleVisitor peopleVisitor;
 
-    public PeopleAdmin getPeopleAdmin() {
-        return peopleAdmin;
-    }
-
-    public void setPeopleAdmin(PeopleAdmin peopleAdmin) {
-        this.peopleAdmin = peopleAdmin;
-    }
-
-    public PeoplePostdoctoral getPeoplePostdoctoral() {
-        return peoplePostdoctoral;
-    }
-
-    public void setPeoplePostdoctoral(PeoplePostdoctoral peoplePostdoctoral) {
-        this.peoplePostdoctoral = peoplePostdoctoral;
-    }
-
-    public PeopleResearcher getPeopleResearcher() {
-        return peopleResearcher;
-    }
-
-    public void setPeopleResearcher(PeopleResearcher peopleResearcher) {
-        this.peopleResearcher = peopleResearcher;
-    }
-
-    public PeopleStudent getPeopleStudent() {
-        return peopleStudent;
-    }
-
-    public void setPeopleStudent(PeopleStudent peopleStudent) {
-        this.peopleStudent = peopleStudent;
-    }
-
-    public PeopleTeacher getPeopleTeacher() {
-        return peopleTeacher;
-    }
-
-    public void setPeopleTeacher(PeopleTeacher peopleTeacher) {
-        this.peopleTeacher = peopleTeacher;
-    }
-
-    public PeopleVisitor getPeopleVisitor() {
-        return peopleVisitor;
-    }
-
-    public void setPeopleVisitor(PeopleVisitor peopleVisitor) {
-        this.peopleVisitor = peopleVisitor;
-    }
 
     public Long getId() {
         return id;
@@ -252,5 +217,53 @@ public class People {
 
     public void setLab(Lab lab) {
         this.lab = lab;
+    }
+
+    public PeopleAdmin getPeopleAdmin() {
+        return peopleAdmin;
+    }
+
+    public void setPeopleAdmin(PeopleAdmin peopleAdmin) {
+        this.peopleAdmin = peopleAdmin;
+    }
+
+    public PeoplePostdoctoral getPeoplePostdoctoral() {
+        return peoplePostdoctoral;
+    }
+
+    public void setPeoplePostdoctoral(PeoplePostdoctoral peoplePostdoctoral) {
+        this.peoplePostdoctoral = peoplePostdoctoral;
+    }
+
+    public PeopleResearcher getPeopleResearcher() {
+        return peopleResearcher;
+    }
+
+    public void setPeopleResearcher(PeopleResearcher peopleResearcher) {
+        this.peopleResearcher = peopleResearcher;
+    }
+
+    public PeopleStudent getPeopleStudent() {
+        return peopleStudent;
+    }
+
+    public void setPeopleStudent(PeopleStudent peopleStudent) {
+        this.peopleStudent = peopleStudent;
+    }
+
+    public PeopleTeacher getPeopleTeacher() {
+        return peopleTeacher;
+    }
+
+    public void setPeopleTeacher(PeopleTeacher peopleTeacher) {
+        this.peopleTeacher = peopleTeacher;
+    }
+
+    public PeopleVisitor getPeopleVisitor() {
+        return peopleVisitor;
+    }
+
+    public void setPeopleVisitor(PeopleVisitor peopleVisitor) {
+        this.peopleVisitor = peopleVisitor;
     }
 }

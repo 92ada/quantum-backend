@@ -1,6 +1,6 @@
 package com.techncat.quantum.app.vos.daily;
 
-import com.techncat.quantum.app.common.annotation.ValueType;
+import com.techncat.quantum.app.common.voenhance.annotation.ValueType;
 import com.techncat.quantum.app.model.daily.Travel;
 
 import java.math.BigDecimal;
@@ -23,4 +23,84 @@ public class TravelVO {
     @ValueType("enumerated")
     private Travel.IdentityType identity_type;
     private String identity_no;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getUpdateAt() {
+        return updateAt;
+    }
+
+    public void setUpdateAt(Date updateAt) {
+        this.updateAt = updateAt;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public People getTraveler() {
+        return traveler;
+    }
+
+    public void setTraveler(People traveler) {
+        this.traveler = traveler;
+    }
+
+    public Travel.Type getType() {
+        return type;
+    }
+
+    public void setType(Travel.Type type) {
+        this.type = type;
+    }
+
+    public BigDecimal getBudget() {
+        return budget;
+    }
+
+    public void setBudget(BigDecimal budget) {
+        this.budget = budget;
+    }
+
+    public Date getStart_date() {
+        return start_date;
+    }
+
+    public void setStart_date(Date start_date) {
+        this.start_date = start_date;
+    }
+
+    public Date getEnd_date() {
+        return end_date;
+    }
+
+    public void setEnd_date(Date end_date) {
+        this.end_date = end_date;
+    }
+
+    public Travel.IdentityType getIdentity_type() {
+        return identity_type;
+    }
+
+    public void setIdentity_type(Travel.IdentityType identity_type) {
+        this.identity_type = identity_type;
+    }
+
+    public String getIdentity_no() {
+        return identity_no;
+    }
+
+    public void setIdentity_no(String identity_no) {
+        this.identity_no = identity_no;
+    }
 }
