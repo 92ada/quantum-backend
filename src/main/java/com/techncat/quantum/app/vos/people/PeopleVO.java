@@ -1,6 +1,6 @@
 package com.techncat.quantum.app.vos.people;
 
-import com.techncat.quantum.app.common.annotation.ValueType;
+import com.techncat.quantum.app.common.voenhance.annotation.ValueType;
 import com.techncat.quantum.app.model.people.Lab;
 import com.techncat.quantum.app.model.people.People;
 import org.springframework.beans.BeanUtils;

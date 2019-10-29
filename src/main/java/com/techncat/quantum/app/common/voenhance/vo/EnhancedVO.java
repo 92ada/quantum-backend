@@ -1,4 +1,4 @@
-package com.techncat.quantum.app.common.vo;
+package com.techncat.quantum.app.common.voenhance.vo;
 
 public class EnhancedVO {
     private String index;

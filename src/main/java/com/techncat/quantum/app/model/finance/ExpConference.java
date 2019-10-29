@@ -1,7 +1,5 @@
 package com.techncat.quantum.app.model.finance;
 
-
-import com.techncat.quantum.app.model.people.Lab;
 import com.techncat.quantum.app.model.people.People;
 
 import javax.persistence.*;

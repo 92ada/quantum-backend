@@ -34,16 +34,38 @@ public class Exp {
     private String document_no;
     private String remark;
 
+    @OneToOne
+    @JoinColumn(name = "exp_conference_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private ExpConference expConference;
+    @OneToOne
+    @JoinColumn(name = "exp_consultation_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private ExpConsultation expConsultation;
+    @OneToOne
+    @JoinColumn(name = "exp_equipment_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private ExpEquipment expEquipment;
+    @OneToOne
+    @JoinColumn(name = "exp_indirective_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private ExpIndirective expIndirective;
+    @OneToOne
+    @JoinColumn(name = "exp_international_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private ExpInternational expInternational;
+    @OneToOne
+    @JoinColumn(name = "exp_labor_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private ExpLabor expLabor;
+    @OneToOne
+    @JoinColumn(name = "exp_material_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private ExpMaterial expMaterial;
+    @OneToOne
+    @JoinColumn(name = "exp_other_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private ExpOther expOther;
+    @OneToOne
+    @JoinColumn(name = "exp_processing_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private ExpProcessing expProcessing;
+    @OneToOne
+    @JoinColumn(name = "exp_publication_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private ExpPublication expPublication;
+    @OneToOne
+    @JoinColumn(name = "exp_travel_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private ExpTravel expTravel;
 
     public Long getId() {

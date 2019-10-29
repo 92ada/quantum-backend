@@ -1,7 +1,7 @@
 package com.techncat.quantum;
 
-import com.techncat.quantum.app.common.VOEnhanceUtil;
-import com.techncat.quantum.app.common.vo.EnhancedVO;
+import com.techncat.quantum.app.common.voenhance.VOEnhanceUtil;
+import com.techncat.quantum.app.common.voenhance.vo.EnhancedVO;
 import com.techncat.quantum.app.model.people.People;
 import com.techncat.quantum.app.model.people.PeoplePostdoctoral;
 import com.techncat.quantum.app.vos.people.PeoplePostdoctoralVO;
