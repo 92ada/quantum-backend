@@ -1,6 +1,5 @@
 package com.techncat.quantum.app.vos.daily;
 
-import com.techncat.quantum.app.common.annotation.ValueType;
 import com.techncat.quantum.app.model.people.People;
 
 import java.util.Date;
