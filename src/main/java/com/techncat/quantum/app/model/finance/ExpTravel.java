@@ -22,6 +22,8 @@ public class ExpTravel {
     @ManyToOne
     @JoinColumn(name = "travel_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People traveler;
+    @Column(columnDefinition="text")
+    private String travelerJson;
 
     private Date start_date;
     private Date end_date;

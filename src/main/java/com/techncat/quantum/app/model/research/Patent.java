@@ -25,6 +25,8 @@ public class Patent {
     @ManyToOne
     @JoinColumn(name = "applicant_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People applicant;
+    @Column(columnDefinition="text")
+    private String applicantJson;
     private String title;
     @Enumerated
     private Type type;

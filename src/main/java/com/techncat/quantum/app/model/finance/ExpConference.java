@@ -37,4 +37,6 @@ public class ExpConference {
     @ManyToMany
     @JoinColumn(name = "officer_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private Set<People> officer;
+    @Column(columnDefinition="text")
+    private String officersJson;
 }

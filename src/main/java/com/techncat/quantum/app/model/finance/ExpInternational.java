@@ -29,6 +29,8 @@ public class ExpInternational {
     @ManyToMany
     @JoinColumn(name = "exp_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private Set<People> people;
+    @Column(columnDefinition="text")
+    private String peopleJson;
 
     private String matter;
     private String location;

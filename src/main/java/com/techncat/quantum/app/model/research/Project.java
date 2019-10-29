@@ -30,6 +30,8 @@ public class Project {
     @ManyToOne
     @JoinColumn(name = "leader_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People leader;
+    @Column(columnDefinition="text")
+    private String leaderJson;
 
     private Date start_date;
     private Date end_date;
@@ -39,4 +41,6 @@ public class Project {
     @ManyToMany
     @JoinColumn(name = "member_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private Set<People> member;
+    @Column(columnDefinition="text")
+    private String membersJson;
 }

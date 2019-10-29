@@ -20,6 +20,8 @@ public class SocialFund {
     @OneToOne
     @JoinColumn(name = "people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People people;
+    @Column(columnDefinition="text")
+    private String peopleJson;
 
     private String fund_account_no;
     private String fund_source;

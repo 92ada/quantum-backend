@@ -4,6 +4,7 @@ import com.techncat.quantum.app.model.people.People;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "papers")
@@ -23,9 +24,11 @@ public class Paper {
     private Boolean isUnderSustech;
     private Integer sustechInstitutionRank;
 
-    @ManyToOne
+    @ManyToMany
     @JoinColumn(name = "author_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
-    private People people;
+    private List<People> sustechPeople;
+    @Column(columnDefinition="text")
+    private String peopleJson; // [{institution: xxx, people: []}, {}]
 
     private Integer authorRank;
     private Boolean isInternational;

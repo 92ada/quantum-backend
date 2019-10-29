@@ -2,7 +2,6 @@ package com.techncat.quantum.app.vos.daily;
 
 import com.techncat.quantum.app.common.annotation.ValueType;
 import com.techncat.quantum.app.model.daily.Travel;
-import com.techncat.quantum.app.model.people.People;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -13,7 +12,8 @@ public class TravelVO {
     private Date updateAt;
     private Date createdAt;
 
-    private People traveler;
+    @ValueType(value = "object", option_url = "/api/people/options")
+    private String travelerJson;
     @ValueType("enumerated")
     private Travel.Type type;
     private BigDecimal budget;

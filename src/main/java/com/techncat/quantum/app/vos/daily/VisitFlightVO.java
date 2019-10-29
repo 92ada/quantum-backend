@@ -1,7 +1,5 @@
 package com.techncat.quantum.app.vos.daily;
 
-import com.techncat.quantum.app.model.daily.Visit;
-
 import java.util.Date;
 
 public class VisitFlightVO {
@@ -9,8 +7,6 @@ public class VisitFlightVO {
 
     private Date updateAt;
     private Date createdAt;
-
-    private Visit visit; // TODO
 
     private Date departure_time;
     private Date arrival_time;

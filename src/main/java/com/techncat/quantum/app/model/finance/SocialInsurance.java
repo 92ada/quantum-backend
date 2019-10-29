@@ -20,6 +20,8 @@ public class SocialInsurance {
     @OneToOne
     @JoinColumn(name = "people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People people;
+    @Column(columnDefinition="text")
+    private String peopleJson;
 
     private BigDecimal receivable_total;
     private BigDecimal receivable_by_individual;

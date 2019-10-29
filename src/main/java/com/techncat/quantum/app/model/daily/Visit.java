@@ -32,6 +32,8 @@ public class Visit {
     @ManyToOne
     @JoinColumn(name = "receptionist_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People receptionist;
+    @Column(columnDefinition="text")
+    private String receptionistJson; // {name: xxx, sid: xxx, id: xxx}
     private IdentityType identity_type;
     private String identity_no;
     private String phone_no;

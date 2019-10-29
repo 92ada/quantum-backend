@@ -27,6 +27,8 @@ public class Stock {
     @ManyToOne
     @JoinColumn(name = "taker_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People taker;
+    @Column(columnDefinition="text")
+    private String takerJson;
     private String placement_site;
     private String factory_no;
     private String status;
@@ -36,6 +38,8 @@ public class Stock {
     @ManyToOne
     @JoinColumn(name = "admin_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People admin;
+    @Column(columnDefinition="text")
+    private String adminJson;
     private String document_no;
     private String remark;
 }

@@ -24,9 +24,12 @@ public class Travel {
     private Date updateAt;
     private Date createdAt;
 
+
     @ManyToOne
     @JoinColumn(name = "traveler_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People traveler;
+    @Column(columnDefinition="text")
+    private String travelerJson;
     @Enumerated
     private Type type;
     private BigDecimal budget;

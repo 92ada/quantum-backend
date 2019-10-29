@@ -12,8 +12,8 @@ public class RewardVO {
     private Date updateAt;
     private Date createdAt;
 
-    @ValueType(value = "object", option_url = "/api/people/options") // TODO
-    private People rewarded;
+    @ValueType(value = "object", option_url = "/api/people/options")
+    private String rewardedJson;
 
     private String title;
     private String issue_institution;

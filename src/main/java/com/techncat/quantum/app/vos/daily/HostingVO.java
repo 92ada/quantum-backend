@@ -1,7 +1,6 @@
 package com.techncat.quantum.app.vos.daily;
 
 import com.techncat.quantum.app.common.annotation.ValueType;
-import com.techncat.quantum.app.model.people.People;
 
 import java.util.Date;
 
@@ -11,7 +10,8 @@ public class HostingVO {
     private Date updateAt;
     private Date createdAt;
 
-    private People inviter;
+    @ValueType(value = "object", option_url = "/api/people/options")
+    private String inviterJson;
     private Date time;
     private String title;
     private String site;

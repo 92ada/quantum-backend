@@ -24,12 +24,17 @@ public class Purchasing {
     private String argument_method;
     private Date request_date;
 
+    private String peopleAttrs; // {jingbanren:[{sid,name}, {}]}
     @ManyToOne
     @JoinColumn(name = "handler_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People handler;
+    @Column(columnDefinition="text")
+    private String handlerJson;
     @ManyToOne
     @JoinColumn(name = "pi_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People pi;
+    @Column(columnDefinition="text")
+    private String piJson;
 
     private Boolean is_finished;
     private String status;

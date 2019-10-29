@@ -23,9 +23,13 @@ public class PeopleStudent {
     @ManyToOne
     @JoinColumn(name = "advisor_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People advisor;
+    @Column(columnDefinition="text")
+    private String advisorJson;
     @ManyToOne
     @JoinColumn(name = "vice_advisor_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People viceAdvisor;
+    @Column(columnDefinition="text")
+    private String viceAdvisorJson;
 
     private String midtermAssessmentStatus;
     private String openingAssessmentStatus;

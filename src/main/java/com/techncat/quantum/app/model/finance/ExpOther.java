@@ -25,4 +25,6 @@ public class ExpOther {
     @ManyToOne
     @JoinColumn(name = "handler_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People handler;
+    @Column(columnDefinition="text")
+    private String handlerJson;
 }

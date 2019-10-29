@@ -20,8 +20,8 @@ public class VisitVO {
     private String visitor_institution;
     private String job_title;
 
-    @ValueType(value = "object", option_url = "/api/people/options") // TODO
-    private People receptionist;
+    @ValueType(value = "object", option_url = "/api/people/options")
+    private String receptionistJson;
     @ValueType("enumerated")
     private Visit.IdentityType identity_type;
     private String identity_no;
@@ -31,4 +31,10 @@ public class VisitVO {
     private Boolean needs_pick_up;
     private BigDecimal expenditure;
     private BigDecimal budget;
+
+    public VisitVO(String receptionistJson) {
+        // let id = receptionJson.id
+//        this.receptionist = new People();
+//        this.receptionist.setId(id);
+    }
 }

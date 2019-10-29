@@ -1,5 +1,6 @@
 package com.techncat.quantum.app.vos.people;
 
+import com.techncat.quantum.app.common.annotation.ValueType;
 import com.techncat.quantum.app.model.people.People;
 import com.techncat.quantum.app.model.people.PeopleStudent;
 import org.springframework.beans.BeanUtils;
@@ -10,8 +11,10 @@ public class PeopleStudentVO extends PeopleVO {
     // detail
     private String eduSystem;
     private String category;
-    private People advisor;
-    private People viceAdvisor;
+    @ValueType(value = "object", option_url = "/api/people/options")
+    private String advisorJson;
+    @ValueType(value = "object", option_url = "/api/people/options")
+    private String viceAdvisorJson;
     private String midtermAssessmentStatus;
     private String openingAssessmentStatus;
 
@@ -46,20 +49,20 @@ public class PeopleStudentVO extends PeopleVO {
         this.category = category;
     }
 
-    public People getAdvisor() {
-        return advisor;
+    public String getAdvisorJson() {
+        return advisorJson;
     }
 
-    public void setAdvisor(People advisor) {
-        this.advisor = advisor;
+    public void setAdvisorJson(String advisorJson) {
+        this.advisorJson = advisorJson;
     }
 
-    public People getViceAdvisor() {
-        return viceAdvisor;
+    public String getViceAdvisorJson() {
+        return viceAdvisorJson;
     }
 
-    public void setViceAdvisor(People viceAdvisor) {
-        this.viceAdvisor = viceAdvisor;
+    public void setViceAdvisorJson(String viceAdvisorJson) {
+        this.viceAdvisorJson = viceAdvisorJson;
     }
 
     public String getMidtermAssessmentStatus() {

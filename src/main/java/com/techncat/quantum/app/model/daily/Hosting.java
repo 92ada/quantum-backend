@@ -19,6 +19,8 @@ public class Hosting {
     @ManyToOne
     @JoinColumn(name = "inviter_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People inviter;
+    @Column(columnDefinition="text")
+    private String inviterJson;
 
     private Date time;
     private String title;

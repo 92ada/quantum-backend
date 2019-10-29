@@ -11,8 +11,6 @@ public class ProjectFundVO {
     private Date updateAt;
     private Date createdAt;
 
-    private Project project; // TODO
-
     private Date arrival_date;
     private BigDecimal amount;
     private String remark;

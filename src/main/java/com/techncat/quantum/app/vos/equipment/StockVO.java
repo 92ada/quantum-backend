@@ -20,8 +20,8 @@ public class StockVO {
     private BigDecimal net_value;
     private String taker_institution;
 
-    @ValueType(value = "object", option_url = "/api/people/options") // TODO
-    private People taker;
+    @ValueType(value = "object", option_url = "/api/people/options")
+    private String takerJson;
 
     private String placement_site;
     private String factory_no;
@@ -30,8 +30,8 @@ public class StockVO {
     private Integer min_usage_years;
     private String inbound_date;
 
-    @ValueType(value = "object", option_url = "/api/people/options") // TODO
-    private People admin;
+    @ValueType(value = "object", option_url = "/api/people/options")
+    private String adminJson;
 
     private String document_no;
     private String remark;

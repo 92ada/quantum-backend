@@ -47,7 +47,60 @@ public class People {
     @JoinColumn(name = "lab_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private Lab lab;
 
+    private PeopleAdmin peopleAdmin;
+    private PeoplePostdoctoral peoplePostdoctoral;
+    private PeopleResearcher peopleResearcher;
+    private PeopleStudent peopleStudent;
+    private PeopleTeacher peopleTeacher;
+    private PeopleVisitor peopleVisitor;
 
+    public PeopleAdmin getPeopleAdmin() {
+        return peopleAdmin;
+    }
+
+    public void setPeopleAdmin(PeopleAdmin peopleAdmin) {
+        this.peopleAdmin = peopleAdmin;
+    }
+
+    public PeoplePostdoctoral getPeoplePostdoctoral() {
+        return peoplePostdoctoral;
+    }
+
+    public void setPeoplePostdoctoral(PeoplePostdoctoral peoplePostdoctoral) {
+        this.peoplePostdoctoral = peoplePostdoctoral;
+    }
+
+    public PeopleResearcher getPeopleResearcher() {
+        return peopleResearcher;
+    }
+
+    public void setPeopleResearcher(PeopleResearcher peopleResearcher) {
+        this.peopleResearcher = peopleResearcher;
+    }
+
+    public PeopleStudent getPeopleStudent() {
+        return peopleStudent;
+    }
+
+    public void setPeopleStudent(PeopleStudent peopleStudent) {
+        this.peopleStudent = peopleStudent;
+    }
+
+    public PeopleTeacher getPeopleTeacher() {
+        return peopleTeacher;
+    }
+
+    public void setPeopleTeacher(PeopleTeacher peopleTeacher) {
+        this.peopleTeacher = peopleTeacher;
+    }
+
+    public PeopleVisitor getPeopleVisitor() {
+        return peopleVisitor;
+    }
+
+    public void setPeopleVisitor(PeopleVisitor peopleVisitor) {
+        this.peopleVisitor = peopleVisitor;
+    }
 
     public Long getId() {
         return id;

@@ -24,6 +24,8 @@ public class Reward {
     @ManyToOne
     @JoinColumn(name = "rewarded_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People rewarded;
+    @Column(columnDefinition="text")
+    private String rewardedJson;
 
     private String title;
     private String issue_institution;

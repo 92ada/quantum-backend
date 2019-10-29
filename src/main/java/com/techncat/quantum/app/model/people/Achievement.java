@@ -17,6 +17,8 @@ public class Achievement {
     @ManyToMany
     @JoinColumn(name = "people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private Set<People> people;
+    @Column(columnDefinition="text")
+    private String peopleJson;
 
     private String achievementType;
 

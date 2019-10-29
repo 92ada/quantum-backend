@@ -19,8 +19,8 @@ public class ProjectVO {
     @ValueType("enumerated")
     private Project.Category category;
 
-    @ValueType(value = "object", option_url = "/api/people/options") // TODO
-    private People leader;
+    @ValueType(value = "object", option_url = "/api/people/options")
+    private String leaderJson;
 
     private Date start_date;
     private Date end_date;
@@ -28,5 +28,6 @@ public class ProjectVO {
     private Project.WayOfTaking way_of_taking;
     private BigDecimal approved_funds;
 
-    private Set<People> member; // TODO
+    @ValueType(value = "object", option_url = "/api/people/options") // TODO
+    private String membersJson;
 }

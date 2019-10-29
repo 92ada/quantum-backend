@@ -12,8 +12,8 @@ public class PatentVO {
     private Date updateAt;
     private Date createdAt;
 
-    @ValueType(value = "object", option_url = "/api/people/options") // TODO
-    private People applicant;
+    @ValueType(value = "object", option_url = "/api/people/options")
+    private String applicantJson;
     private String title;
     @ValueType("enumerated")
     private Patent.Type type;
