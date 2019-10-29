@@ -1,6 +1,6 @@
 package com.techncat.quantum.app.vos.daily;
 
-import com.techncat.quantum.app.common.annotation.ValueType;
+import com.techncat.quantum.app.common.voenhance.annotation.ValueType;
 import com.techncat.quantum.app.model.daily.Visit;
 import com.techncat.quantum.app.model.people.People;
 
@@ -96,12 +96,12 @@ public class VisitVO {
         this.job_title = job_title;
     }
 
-    public People getReceptionist() {
-        return receptionist;
+    public String getReceptionistJson() {
+        return receptionistJson;
     }
 
-    public void setReceptionist(People receptionist) {
-        this.receptionist = receptionist;
+    public void setReceptionistJson(String receptionistJson) {
+        this.receptionistJson = receptionistJson;
     }
 
     public Visit.IdentityType getIdentity_type() {

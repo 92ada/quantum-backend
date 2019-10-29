@@ -48,12 +48,12 @@ public class TravelVO {
         this.createdAt = createdAt;
     }
 
-    public People getTraveler() {
-        return traveler;
+    public String getTravelerJson() {
+        return travelerJson;
     }
 
-    public void setTraveler(People traveler) {
-        this.traveler = traveler;
+    public void setTravelerJson(String travelerJson) {
+        this.travelerJson = travelerJson;
     }
 
     public Travel.Type getType() {

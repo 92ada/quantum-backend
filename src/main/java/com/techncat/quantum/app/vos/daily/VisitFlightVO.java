@@ -39,14 +39,6 @@ public class VisitFlightVO {
         this.createdAt = createdAt;
     }
 
-    public Visit getVisit() {
-        return visit;
-    }
-
-    public void setVisit(Visit visit) {
-        this.visit = visit;
-    }
-
     public Date getDeparture_time() {
         return departure_time;
     }

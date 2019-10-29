@@ -1,6 +1,6 @@
 package com.techncat.quantum.app.vos.finance;
 
-import com.techncat.quantum.app.common.annotation.ValueType;
+import com.techncat.quantum.app.common.voenhance.annotation.ValueType;
 import com.techncat.quantum.app.model.finance.Exp;
 import com.techncat.quantum.app.model.finance.ExpConsultation;
 import com.techncat.quantum.app.model.people.People;
@@ -17,22 +17,6 @@ public class ExpConsultationVO extends ExpVO {
     private String handlerJson;
     @ValueType(value = "object", option_url = "/api/people/options")
     private String payeeJson;
-
-    public ExpConsultationVO(Exp exp, ExpConsultation expConsultation) {
-        super(exp);
-        copyProperties(expConsultation);
-    }
-
-    private void copyProperties(ExpConsultation expConsultation) {
-        if (null == expConsultation) return;
-        Long id = this.getId();
-        Date createdAt = this.getCreatedAt();
-        Date updatedAt = this.getUpdateAt();
-        BeanUtils.copyProperties(expConsultation, this);
-        this.setId(id);
-        this.setCreatedAt(createdAt);
-        this.setUpdateAt(updatedAt);
-    }
 
     public String getSubject() {
         return subject;

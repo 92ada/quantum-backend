@@ -113,20 +113,20 @@ public class PurchasingVO {
         this.request_date = request_date;
     }
 
-    public People getHandler() {
-        return handler;
+    public String getHandlerJson() {
+        return handlerJson;
     }
 
-    public void setHandler(People handler) {
-        this.handler = handler;
+    public void setHandlerJson(String handlerJson) {
+        this.handlerJson = handlerJson;
     }
 
-    public People getPi() {
-        return pi;
+    public String getPiJson() {
+        return piJson;
     }
 
-    public void setPi(People pi) {
-        this.pi = pi;
+    public void setPiJson(String piJson) {
+        this.piJson = piJson;
     }
 
     public Boolean getIs_finished() {

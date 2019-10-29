@@ -48,12 +48,12 @@ public class RewardVO {
         this.createdAt = createdAt;
     }
 
-    public People getRewarded() {
-        return rewarded;
+    public String getRewardedJson() {
+        return rewardedJson;
     }
 
-    public void setRewarded(People rewarded) {
-        this.rewarded = rewarded;
+    public void setRewardedJson(String rewardedJson) {
+        this.rewardedJson = rewardedJson;
     }
 
     public String getTitle() {

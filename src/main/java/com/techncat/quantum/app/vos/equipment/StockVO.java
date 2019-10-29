@@ -116,12 +116,20 @@ public class StockVO {
         this.taker_institution = taker_institution;
     }
 
-    public People getTaker() {
-        return taker;
+    public String getTakerJson() {
+        return takerJson;
     }
 
-    public void setTaker(People taker) {
-        this.taker = taker;
+    public void setTakerJson(String takerJson) {
+        this.takerJson = takerJson;
+    }
+
+    public String getAdminJson() {
+        return adminJson;
+    }
+
+    public void setAdminJson(String adminJson) {
+        this.adminJson = adminJson;
     }
 
     public String getPlacement_site() {
@@ -170,14 +178,6 @@ public class StockVO {
 
     public void setInbound_date(String inbound_date) {
         this.inbound_date = inbound_date;
-    }
-
-    public People getAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(People admin) {
-        this.admin = admin;
     }
 
     public String getDocument_no() {

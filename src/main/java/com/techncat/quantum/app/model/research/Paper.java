@@ -120,12 +120,20 @@ public class Paper {
         this.sustechInstitutionRank = sustechInstitutionRank;
     }
 
-    public People getPeople() {
-        return people;
+    public List<People> getSustechPeople() {
+        return sustechPeople;
     }
 
-    public void setPeople(People people) {
-        this.people = people;
+    public void setSustechPeople(List<People> sustechPeople) {
+        this.sustechPeople = sustechPeople;
+    }
+
+    public String getPeopleJson() {
+        return peopleJson;
+    }
+
+    public void setPeopleJson(String peopleJson) {
+        this.peopleJson = peopleJson;
     }
 
     public Integer getAuthorRank() {

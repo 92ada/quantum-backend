@@ -39,14 +39,6 @@ public class ProjectFundVO {
         this.createdAt = createdAt;
     }
 
-    public Project getProject() {
-        return project;
-    }
-
-    public void setProject(Project project) {
-        this.project = project;
-    }
-
     public Date getArrival_date() {
         return arrival_date;
     }

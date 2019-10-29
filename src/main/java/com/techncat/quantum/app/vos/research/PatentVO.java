@@ -50,12 +50,12 @@ public class PatentVO {
         this.createdAt = createdAt;
     }
 
-    public People getApplicant() {
-        return applicant;
+    public String getApplicantJson() {
+        return applicantJson;
     }
 
-    public void setApplicant(People applicant) {
-        this.applicant = applicant;
+    public void setApplicantJson(String applicantJson) {
+        this.applicantJson = applicantJson;
     }
 
     public String getTitle() {

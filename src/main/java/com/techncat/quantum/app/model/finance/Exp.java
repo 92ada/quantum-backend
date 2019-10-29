@@ -34,6 +34,7 @@ public class Exp {
     private String document_no;
     private String remark;
 
+
     @OneToOne
     @JoinColumn(name = "exp_conference_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private ExpConference expConference;

@@ -1,6 +1,6 @@
 package com.techncat.quantum.app.vos.research;
 
-import com.techncat.quantum.app.common.annotation.ValueType;
+import com.techncat.quantum.app.common.voenhance.annotation.ValueType;
 import com.techncat.quantum.app.model.people.People;
 import com.techncat.quantum.app.model.research.Project;
 
@@ -79,12 +79,20 @@ public class ProjectVO {
         this.category = category;
     }
 
-    public People getLeader() {
-        return leader;
+    public String getLeaderJson() {
+        return leaderJson;
     }
 
-    public void setLeader(People leader) {
-        this.leader = leader;
+    public void setLeaderJson(String leaderJson) {
+        this.leaderJson = leaderJson;
+    }
+
+    public String getMembersJson() {
+        return membersJson;
+    }
+
+    public void setMembersJson(String membersJson) {
+        this.membersJson = membersJson;
     }
 
     public Date getStart_date() {
@@ -117,13 +125,5 @@ public class ProjectVO {
 
     public void setApproved_funds(BigDecimal approved_funds) {
         this.approved_funds = approved_funds;
-    }
-
-    public Set<People> getMember() {
-        return member;
-    }
-
-    public void setMember(Set<People> member) {
-        this.member = member;
     }
 }

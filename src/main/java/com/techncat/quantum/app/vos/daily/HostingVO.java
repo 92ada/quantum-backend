@@ -1,6 +1,6 @@
 package com.techncat.quantum.app.vos.daily;
 
-import com.techncat.quantum.app.common.annotation.ValueType;
+import com.techncat.quantum.app.common.voenhance.annotation.ValueType;
 
 import java.util.Date;
 

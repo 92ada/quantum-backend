@@ -1,6 +1,6 @@
 package com.techncat.quantum.app.vos.finance;
 
-import com.techncat.quantum.app.common.annotation.ValueType;
+import com.techncat.quantum.app.common.voenhance.annotation.ValueType;
 import com.techncat.quantum.app.model.finance.Exp;
 import com.techncat.quantum.app.model.finance.ExpConference;
 import org.springframework.beans.BeanUtils;
@@ -23,22 +23,6 @@ public class ExpConferenceVO extends ExpVO {
 
     @ValueType(value = "object", option_url = "/api/people/options")
     private String officersJson;
-
-    public ExpConferenceVO(Exp exp, ExpConference expConference) {
-        super(exp);
-        copyProperties(expConference);
-    }
-
-    private void copyProperties(ExpConference expConference) {
-        if (null == expConference) return;
-        Long id = this.getId();
-        Date createdAt = this.getCreatedAt();
-        Date updatedAt = this.getUpdateAt();
-        BeanUtils.copyProperties(expConference, this);
-        this.setId(id);
-        this.setCreatedAt(createdAt);
-        this.setUpdateAt(updatedAt);
-    }
 
     public Date getStart_date() {
         return start_date;

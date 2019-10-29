@@ -39,14 +39,6 @@ public class TravelFlightVO {
         this.createdAt = createdAt;
     }
 
-    public Travel getTravel() {
-        return travel;
-    }
-
-    public void setTravel(Travel travel) {
-        this.travel = travel;
-    }
-
     public Date getDeparture_time() {
         return departure_time;
     }

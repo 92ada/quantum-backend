@@ -1,6 +1,7 @@
 package com.techncat.quantum.app.vos.daily;
 
-import com.techncat.quantum.app.common.annotation.ValueType;
+import com.techncat.quantum.app.common.voenhance.annotation.ValueType;
+import com.techncat.quantum.app.model.people.People;
 
 import java.util.Date;
 
@@ -43,12 +44,12 @@ public class ReportVO {
         this.createdAt = createdAt;
     }
 
-    public People getInviter() {
-        return inviter;
+    public String getInviterJson() {
+        return inviterJson;
     }
 
-    public void setInviter(People inviter) {
-        this.inviter = inviter;
+    public void setInviterJson(String inviterJson) {
+        this.inviterJson = inviterJson;
     }
 
     public Date getTime() {
