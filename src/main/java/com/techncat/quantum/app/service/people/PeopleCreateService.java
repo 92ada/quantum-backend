@@ -35,10 +35,11 @@ public class PeopleCreateService {
     private PeopleVisitorRepository peopleVisitorRepository;
 
     // 1. base create
-    public Object create(PeopleVO vo) throws VOUtils.BeanCopyException {
+    public People create(PeopleVO vo) throws VOUtils.BeanCopyException {
         return repoUtils.create(peopleRepository, vo, People.class, model -> {
             People people = (People) model;
             people.setId(null);
+            people.setType(null);
             people.setUpdateAt(new Date());
             people.setCreatedAt(new Date());
             return people;
@@ -56,6 +57,7 @@ public class PeopleCreateService {
         });
         People people = voUtils.copy(peopleVO, People.class);
         people.setPeopleAdmin(admin);
+        people.setType(People.Type.admin);
         return peopleRepository.save(people);
     }
 
@@ -70,6 +72,7 @@ public class PeopleCreateService {
         });
         People people = voUtils.copy(peopleVO, People.class);
         people.setPeoplePostdoctoral(child);
+        people.setType(People.Type.postdoctoral);
         return peopleRepository.save(people);
     }
 
@@ -84,6 +87,7 @@ public class PeopleCreateService {
         });
         People people = voUtils.copy(peopleVO, People.class);
         people.setPeopleResearcher(child);
+        people.setType(People.Type.researcher);
         return peopleRepository.save(people);
     }
 
@@ -98,6 +102,7 @@ public class PeopleCreateService {
         });
         People people = voUtils.copy(peopleVO, People.class);
         people.setPeopleStudent(child);
+        people.setType(People.Type.student);
         return peopleRepository.save(people);
     }
 
@@ -112,6 +117,7 @@ public class PeopleCreateService {
         });
         People people = voUtils.copy(peopleVO, People.class);
         people.setPeopleTeacher(child);
+        people.setType(People.Type.teacher);
         return peopleRepository.save(people);
     }
 
@@ -126,6 +132,7 @@ public class PeopleCreateService {
         });
         People people = voUtils.copy(peopleVO, People.class);
         people.setPeopleVisitor(child);
+        people.setType(People.Type.visitor);
         return peopleRepository.save(people);
     }
 

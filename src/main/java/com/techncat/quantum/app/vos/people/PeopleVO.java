@@ -1,5 +1,6 @@
 package com.techncat.quantum.app.vos.people;
 
+import com.techncat.quantum.app.common.auth.annotation.Visible;
 import com.techncat.quantum.app.common.voenhance.annotation.ValueType;
 import com.techncat.quantum.app.model.people.Lab;
 import com.techncat.quantum.app.model.people.People;
@@ -45,6 +46,7 @@ public class PeopleVO {
     private String identityType;
     private String identityNo;
     private String identityPhotoUrl;
+//    @Visible(auths = "role1,role2")
     private Date birthDate;
     @ValueType("phone")
     private String phone;

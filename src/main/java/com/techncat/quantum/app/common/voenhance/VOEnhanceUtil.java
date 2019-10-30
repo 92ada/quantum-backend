@@ -14,9 +14,9 @@ import java.util.*;
 @Service
 public class VOEnhanceUtil {
 
-    public Map<String, List<EnhancedVO>> enhance(String key, Object object) throws IllegalAccessException {
+    public Map<String, Object> enhance(String key, Object object) throws IllegalAccessException {
         List<EnhancedVO> list = enhance(object);
-        HashMap<String, List<EnhancedVO>> map = new HashMap<String, List<EnhancedVO>>();
+        HashMap<String, Object> map = new HashMap<String, Object>();
         map.put(key, list);
         return map;
     }
