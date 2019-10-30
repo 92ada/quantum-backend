@@ -3,7 +3,7 @@ package com.techncat.quantum.app.vos.people;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class PeopleAdminVO extends PeopleVO {
+public class PeopleAdminVO {
     // detail
     private Boolean isUnionMember;
     private String salaryCardNo;

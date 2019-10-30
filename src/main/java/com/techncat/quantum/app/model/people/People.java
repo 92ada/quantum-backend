@@ -7,7 +7,7 @@ import java.util.Date;
 @Table(name = "people")
 public class People {
     public enum Type {
-        admin, postdoctoral, researcher, student, teacher, visitor
+        base, admin, postdoctoral, researcher, student, teacher, visitor
     }
 
     public enum IdentityType {
@@ -17,6 +17,7 @@ public class People {
     public enum Gender {
         male, female, other
     }
+
     public enum Status {
         normal, abnormal, dismissed, on_vacation
     }
@@ -30,9 +31,9 @@ public class People {
 
     private String sid;
     @Enumerated
-    private Type type;
+    private Type type = Type.base; // default
     @Enumerated
-    private Status status;
+    private Status status = Status.normal;
     private String name;
     private IdentityType identityType;
     private String identityNo;
@@ -41,7 +42,7 @@ public class People {
     private String phone;
     private String email;
     private String politicalStatus;
-    @Column(columnDefinition="text")
+    @Column(columnDefinition = "text")
     private String description;
     private String emergencyContact;
     private Date entryDate;

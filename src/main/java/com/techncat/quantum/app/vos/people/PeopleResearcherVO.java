@@ -7,7 +7,7 @@ import org.springframework.beans.BeanUtils;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class PeopleResearcherVO extends PeopleVO {
+public class PeopleResearcherVO {
     // detail
     private String positionTitle;
     private String job;

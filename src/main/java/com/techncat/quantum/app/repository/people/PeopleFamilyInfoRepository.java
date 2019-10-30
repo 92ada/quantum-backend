@@ -11,4 +11,8 @@ public interface PeopleFamilyInfoRepository extends JpaRepository<FamilyInfo, Lo
     List<FamilyInfo> findAllByPeople(People people);
 
     FamilyInfo findFirstById(@Param("id") Long id);
+
+    void deleteAllByPeople(People people);
+
+    void deleteAllByPeopleAndId(People people, @Param("id") Long id);
 }

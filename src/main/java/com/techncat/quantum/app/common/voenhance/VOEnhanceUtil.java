@@ -23,10 +23,10 @@ public class VOEnhanceUtil {
 
     public List<EnhancedVO> enhance(Object object) throws IllegalAccessException {
         Field[] childFields = object.getClass().getDeclaredFields();
-        Field[] fatherFields = object.getClass().getSuperclass().getDeclaredFields();
-        Field[] fields = concat(fatherFields, childFields);
+//        Field[] fatherFields = object.getClass().getSuperclass().getDeclaredFields();
+//        Field[] fields = concat(fatherFields, childFields);
         List<EnhancedVO> vos = new ArrayList<>();
-        for (Field field : fields) {
+        for (Field field : childFields) {
             field.setAccessible(true);
             TypeResult typeResult = getType(field);
             String index = field.getName();

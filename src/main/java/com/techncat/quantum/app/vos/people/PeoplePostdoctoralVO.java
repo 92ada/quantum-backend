@@ -7,7 +7,7 @@ import org.springframework.beans.BeanUtils;
 
 import java.util.Date;
 
-public class PeoplePostdoctoralVO extends PeopleVO {
+public class PeoplePostdoctoralVO {
     // detail
     private String eduSystem;
     private String category;

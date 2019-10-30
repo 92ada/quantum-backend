@@ -39,9 +39,8 @@ public class PeopleShowService {
         return voUtils.copy(people, PeopleVO.class);
     }
 
-    public PeopleVO showExtra(Long id) throws PeopleNotFoundException {
-        People people = fetchBase(id);
-        switch (people.getType()) {
+    public Object showExtra(People people, People.Type type) throws PeopleNotFoundException {
+        switch (type) {
             case admin:
                 return voUtils.copy(peopleAdminRepository.findByPeople(people), PeopleAdminVO.class);
             case postdoctoral:

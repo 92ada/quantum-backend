@@ -1,7 +1,6 @@
 package com.techncat.quantum.app.service.people;
 
 import com.techncat.quantum.app.common.repo.RepoUtils;
-import com.techncat.quantum.app.common.voutils.VOUtils;
 import com.techncat.quantum.app.model.people.*;
 import com.techncat.quantum.app.repository.people.*;
 import com.techncat.quantum.app.vos.people.*;
@@ -13,12 +12,10 @@ import javax.annotation.Resource;
 import java.util.Date;
 
 @Service
-public class PeopleCreateService {
+public class PeopleUpdateService {
 
     @Autowired
     private RepoUtils repoUtils;
-    @Autowired
-    private VOUtils voUtils;
     @Resource
     private PeopleRepository peopleRepository;
     @Resource
@@ -34,33 +31,29 @@ public class PeopleCreateService {
     @Resource
     private PeopleVisitorRepository peopleVisitorRepository;
 
-    // 1. base create
-    public People create(PeopleVO vo) {
+    // 1. base update
+    public People update(Long peopleId, PeopleVO vo) {
         Assert.notNull(vo, "data can not be null");
         return repoUtils.process(peopleRepository, vo, People.class, model -> {
             People people = (People) model;
-            people.setId(null);
-            people.setType(People.Type.base);
+            people.setId(peopleId);
             people.setUpdateAt(new Date());
-            people.setCreatedAt(new Date());
             return people;
         });
     }
 
     // 2. admin
-    public People create(PeopleVO peopleVO, PeopleAdminVO extraVo) {
+    public People update(Long peopleId, PeopleVO peopleVO, PeopleAdminVO extraVo) {
         Assert.notNull(peopleVO, "data can not be null");
         Assert.notNull(extraVo, "data can not be null");
 
         return repoUtils.process(peopleVO, extraVo, PeopleAdmin.class, preData1 -> {
-            preData1.setId(null);
             preData1.setUpdateAt(new Date());
-            preData1.setCreatedAt(new Date());
             return peopleAdminRepository.save(preData1);
         }, People.class, (postData1, preData2) -> {
             // set each other
+            preData2.setId(peopleId);
             preData2.setPeopleAdmin(postData1);
-            preData2.setType(People.Type.admin);
             People postData2 = peopleRepository.save(preData2);
             postData1.setPeople(postData2);
             peopleAdminRepository.save(postData1);
@@ -69,19 +62,17 @@ public class PeopleCreateService {
     }
 
     // 3. postdoctoral
-    public People create(PeopleVO peopleVO, PeoplePostdoctoralVO extraVo) {
+    public People update(Long peopleId, PeopleVO peopleVO, PeoplePostdoctoralVO extraVo) {
         Assert.notNull(peopleVO, "data can not be null");
         Assert.notNull(extraVo, "data can not be null");
 
         return repoUtils.process(peopleVO, extraVo, PeoplePostdoctoral.class, preData1 -> {
-            preData1.setId(null);
             preData1.setUpdateAt(new Date());
-            preData1.setCreatedAt(new Date());
             return peoplePostdoctoralRepository.save(preData1);
         }, People.class, (postData1, preData2) -> {
             // set each other
+            preData2.setId(peopleId);
             preData2.setPeoplePostdoctoral(postData1);
-            preData2.setType(People.Type.postdoctoral);
             People postData2 = peopleRepository.save(preData2);
             postData1.setPeople(postData2);
             peoplePostdoctoralRepository.save(postData1);
@@ -90,19 +81,17 @@ public class PeopleCreateService {
     }
 
     // 4. researcher
-    public People create(PeopleVO peopleVO, PeopleResearcherVO extraVo) {
+    public People update(Long peopleId, PeopleVO peopleVO, PeopleResearcherVO extraVo) {
         Assert.notNull(peopleVO, "data can not be null");
         Assert.notNull(extraVo, "data can not be null");
 
         return repoUtils.process(peopleVO, extraVo, PeopleResearcher.class, preData1 -> {
-            preData1.setId(null);
             preData1.setUpdateAt(new Date());
-            preData1.setCreatedAt(new Date());
             return peopleResearcherRepository.save(preData1);
         }, People.class, (postData1, preData2) -> {
             // set each other
+            preData2.setId(peopleId);
             preData2.setPeopleResearcher(postData1);
-            preData2.setType(People.Type.researcher);
             People postData2 = peopleRepository.save(preData2);
             postData1.setPeople(postData2);
             peopleResearcherRepository.save(postData1);
@@ -111,19 +100,17 @@ public class PeopleCreateService {
     }
 
     // 5. student
-    public People create(PeopleVO peopleVO, PeopleStudentVO extraVo) {
+    public People update(Long peopleId, PeopleVO peopleVO, PeopleStudentVO extraVo) {
         Assert.notNull(peopleVO, "data can not be null");
         Assert.notNull(extraVo, "data can not be null");
 
         return repoUtils.process(peopleVO, extraVo, PeopleStudent.class, preData1 -> {
-            preData1.setId(null);
             preData1.setUpdateAt(new Date());
-            preData1.setCreatedAt(new Date());
             return peopleStudentRepository.save(preData1);
         }, People.class, (postData1, preData2) -> {
             // set each other
+            preData2.setId(peopleId);
             preData2.setPeopleStudent(postData1);
-            preData2.setType(People.Type.student);
             People postData2 = peopleRepository.save(preData2);
             postData1.setPeople(postData2);
             peopleStudentRepository.save(postData1);
@@ -132,19 +119,17 @@ public class PeopleCreateService {
     }
 
     // 6. teacher
-    public People create(PeopleVO peopleVO, PeopleTeacherVO extraVo) {
+    public People update(Long peopleId, PeopleVO peopleVO, PeopleTeacherVO extraVo) {
         Assert.notNull(peopleVO, "data can not be null");
         Assert.notNull(extraVo, "data can not be null");
 
         return repoUtils.process(peopleVO, extraVo, PeopleTeacher.class, preData1 -> {
-            preData1.setId(null);
             preData1.setUpdateAt(new Date());
-            preData1.setCreatedAt(new Date());
             return peopleTeacherRepository.save(preData1);
         }, People.class, (postData1, preData2) -> {
             // set each other
+            preData2.setId(peopleId);
             preData2.setPeopleTeacher(postData1);
-            preData2.setType(People.Type.teacher);
             People postData2 = peopleRepository.save(preData2);
             postData1.setPeople(postData2);
             peopleTeacherRepository.save(postData1);
@@ -153,19 +138,17 @@ public class PeopleCreateService {
     }
 
     // 7. visitor
-    public People create(PeopleVO peopleVO, PeopleVisitorVO extraVo) {
+    public People update(Long peopleId, PeopleVO peopleVO, PeopleVisitorVO extraVo) {
         Assert.notNull(peopleVO, "data can not be null");
         Assert.notNull(extraVo, "data can not be null");
 
         return repoUtils.process(peopleVO, extraVo, PeopleVisitor.class, preData1 -> {
-            preData1.setId(null);
             preData1.setUpdateAt(new Date());
-            preData1.setCreatedAt(new Date());
             return peopleVisitorRepository.save(preData1);
         }, People.class, (postData1, preData2) -> {
             // set each other
+            preData2.setId(peopleId);
             preData2.setPeopleVisitor(postData1);
-            preData2.setType(People.Type.visitor);
             People postData2 = peopleRepository.save(preData2);
             postData1.setPeople(postData2);
             peopleVisitorRepository.save(postData1);

@@ -11,7 +11,7 @@ public class RepoUtils {
     @Autowired
     private VOUtils voUtils;
 
-    public <T> T create(JpaRepository repository, Object data, Class<T> modelClass, ProcessMid processMid) throws VOUtils.BeanCopyException {
+    public <T> T process(JpaRepository repository, Object data, Class<T> modelClass, ProcessMid processMid) throws VOUtils.BeanCopyException {
         Object model = voUtils.copy(data, modelClass);
         if (processMid != null) {
             model = processMid.process(model);
@@ -19,7 +19,7 @@ public class RepoUtils {
         return (T) repository.save(model);
     }
     // for all
-    public <T, P> P create(Object baseData, Object extraData, Class<T> modelClassMid, ProcessMid<T> processMid, Class<P> modelClassPost, ProcessPost<T, P> processPost) throws VOUtils.BeanCopyException {
+    public <T, P> P process(Object baseData, Object extraData, Class<T> modelClassMid, ProcessMid<T> processMid, Class<P> modelClassPost, ProcessPost<T, P> processPost) throws VOUtils.BeanCopyException {
         T modelMid = voUtils.copy(extraData, modelClassMid);
         P modelPost = voUtils.copy(extraData, modelClassPost);
         if (processMid != null) {
