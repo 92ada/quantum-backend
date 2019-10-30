@@ -34,9 +34,9 @@ public class PeopleResearcher {
     private Date contractStartDate;
     private Date contractEndDate;
 
-    private float annualSalary;
-    private float monthlySalary;
-    private float housingSubsidy;
+    private Float annualSalary;
+    private Float monthlySalary;
+    private Float housingSubsidy;
 
     public Date getUpdateAt() {
         return updateAt;
@@ -166,27 +166,27 @@ public class PeopleResearcher {
         this.contractEndDate = contractEndDate;
     }
 
-    public float getAnnualSalary() {
+    public Float getAnnualSalary() {
         return annualSalary;
     }
 
-    public void setAnnualSalary(float annualSalary) {
+    public void setAnnualSalary(Float annualSalary) {
         this.annualSalary = annualSalary;
     }
 
-    public float getMonthlySalary() {
+    public Float getMonthlySalary() {
         return monthlySalary;
     }
 
-    public void setMonthlySalary(float monthlySalary) {
+    public void setMonthlySalary(Float monthlySalary) {
         this.monthlySalary = monthlySalary;
     }
 
-    public float getHousingSubsidy() {
+    public Float getHousingSubsidy() {
         return housingSubsidy;
     }
 
-    public void setHousingSubsidy(float housingSubsidy) {
+    public void setHousingSubsidy(Float housingSubsidy) {
         this.housingSubsidy = housingSubsidy;
     }
 }

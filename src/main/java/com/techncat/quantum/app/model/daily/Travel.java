@@ -119,4 +119,12 @@ public class Travel {
     public void setIdentity_no(String identity_no) {
         this.identity_no = identity_no;
     }
+
+    public String getTravelerJson() {
+        return travelerJson;
+    }
+
+    public void setTravelerJson(String travelerJson) {
+        this.travelerJson = travelerJson;
+    }
 }

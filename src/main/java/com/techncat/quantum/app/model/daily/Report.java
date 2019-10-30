@@ -99,4 +99,12 @@ public class Report {
     public void setLocation(String location) {
         this.location = location;
     }
+
+    public String getInviterJson() {
+        return inviterJson;
+    }
+
+    public void setInviterJson(String inviterJson) {
+        this.inviterJson = inviterJson;
+    }
 }

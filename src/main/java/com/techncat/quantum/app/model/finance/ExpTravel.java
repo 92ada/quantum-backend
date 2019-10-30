@@ -110,4 +110,12 @@ public class ExpTravel {
     public void setNumber_of_people(Integer number_of_people) {
         this.number_of_people = number_of_people;
     }
+
+    public String getTravelerJson() {
+        return travelerJson;
+    }
+
+    public void setTravelerJson(String travelerJson) {
+        this.travelerJson = travelerJson;
+    }
 }

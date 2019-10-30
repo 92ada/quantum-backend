@@ -83,4 +83,12 @@ public class ExpOther {
     public void setHandler(People handler) {
         this.handler = handler;
     }
+
+    public String getHandlerJson() {
+        return handlerJson;
+    }
+
+    public void setHandlerJson(String handlerJson) {
+        this.handlerJson = handlerJson;
+    }
 }

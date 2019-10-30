@@ -115,4 +115,12 @@ public class ExpInternational {
     public void setNumber_of_people(Integer number_of_people) {
         this.number_of_people = number_of_people;
     }
+
+    public String getPeopleJson() {
+        return peopleJson;
+    }
+
+    public void setPeopleJson(String peopleJson) {
+        this.peopleJson = peopleJson;
+    }
 }

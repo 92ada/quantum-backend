@@ -115,4 +115,12 @@ public class Reward {
     public void setRemark(String remark) {
         this.remark = remark;
     }
+
+    public String getRewardedJson() {
+        return rewardedJson;
+    }
+
+    public void setRewardedJson(String rewardedJson) {
+        this.rewardedJson = rewardedJson;
+    }
 }

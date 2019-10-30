@@ -61,4 +61,12 @@ public class Achievement {
     public void setAchievementType(String achievementType) {
         this.achievementType = achievementType;
     }
+
+    public String getPeopleJson() {
+        return peopleJson;
+    }
+
+    public void setPeopleJson(String peopleJson) {
+        this.peopleJson = peopleJson;
+    }
 }

@@ -90,4 +90,12 @@ public class Hosting {
     public void setIs_reimbursement(Boolean is_reimbursement) {
         this.is_reimbursement = is_reimbursement;
     }
+
+    public String getInviterJson() {
+        return inviterJson;
+    }
+
+    public void setInviterJson(String inviterJson) {
+        this.inviterJson = inviterJson;
+    }
 }

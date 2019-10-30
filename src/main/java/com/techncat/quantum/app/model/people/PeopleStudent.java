@@ -113,4 +113,20 @@ public class PeopleStudent {
     public void setOpeningAssessmentStatus(String openingAssessmentStatus) {
         this.openingAssessmentStatus = openingAssessmentStatus;
     }
+
+    public String getAdvisorJson() {
+        return advisorJson;
+    }
+
+    public void setAdvisorJson(String advisorJson) {
+        this.advisorJson = advisorJson;
+    }
+
+    public String getViceAdvisorJson() {
+        return viceAdvisorJson;
+    }
+
+    public void setViceAdvisorJson(String viceAdvisorJson) {
+        this.viceAdvisorJson = viceAdvisorJson;
+    }
 }

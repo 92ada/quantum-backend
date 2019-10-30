@@ -181,4 +181,12 @@ public class Visit {
     public void setBudget(BigDecimal budget) {
         this.budget = budget;
     }
+
+    public String getReceptionistJson() {
+        return receptionistJson;
+    }
+
+    public void setReceptionistJson(String receptionistJson) {
+        this.receptionistJson = receptionistJson;
+    }
 }

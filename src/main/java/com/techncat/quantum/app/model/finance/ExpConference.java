@@ -162,4 +162,12 @@ public class ExpConference {
     public void setOfficer(Set<People> officer) {
         this.officer = officer;
     }
+
+    public String getOfficersJson() {
+        return officersJson;
+    }
+
+    public void setOfficersJson(String officersJson) {
+        this.officersJson = officersJson;
+    }
 }

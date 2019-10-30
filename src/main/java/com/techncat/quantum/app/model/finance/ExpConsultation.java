@@ -106,4 +106,20 @@ public class ExpConsultation {
     public void setPayee(People payee) {
         this.payee = payee;
     }
+
+    public String getHandlerJson() {
+        return handlerJson;
+    }
+
+    public void setHandlerJson(String handlerJson) {
+        this.handlerJson = handlerJson;
+    }
+
+    public String getPayeeJson() {
+        return payeeJson;
+    }
+
+    public void setPayeeJson(String payeeJson) {
+        this.payeeJson = payeeJson;
+    }
 }

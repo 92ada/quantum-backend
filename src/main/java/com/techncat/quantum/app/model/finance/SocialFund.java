@@ -142,4 +142,12 @@ public class SocialFund {
     public void setMonth(Integer month) {
         this.month = month;
     }
+
+    public String getPeopleJson() {
+        return peopleJson;
+    }
+
+    public void setPeopleJson(String peopleJson) {
+        this.peopleJson = peopleJson;
+    }
 }

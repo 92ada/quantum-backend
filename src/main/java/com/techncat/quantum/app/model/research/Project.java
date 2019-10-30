@@ -36,6 +36,7 @@ public class Project {
     private Date start_date;
     private Date end_date;
     private WayOfTaking way_of_taking;
+    @Column(precision = 10, scale = 2)
     private BigDecimal approved_funds;
 
     @ManyToMany
@@ -138,5 +139,21 @@ public class Project {
 
     public void setMember(Set<People> member) {
         this.member = member;
+    }
+
+    public String getLeaderJson() {
+        return leaderJson;
+    }
+
+    public void setLeaderJson(String leaderJson) {
+        this.leaderJson = leaderJson;
+    }
+
+    public String getMembersJson() {
+        return membersJson;
+    }
+
+    public void setMembersJson(String membersJson) {
+        this.membersJson = membersJson;
     }
 }

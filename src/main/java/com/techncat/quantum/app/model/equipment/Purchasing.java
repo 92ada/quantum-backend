@@ -25,7 +25,6 @@ public class Purchasing {
     private String argument_method;
     private Date request_date;
 
-    private String peopleAttrs; // {jingbanren:[{sid,name}, {}]}
     @ManyToOne
     @JoinColumn(name = "handler_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People handler;
@@ -270,5 +269,21 @@ public class Purchasing {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public String getHandlerJson() {
+        return handlerJson;
+    }
+
+    public void setHandlerJson(String handlerJson) {
+        this.handlerJson = handlerJson;
+    }
+
+    public String getPiJson() {
+        return piJson;
+    }
+
+    public void setPiJson(String piJson) {
+        this.piJson = piJson;
     }
 }

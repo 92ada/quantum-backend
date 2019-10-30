@@ -215,4 +215,12 @@ public class SocialInsurance {
     public void setFertility_by_institution(BigDecimal fertility_by_institution) {
         this.fertility_by_institution = fertility_by_institution;
     }
+
+    public String getPeopleJson() {
+        return peopleJson;
+    }
+
+    public void setPeopleJson(String peopleJson) {
+        this.peopleJson = peopleJson;
+    }
 }

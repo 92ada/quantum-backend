@@ -142,4 +142,12 @@ public class Patent {
     public void setInventor_rank(Integer inventor_rank) {
         this.inventor_rank = inventor_rank;
     }
+
+    public String getApplicantJson() {
+        return applicantJson;
+    }
+
+    public void setApplicantJson(String applicantJson) {
+        this.applicantJson = applicantJson;
+    }
 }

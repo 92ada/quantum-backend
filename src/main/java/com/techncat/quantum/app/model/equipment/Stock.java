@@ -204,4 +204,20 @@ public class Stock {
     public void setRemark(String remark) {
         this.remark = remark;
     }
+
+    public String getTakerJson() {
+        return takerJson;
+    }
+
+    public void setTakerJson(String takerJson) {
+        this.takerJson = takerJson;
+    }
+
+    public String getAdminJson() {
+        return adminJson;
+    }
+
+    public void setAdminJson(String adminJson) {
+        this.adminJson = adminJson;
+    }
 }

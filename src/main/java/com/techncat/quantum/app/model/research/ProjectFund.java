@@ -19,6 +19,7 @@ public class ProjectFund {
     private Project project;
 
     private Date arrival_date;
+    @Column(precision = 10, scale = 2)
     private BigDecimal amount;
     private String remark;
 
@@ -77,4 +78,5 @@ public class ProjectFund {
     public void setRemark(String remark) {
         this.remark = remark;
     }
+
 }

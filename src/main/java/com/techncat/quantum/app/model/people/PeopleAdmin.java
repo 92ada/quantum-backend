@@ -23,8 +23,11 @@ public class PeopleAdmin {
     private Date contractStartDate;
     private Date contractEndDate;
 
+    @Column(precision = 10, scale = 2)
     private BigDecimal annualSalary;
+    @Column(precision = 10, scale = 2)
     private BigDecimal monthlySalary;
+    @Column(precision = 10, scale = 2)
     private BigDecimal housingSubsidy;
 
     public Long getId() {
