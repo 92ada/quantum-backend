@@ -96,11 +96,11 @@ public class PaperVO {
         this.documentNo = documentNo;
     }
 
-    public Boolean getUnderSustech() {
+    public Boolean getIsUnderSustech() {
         return isUnderSustech;
     }
 
-    public void setUnderSustech(Boolean underSustech) {
+    public void setIsUnderSustech(Boolean underSustech) {
         isUnderSustech = underSustech;
     }
 
@@ -128,27 +128,27 @@ public class PaperVO {
         this.authorRank = authorRank;
     }
 
-    public Boolean getInternational() {
+    public Boolean getIsInternational() {
         return isInternational;
     }
 
-    public void setInternational(Boolean international) {
+    public void setIsInternational(Boolean international) {
         isInternational = international;
     }
 
-    public Boolean getNatureIndex() {
+    public Boolean getIsNatureIndex() {
         return isNatureIndex;
     }
 
-    public void setNatureIndex(Boolean natureIndex) {
+    public void setIsNatureIndex(Boolean natureIndex) {
         isNatureIndex = natureIndex;
     }
 
-    public Boolean getConferencePaper() {
+    public Boolean getIsConferencePaper() {
         return isConferencePaper;
     }
 
-    public void setConferencePaper(Boolean conferencePaper) {
+    public void setIsConferencePaper(Boolean conferencePaper) {
         isConferencePaper = conferencePaper;
     }
 

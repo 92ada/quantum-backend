@@ -25,21 +25,6 @@ public class PeopleResearcherVO extends PeopleVO {
     private BigDecimal monthlySalary;
     private BigDecimal housingSubsidy;
 
-    public PeopleResearcherVO(People people, PeopleResearcher peopleResearcher) {
-        super(people);
-        copyProperties(peopleResearcher);
-    }
-
-    private void copyProperties(PeopleResearcher peopleResearcher) {
-        Long id = this.getId();
-        Date createdAt = this.getCreatedAt();
-        Date updatedAt = this.getUpdateAt();
-        BeanUtils.copyProperties(peopleResearcher, this);
-        this.setId(id);
-        this.setCreatedAt(createdAt);
-        this.setUpdateAt(updatedAt);
-    }
-
     public String getPositionTitle() {
         return positionTitle;
     }
@@ -70,30 +55,6 @@ public class PeopleResearcherVO extends PeopleVO {
 
     public void setAchievements(String achievements) {
         this.achievements = achievements;
-    }
-
-    public boolean isPhdMentor() {
-        return isPhdMentor;
-    }
-
-    public void setPhdMentor(boolean phdMentor) {
-        isPhdMentor = phdMentor;
-    }
-
-    public boolean isMasterMentor() {
-        return isMasterMentor;
-    }
-
-    public void setMasterMentor(boolean masterMentor) {
-        isMasterMentor = masterMentor;
-    }
-
-    public boolean isUnionMember() {
-        return isUnionMember;
-    }
-
-    public void setUnionMember(boolean unionMember) {
-        isUnionMember = unionMember;
     }
 
     public String getSalaryCardNo() {
@@ -158,5 +119,29 @@ public class PeopleResearcherVO extends PeopleVO {
 
     public void setHousingSubsidy(BigDecimal housingSubsidy) {
         this.housingSubsidy = housingSubsidy;
+    }
+
+    public Boolean getIsPhdMentor() {
+        return isPhdMentor;
+    }
+
+    public void setIsPhdMentor(Boolean phdMentor) {
+        isPhdMentor = phdMentor;
+    }
+
+    public Boolean getIsMasterMentor() {
+        return isMasterMentor;
+    }
+
+    public void setIsMasterMentor(Boolean masterMentor) {
+        isMasterMentor = masterMentor;
+    }
+
+    public Boolean getIsUnionMember() {
+        return isUnionMember;
+    }
+
+    public void setIsUnionMember(Boolean unionMember) {
+        isUnionMember = unionMember;
     }
 }

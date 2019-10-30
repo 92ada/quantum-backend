@@ -8,7 +8,7 @@ import java.util.Date;
 @Table(name = "project_funds")
 public class ProjectFund {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private Date updateAt;

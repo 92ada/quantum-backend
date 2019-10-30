@@ -1,9 +1,5 @@
 package com.techncat.quantum.app.vos.people;
 
-import com.techncat.quantum.app.model.people.People;
-import com.techncat.quantum.app.model.people.PeopleAdmin;
-import org.springframework.beans.BeanUtils;
-
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -19,27 +15,11 @@ public class PeopleAdminVO extends PeopleVO {
     private BigDecimal monthlySalary;
     private BigDecimal housingSubsidy;
 
-    public PeopleAdminVO(People people, PeopleAdmin peopleAdmin) {
-        super(people);
-        copyProperties(peopleAdmin);
-    }
-
-    private void copyProperties(PeopleAdmin peopleAdmin) {
-        if (null == peopleAdmin) return;
-        Long id = this.getId();
-        Date createdAt = this.getCreatedAt();
-        Date updatedAt = this.getUpdateAt();
-        BeanUtils.copyProperties(peopleAdmin, this);
-        this.setId(id);
-        this.setCreatedAt(createdAt);
-        this.setUpdateAt(updatedAt);
-    }
-
-    public boolean isUnionMember() {
+    public Boolean getIsUnionMember() {
         return isUnionMember;
     }
 
-    public void setUnionMember(boolean unionMember) {
+    public void setIsUnionMember(Boolean unionMember) {
         isUnionMember = unionMember;
     }
 

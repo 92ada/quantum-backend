@@ -8,6 +8,7 @@ import com.techncat.quantum.app.vos.people.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -35,7 +36,8 @@ public class PeopleCreateService {
     private PeopleVisitorRepository peopleVisitorRepository;
 
     // 1. base create
-    public People create(PeopleVO vo) throws VOUtils.BeanCopyException {
+    public People create(PeopleVO vo) {
+        Assert.notNull(vo, "data can not be null");
         return repoUtils.create(peopleRepository, vo, People.class, model -> {
             People people = (People) model;
             people.setId(null);
@@ -47,22 +49,46 @@ public class PeopleCreateService {
     }
 
     // 2. admin
-    public People create(PeopleVO peopleVO, PeopleAdminVO extraVo) throws VOUtils.BeanCopyException {
-        PeopleAdmin admin = repoUtils.create(peopleAdminRepository, extraVo, PeopleAdmin.class, model -> {
-            PeopleAdmin data = (PeopleAdmin) model;
-            data.setId(null);
-            data.setUpdateAt(new Date());
-            data.setCreatedAt(new Date());
-            return data;
+    public People create(PeopleVO peopleVO, PeopleAdminVO extraVo) {
+        Assert.notNull(peopleVO, "data can not be null");
+        Assert.notNull(extraVo, "data can not be null");
+
+        return repoUtils.create(peopleVO, extraVo, PeopleAdmin.class, preData1 -> {
+            preData1.setId(null);
+            preData1.setUpdateAt(new Date());
+            preData1.setCreatedAt(new Date());
+            return peopleAdminRepository.save(preData1);
+        }, People.class, (postData1, preData2) -> {
+            // set each other
+            preData2.setPeopleAdmin(postData1);
+            People postData2 = peopleRepository.save(preData2);
+            postData1.setPeople(postData2);
+            peopleAdminRepository.save(postData1);
+            return postData2;
         });
-        People people = voUtils.copy(peopleVO, People.class);
-        people.setPeopleAdmin(admin);
-        people.setType(People.Type.admin);
-        return peopleRepository.save(people);
+//        PeopleAdmin admin = repoUtils.create(peopleAdminRepository, extraVo, PeopleAdmin.class, model -> {
+//            PeopleAdmin data = (PeopleAdmin) model;
+//            data.setId(null);
+//            data.setUpdateAt(new Date());
+//            data.setCreatedAt(new Date());
+//            return data;
+//        });
+////        废弃，和上述一致
+////        PeopleAdmin admin = voUtils.copy(extraVo, PeopleAdmin.class);
+////        admin.setId(null);
+////        admin.setUpdateAt(new Date());
+////        admin.setCreatedAt(new Date());
+////        admin = peopleAdminRepository.save(admin);
+//        People people = voUtils.copy(peopleVO, People.class);
+//        people.setPeopleAdmin(admin);
+//        people.setType(People.Type.admin);
+//        return peopleRepository.save(people);
     }
 
     // 3. postdoctoral
-    public People create(PeopleVO peopleVO, PeoplePostdoctoralVO extraVo) throws VOUtils.BeanCopyException {
+    public People create(PeopleVO peopleVO, PeoplePostdoctoralVO extraVo) {
+        Assert.notNull(peopleVO, "data can not be null");
+        Assert.notNull(extraVo, "data can not be null");
         PeoplePostdoctoral child = repoUtils.create(peoplePostdoctoralRepository, extraVo, PeoplePostdoctoral.class, model -> {
             PeoplePostdoctoral data = (PeoplePostdoctoral) model;
             data.setId(null);
@@ -77,7 +103,9 @@ public class PeopleCreateService {
     }
 
     // 4. researcher
-    public People create(PeopleVO peopleVO, PeopleResearcherVO extraVo) throws VOUtils.BeanCopyException {
+    public People create(PeopleVO peopleVO, PeopleResearcherVO extraVo) {
+        Assert.notNull(peopleVO, "data can not be null");
+        Assert.notNull(extraVo, "data can not be null");
         PeopleResearcher child = repoUtils.create(peopleResearcherRepository, extraVo, PeopleResearcher.class, model -> {
             PeopleResearcher data = (PeopleResearcher) model;
             data.setId(null);
@@ -92,7 +120,9 @@ public class PeopleCreateService {
     }
 
     // 5. student
-    public People create(PeopleVO peopleVO, PeopleStudentVO extraVo) throws VOUtils.BeanCopyException {
+    public People create(PeopleVO peopleVO, PeopleStudentVO extraVo) {
+        Assert.notNull(peopleVO, "data can not be null");
+        Assert.notNull(extraVo, "data can not be null");
         PeopleStudent child = repoUtils.create(peopleStudentRepository, extraVo, PeopleStudent.class, model -> {
             PeopleStudent data = (PeopleStudent) model;
             data.setId(null);
@@ -107,7 +137,9 @@ public class PeopleCreateService {
     }
 
     // 6. teacher
-    public People create(PeopleVO peopleVO, PeopleTeacherVO extraVo) throws VOUtils.BeanCopyException {
+    public People create(PeopleVO peopleVO, PeopleTeacherVO extraVo) {
+        Assert.notNull(peopleVO, "data can not be null");
+        Assert.notNull(extraVo, "data can not be null");
         PeopleTeacher child = repoUtils.create(peopleTeacherRepository, extraVo, PeopleTeacher.class, model -> {
             PeopleTeacher data = (PeopleTeacher) model;
             data.setId(null);
@@ -122,7 +154,9 @@ public class PeopleCreateService {
     }
 
     // 7. visitor
-    public People create(PeopleVO peopleVO, PeopleVisitorVO extraVo) throws VOUtils.BeanCopyException {
+    public People create(PeopleVO peopleVO, PeopleVisitorVO extraVo) {
+        Assert.notNull(peopleVO, "data can not be null");
+        Assert.notNull(extraVo, "data can not be null");
         PeopleVisitor child = repoUtils.create(peopleVisitorRepository, extraVo, PeopleVisitor.class, model -> {
             PeopleVisitor data = (PeopleVisitor) model;
             data.setId(null);

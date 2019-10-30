@@ -7,7 +7,7 @@ import java.util.Date;
 @Table(name = "exp_materials")
 public class ExpMaterial {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private Date updateAt;

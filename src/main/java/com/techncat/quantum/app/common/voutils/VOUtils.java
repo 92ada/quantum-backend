@@ -21,7 +21,7 @@ public class VOUtils {
         return targetClazz.cast(target);
     }
 
-    public class BeanCopyException extends Exception {
+    public class BeanCopyException extends RuntimeException {
         BeanCopyException(String className) {
             super("Class [" + className + "] can not be copied");
         }

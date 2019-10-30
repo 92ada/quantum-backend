@@ -22,7 +22,7 @@ public class PeopleFamilyService {
         return familyInfoRepository.findAllByPeople(people);
     }
 
-    public FamilyInfoVO fetch(Long id) throws FamilyInfoNotFoundException, VOUtils.BeanCopyException {
+    public FamilyInfoVO fetch(Long id) throws FamilyInfoNotFoundException {
         FamilyInfo info = fetchDO(id);
         return voUtils.copy(info, FamilyInfoVO.class);
     }

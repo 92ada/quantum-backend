@@ -15,7 +15,7 @@ public class Reward {
         special, first, second, third, other
     }
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private Date updateAt;

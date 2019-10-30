@@ -11,7 +11,7 @@ import java.util.Date;
 @Table(name = "social_funds")
 public class SocialFund {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private Date updateAt;

@@ -18,21 +18,6 @@ public class PeopleVisitorVO extends PeopleVO {
     private BigDecimal salary;
     private String remark;
 
-    public PeopleVisitorVO(People people, PeopleVisitor peopleVisitor) {
-        super(people);
-        copyProperties(peopleVisitor);
-    }
-
-    private void copyProperties(PeopleVisitor peopleVisitor) {
-        Long id = this.getId();
-        Date createdAt = this.getCreatedAt();
-        Date updatedAt = this.getUpdateAt();
-        BeanUtils.copyProperties(peopleVisitor, this);
-        this.setId(id);
-        this.setCreatedAt(createdAt);
-        this.setUpdateAt(updatedAt);
-    }
-
     public String getPositionTitle() {
         return positionTitle;
     }

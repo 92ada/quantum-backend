@@ -1,7 +1,5 @@
 package com.techncat.quantum.app.vos.research;
 
-import com.techncat.quantum.app.model.research.Project;
-
 import java.math.BigDecimal;
 import java.util.Date;
 

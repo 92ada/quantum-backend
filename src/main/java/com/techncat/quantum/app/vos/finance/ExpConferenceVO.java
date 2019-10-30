@@ -1,13 +1,9 @@
 package com.techncat.quantum.app.vos.finance;
 
 import com.techncat.quantum.app.common.voenhance.annotation.ValueType;
-import com.techncat.quantum.app.model.finance.Exp;
-import com.techncat.quantum.app.model.finance.ExpConference;
-import org.springframework.beans.BeanUtils;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.Set;
 
 public class ExpConferenceVO extends ExpVO {
     private Date start_date;

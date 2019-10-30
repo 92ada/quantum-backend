@@ -1,5 +1,6 @@
 package com.techncat.quantum.app.controller.people;
 
+import com.alibaba.fastjson.JSONObject;
 import com.techncat.quantum.app.common.voenhance.VOEnhanceUtil;
 import com.techncat.quantum.app.common.voutils.VOUtils;
 import com.techncat.quantum.app.model.people.FamilyInfo;
@@ -14,9 +15,14 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/people")
+@CrossOrigin(
+        origins = "*",
+        allowedHeaders = "*",
+        allowCredentials = "true",
+        methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS, RequestMethod.HEAD}
+)
 public class PeopleController {
 
     @Autowired
@@ -29,12 +35,12 @@ public class PeopleController {
     private VOEnhanceUtil voEnhanceUtil;
 
     @GetMapping("/{people_id}/base")
-    public ResponseEntity<PeopleVO> showBase(@PathVariable("people_id") Long id) throws PeopleShowService.PeopleNotFoundException, VOUtils.BeanCopyException {
+    public ResponseEntity<PeopleVO> showBase(@PathVariable("people_id") Long id) throws PeopleShowService.PeopleNotFoundException {
         return ResponseEntity.ok(showService.showBase(id));
     }
 
     @GetMapping("/{people_id}/base/structure")
-    public ResponseEntity<Map> baseStructureInfo(@PathVariable("people_id") Long peopleId) throws PeopleShowService.PeopleNotFoundException, IllegalAccessException, VOUtils.BeanCopyException {
+    public ResponseEntity<Map> baseStructureInfo(@PathVariable("people_id") Long peopleId) throws PeopleShowService.PeopleNotFoundException, IllegalAccessException {
         PeopleVO peopleVO = showService.showBase(peopleId);
         Map result = voEnhanceUtil.enhance("data", peopleVO);
         result.put("post_url", "/api/people/base");
@@ -73,12 +79,12 @@ public class PeopleController {
     }
 
     @GetMapping("/{people_id}/families/{family_id}")
-    public ResponseEntity<?> showFamily(@PathVariable("people_id") Long id, @PathVariable("family_id") Long familyId) throws PeopleFamilyService.FamilyInfoNotFoundException, VOUtils.BeanCopyException {
+    public ResponseEntity<?> showFamily(@PathVariable("people_id") Long id, @PathVariable("family_id") Long familyId) throws PeopleFamilyService.FamilyInfoNotFoundException {
         return ResponseEntity.ok(familyService.fetch(familyId));
     }
 
     @GetMapping("/{people_id}/families/{family_id}/structure")
-    public ResponseEntity<?> familyStructure(@PathVariable("people_id") Long peopleId, @PathVariable("family_id") Long familyId) throws IllegalAccessException, PeopleFamilyService.FamilyInfoNotFoundException, VOUtils.BeanCopyException {
+    public ResponseEntity<?> familyStructure(@PathVariable("people_id") Long peopleId, @PathVariable("family_id") Long familyId) throws IllegalAccessException, PeopleFamilyService.FamilyInfoNotFoundException {
         Map result = voEnhanceUtil.enhance("data", familyService.fetch(familyId));
         result.put("post_url", "/api/people/" + peopleId + "/families");
         result.put("update_url", "/api/people/" + peopleId + "/families/" + familyId);
@@ -89,37 +95,50 @@ public class PeopleController {
     // create
 
     @PostMapping("/base")
-    public ResponseEntity<People> create(@RequestBody PeopleVO peopleVO) throws VOUtils.BeanCopyException {
+    public ResponseEntity<People> createBase(@RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
+        PeopleVO peopleVO = requestBody.getJSONObject("base").toJavaObject(PeopleVO.class);
         return ResponseEntity.status(201).body(createService.create(peopleVO));
     }
 
     @PostMapping("/admin")
-    public ResponseEntity<People> create(@RequestBody PeopleVO peopleVO, @RequestBody PeopleAdminVO adminVO) throws VOUtils.BeanCopyException {
+    public ResponseEntity<People> createAdmin(@RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
+        PeopleVO peopleVO = requestBody.getJSONObject("base").toJavaObject(PeopleVO.class);
+        PeopleAdminVO adminVO = requestBody.getJSONObject("extra").toJavaObject(PeopleAdminVO.class);
         return ResponseEntity.status(201).body(createService.create(peopleVO, adminVO));
     }
 
     @PostMapping("/postdoctoral")
-    public ResponseEntity<People> create(@RequestBody PeopleVO peopleVO, @RequestBody PeoplePostdoctoralVO extraVO) throws VOUtils.BeanCopyException {
+    public ResponseEntity<People> createPostdoctoral(@RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
+        PeopleVO peopleVO = requestBody.getJSONObject("base").toJavaObject(PeopleVO.class);
+        PeoplePostdoctoralVO extraVO = requestBody.getJSONObject("extra").toJavaObject(PeoplePostdoctoralVO.class);
         return ResponseEntity.status(201).body(createService.create(peopleVO, extraVO));
     }
 
     @PostMapping("/researcher")
-    public ResponseEntity<People> create(@RequestBody PeopleVO peopleVO, @RequestBody PeopleResearcherVO extraVO) throws VOUtils.BeanCopyException {
+    public ResponseEntity<People> createResearcher(@RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
+        PeopleVO peopleVO = requestBody.getJSONObject("base").toJavaObject(PeopleVO.class);
+        PeopleResearcherVO extraVO = requestBody.getJSONObject("extra").toJavaObject(PeopleResearcherVO.class);
         return ResponseEntity.status(201).body(createService.create(peopleVO, extraVO));
     }
 
     @PostMapping("/student")
-    public ResponseEntity<People> create(@RequestBody PeopleVO peopleVO, @RequestBody PeopleStudentVO extraVO) throws VOUtils.BeanCopyException {
+    public ResponseEntity<People> createStudent(@RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
+        PeopleVO peopleVO = requestBody.getJSONObject("base").toJavaObject(PeopleVO.class);
+        PeopleStudentVO extraVO = requestBody.getJSONObject("extra").toJavaObject(PeopleStudentVO.class);
         return ResponseEntity.status(201).body(createService.create(peopleVO, extraVO));
     }
 
     @PostMapping("/teacher")
-    public ResponseEntity<People> create(@RequestBody PeopleVO peopleVO, @RequestBody PeopleTeacherVO extraVO) throws VOUtils.BeanCopyException {
+    public ResponseEntity<People> createTeacher(@RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
+        PeopleVO peopleVO = requestBody.getJSONObject("base").toJavaObject(PeopleVO.class);
+        PeopleTeacherVO extraVO = requestBody.getJSONObject("extra").toJavaObject(PeopleTeacherVO.class);
         return ResponseEntity.status(201).body(createService.create(peopleVO, extraVO));
     }
 
     @PostMapping("/visitor")
-    public ResponseEntity<People> create(@RequestBody PeopleVO peopleVO, @RequestBody PeopleVisitorVO extraVO) throws VOUtils.BeanCopyException {
+    public ResponseEntity<People> createVisitor(@RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
+        PeopleVO peopleVO = requestBody.getJSONObject("base").toJavaObject(PeopleVO.class);
+        PeopleVisitorVO extraVO = requestBody.getJSONObject("extra").toJavaObject(PeopleVisitorVO.class);
         return ResponseEntity.status(201).body(createService.create(peopleVO, extraVO));
     }
 

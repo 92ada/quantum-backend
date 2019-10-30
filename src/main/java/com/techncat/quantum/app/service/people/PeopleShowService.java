@@ -34,7 +34,7 @@ public class PeopleShowService {
     @Resource
     private PeopleVisitorRepository peopleVisitorRepository;
 
-    public PeopleVO showBase(Long id) throws PeopleNotFoundException, VOUtils.BeanCopyException {
+    public PeopleVO showBase(Long id) throws PeopleNotFoundException {
         People people = fetchBase(id);
         return voUtils.copy(people, PeopleVO.class);
     }
@@ -43,19 +43,19 @@ public class PeopleShowService {
         People people = fetchBase(id);
         switch (people.getType()) {
             case admin:
-                return new PeopleAdminVO(people, peopleAdminRepository.findByPeople(people));
+                return voUtils.copy(peopleAdminRepository.findByPeople(people), PeopleAdminVO.class);
             case postdoctoral:
-                return new PeoplePostdoctoralVO(people, peoplePostdoctoralRepository.findByPeople(people));
+                return voUtils.copy(peoplePostdoctoralRepository.findByPeople(people), PeoplePostdoctoralVO.class);
             case researcher:
-                return new PeopleResearcherVO(people, peopleResearcherRepository.findByPeople(people));
+                return voUtils.copy(peopleResearcherRepository.findByPeople(people), PeopleResearcherVO.class);
             case student:
-                return new PeopleStudentVO(people, peopleStudentRepository.findByPeople(people));
+                return voUtils.copy(peopleStudentRepository.findByPeople(people), PeopleStudentVO.class);
             case teacher:
-                return new PeopleTeacherVO(people, peopleTeacherRepository.findByPeople(people));
+                return voUtils.copy(peopleTeacherRepository.findByPeople(people), PeopleTeacherVO.class);
             case visitor:
-                return new PeopleVisitorVO(people, peopleVisitorRepository.findByPeople(people));
+                return voUtils.copy(peopleVisitorRepository.findByPeople(people), PeopleVisitorVO.class);
         }
-        return new PeopleVO(people);
+        return voUtils.copy(people, PeopleVO.class);
     }
 
     public People fetchBase(Long id) throws PeopleNotFoundException {

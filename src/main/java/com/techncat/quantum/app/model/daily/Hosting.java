@@ -10,7 +10,7 @@ import java.util.Date;
 @Table(name = "hostings")
 public class Hosting {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private Date updateAt;

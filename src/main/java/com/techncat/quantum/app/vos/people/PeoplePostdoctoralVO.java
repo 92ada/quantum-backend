@@ -18,22 +18,6 @@ public class PeoplePostdoctoralVO extends PeopleVO {
     private String midtermAssessmentStatus;
     private String openingAssessmentStatus;
 
-    public PeoplePostdoctoralVO(People people, PeoplePostdoctoral peoplePostdoctoral) {
-        super(people);
-        copyProperties(peoplePostdoctoral);
-    }
-
-    private void copyProperties(PeoplePostdoctoral peoplePostdoctoral) {
-        if (null == peoplePostdoctoral) return;
-        Long id = this.getId();
-        Date createdAt = this.getCreatedAt();
-        Date updatedAt = this.getUpdateAt();
-        BeanUtils.copyProperties(peoplePostdoctoral, this);
-        this.setId(id);
-        this.setCreatedAt(createdAt);
-        this.setUpdateAt(updatedAt);
-    }
-
     public String getEduSystem() {
         return eduSystem;
     }

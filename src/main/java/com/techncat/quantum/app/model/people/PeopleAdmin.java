@@ -8,6 +8,7 @@ import java.util.Date;
 @Table(name = "people_admin")
 public class PeopleAdmin {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Date updateAt;
     private Date createdAt;

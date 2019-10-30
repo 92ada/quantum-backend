@@ -9,7 +9,7 @@ import java.util.Date;
 @Table(name = "exp_publications")
 public class ExpPublication {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private Date updateAt;

@@ -63,13 +63,6 @@ public class PeopleVO {
     @ValueType(value = "object", option_url = "/api/labs/options")
     private Lab lab;
 
-    public PeopleVO() {
-    }
-
-    public PeopleVO(People people) {
-        BeanUtils.copyProperties(people, this);
-    }
-
     public Long getId() {
         return id;
     }
@@ -220,30 +213,5 @@ public class PeopleVO {
 
     public void setLab(Lab lab) {
         this.lab = lab;
-    }
-
-    @Override
-    public String toString() {
-        return "PeopleVO{" +
-                "id=" + id +
-                ", updateAt=" + updateAt +
-                ", createdAt=" + createdAt +
-                ", type=" + type +
-                ", status=" + status +
-                ", name='" + name + '\'' +
-                ", identityType='" + identityType + '\'' +
-                ", identityNo='" + identityNo + '\'' +
-                ", identityPhotoUrl='" + identityPhotoUrl + '\'' +
-                ", birthDate=" + birthDate +
-                ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                ", politicalStatus='" + politicalStatus + '\'' +
-                ", description='" + description + '\'' +
-                ", emergencyContact='" + emergencyContact + '\'' +
-                ", entryDate=" + entryDate +
-                ", departureDate=" + departureDate +
-                ", gender=" + gender +
-                ", lab=" + lab +
-                '}';
     }
 }

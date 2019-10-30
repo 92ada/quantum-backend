@@ -8,7 +8,7 @@ import java.util.Date;
 @Table(name = "travel_flights")
 public class TravelFlight {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private Date updateAt;

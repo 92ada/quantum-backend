@@ -18,21 +18,6 @@ public class PeopleStudentVO extends PeopleVO {
     private String midtermAssessmentStatus;
     private String openingAssessmentStatus;
 
-    public PeopleStudentVO(People people, PeopleStudent peopleStudent) {
-        super(people);
-        copyProperties(peopleStudent);
-    }
-
-    private void copyProperties(PeopleStudent peopleStudent) {
-        Long id = this.getId();
-        Date createdAt = this.getCreatedAt();
-        Date updatedAt = this.getUpdateAt();
-        BeanUtils.copyProperties(peopleStudent, this);
-        this.setId(id);
-        this.setCreatedAt(createdAt);
-        this.setUpdateAt(updatedAt);
-    }
-
     public String getEduSystem() {
         return eduSystem;
     }
