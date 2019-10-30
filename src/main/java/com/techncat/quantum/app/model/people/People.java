@@ -9,6 +9,11 @@ public class People {
     public enum Type {
         admin, postdoctoral, researcher, student, teacher, visitor
     }
+
+    public enum IdentityType {
+        ID_card, passport
+    }
+
     public enum Gender {
         male, female, other
     }
@@ -23,12 +28,13 @@ public class People {
     private Date updateAt;
     private Date createdAt;
 
+    private String sid;
     @Enumerated
     private Type type;
     @Enumerated
     private Status status;
     private String name;
-    private String identityType;
+    private IdentityType identityType;
     private String identityNo;
     private String identityPhotoUrl;
     private Date birthDate;
@@ -115,11 +121,19 @@ public class People {
         this.name = name;
     }
 
-    public String getIdentityType() {
+    public String getSid() {
+        return sid;
+    }
+
+    public void setSid(String sid) {
+        this.sid = sid;
+    }
+
+    public IdentityType getIdentityType() {
         return identityType;
     }
 
-    public void setIdentityType(String identityType) {
+    public void setIdentityType(IdentityType identityType) {
         this.identityType = identityType;
     }
 

@@ -43,7 +43,8 @@ public class PeopleVO {
     @ValueType("enumerated")
     private People.Status status;
     private String name;
-    private String identityType;
+    @ValueType("enumerated")
+    private People.IdentityType identityType;
     private String identityNo;
     private String identityPhotoUrl;
 //    @Visible(auths = "role1,role2")
@@ -61,6 +62,9 @@ public class PeopleVO {
     private People.Gender gender;
     @ValueType(value = "object", option_url = "/api/labs/options")
     private Lab lab;
+
+    public PeopleVO() {
+    }
 
     public PeopleVO(People people) {
         BeanUtils.copyProperties(people, this);
@@ -114,11 +118,11 @@ public class PeopleVO {
         this.name = name;
     }
 
-    public String getIdentityType() {
+    public People.IdentityType getIdentityType() {
         return identityType;
     }
 
-    public void setIdentityType(String identityType) {
+    public void setIdentityType(People.IdentityType identityType) {
         this.identityType = identityType;
     }
 

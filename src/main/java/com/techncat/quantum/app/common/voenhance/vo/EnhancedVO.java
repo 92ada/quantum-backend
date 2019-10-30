@@ -9,7 +9,7 @@ public class EnhancedVO {
     private String option_url;
 
     private Boolean require;
-    private Boolean editable;
+    private Boolean editable = true;
 
     public EnhancedVO(String index, String value, String type) {
         this.index = index;
