@@ -2,16 +2,12 @@ package com.techncat.quantum.app.service.people;
 
 import com.techncat.quantum.app.common.voutils.VOUtils;
 import com.techncat.quantum.app.model.people.People;
-import com.techncat.quantum.app.model.people.PeopleAdmin;
 import com.techncat.quantum.app.repository.people.*;
-import com.techncat.quantum.app.service.vo.ResultItem;
 import com.techncat.quantum.app.vos.people.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Service

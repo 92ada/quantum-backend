@@ -21,7 +21,7 @@ public class RepoUtils {
     // for all
     public <T, P> P process(Object baseData, Object extraData, Class<T> modelClassMid, ProcessMid<T> processMid, Class<P> modelClassPost, ProcessPost<T, P> processPost) throws VOUtils.BeanCopyException {
         T modelMid = voUtils.copy(extraData, modelClassMid);
-        P modelPost = voUtils.copy(extraData, modelClassPost);
+        P modelPost = voUtils.copy(baseData, modelClassPost);
         if (processMid != null) {
             modelMid = processMid.process(modelMid);
         }
