@@ -14,7 +14,7 @@ public class ExpInternationalVO extends ExpVO {
     private Date end_date;
 
     @ValueType(value = "object", option_url = "/api/people/options")
-    private String peopleJson;
+    private String people_json;
 
     private String matter;
     private String location;
@@ -66,12 +66,12 @@ public class ExpInternationalVO extends ExpVO {
         this.end_date = end_date;
     }
 
-    public String getPeopleJson() {
-        return peopleJson;
+    public String getpeople_json() {
+        return people_json;
     }
 
-    public void setPeopleJson(String peopleJson) {
-        this.peopleJson = peopleJson;
+    public void setpeople_json(String people_json) {
+        this.people_json = people_json;
     }
 
     public String getMatter() {

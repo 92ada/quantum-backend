@@ -1,5 +1,6 @@
 package com.techncat.quantum.app.common.voenhance;
 
+import com.techncat.quantum.app.common.voenhance.annotation.Editable;
 import com.techncat.quantum.app.common.voenhance.annotation.ValueType;
 import com.techncat.quantum.app.common.voenhance.vo.EnhancedVO;
 import org.springframework.stereotype.Service;
@@ -29,20 +30,26 @@ public class VOEnhanceUtil {
         for (Field field : childFields) {
             field.setAccessible(true);
             TypeResult typeResult = getType(field);
+            Boolean isEditable = getEditable(field);
             String index = field.getName();
             Object value = field.get(object);
             String value_ = null;
             if (null != value) {
                 value_ = value.toString();
             }
+            EnhancedVO vo;
             switch (typeResult.getValue()) {
                 case enumerated:
                     Object[] enumValue = getEnumValues(field);
-                    vos.add(new EnhancedVO(index, value_, typeResult.getValue().name(), enumValue));
+                    vo = new EnhancedVO(index, value_, typeResult.getValue().name(), enumValue);
+                    vo.setEditable(isEditable);
+                    vos.add(vo);
                     break;
                 case object:
                     if (!isEmpty(typeResult.getOptionUrl())) {
-                        vos.add(new EnhancedVO(index, value_, typeResult.getValue().name(), typeResult.getOptionUrl()));
+                        vo = new EnhancedVO(index, value_, typeResult.getValue().name(), typeResult.getOptionUrl());
+                        vo.setEditable(isEditable);
+                        vos.add(vo);
                         break;
                     }
                 case bool:
@@ -50,11 +57,21 @@ public class VOEnhanceUtil {
                 case number:
                 case string:
                 default:
-                    vos.add(new EnhancedVO(index, value_, typeResult.getValue().name()));
+                    vo = new EnhancedVO(index, value_, typeResult.getValue().name());
+                    vo.setEditable(isEditable);
+                    vos.add(vo);
             }
             field.setAccessible(false);
         }
         return vos;
+    }
+
+    private Boolean getEditable(Field field) {
+        if (field.isAnnotationPresent(Editable.class)) {
+            Editable anno = field.getAnnotation(Editable.class);
+            return anno.value();
+        }
+        return true;
     }
 
     private TypeResult getType(Field field) {
@@ -74,6 +91,8 @@ public class VOEnhanceUtil {
                 return new TypeResult("number");
             } else if (type == String.class) {
                 return new TypeResult("string");
+            } else if (type == Boolean.class) {
+                return new TypeResult("bool");
             } else if (type.isEnum()) {
                 return new TypeResult("enumerated");
             } else { // object
@@ -92,7 +111,7 @@ public class VOEnhanceUtil {
     }
 
     private static class TypeResult {
-        static enum Type {
+         enum Type {
             string,
             number,
             bool,
@@ -100,7 +119,8 @@ public class VOEnhanceUtil {
             enumerated,
             object,
             phone,
-            email
+            email,
+            photo
         }
 
         private Type value;

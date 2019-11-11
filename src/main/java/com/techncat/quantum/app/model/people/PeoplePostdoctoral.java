@@ -17,22 +17,22 @@ public class PeoplePostdoctoral {
     @JoinColumn(name = "people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People people;
 
-    private String eduSystem;
+    private String edu_system;
     private String category;
 
     @ManyToOne
     @JoinColumn(name = "advisor_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People advisor;
     @Column(columnDefinition="text")
-    private String advisorJson;
+    private String advisor_json;
     @ManyToOne
     @JoinColumn(name = "vice_advisor_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
-    private People viceAdvisor;
+    private People vice_advisor;
     @Column(columnDefinition="text")
-    private String viceAdvisorJson;
+    private String vice_advisor_json;
 
-    private String midtermAssessmentStatus;
-    private String openingAssessmentStatus;
+    private String midterm_assessment_status;
+    private String opening_assessment_status;
 
     public Date getUpdateAt() {
         return updateAt;
@@ -66,12 +66,12 @@ public class PeoplePostdoctoral {
         this.people = people;
     }
 
-    public String getEduSystem() {
-        return eduSystem;
+    public String getEdu_system() {
+        return edu_system;
     }
 
-    public void setEduSystem(String eduSystem) {
-        this.eduSystem = eduSystem;
+    public void setEdu_system(String edu_system) {
+        this.edu_system = edu_system;
     }
 
     public String getCategory() {
@@ -90,43 +90,43 @@ public class PeoplePostdoctoral {
         this.advisor = advisor;
     }
 
-    public People getViceAdvisor() {
-        return viceAdvisor;
+    public String getAdvisor_json() {
+        return advisor_json;
     }
 
-    public void setViceAdvisor(People viceAdvisor) {
-        this.viceAdvisor = viceAdvisor;
+    public void setAdvisor_json(String advisor_json) {
+        this.advisor_json = advisor_json;
     }
 
-    public String getMidtermAssessmentStatus() {
-        return midtermAssessmentStatus;
+    public People getVice_advisor() {
+        return vice_advisor;
     }
 
-    public void setMidtermAssessmentStatus(String midtermAssessmentStatus) {
-        this.midtermAssessmentStatus = midtermAssessmentStatus;
+    public void setVice_advisor(People vice_advisor) {
+        this.vice_advisor = vice_advisor;
     }
 
-    public String getOpeningAssessmentStatus() {
-        return openingAssessmentStatus;
+    public String getVice_advisor_json() {
+        return vice_advisor_json;
     }
 
-    public void setOpeningAssessmentStatus(String openingAssessmentStatus) {
-        this.openingAssessmentStatus = openingAssessmentStatus;
+    public void setVice_advisor_json(String vice_advisor_json) {
+        this.vice_advisor_json = vice_advisor_json;
     }
 
-    public String getAdvisorJson() {
-        return advisorJson;
+    public String getMidterm_assessment_status() {
+        return midterm_assessment_status;
     }
 
-    public void setAdvisorJson(String advisorJson) {
-        this.advisorJson = advisorJson;
+    public void setMidterm_assessment_status(String midterm_assessment_status) {
+        this.midterm_assessment_status = midterm_assessment_status;
     }
 
-    public String getViceAdvisorJson() {
-        return viceAdvisorJson;
+    public String getOpening_assessment_status() {
+        return opening_assessment_status;
     }
 
-    public void setViceAdvisorJson(String viceAdvisorJson) {
-        this.viceAdvisorJson = viceAdvisorJson;
+    public void setOpening_assessment_status(String opening_assessment_status) {
+        this.opening_assessment_status = opening_assessment_status;
     }
 }

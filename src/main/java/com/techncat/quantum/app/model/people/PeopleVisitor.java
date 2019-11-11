@@ -17,14 +17,14 @@ public class PeopleVisitor {
     @JoinColumn(name = "people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People people;
 
-    private String positionTitle;
+    private String position_title;
 
-    private String salaryCardNo;
+    private String salary_card_no;
     private String bank;
 
     private String citizenship;
     private String institution;
-    private String researchDirection;
+    private String research_direction;
     private Float salary;
     @Column(columnDefinition="text")
     private String remark;
@@ -61,20 +61,20 @@ public class PeopleVisitor {
         this.people = people;
     }
 
-    public String getPositionTitle() {
-        return positionTitle;
+    public String getPosition_title() {
+        return position_title;
     }
 
-    public void setPositionTitle(String positionTitle) {
-        this.positionTitle = positionTitle;
+    public void setPosition_title(String position_title) {
+        this.position_title = position_title;
     }
 
-    public String getSalaryCardNo() {
-        return salaryCardNo;
+    public String getSalary_card_no() {
+        return salary_card_no;
     }
 
-    public void setSalaryCardNo(String salaryCardNo) {
-        this.salaryCardNo = salaryCardNo;
+    public void setSalary_card_no(String salary_card_no) {
+        this.salary_card_no = salary_card_no;
     }
 
     public String getBank() {
@@ -101,12 +101,12 @@ public class PeopleVisitor {
         this.institution = institution;
     }
 
-    public String getResearchDirection() {
-        return researchDirection;
+    public String getResearch_direction() {
+        return research_direction;
     }
 
-    public void setResearchDirection(String researchDirection) {
-        this.researchDirection = researchDirection;
+    public void setResearch_direction(String research_direction) {
+        this.research_direction = research_direction;
     }
 
     public Float getSalary() {

@@ -21,7 +21,7 @@ public class TravelVO {
     private Date end_date;
 
     @ValueType("enumerated")
-    private Travel.IdentityType identity_type;
+    private Travel.identity_type identity_type;
     private String identity_no;
 
     public Long getId() {
@@ -88,11 +88,11 @@ public class TravelVO {
         this.end_date = end_date;
     }
 
-    public Travel.IdentityType getIdentity_type() {
+    public Travel.identity_type getIdentity_type() {
         return identity_type;
     }
 
-    public void setIdentity_type(Travel.IdentityType identity_type) {
+    public void setIdentity_type(Travel.identity_type identity_type) {
         this.identity_type = identity_type;
     }
 

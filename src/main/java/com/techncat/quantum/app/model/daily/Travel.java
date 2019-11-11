@@ -13,7 +13,7 @@ public class Travel {
     public enum Type {
         conference, cooperation
     }
-    public enum IdentityType {
+    public enum identity_type {
         id_card, passport
     }
 
@@ -37,7 +37,7 @@ public class Travel {
     private Date start_date;
     private Date end_date;
 
-    private IdentityType identity_type;
+    private identity_type identity_type;
     private String identity_no;
 
     public Long getId() {
@@ -104,11 +104,11 @@ public class Travel {
         this.end_date = end_date;
     }
 
-    public IdentityType getIdentity_type() {
+    public identity_type getIdentity_type() {
         return identity_type;
     }
 
-    public void setIdentity_type(IdentityType identity_type) {
+    public void setIdentity_type(identity_type identity_type) {
         this.identity_type = identity_type;
     }
 

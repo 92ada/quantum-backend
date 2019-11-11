@@ -19,6 +19,6 @@ public class People_SearchService {
             return peopleRepository.findAll(pageRequest);
         }
         String wordLike = "%" + word + "%";
-        return peopleRepository.findAllByNameLikeOrPhoneLikeOrSidLikeOrEmailLike(wordLike, wordLike, wordLike, wordLike, pageRequest);
+        return peopleRepository.findAllByNameLikeOrSidLikeOrEmailLike(wordLike, wordLike, wordLike, pageRequest);
     }
 }

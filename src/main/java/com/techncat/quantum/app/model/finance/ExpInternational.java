@@ -30,7 +30,7 @@ public class ExpInternational {
     @JoinColumn(name = "exp_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private Set<People> people;
     @Column(columnDefinition="text")
-    private String peopleJson;
+    private String people_json;
 
     private String matter;
     private String location;
@@ -116,11 +116,11 @@ public class ExpInternational {
         this.number_of_people = number_of_people;
     }
 
-    public String getPeopleJson() {
-        return peopleJson;
+    public String getpeople_json() {
+        return people_json;
     }
 
-    public void setPeopleJson(String peopleJson) {
-        this.peopleJson = peopleJson;
+    public void setpeople_json(String people_json) {
+        this.people_json = people_json;
     }
 }

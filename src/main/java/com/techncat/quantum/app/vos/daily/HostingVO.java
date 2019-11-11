@@ -11,7 +11,7 @@ public class HostingVO {
     private Date createdAt;
 
     @ValueType(value = "object", option_url = "/api/people/options")
-    private String inviterJson;
+    private String inviter_json;
     private Date time;
     private String title;
     private String site;

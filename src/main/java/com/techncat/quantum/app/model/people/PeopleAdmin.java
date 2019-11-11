@@ -17,19 +17,19 @@ public class PeopleAdmin {
     @JoinColumn(name = "people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People people;
 
-    private Boolean isUnionMember;
-    private String salaryCardNo;
+    private Boolean is_union_member;
+    private String salary_card_no;
     private String bank;
-    private String contractNo;
-    private Date contractStartDate;
-    private Date contractEndDate;
+    private String contract_no;
+    private Date contract_start_date;
+    private Date contract_end_date;
 
     @Column(precision = 10, scale = 2)
-    private BigDecimal annualSalary;
+    private BigDecimal annual_salary;
     @Column(precision = 10, scale = 2)
-    private BigDecimal monthlySalary;
+    private BigDecimal monthly_salary;
     @Column(precision = 10, scale = 2)
-    private BigDecimal housingSubsidy;
+    private BigDecimal housing_subsidy;
 
     public Long getId() {
         return id;
@@ -63,20 +63,20 @@ public class PeopleAdmin {
         this.people = people;
     }
 
-    public Boolean getUnionMember() {
-        return isUnionMember;
+    public Boolean getIs_union_member() {
+        return is_union_member;
     }
 
-    public void setUnionMember(Boolean unionMember) {
-        isUnionMember = unionMember;
+    public void setIs_union_member(Boolean is_union_member) {
+        this.is_union_member = is_union_member;
     }
 
-    public String getSalaryCardNo() {
-        return salaryCardNo;
+    public String getSalary_card_no() {
+        return salary_card_no;
     }
 
-    public void setSalaryCardNo(String salaryCardNo) {
-        this.salaryCardNo = salaryCardNo;
+    public void setSalary_card_no(String salary_card_no) {
+        this.salary_card_no = salary_card_no;
     }
 
     public String getBank() {
@@ -87,51 +87,51 @@ public class PeopleAdmin {
         this.bank = bank;
     }
 
-    public String getContractNo() {
-        return contractNo;
+    public String getContract_no() {
+        return contract_no;
     }
 
-    public void setContractNo(String contractNo) {
-        this.contractNo = contractNo;
+    public void setContract_no(String contract_no) {
+        this.contract_no = contract_no;
     }
 
-    public Date getContractStartDate() {
-        return contractStartDate;
+    public Date getContract_start_date() {
+        return contract_start_date;
     }
 
-    public void setContractStartDate(Date contractStartDate) {
-        this.contractStartDate = contractStartDate;
+    public void setContract_start_date(Date contract_start_date) {
+        this.contract_start_date = contract_start_date;
     }
 
-    public Date getContractEndDate() {
-        return contractEndDate;
+    public Date getContract_end_date() {
+        return contract_end_date;
     }
 
-    public void setContractEndDate(Date contractEndDate) {
-        this.contractEndDate = contractEndDate;
+    public void setContract_end_date(Date contract_end_date) {
+        this.contract_end_date = contract_end_date;
     }
 
-    public BigDecimal getAnnualSalary() {
-        return annualSalary;
+    public BigDecimal getAnnual_salary() {
+        return annual_salary;
     }
 
-    public void setAnnualSalary(BigDecimal annualSalary) {
-        this.annualSalary = annualSalary;
+    public void setAnnual_salary(BigDecimal annual_salary) {
+        this.annual_salary = annual_salary;
     }
 
-    public BigDecimal getMonthlySalary() {
-        return monthlySalary;
+    public BigDecimal getMonthly_salary() {
+        return monthly_salary;
     }
 
-    public void setMonthlySalary(BigDecimal monthlySalary) {
-        this.monthlySalary = monthlySalary;
+    public void setMonthly_salary(BigDecimal monthly_salary) {
+        this.monthly_salary = monthly_salary;
     }
 
-    public BigDecimal getHousingSubsidy() {
-        return housingSubsidy;
+    public BigDecimal getHousing_subsidy() {
+        return housing_subsidy;
     }
 
-    public void setHousingSubsidy(BigDecimal housingSubsidy) {
-        this.housingSubsidy = housingSubsidy;
+    public void setHousing_subsidy(BigDecimal housing_subsidy) {
+        this.housing_subsidy = housing_subsidy;
     }
 }

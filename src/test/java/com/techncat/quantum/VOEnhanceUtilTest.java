@@ -14,7 +14,7 @@
 //    public static void main(String[] args) throws IllegalAccessException {
 //        VOEnhanceUtil util = new VOEnhanceUtil();
 //        People people = new People();
-//        people.setBirthDate(new Date());
+//        people.setbirth_date(new Date());
 //        people.setEmail("11510000@mail.sustech.edu.cn");
 //        people.setGender(People.Gender.female);
 //        people.setId(001l);

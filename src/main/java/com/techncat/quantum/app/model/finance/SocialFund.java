@@ -21,7 +21,7 @@ public class SocialFund {
     @JoinColumn(name = "people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People people;
     @Column(columnDefinition="text")
-    private String peopleJson;
+    private String people_json;
 
     private String fund_account_no;
     private String fund_source;
@@ -143,11 +143,11 @@ public class SocialFund {
         this.month = month;
     }
 
-    public String getPeopleJson() {
-        return peopleJson;
+    public String getpeople_json() {
+        return people_json;
     }
 
-    public void setPeopleJson(String peopleJson) {
-        this.peopleJson = peopleJson;
+    public void setpeople_json(String people_json) {
+        this.people_json = people_json;
     }
 }

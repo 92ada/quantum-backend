@@ -23,7 +23,7 @@ public class VisitVO {
     @ValueType(value = "object", option_url = "/api/people/options")
     private String receptionistJson;
     @ValueType("enumerated")
-    private Visit.IdentityType identity_type;
+    private Visit.identity_type identity_type;
     private String identity_no;
     private String phone_no;
     private String email;
@@ -104,11 +104,11 @@ public class VisitVO {
         this.receptionistJson = receptionistJson;
     }
 
-    public Visit.IdentityType getIdentity_type() {
+    public Visit.identity_type getIdentity_type() {
         return identity_type;
     }
 
-    public void setIdentity_type(Visit.IdentityType identity_type) {
+    public void setIdentity_type(Visit.identity_type identity_type) {
         this.identity_type = identity_type;
     }
 

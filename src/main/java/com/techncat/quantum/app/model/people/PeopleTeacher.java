@@ -17,27 +17,27 @@ public class PeopleTeacher {
     @JoinColumn(name = "people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People people;
 
-    private String positionTitle;
+    private String position_title;
     private String job;
 
     @Column(columnDefinition="text")
-    private String socialJob;
+    private String social_job;
     @Column(columnDefinition="text")
     private String achievements;
 
-    private Boolean isPhdMentor;
-    private Boolean isMasterMentor;
-    private Boolean isUnionMember;
+    private Boolean is_phd_mentor;
+    private Boolean is_master_mentor;
+    private Boolean is_union_member;
 
-    private String salaryCardNo;
+    private String salary_card_no;
     private String bank;
-    private String contractNo;
-    private Date contractStartDate;
-    private Date contractEndDate;
+    private String contract_no;
+    private Date contract_start_date;
+    private Date contract_end_date;
 
-    private Float annualSalary;
-    private Float monthlySalary;
-    private Float housingSubsidy;
+    private Float annual_salary;
+    private Float monthly_salary;
+    private Float housing_subsidy;
 
     public Date getUpdateAt() {
         return updateAt;
@@ -71,12 +71,12 @@ public class PeopleTeacher {
         this.people = people;
     }
 
-    public String getPositionTitle() {
-        return positionTitle;
+    public String getPosition_title() {
+        return position_title;
     }
 
-    public void setPositionTitle(String positionTitle) {
-        this.positionTitle = positionTitle;
+    public void setPosition_title(String position_title) {
+        this.position_title = position_title;
     }
 
     public String getJob() {
@@ -87,12 +87,12 @@ public class PeopleTeacher {
         this.job = job;
     }
 
-    public String getSocialJob() {
-        return socialJob;
+    public String getSocial_job() {
+        return social_job;
     }
 
-    public void setSocialJob(String socialJob) {
-        this.socialJob = socialJob;
+    public void setSocial_job(String social_job) {
+        this.social_job = social_job;
     }
 
     public String getAchievements() {
@@ -103,36 +103,36 @@ public class PeopleTeacher {
         this.achievements = achievements;
     }
 
-    public Boolean getPhdMentor() {
-        return isPhdMentor;
+    public Boolean getIs_phd_mentor() {
+        return is_phd_mentor;
     }
 
-    public void setPhdMentor(Boolean phdMentor) {
-        isPhdMentor = phdMentor;
+    public void setIs_phd_mentor(Boolean is_phd_mentor) {
+        this.is_phd_mentor = is_phd_mentor;
     }
 
-    public Boolean getMasterMentor() {
-        return isMasterMentor;
+    public Boolean getIs_master_mentor() {
+        return is_master_mentor;
     }
 
-    public void setMasterMentor(Boolean masterMentor) {
-        isMasterMentor = masterMentor;
+    public void setIs_master_mentor(Boolean is_master_mentor) {
+        this.is_master_mentor = is_master_mentor;
     }
 
-    public Boolean getUnionMember() {
-        return isUnionMember;
+    public Boolean getIs_union_member() {
+        return is_union_member;
     }
 
-    public void setUnionMember(Boolean unionMember) {
-        isUnionMember = unionMember;
+    public void setIs_union_member(Boolean is_union_member) {
+        this.is_union_member = is_union_member;
     }
 
-    public String getSalaryCardNo() {
-        return salaryCardNo;
+    public String getSalary_card_no() {
+        return salary_card_no;
     }
 
-    public void setSalaryCardNo(String salaryCardNo) {
-        this.salaryCardNo = salaryCardNo;
+    public void setSalary_card_no(String salary_card_no) {
+        this.salary_card_no = salary_card_no;
     }
 
     public String getBank() {
@@ -143,51 +143,51 @@ public class PeopleTeacher {
         this.bank = bank;
     }
 
-    public String getContractNo() {
-        return contractNo;
+    public String getContract_no() {
+        return contract_no;
     }
 
-    public void setContractNo(String contractNo) {
-        this.contractNo = contractNo;
+    public void setContract_no(String contract_no) {
+        this.contract_no = contract_no;
     }
 
-    public Date getContractStartDate() {
-        return contractStartDate;
+    public Date getContract_start_date() {
+        return contract_start_date;
     }
 
-    public void setContractStartDate(Date contractStartDate) {
-        this.contractStartDate = contractStartDate;
+    public void setContract_start_date(Date contract_start_date) {
+        this.contract_start_date = contract_start_date;
     }
 
-    public Date getContractEndDate() {
-        return contractEndDate;
+    public Date getContract_end_date() {
+        return contract_end_date;
     }
 
-    public void setContractEndDate(Date contractEndDate) {
-        this.contractEndDate = contractEndDate;
+    public void setContract_end_date(Date contract_end_date) {
+        this.contract_end_date = contract_end_date;
     }
 
-    public Float getAnnualSalary() {
-        return annualSalary;
+    public Float getAnnual_salary() {
+        return annual_salary;
     }
 
-    public void setAnnualSalary(Float annualSalary) {
-        this.annualSalary = annualSalary;
+    public void setAnnual_salary(Float annual_salary) {
+        this.annual_salary = annual_salary;
     }
 
-    public Float getMonthlySalary() {
-        return monthlySalary;
+    public Float getMonthly_salary() {
+        return monthly_salary;
     }
 
-    public void setMonthlySalary(Float monthlySalary) {
-        this.monthlySalary = monthlySalary;
+    public void setMonthly_salary(Float monthly_salary) {
+        this.monthly_salary = monthly_salary;
     }
 
-    public Float getHousingSubsidy() {
-        return housingSubsidy;
+    public Float getHousing_subsidy() {
+        return housing_subsidy;
     }
 
-    public void setHousingSubsidy(Float housingSubsidy) {
-        this.housingSubsidy = housingSubsidy;
+    public void setHousing_subsidy(Float housing_subsidy) {
+        this.housing_subsidy = housing_subsidy;
     }
 }

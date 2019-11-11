@@ -13,7 +13,7 @@ public class Visit {
     public enum Status {
         unsubmitted, in_progress, approved
     }
-    public enum IdentityType {
+    public enum identity_type {
         id_card, passport
     }
 
@@ -34,7 +34,7 @@ public class Visit {
     private People receptionist;
     @Column(columnDefinition="text")
     private String receptionistJson; // {name: xxx, sid: xxx, id: xxx}
-    private IdentityType identity_type;
+    private identity_type identity_type;
     private String identity_no;
     private String phone_no;
     private String email;
@@ -118,11 +118,11 @@ public class Visit {
         this.receptionist = receptionist;
     }
 
-    public IdentityType getIdentity_type() {
+    public identity_type getIdentity_type() {
         return identity_type;
     }
 
-    public void setIdentity_type(IdentityType identity_type) {
+    public void setIdentity_type(identity_type identity_type) {
         this.identity_type = identity_type;
     }
 

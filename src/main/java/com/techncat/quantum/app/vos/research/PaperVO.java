@@ -20,7 +20,7 @@ public class PaperVO {
     private Integer sustechInstitutionRank;
 
     @ValueType(value = "object", option_url = "/api/people/options")
-    private String peopleJson;
+    private String people_json;
 
     private Integer authorRank;
     private Boolean isInternational;
@@ -112,12 +112,12 @@ public class PaperVO {
         this.sustechInstitutionRank = sustechInstitutionRank;
     }
 
-    public String getPeopleJson() {
-        return peopleJson;
+    public String getpeople_json() {
+        return people_json;
     }
 
-    public void setPeopleJson(String peopleJson) {
-        this.peopleJson = peopleJson;
+    public void setpeople_json(String people_json) {
+        this.people_json = people_json;
     }
 
     public Integer getAuthorRank() {

@@ -18,9 +18,9 @@ public class Achievement {
     @JoinColumn(name = "people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private Set<People> people;
     @Column(columnDefinition="text")
-    private String peopleJson;
+    private String people_json;
 
-    private String achievementType;
+    private String achievement_type;
 
     public Long getId() {
         return id;
@@ -54,19 +54,19 @@ public class Achievement {
         this.people = people;
     }
 
-    public String getAchievementType() {
-        return achievementType;
+    public String getPeople_json() {
+        return people_json;
     }
 
-    public void setAchievementType(String achievementType) {
-        this.achievementType = achievementType;
+    public void setPeople_json(String people_json) {
+        this.people_json = people_json;
     }
 
-    public String getPeopleJson() {
-        return peopleJson;
+    public String getAchievement_type() {
+        return achievement_type;
     }
 
-    public void setPeopleJson(String peopleJson) {
-        this.peopleJson = peopleJson;
+    public void setAchievement_type(String achievement_type) {
+        this.achievement_type = achievement_type;
     }
 }

@@ -19,12 +19,12 @@ public class FamilyInfo {
 
     private String name;
     private String relationship;
-    private String identityType;
-    private String identityNo;
-    private Date birthDate;
+    private String identity_type;
+    private String identity_no;
+    private Date birth_date;
     private String phone;
     private String email;
-    private String politicalStatus;
+    private String political_status;
     private String remark;
 
     public Long getId() {
@@ -75,28 +75,28 @@ public class FamilyInfo {
         this.relationship = relationship;
     }
 
-    public String getIdentityType() {
-        return identityType;
+    public String getIdentity_type() {
+        return identity_type;
     }
 
-    public void setIdentityType(String identityType) {
-        this.identityType = identityType;
+    public void setIdentity_type(String identity_type) {
+        this.identity_type = identity_type;
     }
 
-    public String getIdentityNo() {
-        return identityNo;
+    public String getIdentity_no() {
+        return identity_no;
     }
 
-    public void setIdentityNo(String identityNo) {
-        this.identityNo = identityNo;
+    public void setIdentity_no(String identity_no) {
+        this.identity_no = identity_no;
     }
 
-    public Date getBirthDate() {
-        return birthDate;
+    public Date getBirth_date() {
+        return birth_date;
     }
 
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
+    public void setBirth_date(Date birth_date) {
+        this.birth_date = birth_date;
     }
 
     public String getPhone() {
@@ -115,12 +115,12 @@ public class FamilyInfo {
         this.email = email;
     }
 
-    public String getPoliticalStatus() {
-        return politicalStatus;
+    public String getPolitical_status() {
+        return political_status;
     }
 
-    public void setPoliticalStatus(String politicalStatus) {
-        this.politicalStatus = politicalStatus;
+    public void setPolitical_status(String political_status) {
+        this.political_status = political_status;
     }
 
     public String getRemark() {

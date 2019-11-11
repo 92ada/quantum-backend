@@ -35,18 +35,20 @@ public class People {
     @Enumerated
     private Status status = Status.normal;
     private String name;
-    private IdentityType identityType;
-    private String identityNo;
-    private String identityPhotoUrl;
-    private Date birthDate;
-    private String phone;
+    private IdentityType identity_type;
+    private String identity_no;
+    private String identity_photo_url;
+    private Date birth_date;
+    private String office_phone;
+    private String mobile_phone;
+    private String office_address;
     private String email;
-    private String politicalStatus;
+    private String political_status;
     @Column(columnDefinition = "text")
     private String description;
-    private String emergencyContact;
-    private Date entryDate;
-    private Date departureDate;
+    private String emergency_contact;
+    private Date entry_date;
+    private Date departure_date;
     @Enumerated
     private Gender gender;
 
@@ -73,7 +75,6 @@ public class People {
     @JoinColumn(name = "people_visitor_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private PeopleVisitor peopleVisitor;
 
-
     public Long getId() {
         return id;
     }
@@ -96,6 +97,14 @@ public class People {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getSid() {
+        return sid;
+    }
+
+    public void setSid(String sid) {
+        this.sid = sid;
     }
 
     public Type getType() {
@@ -122,52 +131,60 @@ public class People {
         this.name = name;
     }
 
-    public String getSid() {
-        return sid;
+    public IdentityType getIdentity_type() {
+        return identity_type;
     }
 
-    public void setSid(String sid) {
-        this.sid = sid;
+    public void setIdentity_type(IdentityType identity_type) {
+        this.identity_type = identity_type;
     }
 
-    public IdentityType getIdentityType() {
-        return identityType;
+    public String getOffice_phone() {
+        return office_phone;
     }
 
-    public void setIdentityType(IdentityType identityType) {
-        this.identityType = identityType;
+    public void setOffice_phone(String office_phone) {
+        this.office_phone = office_phone;
     }
 
-    public String getIdentityNo() {
-        return identityNo;
+    public String getMobile_phone() {
+        return mobile_phone;
     }
 
-    public void setIdentityNo(String identityNo) {
-        this.identityNo = identityNo;
+    public void setMobile_phone(String mobile_phone) {
+        this.mobile_phone = mobile_phone;
     }
 
-    public String getIdentityPhotoUrl() {
-        return identityPhotoUrl;
+    public String getOffice_address() {
+        return office_address;
     }
 
-    public void setIdentityPhotoUrl(String identityPhotoUrl) {
-        this.identityPhotoUrl = identityPhotoUrl;
+    public void setOffice_address(String office_address) {
+        this.office_address = office_address;
     }
 
-    public Date getBirthDate() {
-        return birthDate;
+    public String getIdentity_no() {
+        return identity_no;
     }
 
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
+    public void setIdentity_no(String identity_no) {
+        this.identity_no = identity_no;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getIdentity_photo_url() {
+        return identity_photo_url;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setIdentity_photo_url(String identity_photo_url) {
+        this.identity_photo_url = identity_photo_url;
+    }
+
+    public Date getBirth_date() {
+        return birth_date;
+    }
+
+    public void setBirth_date(Date birth_date) {
+        this.birth_date = birth_date;
     }
 
     public String getEmail() {
@@ -178,12 +195,12 @@ public class People {
         this.email = email;
     }
 
-    public String getPoliticalStatus() {
-        return politicalStatus;
+    public String getPolitical_status() {
+        return political_status;
     }
 
-    public void setPoliticalStatus(String politicalStatus) {
-        this.politicalStatus = politicalStatus;
+    public void setPolitical_status(String political_status) {
+        this.political_status = political_status;
     }
 
     public String getDescription() {
@@ -194,28 +211,28 @@ public class People {
         this.description = description;
     }
 
-    public String getEmergencyContact() {
-        return emergencyContact;
+    public String getEmergency_contact() {
+        return emergency_contact;
     }
 
-    public void setEmergencyContact(String emergencyContact) {
-        this.emergencyContact = emergencyContact;
+    public void setEmergency_contact(String emergency_contact) {
+        this.emergency_contact = emergency_contact;
     }
 
-    public Date getEntryDate() {
-        return entryDate;
+    public Date getEntry_date() {
+        return entry_date;
     }
 
-    public void setEntryDate(Date entryDate) {
-        this.entryDate = entryDate;
+    public void setEntry_date(Date entry_date) {
+        this.entry_date = entry_date;
     }
 
-    public Date getDepartureDate() {
-        return departureDate;
+    public Date getDeparture_date() {
+        return departure_date;
     }
 
-    public void setDepartureDate(Date departureDate) {
-        this.departureDate = departureDate;
+    public void setDeparture_date(Date departure_date) {
+        this.departure_date = departure_date;
     }
 
     public Gender getGender() {

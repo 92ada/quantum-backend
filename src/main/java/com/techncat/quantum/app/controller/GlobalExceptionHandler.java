@@ -18,10 +18,10 @@ public class GlobalExceptionHandler {
         return toJsonResponse(HttpStatus.NOT_FOUND, exception.getMessage());
     }
 
-    @ExceptionHandler(value = java.lang.IllegalArgumentException.class)
-    public ResponseEntity<Object> illegalArgumentException(java.lang.IllegalArgumentException exception) {
-        return toJsonResponse(HttpStatus.BAD_REQUEST, exception.getMessage());
-    }
+//    @ExceptionHandler(value = java.lang.IllegalArgumentException.class)
+//    public ResponseEntity<Object> illegalArgumentException(java.lang.IllegalArgumentException exception) {
+//        return toJsonResponse(HttpStatus.BAD_REQUEST, exception.getMessage());
+//    }
 
     @ExceptionHandler(value = VOUtils.BeanCopyException.class)
     public ResponseEntity<Object> beanCopyException(VOUtils.BeanCopyException exception) {

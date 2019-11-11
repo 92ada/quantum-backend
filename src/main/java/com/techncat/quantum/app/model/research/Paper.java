@@ -28,7 +28,7 @@ public class Paper {
     @JoinColumn(name = "author_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private List<People> sustechPeople;
     @Column(columnDefinition="text")
-    private String peopleJson; // [{institution: xxx, people: []}, {}]
+    private String people_json; // [{institution: xxx, people: []}, {}]
 
     private Integer authorRank;
     private Boolean isInternational;
@@ -128,12 +128,12 @@ public class Paper {
         this.sustechPeople = sustechPeople;
     }
 
-    public String getPeopleJson() {
-        return peopleJson;
+    public String getpeople_json() {
+        return people_json;
     }
 
-    public void setPeopleJson(String peopleJson) {
-        this.peopleJson = peopleJson;
+    public void setpeople_json(String people_json) {
+        this.people_json = people_json;
     }
 
     public Integer getAuthorRank() {

@@ -12,7 +12,7 @@ public class ReportVO {
     private Date createdAt;
 
     @ValueType(value = "object", option_url = "/api/people/options")
-    private String inviterJson;
+    private String inviter_json;
 
     private Date time;
     private String title;
@@ -44,12 +44,12 @@ public class ReportVO {
         this.createdAt = createdAt;
     }
 
-    public String getInviterJson() {
-        return inviterJson;
+    public String getinviter_json() {
+        return inviter_json;
     }
 
-    public void setInviterJson(String inviterJson) {
-        this.inviterJson = inviterJson;
+    public void setinviter_json(String inviter_json) {
+        this.inviter_json = inviter_json;
     }
 
     public Date getTime() {
