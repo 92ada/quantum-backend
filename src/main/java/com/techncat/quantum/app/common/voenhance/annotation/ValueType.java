@@ -10,4 +10,5 @@ import java.lang.annotation.Target;
 public @interface ValueType {
     String value() default "string";
     String option_url() default "";
+    String field_name() default "";
 }
