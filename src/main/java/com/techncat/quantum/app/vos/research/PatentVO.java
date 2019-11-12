@@ -12,7 +12,7 @@ public class PatentVO {
     private Long id;
 
     @ValueType(value = "object", option_url = "/api/people/options")
-    private String applicant_json;
+    private String applicantJson;
     private String title;
     @ValueType("enumerated")
     private Patent.Type type;

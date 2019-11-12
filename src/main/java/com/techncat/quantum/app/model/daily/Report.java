@@ -20,7 +20,7 @@ public class Report {
     @JoinColumn(name = "inviter_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People inviter;
     @Column(columnDefinition="text")
-    private String inviter_json;
+    private String inviterJson;
 
     private Date time;
     private String title;
@@ -100,11 +100,11 @@ public class Report {
         this.location = location;
     }
 
-    public String getinviter_json() {
-        return inviter_json;
+    public String getInviterJson() {
+        return inviterJson;
     }
 
-    public void setinviter_json(String inviter_json) {
-        this.inviter_json = inviter_json;
+    public void setInviterJson(String inviterJson) {
+        this.inviterJson = inviterJson;
     }
 }

@@ -14,9 +14,9 @@ public class PeopleStudentVO {
     private String edu_system;
     private String category;
     @ValueType(value = "object", option_url = "/api/people/options")
-    private String advisor_json;
+    private String advisorJson;
     @ValueType(value = "object", option_url = "/api/people/options")
-    private String vice_advisor_json;
+    private String viceAdvisorJson;
     private String midterm_assessment_status;
     private String opening_assessment_status;
 }

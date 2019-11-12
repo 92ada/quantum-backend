@@ -12,7 +12,7 @@ public class RewardVO {
     private Long id;
 
     @ValueType(value = "object", option_url = "/api/people/options")
-    private String rewarded_json;
+    private String rewardedJson;
 
     private String title;
     private String issue_institution;

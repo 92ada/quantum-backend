@@ -21,7 +21,7 @@ public class SocialInsurance {
     @JoinColumn(name = "people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People people;
     @Column(columnDefinition="text")
-    private String people_json;
+    private String peopleJson;
 
     @Column(precision=10, scale=2)
     private BigDecimal receivable_total;
@@ -216,11 +216,11 @@ public class SocialInsurance {
         this.fertility_by_institution = fertility_by_institution;
     }
 
-    public String getpeople_json() {
-        return people_json;
+    public String getPeopleJson() {
+        return peopleJson;
     }
 
-    public void setpeople_json(String people_json) {
-        this.people_json = people_json;
+    public void setPeopleJson(String peopleJson) {
+        this.peopleJson = peopleJson;
     }
 }

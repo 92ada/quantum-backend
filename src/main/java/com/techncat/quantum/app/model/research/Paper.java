@@ -17,28 +17,28 @@ public class Paper {
     private Date createdAt;
 
     private String title;
-    private String journalConferenceTitle;
-    private Date publicationDate;
-    private String volumeNo;
-    private String documentNo;
-    private Boolean isUnderSustech;
-    private Integer sustechInstitutionRank;
+    private String journal_conference_title;
+    private Date publication_date;
+    private String volume_no;
+    private String document_no;
+    private Boolean is_under_sustech;
+    private Integer sustech_institution_rank;
 
     @ManyToMany
     @JoinColumn(name = "author_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
-    private List<People> sustechPeople;
+    private List<People> sustech_people;
     @Column(columnDefinition="text")
-    private String people_json; // [{institution: xxx, people: []}, {}]
+    private String peopleJson; // [{institution: xxx, people: []}, {}]
 
-    private Integer authorRank;
-    private Boolean isInternational;
-    private Boolean isNatureIndex;
-    private Boolean isConferencePaper;
-    private String journalAcceptanceType;
-    private String jcrPartition;
-    private Float impactFactor;
+    private Integer author_rank;
+    private Boolean is_international;
+    private Boolean is_nature_index;
+    private Boolean is_conference_paper;
+    private String journal_acceptance_type;
+    private String jcr_partition;
+    private Float impact_factor;
     @Column(columnDefinition="text")
-    private String articleThanks;
+    private String article_thanks;
 
     public Long getId() {
         return id;
@@ -72,131 +72,131 @@ public class Paper {
         this.title = title;
     }
 
-    public String getJournalConferenceTitle() {
-        return journalConferenceTitle;
+    public String getJournal_conference_title() {
+        return journal_conference_title;
     }
 
-    public void setJournalConferenceTitle(String journalConferenceTitle) {
-        this.journalConferenceTitle = journalConferenceTitle;
+    public void setJournal_conference_title(String journal_conference_title) {
+        this.journal_conference_title = journal_conference_title;
     }
 
-    public Date getPublicationDate() {
-        return publicationDate;
+    public Date getPublication_date() {
+        return publication_date;
     }
 
-    public void setPublicationDate(Date publicationDate) {
-        this.publicationDate = publicationDate;
+    public void setPublication_date(Date publication_date) {
+        this.publication_date = publication_date;
     }
 
-    public String getVolumeNo() {
-        return volumeNo;
+    public String getVolume_no() {
+        return volume_no;
     }
 
-    public void setVolumeNo(String volumeNo) {
-        this.volumeNo = volumeNo;
+    public void setVolume_no(String volume_no) {
+        this.volume_no = volume_no;
     }
 
-    public String getDocumentNo() {
-        return documentNo;
+    public String getDocument_no() {
+        return document_no;
     }
 
-    public void setDocumentNo(String documentNo) {
-        this.documentNo = documentNo;
+    public void setDocument_no(String document_no) {
+        this.document_no = document_no;
     }
 
-    public Boolean getUnderSustech() {
-        return isUnderSustech;
+    public Boolean getIs_under_sustech() {
+        return is_under_sustech;
     }
 
-    public void setUnderSustech(Boolean underSustech) {
-        isUnderSustech = underSustech;
+    public void setIs_under_sustech(Boolean is_under_sustech) {
+        this.is_under_sustech = is_under_sustech;
     }
 
-    public Integer getSustechInstitutionRank() {
-        return sustechInstitutionRank;
+    public Integer getSustech_institution_rank() {
+        return sustech_institution_rank;
     }
 
-    public void setSustechInstitutionRank(Integer sustechInstitutionRank) {
-        this.sustechInstitutionRank = sustechInstitutionRank;
+    public void setSustech_institution_rank(Integer sustech_institution_rank) {
+        this.sustech_institution_rank = sustech_institution_rank;
     }
 
-    public List<People> getSustechPeople() {
-        return sustechPeople;
+    public List<People> getSustech_people() {
+        return sustech_people;
     }
 
-    public void setSustechPeople(List<People> sustechPeople) {
-        this.sustechPeople = sustechPeople;
+    public void setSustech_people(List<People> sustech_people) {
+        this.sustech_people = sustech_people;
     }
 
-    public String getpeople_json() {
-        return people_json;
+    public String getPeopleJson() {
+        return peopleJson;
     }
 
-    public void setpeople_json(String people_json) {
-        this.people_json = people_json;
+    public void setPeopleJson(String peopleJson) {
+        this.peopleJson = peopleJson;
     }
 
-    public Integer getAuthorRank() {
-        return authorRank;
+    public Integer getAuthor_rank() {
+        return author_rank;
     }
 
-    public void setAuthorRank(Integer authorRank) {
-        this.authorRank = authorRank;
+    public void setAuthor_rank(Integer author_rank) {
+        this.author_rank = author_rank;
     }
 
-    public Boolean getInternational() {
-        return isInternational;
+    public Boolean getIs_international() {
+        return is_international;
     }
 
-    public void setInternational(Boolean international) {
-        isInternational = international;
+    public void setIs_international(Boolean is_international) {
+        this.is_international = is_international;
     }
 
-    public Boolean getNatureIndex() {
-        return isNatureIndex;
+    public Boolean getIs_nature_index() {
+        return is_nature_index;
     }
 
-    public void setNatureIndex(Boolean natureIndex) {
-        isNatureIndex = natureIndex;
+    public void setIs_nature_index(Boolean is_nature_index) {
+        this.is_nature_index = is_nature_index;
     }
 
-    public Boolean getConferencePaper() {
-        return isConferencePaper;
+    public Boolean getIs_conference_paper() {
+        return is_conference_paper;
     }
 
-    public void setConferencePaper(Boolean conferencePaper) {
-        isConferencePaper = conferencePaper;
+    public void setIs_conference_paper(Boolean is_conference_paper) {
+        this.is_conference_paper = is_conference_paper;
     }
 
-    public String getJournalAcceptanceType() {
-        return journalAcceptanceType;
+    public String getJournal_acceptance_type() {
+        return journal_acceptance_type;
     }
 
-    public void setJournalAcceptanceType(String journalAcceptanceType) {
-        this.journalAcceptanceType = journalAcceptanceType;
+    public void setJournal_acceptance_type(String journal_acceptance_type) {
+        this.journal_acceptance_type = journal_acceptance_type;
     }
 
-    public String getJcrPartition() {
-        return jcrPartition;
+    public String getJcr_partition() {
+        return jcr_partition;
     }
 
-    public void setJcrPartition(String jcrPartition) {
-        this.jcrPartition = jcrPartition;
+    public void setJcr_partition(String jcr_partition) {
+        this.jcr_partition = jcr_partition;
     }
 
-    public Float getImpactFactor() {
-        return impactFactor;
+    public Float getImpact_factor() {
+        return impact_factor;
     }
 
-    public void setImpactFactor(Float impactFactor) {
-        this.impactFactor = impactFactor;
+    public void setImpact_factor(Float impact_factor) {
+        this.impact_factor = impact_factor;
     }
 
-    public String getArticleThanks() {
-        return articleThanks;
+    public String getArticle_thanks() {
+        return article_thanks;
     }
 
-    public void setArticleThanks(String articleThanks) {
-        this.articleThanks = articleThanks;
+    public void setArticle_thanks(String article_thanks) {
+        this.article_thanks = article_thanks;
     }
 }

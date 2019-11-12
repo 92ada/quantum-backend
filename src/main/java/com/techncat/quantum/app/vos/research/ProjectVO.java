@@ -19,7 +19,7 @@ public class ProjectVO {
     private Project.Category category;
 
     @ValueType(value = "object", option_url = "/api/people/options") // TODO
-    private String leader_json;
+    private String leaderJson;
 
     private Date start_date;
     private Date end_date;
@@ -28,5 +28,5 @@ public class ProjectVO {
     private BigDecimal approved_funds;
 
     @ValueType(value = "object", option_url = "/api/people/options") // TODO
-    private String members_json;
+    private String membersJson;
 }

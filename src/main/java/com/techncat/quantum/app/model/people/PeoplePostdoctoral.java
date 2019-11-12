@@ -24,12 +24,12 @@ public class PeoplePostdoctoral {
     @JoinColumn(name = "advisor_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People advisor;
     @Column(columnDefinition="text")
-    private String advisor_json;
+    private String advisorJson;
     @ManyToOne
     @JoinColumn(name = "vice_advisor_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People vice_advisor;
     @Column(columnDefinition="text")
-    private String vice_advisor_json;
+    private String viceAdvisorJson;
 
     private String midterm_assessment_status;
     private String opening_assessment_status;
@@ -90,12 +90,12 @@ public class PeoplePostdoctoral {
         this.advisor = advisor;
     }
 
-    public String getAdvisor_json() {
-        return advisor_json;
+    public String getAdvisorJson() {
+        return advisorJson;
     }
 
-    public void setAdvisor_json(String advisor_json) {
-        this.advisor_json = advisor_json;
+    public void setAdvisorJson(String advisorJson) {
+        this.advisorJson = advisorJson;
     }
 
     public People getVice_advisor() {
@@ -106,12 +106,12 @@ public class PeoplePostdoctoral {
         this.vice_advisor = vice_advisor;
     }
 
-    public String getVice_advisor_json() {
-        return vice_advisor_json;
+    public String getViceAdvisorJson() {
+        return viceAdvisorJson;
     }
 
-    public void setVice_advisor_json(String vice_advisor_json) {
-        this.vice_advisor_json = vice_advisor_json;
+    public void setViceAdvisorJson(String viceAdvisorJson) {
+        this.viceAdvisorJson = viceAdvisorJson;
     }
 
     public String getMidterm_assessment_status() {
