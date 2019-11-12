@@ -25,7 +25,7 @@ public class PeopleSearcher {
     public Page<People> search(@RequestParam(value = "word", required = false) String word,
                                @RequestParam(value = "type", required = false) People.Type type,
                                @RequestParam(value = "page", defaultValue = "0") Integer page,
-                               @RequestParam(value = "size", defaultValue = "10") Integer size,
+                               @RequestParam(value = "limit", defaultValue = "10") Integer size,
                                @RequestParam(value = "order", defaultValue = "desc") String order,
                                @RequestParam(value = "by", defaultValue = "createdAt") String byProp) {
         Sort sort = null;
@@ -34,7 +34,7 @@ public class PeopleSearcher {
         } else {
             sort = Sort.by(byProp).ascending();
         }
-        PageRequest request = PageRequest.of(page, size, sort);
+        PageRequest request = PageRequest.of(page - 1, size, sort);
         if (type == null) {
             return people_searchService.search(word, request);
         } else {
