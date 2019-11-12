@@ -36,7 +36,8 @@ public class Stock {
     private String status;
     private Integer used_years;
     private Integer min_usage_years;
-    private String inbound_date;
+    @Temporal(TemporalType.DATE)
+    private Date inbound_date;
     @ManyToOne
     @JoinColumn(name = "admin_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People admin;
@@ -173,11 +174,11 @@ public class Stock {
         this.min_usage_years = min_usage_years;
     }
 
-    public String getInbound_date() {
+    public Date getInbound_date() {
         return inbound_date;
     }
 
-    public void setInbound_date(String inbound_date) {
+    public void setInbound_date(Date inbound_date) {
         this.inbound_date = inbound_date;
     }
 

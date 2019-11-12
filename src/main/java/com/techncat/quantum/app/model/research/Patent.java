@@ -32,7 +32,9 @@ public class Patent {
     private Type type;
     @Enumerated
     private Status status;
+    @Temporal(TemporalType.DATE)
     private Date apply_date;
+    @Temporal(TemporalType.DATE)
     private Date approve_date;
     private String apply_no;
     private String patent_no;

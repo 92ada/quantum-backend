@@ -34,7 +34,9 @@ public class Travel {
     private Type type;
     @Column(precision=10, scale=2)
     private BigDecimal budget;
+    @Temporal(TemporalType.DATE)
     private Date start_date;
+    @Temporal(TemporalType.DATE)
     private Date end_date;
 
     private identity_type identity_type;

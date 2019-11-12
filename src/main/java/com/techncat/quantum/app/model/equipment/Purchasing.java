@@ -23,6 +23,7 @@ public class Purchasing {
     private Boolean is_imported;
     private String purchasing_method;
     private String argument_method;
+    @Temporal(TemporalType.DATE)
     private Date request_date;
 
     @ManyToOne
@@ -44,6 +45,7 @@ public class Purchasing {
     private BigDecimal contract_amount;
     @Column(precision=10, scale=2)
     private BigDecimal paid_amount;
+    @Temporal(TemporalType.DATE)
     private Date contract_date;
     private String placement_site;
     private String funding_source;

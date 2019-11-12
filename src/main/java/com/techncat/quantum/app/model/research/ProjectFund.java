@@ -18,6 +18,7 @@ public class ProjectFund {
     @JoinColumn(name = "project_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private Project project;
 
+    @Temporal(TemporalType.DATE)
     private Date arrival_date;
     @Column(precision = 10, scale = 2)
     private BigDecimal amount;

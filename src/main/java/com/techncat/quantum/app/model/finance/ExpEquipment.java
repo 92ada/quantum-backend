@@ -30,6 +30,7 @@ public class ExpEquipment {
     private String inbound_no;
     @Column(precision=10, scale=2)
     private BigDecimal warranty_amount;
+    @Temporal(TemporalType.DATE)
     private Date warranty_date;
 
     public Long getId() {

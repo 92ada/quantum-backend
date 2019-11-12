@@ -21,6 +21,7 @@ public class FamilyInfo {
     private String relationship;
     private String identity_type;
     private String identity_no;
+    @Temporal(TemporalType.DATE)
     private Date birth_date;
     private String phone;
     private String email;

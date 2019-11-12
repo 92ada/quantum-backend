@@ -38,6 +38,7 @@ public class People {
     private IdentityType identity_type;
     private String identity_no;
     private String identity_photo_url;
+    @Temporal(TemporalType.DATE)
     private Date birth_date;
     private String office_phone;
     private String mobile_phone;
@@ -47,7 +48,9 @@ public class People {
     @Column(columnDefinition = "text")
     private String description;
     private String emergency_contact;
+    @Temporal(TemporalType.DATE)
     private Date entry_date;
+    @Temporal(TemporalType.DATE)
     private Date departure_date;
     @Enumerated
     private Gender gender;

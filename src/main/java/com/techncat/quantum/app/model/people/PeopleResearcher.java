@@ -31,7 +31,9 @@ public class PeopleResearcher {
     private String salary_card_no;
     private String bank;
     private String contract_no;
+    @Temporal(TemporalType.DATE)
     private Date contract_start_date;
+    @Temporal(TemporalType.DATE)
     private Date contract_end_date;
 
     private Float annual_salary;

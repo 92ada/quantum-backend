@@ -21,7 +21,9 @@ public class PeopleAdmin {
     private String salary_card_no;
     private String bank;
     private String contract_no;
+    @Temporal(TemporalType.DATE)
     private Date contract_start_date;
+    @Temporal(TemporalType.DATE)
     private Date contract_end_date;
 
     @Column(precision = 10, scale = 2)

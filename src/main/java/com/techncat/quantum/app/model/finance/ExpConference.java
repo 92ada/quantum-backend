@@ -22,7 +22,9 @@ public class ExpConference {
 //    @JoinColumn(name = "exp_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
 //    private Exp exp;
 
+    @Temporal(TemporalType.DATE)
     private Date start_date;
+    @Temporal(TemporalType.DATE)
     private Date end_date;
     private String place_of_participation;
     private Integer planned_attendance;

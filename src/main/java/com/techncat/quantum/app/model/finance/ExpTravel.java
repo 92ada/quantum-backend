@@ -25,7 +25,9 @@ public class ExpTravel {
     @Column(columnDefinition="text")
     private String travelerJson;
 
+    @Temporal(TemporalType.DATE)
     private Date start_date;
+    @Temporal(TemporalType.DATE)
     private Date end_date;
     private String matter;
     private String location;

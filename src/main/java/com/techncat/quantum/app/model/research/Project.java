@@ -33,7 +33,9 @@ public class Project {
     @Column(columnDefinition="text")
     private String leaderJson;
 
+    @Temporal(TemporalType.DATE)
     private Date start_date;
+    @Temporal(TemporalType.DATE)
     private Date end_date;
     private WayOfTaking way_of_taking;
     @Column(precision = 10, scale = 2)

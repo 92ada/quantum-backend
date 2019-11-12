@@ -18,6 +18,7 @@ public class Paper {
 
     private String title;
     private String journal_conference_title;
+    @Temporal(TemporalType.DATE)
     private Date publication_date;
     private String volume_no;
     private String document_no;
