@@ -112,15 +112,16 @@ public class VOEnhanceUtil {
 
     private static class TypeResult {
          enum Type {
-            string,
-            number,
-            bool,
-            date,
-            enumerated,
-            object,
-            phone,
-            email,
-            photo
+             string,
+             number,
+             bool,
+             date,
+             text,
+             enumerated,
+             object,
+             phone,
+             email,
+             photo
         }
 
         private Type value;

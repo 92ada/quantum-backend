@@ -34,7 +34,7 @@ public class ResearchController {
     public ResponseEntity<Map> showPaperStructure(@PathVariable("paper_id") Long id) throws ResearchShowService.PaperNotFoundException, IllegalAccessException {
         PaperVO paperVO = showService.showPaper(id);
         Map result = voEnhanceUtil.enhance("data", paperVO);
-        result.put("index", "research.paper");
+        result.put("index", "research.paper_info");
         result.put("post_url", "/api/research/paper");
         result.put("update_url", "/api/research/paper/" + id);
         result.put("delete_url", "/api/research/paper/" + id);
@@ -50,7 +50,7 @@ public class ResearchController {
     public ResponseEntity<Map> showPatentStructure(@PathVariable("patent_id") Long id) throws ResearchShowService.PatentNotFoundException, IllegalAccessException {
         PatentVO patentVO = showService.showPatent(id);
         Map result = voEnhanceUtil.enhance("data", patentVO);
-        result.put("index", "research.patent");
+        result.put("index", "research.patent_info");
         result.put("post_url", "/api/research/patent");
         result.put("update_url", "/api/research/patent/" + id);
         result.put("delete_url", "/api/research/patent/" + id);
