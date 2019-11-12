@@ -28,8 +28,6 @@ public class ResearchShowService {
     @Resource
     private ResearchProjectRepository researchProjectRepository;
     @Resource
-    private ResearchProjectFundRepository researchProjectFundRepository;
-    @Resource
     private ResearchRewardRepository researchRewardRepository;
 
     public PaperVO showPaper(Long id) throws PaperNotFoundException {
@@ -51,10 +49,14 @@ public class ResearchShowService {
     }
 
     public ProjectVO showProject(Long id) throws ProjectNotFoundException {
+        Project project = fetchProject(id);
+        return voUtils.copy(project, ProjectVO.class);
+    }
+
+    public Project fetchProject(Long id) throws ProjectNotFoundException {
         Optional<Project> projectOptional = researchProjectRepository.findById(id);
         if (projectOptional.isPresent()) {
-            Project project = projectOptional.get();
-            return voUtils.copy(project, ProjectVO.class);
+            return projectOptional.get();
         }
         throw new ProjectNotFoundException(id);
     }

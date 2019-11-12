@@ -66,7 +66,7 @@ public class PeopleFamilyService {
 
     public static class FamilyInfoNotFoundException extends Exception {
         FamilyInfoNotFoundException(Long id) {
-            super("FamilyInfo id[" + id + "] can not found");
+            super("FamilyInfo id[" + id + "] is not found");
         }
     }
 }
