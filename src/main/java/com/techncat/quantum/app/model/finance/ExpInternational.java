@@ -19,9 +19,9 @@ public class ExpInternational {
     private Date updateAt;
     private Date createdAt;
 
-    @OneToOne
-    @JoinColumn(name = "exp_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
-    private Exp exp;
+//    @OneToOne
+//    @JoinColumn(name = "exp_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+//    private Exp exp;
 
     private Date start_date;
     private Date end_date;
@@ -58,14 +58,6 @@ public class ExpInternational {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
-    }
-
-    public Exp getExp() {
-        return exp;
-    }
-
-    public void setExp(Exp exp) {
-        this.exp = exp;
     }
 
     public Date getStart_date() {

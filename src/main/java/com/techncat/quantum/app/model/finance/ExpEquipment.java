@@ -21,9 +21,9 @@ public class ExpEquipment {
     private Date updateAt;
     private Date createdAt;
 
-    @OneToOne
-    @JoinColumn(name = "exp_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
-    private Exp exp;
+//    @OneToOne
+//    @JoinColumn(name = "exp_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+//    private Exp exp;
 
     private Type purchase_type;
     private Integer payment_status;
@@ -54,14 +54,6 @@ public class ExpEquipment {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
-    }
-
-    public Exp getExp() {
-        return exp;
-    }
-
-    public void setExp(Exp exp) {
-        this.exp = exp;
     }
 
     public Type getPurchase_type() {

@@ -5,6 +5,7 @@ import com.techncat.quantum.app.model.people.People;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -17,30 +18,30 @@ public class ExpConference {
     private Date updateAt;
     private Date createdAt;
 
-    @OneToOne
-    @JoinColumn(name = "exp_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
-    private Exp exp;
+//    @OneToOne
+//    @JoinColumn(name = "exp_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+//    private Exp exp;
 
     private Date start_date;
     private Date end_date;
     private String place_of_participation;
     private Integer planned_attendance;
     private Integer actual_attendance;
-    @Column(precision=10, scale=2)
+    @Column(precision = 10, scale = 2)
     private BigDecimal budget;
-    @Column(precision=10, scale=2)
+    @Column(precision = 10, scale = 2)
     private BigDecimal actual_total_cost;
-    @Column(precision=10, scale=2)
+    @Column(precision = 10, scale = 2)
     private BigDecimal meeting_expenses;
-    @Column(precision=10, scale=2)
+    @Column(precision = 10, scale = 2)
     private BigDecimal transportation_expenses;
-    @Column(precision=10, scale=2)
+    @Column(precision = 10, scale = 2)
     private BigDecimal labor_expenses;
 
     @ManyToMany
     @JoinColumn(name = "officer_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
-    private Set<People> officer;
-    @Column(columnDefinition="text")
+    private List<People> officer;
+    @Column(columnDefinition = "text")
     private String officersJson;
 
     public Long getId() {
@@ -65,14 +66,6 @@ public class ExpConference {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
-    }
-
-    public Exp getExp() {
-        return exp;
-    }
-
-    public void setExp(Exp exp) {
-        this.exp = exp;
     }
 
     public Date getStart_date() {
@@ -155,11 +148,11 @@ public class ExpConference {
         this.labor_expenses = labor_expenses;
     }
 
-    public Set<People> getOfficer() {
+    public List<People> getOfficer() {
         return officer;
     }
 
-    public void setOfficer(Set<People> officer) {
+    public void setOfficer(List<People> officer) {
         this.officer = officer;
     }
 

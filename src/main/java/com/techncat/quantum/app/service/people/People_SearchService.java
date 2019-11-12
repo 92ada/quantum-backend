@@ -21,4 +21,12 @@ public class People_SearchService {
         String wordLike = "%" + word + "%";
         return peopleRepository.findAllByNameLikeOrSidLikeOrEmailLike(wordLike, wordLike, wordLike, pageRequest);
     }
+
+    public Page<People> search(String word, People.Type type, PageRequest pageRequest) {
+        if (word == null) {
+            return peopleRepository.findAllByType(type, pageRequest);
+        }
+        String wordLike = "%" + word + "%";
+        return peopleRepository.findAllByTypeAndNameLikeOrSidLikeOrEmailLike(type, wordLike, wordLike, wordLike, pageRequest);
+    }
 }

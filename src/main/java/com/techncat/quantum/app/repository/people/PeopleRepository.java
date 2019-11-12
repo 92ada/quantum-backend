@@ -12,4 +12,13 @@ public interface PeopleRepository extends JpaRepository<People, Long> {
             @Param("sid") String sid,
             @Param("email") String email,
             Pageable pageable);
+
+    Page<People> findAllByTypeAndNameLikeOrSidLikeOrEmailLike(
+            @Param("type") People.Type type,
+            @Param("name") String name,
+            @Param("sid") String sid,
+            @Param("email") String email,
+            Pageable pageable);
+
+    Page<People> findAllByType(@Param("type") People.Type type, Pageable pageable);
 }
