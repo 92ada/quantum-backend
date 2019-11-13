@@ -6,22 +6,22 @@ import java.util.List;
  * provide for jwt encode/decode, and controller method parameter
  */
 public class Aser {
-    private Long userId;
+    private String sid;
     private List<String> roles;
     private boolean isExpiration;
 
-    public Aser(Long userId, List<String> roles, boolean isExpiration) {
-        this.userId = userId;
+    public Aser(String userId, List<String> roles, boolean isExpiration) {
+        this.sid = userId;
         this.roles = roles;
         this.isExpiration = isExpiration;
     }
 
-    public Long getUserId() {
-        return userId;
+    public String getSid() {
+        return sid;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setSid(String sid) {
+        this.sid = sid;
     }
 
     public List<String> getRoles() {

@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
-public class ExpLaborVO extends ExpVO {
+public class ExpLaborVO {
     private Long id;
 
     private Date updateAt;

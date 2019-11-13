@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class ExpProcessingVO extends ExpVO {
+public class ExpProcessingVO {
     private Long id;
 
     private Date updateAt;

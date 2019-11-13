@@ -61,9 +61,21 @@ public class PeopleShowService {
         throw new PeopleNotFoundException(id);
     }
 
-    public static class PeopleNotFoundException extends Exception {
+    public People fetchBySid(String sid) {
+        People people = peopleRepository.findFirstBySid(sid);
+        if (people == null) {
+            throw new PeopleNotFoundException(sid);
+        }
+        return people;
+    }
+
+    public static class PeopleNotFoundException extends RuntimeException {
         PeopleNotFoundException(Long id) {
             super("People id=[" + id + "] Not Found");
+        }
+
+        PeopleNotFoundException(String sid) {
+            super("People sid=[" + sid + "] Not Found");
         }
     }
 }

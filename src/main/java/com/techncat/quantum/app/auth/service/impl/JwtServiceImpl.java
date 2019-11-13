@@ -38,7 +38,7 @@ public class JwtServiceImpl implements JwtService {
     /*  生成登录 TOKEN  */
 
     @Override
-    public TokenEntity encode(Long userId, List<String> roles) {
+    public TokenEntity encode(String sid, List<String> roles) {
         long expiration = expirationTime == null ? 864000 : expirationTime; // 10 days default
         long refreshExpiration = refreshExpirationTime == null ? 2400000 : refreshExpirationTime; // 30 days default
 
@@ -54,7 +54,7 @@ public class JwtServiceImpl implements JwtService {
                 .claim("roles", String.join(",", roles))
                 .setIssuer(entity.getIssue_provider())
                 .setIssuedAt(entity.getIssue_date())
-                .setSubject(String.valueOf(userId))
+                .setSubject(sid)
                 .setExpiration(entity.getAccess_token_expiration_date())
                 .compact();
         String refreshToken = Jwts.builder()
@@ -63,7 +63,7 @@ public class JwtServiceImpl implements JwtService {
                 .claim("roles", String.join(",", roles))
                 .setIssuer(entity.getIssue_provider())
                 .setIssuedAt(entity.getIssue_date())
-                .setSubject(String.valueOf(userId))
+                .setSubject(sid)
                 .setExpiration(entity.getRefresh_token_expiration_date())
                 .compact();
         entity.setAccess_token(token);
@@ -74,7 +74,7 @@ public class JwtServiceImpl implements JwtService {
     @Override
     public TokenEntity encode(Aser aser) {
         if (aser == null) return null;
-        return encode(aser.getUserId(), aser.getRoles());
+        return encode(aser.getSid(), aser.getRoles());
     }
 
     @Override
@@ -83,9 +83,9 @@ public class JwtServiceImpl implements JwtService {
         if (token.startsWith("Bearer ")) token = token.substring(7);
         Claims claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
         List<String> roles = Arrays.stream(((String) claims.get("roles")).split(",")).collect(Collectors.toList());
-        Long userId = Long.parseLong(claims.getSubject());
+        String sid = claims.getSubject();
         Date expiredDate = claims.getExpiration();
-        return new Aser(userId, roles, expiredDate.before(new Date()));
+        return new Aser(sid, roles, expiredDate.before(new Date()));
     }
 
     /*  生成验证码登录 pair  */

@@ -11,7 +11,7 @@ public interface JwtService {
 
     /* TOKEN for user auth */
 
-    TokenEntity encode(Long userId, List<String> roles);
+    TokenEntity encode(String sid, List<String> roles);
 
     TokenEntity encode(Aser aser);
 

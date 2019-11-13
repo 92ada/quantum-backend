@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
-public class ExpEquipmentVO extends ExpVO {
+public class ExpEquipmentVO {
     @ValueType("enumerated")
     private ExpEquipment.Type purchase_type;
     private Integer payment_status;

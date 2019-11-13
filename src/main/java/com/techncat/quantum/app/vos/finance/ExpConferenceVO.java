@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
-public class ExpConferenceVO extends ExpVO {
+public class ExpConferenceVO {
     private Date start_date;
     private Date end_date;
     private String place_of_participation;

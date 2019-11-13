@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class ExpTravelVO extends ExpVO {
+public class ExpTravelVO {
     private Long id;
 
     private Date updateAt;

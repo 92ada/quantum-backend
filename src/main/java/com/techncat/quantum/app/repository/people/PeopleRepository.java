@@ -25,4 +25,6 @@ public interface PeopleRepository extends JpaRepository<People, Long> {
     Page<People> findAllByType(@Param("type") People.Type type, Pageable pageable);
 
     List<People> findAllByNameLike(@Param("name") String name);
+
+    People findFirstBySid(@Param("sid") String sid);
 }

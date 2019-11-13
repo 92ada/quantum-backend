@@ -4,7 +4,7 @@ import com.techncat.quantum.app.common.voenhance.annotation.ValueType;
 import lombok.Data;
 
 @Data
-public class ExpConsultationVO extends ExpVO {
+public class ExpConsultationVO {
     private String subject;
     private String matter;
     private String department;
