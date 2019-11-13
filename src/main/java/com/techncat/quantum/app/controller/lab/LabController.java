@@ -27,8 +27,6 @@ public class LabController {
     @Autowired
     private VOEnhanceUtil voEnhanceUtil;
 
-
-
     @GetMapping("/{id}")
     public ResponseEntity get(@PathVariable("id") Long id) {
         return ResponseEntity.ok(labService.fetch(id));
