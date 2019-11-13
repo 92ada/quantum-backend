@@ -40,12 +40,16 @@ public class FinanceExpUpdateService {
     private FinExpPublicationRepository expPublicationRepository;
     @Resource
     private FinExpTravelRepository expTravelRepository;
+    @Autowired
+    private FinanceExpShowService showService;
 
 
     public Exp update(Long expId, ExpVO baseVO, ExpConferenceVO extraVO) {
         Assert.notNull(baseVO, "data can not be null");
         Assert.notNull(extraVO, "data can not be null");
+        Long childId = showService.fetch(expId).getExpConference().getId();
         return repoUtils.process(baseVO, extraVO, ExpConference.class, preData1 -> {
+            preData1.setId(childId);
             preData1.setUpdateAt(new Date());
             return expConferenceRepository.save(preData1);
         }, Exp.class, (postData1, preData2) -> {
@@ -63,7 +67,9 @@ public class FinanceExpUpdateService {
     public Exp update(Long expId, ExpVO baseVO, ExpConsultationVO extraVO) {
         Assert.notNull(baseVO, "data can not be null");
         Assert.notNull(extraVO, "data can not be null");
+        Long childId = showService.fetch(expId).getExpConsultation().getId();
         return repoUtils.process(baseVO, extraVO, ExpConsultation.class, preData1 -> {
+            preData1.setId(childId);
             preData1.setUpdateAt(new Date());
             return expConsultationRepository.save(preData1);
         }, Exp.class, (postData1, preData2) -> {
@@ -81,7 +87,9 @@ public class FinanceExpUpdateService {
     public Exp update(Long expId, ExpVO baseVO, ExpEquipmentVO extraVO) {
         Assert.notNull(baseVO, "data can not be null");
         Assert.notNull(extraVO, "data can not be null");
+        Long childId = showService.fetch(expId).getExpEquipment().getId();
         return repoUtils.process(baseVO, extraVO, ExpEquipment.class, preData1 -> {
+            preData1.setId(childId);
             preData1.setUpdateAt(new Date());
             return expEquipmentRepository.save(preData1);
         }, Exp.class, (postData1, preData2) -> {
@@ -99,7 +107,9 @@ public class FinanceExpUpdateService {
     public Exp update(Long expId, ExpVO baseVO, ExpIndirectiveVO extraVO) {
         Assert.notNull(baseVO, "data can not be null");
         Assert.notNull(extraVO, "data can not be null");
+        Long childId = showService.fetch(expId).getExpIndirective().getId();
         return repoUtils.process(baseVO, extraVO, ExpIndirective.class, preData1 -> {
+            preData1.setId(childId);
             preData1.setUpdateAt(new Date());
             return expIndirectiveRepository.save(preData1);
         }, Exp.class, (postData1, preData2) -> {
@@ -117,7 +127,9 @@ public class FinanceExpUpdateService {
     public Exp update(Long expId, ExpVO baseVO, ExpInternationalVO extraVO) {
         Assert.notNull(baseVO, "data can not be null");
         Assert.notNull(extraVO, "data can not be null");
+        Long childId = showService.fetch(expId).getExpInternational().getId();
         return repoUtils.process(baseVO, extraVO, ExpInternational.class, preData1 -> {
+            preData1.setId(childId);
             preData1.setUpdateAt(new Date());
             return expInternationalRepository.save(preData1);
         }, Exp.class, (postData1, preData2) -> {
@@ -135,7 +147,9 @@ public class FinanceExpUpdateService {
     public Exp update(Long expId, ExpVO baseVO, ExpLaborVO extraVO) {
         Assert.notNull(baseVO, "data can not be null");
         Assert.notNull(extraVO, "data can not be null");
+        Long childId = showService.fetch(expId).getExpLabor().getId();
         return repoUtils.process(baseVO, extraVO, ExpLabor.class, preData1 -> {
+            preData1.setId(childId);
             preData1.setUpdateAt(new Date());
             return expLaborRepository.save(preData1);
         }, Exp.class, (postData1, preData2) -> {
@@ -153,7 +167,9 @@ public class FinanceExpUpdateService {
     public Exp update(Long expId, ExpVO baseVO, ExpMaterialVO extraVO) {
         Assert.notNull(baseVO, "data can not be null");
         Assert.notNull(extraVO, "data can not be null");
+        Long childId = showService.fetch(expId).getExpMaterial().getId();
         return repoUtils.process(baseVO, extraVO, ExpMaterial.class, preData1 -> {
+            preData1.setId(childId);
             preData1.setUpdateAt(new Date());
             return expMaterialRepository.save(preData1);
         }, Exp.class, (postData1, preData2) -> {
@@ -171,7 +187,9 @@ public class FinanceExpUpdateService {
     public Exp update(Long expId, ExpVO baseVO, ExpOtherVO extraVO) {
         Assert.notNull(baseVO, "data can not be null");
         Assert.notNull(extraVO, "data can not be null");
+        Long childId = showService.fetch(expId).getExpOther().getId();
         return repoUtils.process(baseVO, extraVO, ExpOther.class, preData1 -> {
+            preData1.setId(childId);
             preData1.setUpdateAt(new Date());
             return expOtherRepository.save(preData1);
         }, Exp.class, (postData1, preData2) -> {
@@ -189,7 +207,9 @@ public class FinanceExpUpdateService {
     public Exp update(Long expId, ExpVO baseVO, ExpProcessingVO extraVO) {
         Assert.notNull(baseVO, "data can not be null");
         Assert.notNull(extraVO, "data can not be null");
+        Long childId = showService.fetch(expId).getExpProcessing().getId();
         return repoUtils.process(baseVO, extraVO, ExpProcessing.class, preData1 -> {
+            preData1.setId(childId);
             preData1.setUpdateAt(new Date());
             return expProcessingRepository.save(preData1);
         }, Exp.class, (postData1, preData2) -> {
@@ -207,7 +227,9 @@ public class FinanceExpUpdateService {
     public Exp update(Long expId, ExpVO baseVO, ExpPublicationVO extraVO) {
         Assert.notNull(baseVO, "data can not be null");
         Assert.notNull(extraVO, "data can not be null");
+        Long childId = showService.fetch(expId).getExpPublication().getId();
         return repoUtils.process(baseVO, extraVO, ExpPublication.class, preData1 -> {
+            preData1.setId(childId);
             preData1.setUpdateAt(new Date());
             return expPublicationRepository.save(preData1);
         }, Exp.class, (postData1, preData2) -> {
@@ -225,7 +247,9 @@ public class FinanceExpUpdateService {
     public Exp update(Long expId, ExpVO baseVO, ExpTravelVO extraVO) {
         Assert.notNull(baseVO, "data can not be null");
         Assert.notNull(extraVO, "data can not be null");
+        Long childId = showService.fetch(expId).getExpTravel().getId();
         return repoUtils.process(baseVO, extraVO, ExpTravel.class, preData1 -> {
+            preData1.setId(childId);
             preData1.setUpdateAt(new Date());
             return expTravelRepository.save(preData1);
         }, Exp.class, (postData1, preData2) -> {
