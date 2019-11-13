@@ -27,6 +27,14 @@ public class LabController {
     @Autowired
     private VOEnhanceUtil voEnhanceUtil;
 
+    @GetMapping("/structure")
+    public ResponseEntity<Map> structureInfo() throws IllegalAccessException {
+        Map result = voEnhanceUtil.enhance("data", new LabVO());
+        result.put("index", "lab");
+        result.put("post_url", "/api/labs");
+        return ResponseEntity.ok(result);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity get(@PathVariable("id") Long id) {
         return ResponseEntity.ok(labService.fetch(id));
