@@ -40,6 +40,9 @@ public class UserService {
         }
         // reset all
         User user = this.fetch(sid);
+        if (user.getRoles().contains("root") && !roleNames.contains("root")) { // root 角色不可被删除
+            roleNames.add("root");
+        }
         user.setRoles(roleNames);
         userRepository.save(user);
     }
