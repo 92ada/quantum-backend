@@ -1,7 +1,7 @@
 package com.techncat.quantum.app.service.finance;
 
 import com.techncat.quantum.app.model.finance.Exp;
-import com.techncat.quantum.app.repository.finance.FinExpRepository;
+import com.techncat.quantum.app.repository.finance.FinExp_Repository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -9,7 +9,7 @@ import javax.annotation.Resource;
 @Service
 public class FinanceExpShowService {
     @Resource
-    private FinExpRepository repository;
+    private FinExp_Repository repository;
 
     public Exp fetch(Long id) {
         Exp exp = repository.findFirstById(id);

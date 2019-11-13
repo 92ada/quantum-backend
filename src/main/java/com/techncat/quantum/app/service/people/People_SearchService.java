@@ -1,7 +1,7 @@
 package com.techncat.quantum.app.service.people;
 
 import com.techncat.quantum.app.model.people.People;
-import com.techncat.quantum.app.repository.people.PeopleRepository;
+import com.techncat.quantum.app.repository.people.People_Repository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import java.util.List;
 public class People_SearchService {
 
     @Resource
-    private PeopleRepository peopleRepository;
+    private People_Repository peopleRepository;
 
     public Page<People> search(String word, PageRequest pageRequest) {
         if (word == null) {

@@ -1,7 +1,6 @@
 package com.techncat.quantum.app.service.people;
 
 import com.techncat.quantum.app.common.repo.RepoUtils;
-import com.techncat.quantum.app.common.voutils.VOUtils;
 import com.techncat.quantum.app.model.people.*;
 import com.techncat.quantum.app.repository.people.*;
 import com.techncat.quantum.app.vos.people.*;
@@ -17,10 +16,8 @@ public class PeopleCreateService {
 
     @Autowired
     private RepoUtils repoUtils;
-    @Autowired
-    private VOUtils voUtils;
     @Resource
-    private PeopleRepository peopleRepository;
+    private People_Repository peopleRepository;
     @Resource
     private PeopleAdminRepository peopleAdminRepository;
     @Resource

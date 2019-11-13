@@ -17,7 +17,7 @@ public class PeopleUpdateService {
     @Autowired
     private RepoUtils repoUtils;
     @Resource
-    private PeopleRepository peopleRepository;
+    private People_Repository peopleRepository;
     @Resource
     private PeopleAdminRepository peopleAdminRepository;
     @Resource

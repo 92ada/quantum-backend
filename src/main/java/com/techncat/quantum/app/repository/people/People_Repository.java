@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface PeopleRepository extends JpaRepository<People, Long> {
+public interface People_Repository extends JpaRepository<People, Long> {
     Page<People> findAllByNameLikeOrSidLikeOrEmailLike(
             @Param("name") String name,
             @Param("sid") String sid,

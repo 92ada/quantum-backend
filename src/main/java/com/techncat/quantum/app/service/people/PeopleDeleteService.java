@@ -13,7 +13,7 @@ public class PeopleDeleteService {
     @Autowired
     private PeopleShowService peopleShowService;
     @Resource
-    private PeopleRepository peopleRepository;
+    private People_Repository peopleRepository;
     @Resource
     private PeopleAdminRepository peopleAdminRepository;
     @Resource

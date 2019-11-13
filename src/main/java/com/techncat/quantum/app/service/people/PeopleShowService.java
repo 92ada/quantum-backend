@@ -16,7 +16,7 @@ public class PeopleShowService {
     @Autowired
     private VOUtils voUtils;
     @Resource
-    private PeopleRepository peopleRepository;
+    private People_Repository peopleRepository;
     @Resource
     private PeopleAdminRepository peopleAdminRepository;
     @Resource
