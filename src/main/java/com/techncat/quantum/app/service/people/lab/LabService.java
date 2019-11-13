@@ -5,10 +5,13 @@ import com.techncat.quantum.app.model.people.Lab;
 import com.techncat.quantum.app.repository.people.LabRepository;
 import com.techncat.quantum.app.vos.people.LabVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class LabService {
@@ -17,6 +20,18 @@ public class LabService {
 
     @Autowired
     private VOUtils voUtils;
+
+    public List<Lab> list(String word) {
+        if (word == null) return repository.findAll();
+        String wordLike = "%" + word + "%";
+        return repository.findAllByNameLike(wordLike);
+    }
+
+    public Page<Lab> page(String word, Pageable pageable) {
+        if (word == null) return repository.findAll(pageable);
+        String wordLike = "%" + word + "%";
+        return repository.findAllByNameLike(wordLike, pageable);
+    }
 
     public Lab fetch(Long id) {
         Lab fund = repository.findFirstById(id);

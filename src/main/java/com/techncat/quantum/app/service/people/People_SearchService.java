@@ -32,6 +32,7 @@ public class People_SearchService {
     }
 
     public List<People> search(String word) {
+        if (word == null) return peopleRepository.findAll();
         String wordLike = "%" + word + "%";
         return peopleRepository.findAllByNameLike(wordLike);
     }
