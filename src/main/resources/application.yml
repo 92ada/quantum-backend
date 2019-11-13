@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://rm-wz98fdnqzec28s9y6fo.mysql.rds.aliyuncs.com:3306/quantum_dev
+    url: jdbc:mysql://rm-wz98fdnqzec28s9y6fo.mysql.rds.aliyuncs.com:3306/quantum_dev?autoReconnect=true&useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
     username: forki
     password: SEEUps000
     driver-class-name: com.mysql.jdbc.Driver
