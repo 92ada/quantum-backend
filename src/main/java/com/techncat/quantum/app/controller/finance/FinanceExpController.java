@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/finance")
+@RequestMapping("/api/finance/exps")
 @CrossOrigin(
         origins = "*",
         allowedHeaders = "*",
         allowCredentials = "true",
         methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS, RequestMethod.HEAD}
 )
-public class FinanceController {
+public class FinanceExpController {
     @Autowired
     private FinanceExpShowService financeExpShowService;
     @Autowired
@@ -38,7 +38,7 @@ public class FinanceController {
     @Autowired
     private VOEnhanceUtil voEnhanceUtil;
 
-    @GetMapping("/exp/{id}/base")
+    @GetMapping("/{id}/base")
     public ResponseEntity getBase(@PathVariable Long id) {
         return ResponseEntity.ok(financeExpShowService.fetch(id));
     }
@@ -49,102 +49,102 @@ public class FinanceController {
         ExpVO vo = voUtils.copy(exp, ExpVO.class);
         Map result = voEnhanceUtil.enhance("data", vo);
         result.put("index", "finance.exp");
-        result.put("post_url", "/api/finance/exp/base");
-        result.put("update_url", "/api/finance/exp/" + id + "/base");
-        result.put("delete_url", "/api/finance/exp/" + id);
+        result.put("post_url", "/api/finance/exps/base");
+        result.put("update_url", "/api/finance/exps/" + id + "/base");
+        result.put("delete_url", "/api/finance/exps/" + id);
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping("/exp/{id}/extra")
+    @GetMapping("/{id}/extra")
     public ResponseEntity getDeatil(@PathVariable Long id) {
         return ResponseEntity.ok(financeExpShowService.fetchDetail(id));
     }
 
-    @GetMapping("/exp/{id}/extra/structure")
+    @GetMapping("/{id}/extra/structure")
     public ResponseEntity<Map> extraStructureInfo(@PathVariable("id") Long id) throws PeopleShowService.PeopleNotFoundException, IllegalAccessException {
         Exp exp = financeExpShowService.fetch(id);
         Object obj = financeExpShowService.fetchDetail(id);
         Map result = voEnhanceUtil.enhance("data", obj);
         result.put("index", "people.other_info");
-        result.put("post_url", "/api/finance/exp/" + exp.getType().name());
-        result.put("update_url", "/api/finance/exp/" + id + "/" + exp.getType().name());
-        result.put("delete_url", "/api/finance/exp/" + id);
+        result.put("post_url", "/api/finance/exps/" + exp.getType().name());
+        result.put("update_url", "/api/finance/exps/" + id + "/" + exp.getType().name());
+        result.put("delete_url", "/api/finance/exps/" + id);
         return ResponseEntity.ok(result);
     }
 
     // create
 
-    @PostMapping("/exp/conference")
+    @PostMapping("/conference")
     public ResponseEntity<Exp> create1(@RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         ExpVO baseVO = requestBody.getJSONObject("base").toJavaObject(ExpVO.class);
         ExpConferenceVO extraVO = requestBody.getJSONObject("extra").toJavaObject(ExpConferenceVO.class);
         return ResponseEntity.status(201).body(financeExpCreateService.create(baseVO, extraVO));
     }
 
-    @PostMapping("/exp/consultation")
+    @PostMapping("/consultation")
     public ResponseEntity<Exp> create2(@RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         ExpVO baseVO = requestBody.getJSONObject("base").toJavaObject(ExpVO.class);
         ExpConsultationVO extraVO = requestBody.getJSONObject("extra").toJavaObject(ExpConsultationVO.class);
         return ResponseEntity.status(201).body(financeExpCreateService.create(baseVO, extraVO));
     }
 
-    @PostMapping("/exp/equipment")
+    @PostMapping("/equipment")
     public ResponseEntity<Exp> create3(@RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         ExpVO baseVO = requestBody.getJSONObject("base").toJavaObject(ExpVO.class);
         ExpEquipmentVO extraVO = requestBody.getJSONObject("extra").toJavaObject(ExpEquipmentVO.class);
         return ResponseEntity.status(201).body(financeExpCreateService.create(baseVO, extraVO));
     }
 
-    @PostMapping("/exp/indirective")
+    @PostMapping("/indirective")
     public ResponseEntity<Exp> create4(@RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         ExpVO baseVO = requestBody.getJSONObject("base").toJavaObject(ExpVO.class);
         ExpIndirectiveVO extraVO = requestBody.getJSONObject("extra").toJavaObject(ExpIndirectiveVO.class);
         return ResponseEntity.status(201).body(financeExpCreateService.create(baseVO, extraVO));
     }
 
-    @PostMapping("/exp/international")
+    @PostMapping("/international")
     public ResponseEntity<Exp> create5(@RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         ExpVO baseVO = requestBody.getJSONObject("base").toJavaObject(ExpVO.class);
         ExpInternationalVO extraVO = requestBody.getJSONObject("extra").toJavaObject(ExpInternationalVO.class);
         return ResponseEntity.status(201).body(financeExpCreateService.create(baseVO, extraVO));
     }
 
-    @PostMapping("/exp/labor")
+    @PostMapping("/labor")
     public ResponseEntity<Exp> create6(@RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         ExpVO baseVO = requestBody.getJSONObject("base").toJavaObject(ExpVO.class);
         ExpLaborVO extraVO = requestBody.getJSONObject("extra").toJavaObject(ExpLaborVO.class);
         return ResponseEntity.status(201).body(financeExpCreateService.create(baseVO, extraVO));
     }
 
-    @PostMapping("/exp/material")
+    @PostMapping("/material")
     public ResponseEntity<Exp> create7(@RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         ExpVO baseVO = requestBody.getJSONObject("base").toJavaObject(ExpVO.class);
         ExpMaterialVO extraVO = requestBody.getJSONObject("extra").toJavaObject(ExpMaterialVO.class);
         return ResponseEntity.status(201).body(financeExpCreateService.create(baseVO, extraVO));
     }
 
-    @PostMapping("/exp/other")
+    @PostMapping("/other")
     public ResponseEntity<Exp> create8(@RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         ExpVO baseVO = requestBody.getJSONObject("base").toJavaObject(ExpVO.class);
         ExpOtherVO extraVO = requestBody.getJSONObject("extra").toJavaObject(ExpOtherVO.class);
         return ResponseEntity.status(201).body(financeExpCreateService.create(baseVO, extraVO));
     }
 
-    @PostMapping("/exp/processing")
+    @PostMapping("/processing")
     public ResponseEntity<Exp> create9(@RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         ExpVO baseVO = requestBody.getJSONObject("base").toJavaObject(ExpVO.class);
         ExpProcessingVO extraVO = requestBody.getJSONObject("extra").toJavaObject(ExpProcessingVO.class);
         return ResponseEntity.status(201).body(financeExpCreateService.create(baseVO, extraVO));
     }
 
-    @PostMapping("/exp/publication")
+    @PostMapping("/publication")
     public ResponseEntity<Exp> create10(@RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         ExpVO baseVO = requestBody.getJSONObject("base").toJavaObject(ExpVO.class);
         ExpPublicationVO extraVO = requestBody.getJSONObject("extra").toJavaObject(ExpPublicationVO.class);
         return ResponseEntity.status(201).body(financeExpCreateService.create(baseVO, extraVO));
     }
 
-    @PostMapping("/exp/travel")
+    @PostMapping("/travel")
     public ResponseEntity<Exp> create11(@RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         ExpVO baseVO = requestBody.getJSONObject("base").toJavaObject(ExpVO.class);
         ExpTravelVO extraVO = requestBody.getJSONObject("extra").toJavaObject(ExpTravelVO.class);
@@ -153,77 +153,77 @@ public class FinanceController {
 
     // update
 
-    @PostMapping("/exp/{exp_id}/conference")
+    @PostMapping("/{exp_id}/conference")
     public ResponseEntity<Exp> update1(@PathVariable("exp_id") Long id, @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         ExpVO baseVO = requestBody.getJSONObject("base").toJavaObject(ExpVO.class);
         ExpConferenceVO extraVO = requestBody.getJSONObject("extra").toJavaObject(ExpConferenceVO.class);
         return ResponseEntity.status(201).body(financeExpUpdateService.update(id, baseVO, extraVO));
     }
 
-    @PostMapping("/exp/{exp_id}/consultation")
+    @PostMapping("/{exp_id}/consultation")
     public ResponseEntity<Exp> update2(@PathVariable("exp_id") Long id, @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         ExpVO baseVO = requestBody.getJSONObject("base").toJavaObject(ExpVO.class);
         ExpConsultationVO extraVO = requestBody.getJSONObject("extra").toJavaObject(ExpConsultationVO.class);
         return ResponseEntity.status(201).body(financeExpUpdateService.update(id, baseVO, extraVO));
     }
 
-    @PostMapping("/exp/{exp_id}/equipment")
+    @PostMapping("/{exp_id}/equipment")
     public ResponseEntity<Exp> update3(@PathVariable("exp_id") Long id, @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         ExpVO baseVO = requestBody.getJSONObject("base").toJavaObject(ExpVO.class);
         ExpEquipmentVO extraVO = requestBody.getJSONObject("extra").toJavaObject(ExpEquipmentVO.class);
         return ResponseEntity.status(201).body(financeExpUpdateService.update(id, baseVO, extraVO));
     }
 
-    @PostMapping("/exp/{exp_id}/indirective")
+    @PostMapping("/{exp_id}/indirective")
     public ResponseEntity<Exp> update4(@PathVariable("exp_id") Long id, @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         ExpVO baseVO = requestBody.getJSONObject("base").toJavaObject(ExpVO.class);
         ExpIndirectiveVO extraVO = requestBody.getJSONObject("extra").toJavaObject(ExpIndirectiveVO.class);
         return ResponseEntity.status(201).body(financeExpUpdateService.update(id, baseVO, extraVO));
     }
 
-    @PostMapping("/exp/{exp_id}/international")
+    @PostMapping("/{exp_id}/international")
     public ResponseEntity<Exp> update5(@PathVariable("exp_id") Long id, @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         ExpVO baseVO = requestBody.getJSONObject("base").toJavaObject(ExpVO.class);
         ExpInternationalVO extraVO = requestBody.getJSONObject("extra").toJavaObject(ExpInternationalVO.class);
         return ResponseEntity.status(201).body(financeExpUpdateService.update(id, baseVO, extraVO));
     }
 
-    @PostMapping("/exp/{exp_id}/labor")
+    @PostMapping("/{exp_id}/labor")
     public ResponseEntity<Exp> update6(@PathVariable("exp_id") Long id, @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         ExpVO baseVO = requestBody.getJSONObject("base").toJavaObject(ExpVO.class);
         ExpLaborVO extraVO = requestBody.getJSONObject("extra").toJavaObject(ExpLaborVO.class);
         return ResponseEntity.status(201).body(financeExpUpdateService.update(id, baseVO, extraVO));
     }
 
-    @PostMapping("/exp/{exp_id}/material")
+    @PostMapping("/{exp_id}/material")
     public ResponseEntity<Exp> update7(@PathVariable("exp_id") Long id, @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         ExpVO baseVO = requestBody.getJSONObject("base").toJavaObject(ExpVO.class);
         ExpMaterialVO extraVO = requestBody.getJSONObject("extra").toJavaObject(ExpMaterialVO.class);
         return ResponseEntity.status(201).body(financeExpUpdateService.update(id, baseVO, extraVO));
     }
 
-    @PostMapping("/exp/{exp_id}/other")
+    @PostMapping("/{exp_id}/other")
     public ResponseEntity<Exp> update8(@PathVariable("exp_id") Long id, @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         ExpVO baseVO = requestBody.getJSONObject("base").toJavaObject(ExpVO.class);
         ExpOtherVO extraVO = requestBody.getJSONObject("extra").toJavaObject(ExpOtherVO.class);
         return ResponseEntity.status(201).body(financeExpUpdateService.update(id, baseVO, extraVO));
     }
 
-    @PostMapping("/exp/{exp_id}/processing")
+    @PostMapping("/{exp_id}/processing")
     public ResponseEntity<Exp> update9(@PathVariable("exp_id") Long id, @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         ExpVO baseVO = requestBody.getJSONObject("base").toJavaObject(ExpVO.class);
         ExpProcessingVO extraVO = requestBody.getJSONObject("extra").toJavaObject(ExpProcessingVO.class);
         return ResponseEntity.status(201).body(financeExpUpdateService.update(id, baseVO, extraVO));
     }
 
-    @PostMapping("/exp/{exp_id}/publication")
+    @PostMapping("/{exp_id}/publication")
     public ResponseEntity<Exp> update10(@PathVariable("exp_id") Long id, @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         ExpVO baseVO = requestBody.getJSONObject("base").toJavaObject(ExpVO.class);
         ExpPublicationVO extraVO = requestBody.getJSONObject("extra").toJavaObject(ExpPublicationVO.class);
         return ResponseEntity.status(201).body(financeExpUpdateService.update(id, baseVO, extraVO));
     }
 
-    @PostMapping("/exp/{exp_id}/travel")
+    @PostMapping("/{exp_id}/travel")
     public ResponseEntity<Exp> update11(@PathVariable("exp_id") Long id, @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         ExpVO baseVO = requestBody.getJSONObject("base").toJavaObject(ExpVO.class);
         ExpTravelVO extraVO = requestBody.getJSONObject("extra").toJavaObject(ExpTravelVO.class);
@@ -232,7 +232,7 @@ public class FinanceController {
 
     // delete
 
-    @DeleteMapping("/exp/{exp_id}")
+    @DeleteMapping("/{exp_id}")
     public ResponseEntity delete(@PathVariable("exp_id") Long id) {
         financeExpDeleteService.delete(id);
         return ResponseEntity.status(204).build();
