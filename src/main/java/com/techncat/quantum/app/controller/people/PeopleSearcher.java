@@ -8,6 +8,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/people")
 @CrossOrigin(
@@ -40,5 +42,10 @@ public class PeopleSearcher {
         } else {
             return people_searchService.search(word, type, request);
         }
+    }
+
+    @GetMapping("/options")
+    public List<People> search(@RequestParam(value = "word", required = false) String word) {
+        return people_searchService.search(word);
     }
 }

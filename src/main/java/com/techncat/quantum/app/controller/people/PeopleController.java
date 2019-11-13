@@ -37,7 +37,6 @@ public class PeopleController {
     private VOEnhanceUtil voEnhanceUtil;
 
     // show
-
     @GetMapping("/{people_id}/base")
     public ResponseEntity<PeopleVO> showBase(@PathVariable("people_id") Long id) throws PeopleShowService.PeopleNotFoundException {
         return ResponseEntity.ok(showService.showBase(id));

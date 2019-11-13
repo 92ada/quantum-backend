@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class People_SearchService {
@@ -28,5 +29,10 @@ public class People_SearchService {
         }
         String wordLike = "%" + word + "%";
         return peopleRepository.findAllByTypeAndNameLikeOrSidLikeOrEmailLike(type, wordLike, wordLike, wordLike, pageRequest);
+    }
+
+    public List<People> search(String word) {
+        String wordLike = "%" + word + "%";
+        return peopleRepository.findAllByNameLike(wordLike);
     }
 }
