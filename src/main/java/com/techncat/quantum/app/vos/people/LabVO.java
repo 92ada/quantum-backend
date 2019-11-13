@@ -8,12 +8,7 @@ import java.util.Date;
 @Data
 public class LabVO {
     private Long id;
-
-    private String name;
-    private Date updateAt;
-    private Date createdAt;
-
     private People pi;
-
+    private String name;
     private String description;
 }

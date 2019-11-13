@@ -32,7 +32,7 @@ public class PeopleStructureController {
 
     @GetMapping("/administration/structure")
     public ResponseEntity<Map> structureInfo1() throws IllegalAccessException {
-        Map result = voEnhanceUtil.enhance("data", new PeopleVO());
+        Map result = voEnhanceUtil.enhance("data", new PeopleAdminVO());
         result.put("index", "people.other_info");
         result.put("key", "extra");
         result.put("priority", "2");

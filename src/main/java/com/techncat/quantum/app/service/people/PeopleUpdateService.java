@@ -30,6 +30,8 @@ public class PeopleUpdateService {
     private PeopleTeacherRepository peopleTeacherRepository;
     @Resource
     private PeopleVisitorRepository peopleVisitorRepository;
+    @Autowired
+    private PeopleShowService showService;
 
     // 1. base update
     public People update(Long peopleId, PeopleVO vo) {
@@ -46,8 +48,10 @@ public class PeopleUpdateService {
     public People update(Long peopleId, PeopleVO peopleVO, PeopleAdminVO extraVo) {
         Assert.notNull(peopleVO, "data can not be null");
         Assert.notNull(extraVo, "data can not be null");
+        PeopleAdmin record = showService.fetchBase(peopleId).getPeopleAdmin();
 
         return repoUtils.process(peopleVO, extraVo, PeopleAdmin.class, preData1 -> {
+            preData1.setId(record.getId());
             preData1.setUpdateAt(new Date());
             return peopleAdminRepository.save(preData1);
         }, People.class, (postData1, preData2) -> {
@@ -65,8 +69,10 @@ public class PeopleUpdateService {
     public People update(Long peopleId, PeopleVO peopleVO, PeoplePostdoctoralVO extraVo) {
         Assert.notNull(peopleVO, "data can not be null");
         Assert.notNull(extraVo, "data can not be null");
+        PeoplePostdoctoral record = showService.fetchBase(peopleId).getPeoplePostdoctoral();
 
         return repoUtils.process(peopleVO, extraVo, PeoplePostdoctoral.class, preData1 -> {
+            preData1.setId(record.getId());
             preData1.setUpdateAt(new Date());
             return peoplePostdoctoralRepository.save(preData1);
         }, People.class, (postData1, preData2) -> {
@@ -84,8 +90,10 @@ public class PeopleUpdateService {
     public People update(Long peopleId, PeopleVO peopleVO, PeopleResearcherVO extraVo) {
         Assert.notNull(peopleVO, "data can not be null");
         Assert.notNull(extraVo, "data can not be null");
+        PeopleResearcher record = showService.fetchBase(peopleId).getPeopleResearcher();
 
         return repoUtils.process(peopleVO, extraVo, PeopleResearcher.class, preData1 -> {
+            preData1.setId(record.getId());
             preData1.setUpdateAt(new Date());
             return peopleResearcherRepository.save(preData1);
         }, People.class, (postData1, preData2) -> {
@@ -103,8 +111,10 @@ public class PeopleUpdateService {
     public People update(Long peopleId, PeopleVO peopleVO, PeopleStudentVO extraVo) {
         Assert.notNull(peopleVO, "data can not be null");
         Assert.notNull(extraVo, "data can not be null");
+        PeopleStudent record = showService.fetchBase(peopleId).getPeopleStudent();
 
         return repoUtils.process(peopleVO, extraVo, PeopleStudent.class, preData1 -> {
+            preData1.setId(record.getId());
             preData1.setUpdateAt(new Date());
             return peopleStudentRepository.save(preData1);
         }, People.class, (postData1, preData2) -> {
@@ -122,8 +132,10 @@ public class PeopleUpdateService {
     public People update(Long peopleId, PeopleVO peopleVO, PeopleTeacherVO extraVo) {
         Assert.notNull(peopleVO, "data can not be null");
         Assert.notNull(extraVo, "data can not be null");
+        PeopleTeacher record = showService.fetchBase(peopleId).getPeopleTeacher();
 
         return repoUtils.process(peopleVO, extraVo, PeopleTeacher.class, preData1 -> {
+            preData1.setId(record.getId());
             preData1.setUpdateAt(new Date());
             return peopleTeacherRepository.save(preData1);
         }, People.class, (postData1, preData2) -> {
@@ -141,8 +153,9 @@ public class PeopleUpdateService {
     public People update(Long peopleId, PeopleVO peopleVO, PeopleVisitorVO extraVo) {
         Assert.notNull(peopleVO, "data can not be null");
         Assert.notNull(extraVo, "data can not be null");
-
+        PeopleVisitor record = showService.fetchBase(peopleId).getPeopleVisitor();
         return repoUtils.process(peopleVO, extraVo, PeopleVisitor.class, preData1 -> {
+            preData1.setId(record.getId());
             preData1.setUpdateAt(new Date());
             return peopleVisitorRepository.save(preData1);
         }, People.class, (postData1, preData2) -> {
