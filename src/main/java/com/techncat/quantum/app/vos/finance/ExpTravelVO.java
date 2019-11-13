@@ -12,8 +12,8 @@ public class ExpTravelVO extends ExpVO {
     private Date updateAt;
     private Date createdAt;
 
-    @ValueType(value = "object", option_url = "/api/people/options")
-    private String travelerJson;
+    @ValueType(value = "people", option_url = "/api/people/options")
+    private Object travelerJson;
 
     private Date start_date;
     private Date end_date;

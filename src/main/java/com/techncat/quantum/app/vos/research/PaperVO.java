@@ -18,8 +18,8 @@ public class PaperVO {
     private Boolean is_under_sustech;
     private Integer sustech_institution_rank;
 
-    @ValueType(value = "object", option_url = "/api/people/options")
-    private String authorJson;
+    @ValueType(value = "people", option_url = "/api/people/options")
+    private Object authorJson;
 
     private Integer author_rank;
     private Boolean is_international;

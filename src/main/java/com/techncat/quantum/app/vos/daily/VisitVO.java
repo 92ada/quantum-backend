@@ -2,7 +2,6 @@ package com.techncat.quantum.app.vos.daily;
 
 import com.techncat.quantum.app.common.voenhance.annotation.ValueType;
 import com.techncat.quantum.app.model.daily.Visit;
-import com.techncat.quantum.app.model.people.People;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -22,8 +21,8 @@ public class VisitVO {
     private String visitor_institution;
     private String job_title;
 
-    @ValueType(value = "object", option_url = "/api/people/options")
-    private String receptionistJson;
+    @ValueType(value = "people", option_url = "/api/people/options")
+    private Object receptionistJson;
     @ValueType("enumerated")
     private Visit.identity_type identity_type;
     private String identity_no;

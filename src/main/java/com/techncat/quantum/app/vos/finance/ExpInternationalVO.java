@@ -15,8 +15,8 @@ public class ExpInternationalVO extends ExpVO {
     private Date start_date;
     private Date end_date;
 
-    @ValueType(value = "object", option_url = "/api/people/options")
-    private String peopleJson;
+    @ValueType(value = "people", option_url = "/api/people/options")
+    private Object peopleJson;
 
     private String matter;
     private String location;

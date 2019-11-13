@@ -15,6 +15,6 @@ public class ExpOtherVO extends ExpVO {
     private String subject;
     private String matter;
 
-    @ValueType(value = "object", option_url = "/api/people/options")
-    private String handlerJson;
+    @ValueType(value = "people", option_url = "/api/people/options")
+    private Object handlerJson;
 }

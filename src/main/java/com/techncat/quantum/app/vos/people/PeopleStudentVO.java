@@ -13,10 +13,10 @@ public class PeopleStudentVO {
     // detail
     private String edu_system;
     private String category;
-    @ValueType(value = "object", option_url = "/api/people/options")
-    private String advisorJson;
-    @ValueType(value = "object", option_url = "/api/people/options")
-    private String viceAdvisorJson;
+    @ValueType(value = "people", option_url = "/api/people/options")
+    private Object advisorJson;
+    @ValueType(value = "people", option_url = "/api/people/options")
+    private Object viceAdvisorJson;
     private String midterm_assessment_status;
     private String opening_assessment_status;
 }

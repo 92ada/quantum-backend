@@ -14,8 +14,8 @@ public class TravelVO {
     private Date updateAt;
     private Date createdAt;
 
-    @ValueType(value = "object", option_url = "/api/people/options")
-    private String travelerJson;
+    @ValueType(value = "people", option_url = "/api/people/options")
+    private Object travelerJson;
     @ValueType("enumerated")
     private Travel.Type type;
     private BigDecimal budget;

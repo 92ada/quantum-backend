@@ -1,10 +1,13 @@
 package com.techncat.quantum.app.model.finance;
 
+import com.techncat.quantum.app.common.repo.JpaConverterJson;
 import com.techncat.quantum.app.model.people.People;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
 
+@Data
 @Entity
 @Table(name = "exp_others")
 public class ExpOther {
@@ -25,62 +28,8 @@ public class ExpOther {
     @ManyToOne
     @JoinColumn(name = "handler_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People handler;
-    @Column(columnDefinition="text")
-    private String handlerJson;
+    @Column(columnDefinition = "json")
+    @Convert(converter = JpaConverterJson.class)
+    private Object handlerJson;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Date getUpdateAt() {
-        return updateAt;
-    }
-
-    public void setUpdateAt(Date updateAt) {
-        this.updateAt = updateAt;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public String getSubject() {
-        return subject;
-    }
-
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
-
-    public String getMatter() {
-        return matter;
-    }
-
-    public void setMatter(String matter) {
-        this.matter = matter;
-    }
-
-    public People getHandler() {
-        return handler;
-    }
-
-    public void setHandler(People handler) {
-        this.handler = handler;
-    }
-
-    public String getHandlerJson() {
-        return handlerJson;
-    }
-
-    public void setHandlerJson(String handlerJson) {
-        this.handlerJson = handlerJson;
-    }
 }

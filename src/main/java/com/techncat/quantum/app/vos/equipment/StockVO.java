@@ -32,8 +32,8 @@ public class StockVO {
     private Integer min_usage_years;
     private Date inbound_date;
 
-    @ValueType(value = "object", option_url = "/api/people/options")
-    private String adminJson;
+    @ValueType(value = "people", option_url = "/api/people/options")
+    private Object adminJson;
 
     private String document_no;
     private String remark;

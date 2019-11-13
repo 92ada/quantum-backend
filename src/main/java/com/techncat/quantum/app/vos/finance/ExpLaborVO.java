@@ -18,6 +18,6 @@ public class ExpLaborVO extends ExpVO {
     private BigDecimal standard;
     private Integer days;
 
-    @ValueType(value = "object", option_url = "/api/people/options")
-    private String handlerJson;
+    @ValueType(value = "people", option_url = "/api/people/options")
+    private Object handlerJson;
 }

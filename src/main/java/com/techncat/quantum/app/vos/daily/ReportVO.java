@@ -13,8 +13,8 @@ public class ReportVO {
     private Date updateAt;
     private Date createdAt;
 
-    @ValueType(value = "object", option_url = "/api/people/options")
-    private String inviterJson;
+    @ValueType(value = "people", option_url = "/api/people/options")
+    private Object inviterJson;
 
     private Date time;
     private String title;

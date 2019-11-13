@@ -1,13 +1,11 @@
 package com.techncat.quantum.app.vos.research;
 
 import com.techncat.quantum.app.common.voenhance.annotation.ValueType;
-import com.techncat.quantum.app.model.people.People;
 import com.techncat.quantum.app.model.research.Project;
 import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.Set;
 
 @Data
 public class ProjectVO {
@@ -18,8 +16,8 @@ public class ProjectVO {
     @ValueType("enumerated")
     private Project.Category category;
 
-    @ValueType(value = "object", option_url = "/api/people/options") // TODO
-    private String leaderJson;
+    @ValueType(value = "people", option_url = "/api/people/options") // TODO
+    private Object leaderJson;
 
     private Date start_date;
     private Date end_date;
@@ -27,6 +25,6 @@ public class ProjectVO {
     private Project.WayOfTaking way_of_taking;
     private BigDecimal approved_funds;
 
-    @ValueType(value = "object", option_url = "/api/people/options") // TODO
-    private String membersJson;
+    @ValueType(value = "people", option_url = "/api/people/options") // TODO
+    private Object membersJson;
 }

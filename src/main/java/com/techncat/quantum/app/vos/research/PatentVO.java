@@ -11,8 +11,8 @@ import java.util.Date;
 public class PatentVO {
     private Long id;
 
-    @ValueType(value = "object", option_url = "/api/people/options")
-    private String applicantJson;
+    @ValueType(value = "people", option_url = "/api/people/options")
+    private Object applicantJson;
     private String title;
     @ValueType("enumerated")
     private Patent.Type type;

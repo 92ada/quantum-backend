@@ -21,10 +21,10 @@ public class PurchasingVO {
     private String argument_method;
     private Date request_date;
 
-    @ValueType(value = "object", option_url = "/api/people/options")
-    private String handlerJson;
-    @ValueType(value = "object", option_url = "/api/people/options")
-    private String piJson;
+    @ValueType(value = "people", option_url = "/api/people/options")
+    private Object handlerJson;
+    @ValueType(value = "people", option_url = "/api/people/options")
+    private Object piJson;
 
     private Boolean is_finished;
     private String status;

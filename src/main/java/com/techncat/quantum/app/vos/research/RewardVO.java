@@ -11,8 +11,8 @@ import java.util.Date;
 public class RewardVO {
     private Long id;
 
-    @ValueType(value = "object", option_url = "/api/people/options")
-    private String rewardedJson;
+    @ValueType(value = "people", option_url = "/api/people/options")
+    private Object rewardedJson;
 
     private String title;
     private String issue_institution;
