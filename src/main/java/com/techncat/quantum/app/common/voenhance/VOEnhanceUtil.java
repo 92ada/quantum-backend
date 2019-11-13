@@ -70,6 +70,7 @@ public class VOEnhanceUtil {
                         break;
                     }
                 case people:
+                case person:
                 case object:
                     if (!isEmpty(typeResult.getOptionUrl())) {
 //                        vo = new EnhancedVO(index, JSON.toJSONString(value), typeResult.getValue().name(), typeResult.getOptionUrl());
@@ -149,7 +150,8 @@ public class VOEnhanceUtil {
             email,
             photo,
             people,
-            lab
+            lab,
+            person
         }
 
         private Type value;
