@@ -47,8 +47,8 @@ public class PeopleController {
         PeopleVO peopleVO = showService.showBase(peopleId);
         Map result = voEnhanceUtil.enhance("data", peopleVO);
         result.put("index", "people.basic_info");
-        result.put("post_url", "/api/people/base");
-        result.put("update_url", "/api/people/" + peopleId + "/base");
+//        result.put("post_url", "/api/people/" + peopleVO.getType().name());
+        result.put("update_url", "/api/people/" + peopleId + "/" + peopleVO.getType().name());
         result.put("delete_url", "/api/people/" + peopleId);
         return ResponseEntity.ok(result);
     }
@@ -65,7 +65,7 @@ public class PeopleController {
         Object data = showService.showExtra(people, people.getType());
         Map result = voEnhanceUtil.enhance("data", data);
         result.put("index", "people.other_info");
-        result.put("post_url", "/api/people/" + people.getType().name());
+//        result.put("post_url", "/api/people/" + people.getType().name());
         result.put("update_url", "/api/people/" + peopleId + "/" + people.getType().name());
         result.put("delete_url", "/api/people/" + peopleId);
         return ResponseEntity.ok(result);
@@ -109,7 +109,7 @@ public class PeopleController {
         return ResponseEntity.status(201).body(createService.create(peopleVO));
     }
 
-    @PostMapping("/admin")
+    @PostMapping("/administration")
     public ResponseEntity<People> createAdmin(@RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         PeopleVO peopleVO = requestBody.getJSONObject("base").toJavaObject(PeopleVO.class);
         PeopleAdminVO adminVO = requestBody.getJSONObject("extra").toJavaObject(PeopleAdminVO.class);
@@ -165,7 +165,7 @@ public class PeopleController {
         return ResponseEntity.status(200).body(updateService.update(id, peopleVO));
     }
 
-    @PutMapping("/{people_id}/admin")
+    @PutMapping("/{people_id}/administration")
     public ResponseEntity<People> updateAdmin(@PathVariable("people_id") Long id, @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         PeopleVO peopleVO = requestBody.getJSONObject("base").toJavaObject(PeopleVO.class);
         PeopleAdminVO adminVO = requestBody.getJSONObject("extra").toJavaObject(PeopleAdminVO.class);
