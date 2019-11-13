@@ -33,7 +33,7 @@ public class PeopleStructureController {
     @GetMapping("/administration/structure")
     public ResponseEntity<Map> structureInfo1() throws IllegalAccessException {
         Map result = voEnhanceUtil.enhance("data", new PeopleVO());
-        result.put("index", "people.extra");
+        result.put("index", "people.other_info");
         result.put("key", "extra");
         result.put("priority", "2");
         result.put("post_url", "/api/people/administration");
@@ -43,7 +43,7 @@ public class PeopleStructureController {
     @GetMapping("/postdoctoral/structure")
     public ResponseEntity<Map> structureInfo2() throws IllegalAccessException {
         Map result = voEnhanceUtil.enhance("data", new PeoplePostdoctoralVO());
-        result.put("index", "people.extra");
+        result.put("index", "people.other_info");
         result.put("key", "extra");
         result.put("priority", "2");
         result.put("post_url", "/api/people/postdoctoral");
@@ -53,7 +53,7 @@ public class PeopleStructureController {
     @GetMapping("/researcher/structure")
     public ResponseEntity<Map> structureInfo3() throws IllegalAccessException {
         Map result = voEnhanceUtil.enhance("data", new PeopleResearcherVO());
-        result.put("index", "people.extra");
+        result.put("index", "people.other_info");
         result.put("key", "extra");
         result.put("priority", "2");
         result.put("post_url", "/api/people/researcher");
@@ -63,7 +63,7 @@ public class PeopleStructureController {
     @GetMapping("/student/structure")
     public ResponseEntity<Map> structureInfo4() throws IllegalAccessException {
         Map result = voEnhanceUtil.enhance("data", new PeopleStudentVO());
-        result.put("index", "people.extra");
+        result.put("index", "people.other_info");
         result.put("key", "extra");
         result.put("priority", "2");
         result.put("post_url", "/api/people/student");
@@ -73,7 +73,7 @@ public class PeopleStructureController {
     @GetMapping("/teacher/structure")
     public ResponseEntity<Map> structureInfo5() throws IllegalAccessException {
         Map result = voEnhanceUtil.enhance("data", new PeopleTeacherVO());
-        result.put("index", "people.extra");
+        result.put("index", "people.other_info");
         result.put("key", "extra");
         result.put("priority", "2");
         result.put("post_url", "/api/people/teacher");
@@ -83,7 +83,7 @@ public class PeopleStructureController {
     @GetMapping("/visitor/structure")
     public ResponseEntity<Map> structureInfo6() throws IllegalAccessException {
         Map result = voEnhanceUtil.enhance("data", new PeopleVisitorVO());
-        result.put("index", "people.extra");
+        result.put("index", "people.other_info");
         result.put("key", "extra");
         result.put("priority", "2");
         result.put("post_url", "/api/people/visitor");

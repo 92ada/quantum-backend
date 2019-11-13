@@ -52,15 +52,17 @@ public class VOEnhanceUtil {
                     if (!isEmpty(typeResult.getOptionUrl())) {
 //                        vo = new EnhancedVO(index, JSON.toJSONString(value), typeResult.getValue().name(), typeResult.getOptionUrl());
                         LabVO labVO = voUtils.copy(value, LabVO.class);
-                        People people = labVO.getPi();
-                        if (people != null) {
-                            people.setPeopleAdmin(null);
-                            people.setPeoplePostdoctoral(null);
-                            people.setPeopleResearcher(null);
-                            people.setPeopleStudent(null);
-                            people.setPeopleTeacher(null);
-                            people.setPeopleVisitor(null);
-                            people.setLab(null);
+                        if (labVO != null) { // set null if exist people info
+                            People people = labVO.getPi();
+                            if (people != null) {
+                                people.setPeopleAdmin(null);
+                                people.setPeoplePostdoctoral(null);
+                                people.setPeopleResearcher(null);
+                                people.setPeopleStudent(null);
+                                people.setPeopleTeacher(null);
+                                people.setPeopleVisitor(null);
+                                people.setLab(null);
+                            }
                         }
                         vo = new EnhancedVO(index, labVO, typeResult.getValue().name(), typeResult.getOptionUrl());
                         vo.setEditable(isEditable);

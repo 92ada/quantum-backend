@@ -52,6 +52,7 @@ public class FinanceExpCreateService {
             return expConferenceRepository.save(preData1);
         }, Exp.class, (postData1, preData2) -> {
             // set each other
+            preData2.setId(null);
             preData2.setExpConference(postData1);
             preData2.setType(Exp.Type.conference);
             Exp postData2 = expRepository.save(preData2);
@@ -71,6 +72,7 @@ public class FinanceExpCreateService {
             return expConsultationRepository.save(preData1);
         }, Exp.class, (postData1, preData2) -> {
             // set each other
+            preData2.setId(null);
             preData2.setExpConsultation(postData1);
             preData2.setType(Exp.Type.consultation);
             Exp postData2 = expRepository.save(preData2);
@@ -90,6 +92,7 @@ public class FinanceExpCreateService {
             return expEquipmentRepository.save(preData1);
         }, Exp.class, (postData1, preData2) -> {
             // set each other
+            preData2.setId(null);
             preData2.setExpEquipment(postData1);
             preData2.setType(Exp.Type.equipment);
             Exp postData2 = expRepository.save(preData2);
@@ -109,6 +112,7 @@ public class FinanceExpCreateService {
             return expIndirectiveRepository.save(preData1);
         }, Exp.class, (postData1, preData2) -> {
             // set each other
+            preData2.setId(null);
             preData2.setExpIndirective(postData1);
             preData2.setType(Exp.Type.indirective);
             Exp postData2 = expRepository.save(preData2);
@@ -128,6 +132,7 @@ public class FinanceExpCreateService {
             return expInternationalRepository.save(preData1);
         }, Exp.class, (postData1, preData2) -> {
             // set each other
+            preData2.setId(null);
             preData2.setExpInternational(postData1);
             preData2.setType(Exp.Type.international);
             Exp postData2 = expRepository.save(preData2);
@@ -147,6 +152,7 @@ public class FinanceExpCreateService {
             return expLaborRepository.save(preData1);
         }, Exp.class, (postData1, preData2) -> {
             // set each other
+            preData2.setId(null);
             preData2.setExpLabor(postData1);
             preData2.setType(Exp.Type.labor);
             Exp postData2 = expRepository.save(preData2);
@@ -166,6 +172,7 @@ public class FinanceExpCreateService {
             return expMaterialRepository.save(preData1);
         }, Exp.class, (postData1, preData2) -> {
             // set each other
+            preData2.setId(null);
             preData2.setExpMaterial(postData1);
             preData2.setType(Exp.Type.material);
             Exp postData2 = expRepository.save(preData2);
@@ -185,6 +192,7 @@ public class FinanceExpCreateService {
             return expOtherRepository.save(preData1);
         }, Exp.class, (postData1, preData2) -> {
             // set each other
+            preData2.setId(null);
             preData2.setExpOther(postData1);
             preData2.setType(Exp.Type.other);
             Exp postData2 = expRepository.save(preData2);
@@ -204,6 +212,7 @@ public class FinanceExpCreateService {
             return expProcessingRepository.save(preData1);
         }, Exp.class, (postData1, preData2) -> {
             // set each other
+            preData2.setId(null);
             preData2.setExpProcessing(postData1);
             preData2.setType(Exp.Type.processing);
             Exp postData2 = expRepository.save(preData2);
@@ -223,6 +232,7 @@ public class FinanceExpCreateService {
             return expPublicationRepository.save(preData1);
         }, Exp.class, (postData1, preData2) -> {
             // set each other
+            preData2.setId(null);
             preData2.setExpPublication(postData1);
             preData2.setType(Exp.Type.publication);
             Exp postData2 = expRepository.save(preData2);
@@ -242,6 +252,7 @@ public class FinanceExpCreateService {
             return expTravelRepository.save(preData1);
         }, Exp.class, (postData1, preData2) -> {
             // set each other
+            preData2.setId(null);
             preData2.setExpTravel(postData1);
             preData2.setType(Exp.Type.travel);
             Exp postData2 = expRepository.save(preData2);

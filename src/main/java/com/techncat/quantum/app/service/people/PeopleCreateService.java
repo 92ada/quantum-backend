@@ -56,6 +56,7 @@ public class PeopleCreateService {
             return peopleAdminRepository.save(preData1);
         }, People.class, (postData1, preData2) -> {
             // set each other
+            preData2.setId(null);
             preData2.setPeopleAdmin(postData1);
             preData2.setType(People.Type.administration);
             People postData2 = peopleRepository.save(preData2);
@@ -77,6 +78,7 @@ public class PeopleCreateService {
             return peoplePostdoctoralRepository.save(preData1);
         }, People.class, (postData1, preData2) -> {
             // set each other
+            preData2.setId(null);
             preData2.setPeoplePostdoctoral(postData1);
             preData2.setType(People.Type.postdoctoral);
             People postData2 = peopleRepository.save(preData2);
@@ -98,6 +100,7 @@ public class PeopleCreateService {
             return peopleResearcherRepository.save(preData1);
         }, People.class, (postData1, preData2) -> {
             // set each other
+            preData2.setId(null);
             preData2.setPeopleResearcher(postData1);
             preData2.setType(People.Type.researcher);
             People postData2 = peopleRepository.save(preData2);
@@ -119,6 +122,7 @@ public class PeopleCreateService {
             return peopleStudentRepository.save(preData1);
         }, People.class, (postData1, preData2) -> {
             // set each other
+            preData2.setId(null);
             preData2.setPeopleStudent(postData1);
             preData2.setType(People.Type.student);
             People postData2 = peopleRepository.save(preData2);
@@ -140,6 +144,7 @@ public class PeopleCreateService {
             return peopleTeacherRepository.save(preData1);
         }, People.class, (postData1, preData2) -> {
             // set each other
+            preData2.setId(null);
             preData2.setPeopleTeacher(postData1);
             preData2.setType(People.Type.teacher);
             People postData2 = peopleRepository.save(preData2);
@@ -161,6 +166,7 @@ public class PeopleCreateService {
             return peopleVisitorRepository.save(preData1);
         }, People.class, (postData1, preData2) -> {
             // set each other
+            preData2.setId(null);
             preData2.setPeopleVisitor(postData1);
             preData2.setType(People.Type.visitor);
             People postData2 = peopleRepository.save(preData2);

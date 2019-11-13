@@ -50,7 +50,7 @@ public class PeopleShowService {
             case visitor:
                 return voUtils.copy(peopleVisitorRepository.findByPeople(people), PeopleVisitorVO.class);
         }
-        return voUtils.copy(people, PeopleVO.class);
+        return null;
     }
 
     public People fetchBase(Long id) throws PeopleNotFoundException {
