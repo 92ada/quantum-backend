@@ -37,7 +37,7 @@ public class PeopleShowService {
 
     public Object showExtra(People people, People.Type type) throws PeopleNotFoundException {
         switch (type) {
-            case admin:
+            case administration:
                 return voUtils.copy(peopleAdminRepository.findByPeople(people), PeopleAdminVO.class);
             case postdoctoral:
                 return voUtils.copy(peoplePostdoctoralRepository.findByPeople(people), PeoplePostdoctoralVO.class);

@@ -1,14 +1,11 @@
 package com.techncat.quantum.app.service.people;
 
-import com.techncat.quantum.app.common.voutils.VOUtils;
 import com.techncat.quantum.app.model.people.People;
 import com.techncat.quantum.app.repository.people.*;
-import com.techncat.quantum.app.vos.people.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Optional;
 
 @Service
 public class PeopleDeleteService {
@@ -33,7 +30,7 @@ public class PeopleDeleteService {
     public void delete(Long id) throws PeopleShowService.PeopleNotFoundException {
         People people = peopleShowService.fetchBase(id);
         switch (people.getType()) {
-            case admin:
+            case administration:
                 peopleAdminRepository.delete(people.getPeopleAdmin()); break;
             case postdoctoral:
                 peoplePostdoctoralRepository.delete(people.getPeoplePostdoctoral()); break;

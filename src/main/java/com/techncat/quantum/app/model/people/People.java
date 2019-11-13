@@ -9,7 +9,7 @@ import java.util.Date;
 })
 public class People {
     public enum Type {
-        base, admin, postdoctoral, researcher, student, teacher, visitor
+        base, administration, postdoctoral, researcher, student, teacher, visitor
     }
 
     public enum IdentityType {

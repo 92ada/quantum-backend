@@ -51,7 +51,7 @@ public class CasService {
         CloseableHttpClient client = createHttpClientWithNoSsl(httpCookieStore);
 
         /* 第一次请求[GET] 拉取流水号信息 */
-        HttpGet request = new HttpGet("https://cas.sustc.edu.cn/cas/login");
+        HttpGet request = new HttpGet("https://cas.sustech.edu.cn/cas/login");
         HttpResponse response = client.execute(request);
 
         Document htmlPage = Jsoup.parse(readResponse(response));
@@ -61,7 +61,7 @@ public class CasService {
         String submit = "登录";
 
         /* 第二次请求[POST] 发送表单验证信息 */
-        HttpPost request2 = new HttpPost("https://cas.sustc.edu.cn/cas/login");
+        HttpPost request2 = new HttpPost("https://cas.sustech.edu.cn/cas/login");
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("username", username));
         params.add(new BasicNameValuePair("password", password));

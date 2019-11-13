@@ -60,7 +60,7 @@ public class PeopleCreateService {
         }, People.class, (postData1, preData2) -> {
             // set each other
             preData2.setPeopleAdmin(postData1);
-            preData2.setType(People.Type.admin);
+            preData2.setType(People.Type.administration);
             People postData2 = peopleRepository.save(preData2);
             postData1.setPeople(postData2);
             peopleAdminRepository.save(postData1);
