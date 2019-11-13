@@ -2,7 +2,7 @@ package com.techncat.quantum.app.common.voenhance.vo;
 
 public class EnhancedVO {
     private String index;
-    private String value;
+    private Object value;
     private String type;
 
     private Object[] options;
@@ -11,23 +11,20 @@ public class EnhancedVO {
     private Boolean require;
     private Boolean editable = true;
 
-    public EnhancedVO(String index, String value, String type) {
+    public EnhancedVO(String index, Object value, String type) {
         this.index = index;
-        this.value = value;
         this.type = type;
+        if (value != null)
+            this.value = value;
     }
 
-    public EnhancedVO(String index, String value, String type, Object[] options) {
-        this.index = index;
-        this.value = value;
-        this.type = type;
+    public EnhancedVO(String index, Object value, String type, Object[] options) {
+        this(index, value, type);
         this.options = options;
     }
 
-    public EnhancedVO(String index, String value, String type, String option_url) {
-        this.index = index;
-        this.value = value;
-        this.type = type;
+    public EnhancedVO(String index, Object value, String type, String option_url) {
+        this(index, value, type);
         this.option_url = option_url;
     }
 
@@ -39,11 +36,11 @@ public class EnhancedVO {
         this.index = index;
     }
 
-    public String getValue() {
+    public Object getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(Object value) {
         this.value = value;
     }
 

@@ -1,8 +1,13 @@
 package com.techncat.quantum.app.common.voenhance;
 
+import com.alibaba.fastjson.JSON;
 import com.techncat.quantum.app.common.voenhance.annotation.Editable;
 import com.techncat.quantum.app.common.voenhance.annotation.ValueType;
 import com.techncat.quantum.app.common.voenhance.vo.EnhancedVO;
+import com.techncat.quantum.app.common.voutils.VOUtils;
+import com.techncat.quantum.app.model.people.People;
+import com.techncat.quantum.app.vos.people.LabVO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Field;
@@ -14,6 +19,8 @@ import java.util.*;
  */
 @Service
 public class VOEnhanceUtil {
+    @Autowired
+    private VOUtils voUtils;
 
     public Map<String, Object> enhance(String key, Object object) throws IllegalAccessException {
         List<EnhancedVO> list = enhance(object);
@@ -33,21 +40,38 @@ public class VOEnhanceUtil {
             Boolean isEditable = getEditable(field);
             String index = field.getName();
             Object value = field.get(object);
-            String value_ = null;
-            if (null != value) {
-                value_ = value.toString();
-            }
             EnhancedVO vo;
             switch (typeResult.getValue()) {
                 case enumerated:
                     Object[] enumValue = getEnumValues(field);
-                    vo = new EnhancedVO(index, value_, typeResult.getValue().name(), enumValue);
+                    vo = new EnhancedVO(index, value, typeResult.getValue().name(), enumValue);
                     vo.setEditable(isEditable);
                     vos.add(vo);
                     break;
+                case lab:
+                    if (!isEmpty(typeResult.getOptionUrl())) {
+//                        vo = new EnhancedVO(index, JSON.toJSONString(value), typeResult.getValue().name(), typeResult.getOptionUrl());
+                        LabVO labVO = voUtils.copy(value, LabVO.class);
+                        People people = labVO.getPi();
+                        if (people != null) {
+                            people.setPeopleAdmin(null);
+                            people.setPeoplePostdoctoral(null);
+                            people.setPeopleResearcher(null);
+                            people.setPeopleStudent(null);
+                            people.setPeopleTeacher(null);
+                            people.setPeopleVisitor(null);
+                            people.setLab(null);
+                        }
+                        vo = new EnhancedVO(index, labVO, typeResult.getValue().name(), typeResult.getOptionUrl());
+                        vo.setEditable(isEditable);
+                        vos.add(vo);
+                        break;
+                    }
+                case people:
                 case object:
                     if (!isEmpty(typeResult.getOptionUrl())) {
-                        vo = new EnhancedVO(index, value_, typeResult.getValue().name(), typeResult.getOptionUrl());
+//                        vo = new EnhancedVO(index, JSON.toJSONString(value), typeResult.getValue().name(), typeResult.getOptionUrl());
+                        vo = new EnhancedVO(index, value, typeResult.getValue().name(), typeResult.getOptionUrl());
                         vo.setEditable(isEditable);
                         vos.add(vo);
                         break;
@@ -57,7 +81,7 @@ public class VOEnhanceUtil {
                 case number:
                 case string:
                 default:
-                    vo = new EnhancedVO(index, value_, typeResult.getValue().name());
+                    vo = new EnhancedVO(index, value, typeResult.getValue().name());
                     vo.setEditable(isEditable);
                     vos.add(vo);
             }
@@ -111,17 +135,19 @@ public class VOEnhanceUtil {
     }
 
     private static class TypeResult {
-         enum Type {
-             string,
-             number,
-             bool,
-             date,
-             text,
-             enumerated,
-             object,
-             phone,
-             email,
-             photo
+        enum Type {
+            string,
+            number,
+            bool,
+            date,
+            text,
+            enumerated,
+            object,
+            phone,
+            email,
+            photo,
+            people,
+            lab
         }
 
         private Type value;

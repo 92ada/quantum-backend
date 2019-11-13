@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class VOUtils {
     public <T> T copy(Object region, Class<T> targetClazz) throws BeanCopyException {
+        if (region == null) return null;
         T target = null;
         try {
             target = targetClazz.newInstance();
