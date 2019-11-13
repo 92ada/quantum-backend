@@ -4,6 +4,8 @@ import com.techncat.quantum.app.common.voenhance.annotation.ValueType;
 import com.techncat.quantum.app.model.people.People;
 import lombok.Data;
 
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -16,6 +18,8 @@ public class SocialInsuranceVO {
 
     @ValueType(value = "object", option_url = "/api/people/options") // TODO
     private People people;
+
+    private Date date;
 
     private BigDecimal receivable_total;
     private BigDecimal receivable_by_individual;

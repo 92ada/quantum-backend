@@ -26,6 +26,8 @@ public class Exp {
     private Lab lab;
 
     private Type type;
+
+    @Temporal(TemporalType.DATE)
     private Date date;
     private String reservation_no;
     @Column(precision=10, scale=2)

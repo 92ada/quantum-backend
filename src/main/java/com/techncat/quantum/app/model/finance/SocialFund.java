@@ -41,5 +41,7 @@ public class SocialFund {
     private BigDecimal ratio_of_institutional_payment;
     @Column(precision = 10, scale = 2)
     private BigDecimal amount;
-    private Integer month;
+
+    @Temporal(TemporalType.DATE)
+    private Date date;
 }

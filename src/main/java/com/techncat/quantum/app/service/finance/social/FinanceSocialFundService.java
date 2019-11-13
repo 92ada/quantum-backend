@@ -5,10 +5,13 @@ import com.techncat.quantum.app.model.finance.SocialFund;
 import com.techncat.quantum.app.repository.finance.FinSocialFundRepository;
 import com.techncat.quantum.app.vos.finance.SocialFundVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class FinanceSocialFundService {
@@ -16,6 +19,14 @@ public class FinanceSocialFundService {
     private FinSocialFundRepository repository;
     @Autowired
     private VOUtils voUtils;
+
+    public List<SocialFund> list(Date start, Date end) {
+        return repository.findAllByDateBetween(start, end);
+    }
+
+    public Page<SocialFund> page(Date start, Date end, Pageable pageable) {
+        return repository.findAllByDateBetween(start, end, pageable);
+    }
 
     public SocialFund fetch(Long id) {
         SocialFund fund = repository.findFirstById(id);

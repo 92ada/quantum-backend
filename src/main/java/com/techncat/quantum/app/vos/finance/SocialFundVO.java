@@ -4,6 +4,8 @@ import com.techncat.quantum.app.common.voenhance.annotation.ValueType;
 import com.techncat.quantum.app.model.people.People;
 import lombok.Data;
 
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -26,5 +28,6 @@ public class SocialFundVO {
     private BigDecimal base_amount;
     private BigDecimal ratio_of_institutional_payment;
     private BigDecimal amount;
-    private Integer month;
+
+    private Date date;
 }

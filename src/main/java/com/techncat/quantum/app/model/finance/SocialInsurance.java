@@ -27,6 +27,9 @@ public class SocialInsurance {
     @Convert(converter = JpaConverterJson.class)
     private Object peopleJson;
 
+    @Temporal(TemporalType.DATE)
+    private Date date;
+
     @Column(precision = 10, scale = 2)
     private BigDecimal receivable_total;
     @Column(precision = 10, scale = 2)

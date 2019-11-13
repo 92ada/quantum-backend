@@ -1,0 +1,38 @@
+package com.techncat.quantum.app.service.utils;
+
+import org.springframework.stereotype.Service;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+@Service
+public class TimeFormatter {
+
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+    /**
+     * @param date 2018-01-01
+     * @return Date()
+     */
+    public Date formatDate(String date) throws ParseException {
+        return dateFormat.parse(date);
+    }
+
+    public Date formatDate(String date, Date defaultDate) {
+        if (date == null) return defaultDate;
+        try {
+            return formatDate(date);
+        } catch (ParseException e) {
+            return defaultDate;
+        }
+    }
+    public Date formatDate(String date, String defaultDate) {
+        try {
+            if (date == null) return formatDate(defaultDate);
+            return formatDate(date);
+        } catch (ParseException e) {
+            return null;
+        }
+    }
+}
