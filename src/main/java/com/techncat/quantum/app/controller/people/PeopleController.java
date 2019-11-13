@@ -47,6 +47,8 @@ public class PeopleController {
         PeopleVO peopleVO = showService.showBase(peopleId);
         Map result = voEnhanceUtil.enhance("data", peopleVO);
         result.put("index", "people.basic_info");
+        result.put("key", "base");
+        result.put("priority", "1");
 //        result.put("post_url", "/api/people/" + peopleVO.getType().name());
         result.put("update_url", "/api/people/" + peopleId + "/" + peopleVO.getType().name());
         result.put("delete_url", "/api/people/" + peopleId);
@@ -65,6 +67,8 @@ public class PeopleController {
         Object data = showService.showExtra(people, people.getType());
         Map result = voEnhanceUtil.enhance("data", data);
         result.put("index", "people.other_info");
+        result.put("key", "extra");
+        result.put("priority", "2");
 //        result.put("post_url", "/api/people/" + people.getType().name());
         result.put("update_url", "/api/people/" + peopleId + "/" + people.getType().name());
         result.put("delete_url", "/api/people/" + peopleId);
