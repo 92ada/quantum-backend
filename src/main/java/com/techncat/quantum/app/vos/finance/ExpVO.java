@@ -12,9 +12,6 @@ import java.util.Date;
 public class ExpVO {
     private Long id;
 
-    private Date updateAt;
-    private Date createdAt;
-
     @ValueType(value = "object", option_url = "/api/labs/options")
     private Lab lab;
 

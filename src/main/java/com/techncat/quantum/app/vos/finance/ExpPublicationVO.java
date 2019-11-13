@@ -9,9 +9,6 @@ import java.util.Date;
 public class ExpPublicationVO {
     private Long id;
 
-    private Date updateAt;
-    private Date createdAt;
-
     private String subject;
     private String matter;
     private String department;

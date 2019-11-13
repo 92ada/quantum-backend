@@ -9,12 +9,6 @@ import java.util.Date;
 public class ExpOtherVO {
     private Long id;
 
-    private Date updateAt;
-    private Date createdAt;
-
-    private String subject;
-    private String matter;
-
     @ValueType(value = "people", option_url = "/api/people/options")
     private Object handlerJson;
 }

@@ -9,9 +9,6 @@ import java.util.Date;
 public class ExpInternationalVO {
     private Long id;
 
-    private Date updateAt;
-    private Date createdAt;
-
     private Date start_date;
     private Date end_date;
 

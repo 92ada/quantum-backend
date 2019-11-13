@@ -13,9 +13,6 @@ import java.util.Date;
 public class SocialFundVO {
     private Long id;
 
-    private Date updateAt;
-    private Date createdAt;
-
     @ValueType(value = "object", option_url = "/api/people/options") // TODO
     private People people;
 

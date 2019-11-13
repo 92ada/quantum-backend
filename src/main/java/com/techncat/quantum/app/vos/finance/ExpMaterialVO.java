@@ -8,8 +8,5 @@ import java.util.Date;
 public class ExpMaterialVO {
     private Long id;
 
-    private Date updateAt;
-    private Date createdAt;
-
     private String title;
 }

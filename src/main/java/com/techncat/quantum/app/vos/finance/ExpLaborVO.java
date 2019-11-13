@@ -10,9 +10,6 @@ import java.util.Date;
 public class ExpLaborVO {
     private Long id;
 
-    private Date updateAt;
-    private Date createdAt;
-
     private String category;
     private String matter;
     private BigDecimal standard;
