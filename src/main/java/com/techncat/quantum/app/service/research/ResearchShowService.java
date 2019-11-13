@@ -31,19 +31,27 @@ public class ResearchShowService {
     private ResearchRewardRepository researchRewardRepository;
 
     public PaperVO showPaper(Long id) throws PaperNotFoundException {
+        Paper paper = fetchPaper(id);
+        return voUtils.copy(paper, PaperVO.class);
+    }
+
+    public Paper fetchPaper(Long id) throws PaperNotFoundException {
         Optional<Paper> paperOptional = researchPaperRepository.findById(id);
         if (paperOptional.isPresent()) {
-            Paper paper = paperOptional.get();
-            return voUtils.copy(paper, PaperVO.class);
+            return paperOptional.get();
         }
         throw new PaperNotFoundException(id);
     }
 
     public PatentVO showPatent(Long id) throws PatentNotFoundException {
+        Patent patent = fetchPatent(id);
+        return voUtils.copy(patent, PatentVO.class);
+    }
+
+    public Patent fetchPatent(Long id) throws PatentNotFoundException {
         Optional<Patent> patentOptional = researchPatentRepository.findById(id);
         if (patentOptional.isPresent()) {
-            Patent patent = patentOptional.get();
-            return voUtils.copy(patent, PatentVO.class);
+            return patentOptional.get();
         }
         throw new PatentNotFoundException(id);
     }
@@ -62,27 +70,39 @@ public class ResearchShowService {
     }
 
     public RewardVO showReward(Long id) throws RewardNotFoundException {
+        Reward reward = fetchReward(id);
+        return voUtils.copy(reward, RewardVO.class);
+    }
+
+    public Reward fetchReward(Long id) throws RewardNotFoundException {
         Optional<Reward> rewardOptional = researchRewardRepository.findById(id);
         if (rewardOptional.isPresent()) {
-            Reward reward = rewardOptional.get();
-            return voUtils.copy(reward, RewardVO.class);
+            return rewardOptional.get();
         }
         throw new RewardNotFoundException(id);
     }
 
     public static class PaperNotFoundException extends Exception {
-        PaperNotFoundException(Long id) { super("Paper id=[" + id + "] Not Found"); }
+        PaperNotFoundException(Long id) {
+            super("Paper id=[" + id + "] Not Found");
+        }
     }
 
     public static class PatentNotFoundException extends Exception {
-        PatentNotFoundException(Long id) { super("Patent id=[" + id + "] Not Found"); }
+        PatentNotFoundException(Long id) {
+            super("Patent id=[" + id + "] Not Found");
+        }
     }
 
     public static class ProjectNotFoundException extends Exception {
-        ProjectNotFoundException(Long id) { super("Project id=[" + id + "] Not Found"); }
+        ProjectNotFoundException(Long id) {
+            super("Project id=[" + id + "] Not Found");
+        }
     }
 
     public static class RewardNotFoundException extends Exception {
-        RewardNotFoundException(Long id) { super("Reward id=[" + id + "] Not Found"); }
+        RewardNotFoundException(Long id) {
+            super("Reward id=[" + id + "] Not Found");
+        }
     }
 }

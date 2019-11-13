@@ -26,7 +26,7 @@ public class PeopleSearcher {
     @GetMapping
     public Page<People> search(@RequestParam(value = "word", required = false) String word,
                                @RequestParam(value = "type", required = false) People.Type type,
-                               @RequestParam(value = "page", defaultValue = "0") Integer page,
+                               @RequestParam(value = "page", defaultValue = "1") Integer page,
                                @RequestParam(value = "limit", defaultValue = "10") Integer size,
                                @RequestParam(value = "order", defaultValue = "desc") String order,
                                @RequestParam(value = "by", defaultValue = "createdAt") String byProp) {

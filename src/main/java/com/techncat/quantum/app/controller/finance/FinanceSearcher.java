@@ -38,7 +38,7 @@ public class FinanceSearcher {
     public Page<Exp> search(@RequestParam(value = "start", required = false) String start, // 2018-01-01
                             @RequestParam(value = "end", required = false) String end,
                             @RequestParam(value = "type", required = false) Exp.Type type,
-                            @RequestParam(value = "page", defaultValue = "0") Integer page,
+                            @RequestParam(value = "page", defaultValue = "1") Integer page,
                             @RequestParam(value = "limit", defaultValue = "10") Integer size,
                             @RequestParam(value = "order", defaultValue = "desc") String order,
                             @RequestParam(value = "by", defaultValue = "createdAt") String byProp) {
@@ -62,7 +62,7 @@ public class FinanceSearcher {
     @GetMapping("/social_funds")
     public Page<SocialFund> searchSocialFunds(@RequestParam(value = "start", required = false) String start, // 2018-01-01
                                               @RequestParam(value = "end", required = false) String end,
-                                              @RequestParam(value = "page", defaultValue = "0") Integer page,
+                                              @RequestParam(value = "page", defaultValue = "1") Integer page,
                                               @RequestParam(value = "limit", defaultValue = "10") Integer size,
                                               @RequestParam(value = "order", defaultValue = "desc") String order,
                                               @RequestParam(value = "by", defaultValue = "createdAt") String byProp) {
@@ -81,7 +81,7 @@ public class FinanceSearcher {
     @GetMapping("/social_insurances")
     public Page<SocialInsurance> searchSocialInsurances(@RequestParam(value = "start", required = false) String start, // 2018-01-01
                                                         @RequestParam(value = "end", required = false) String end,
-                                                        @RequestParam(value = "page", defaultValue = "0") Integer page,
+                                                        @RequestParam(value = "page", defaultValue = "1") Integer page,
                                                         @RequestParam(value = "limit", defaultValue = "10") Integer size,
                                                         @RequestParam(value = "order", defaultValue = "desc") String order,
                                                         @RequestParam(value = "by", defaultValue = "createdAt") String byProp) {

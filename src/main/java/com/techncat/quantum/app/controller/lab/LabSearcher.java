@@ -24,7 +24,7 @@ public class LabSearcher {
 
     @GetMapping
     public Page<Lab> search(@RequestParam(value = "word", required = false) String word,
-                            @RequestParam(value = "page", defaultValue = "0") Integer page,
+                            @RequestParam(value = "page", defaultValue = "1") Integer page,
                             @RequestParam(value = "limit", defaultValue = "10") Integer size,
                             @RequestParam(value = "order", defaultValue = "desc") String order,
                             @RequestParam(value = "by", defaultValue = "createdAt") String byProp) {
