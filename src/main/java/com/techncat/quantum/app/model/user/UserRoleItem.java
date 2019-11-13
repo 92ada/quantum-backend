@@ -14,4 +14,7 @@ public class UserRoleItem {
     private String name;
     @Column(name = "role_key")
     private String key; // set to user_roles
+
+    @Transient
+    private Boolean hasAuth;
 }

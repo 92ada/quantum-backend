@@ -1,8 +1,7 @@
-package com.techncat.quantum.app.controller.login;
+package com.techncat.quantum.app.controller.auth;
 
 import com.techncat.quantum.app.auth.cas.CasService;
 import com.techncat.quantum.app.auth.service.JwtService;
-import com.techncat.quantum.app.model.people.People;
 import com.techncat.quantum.app.model.user.User;
 import com.techncat.quantum.app.service.people.PeopleShowService;
 import com.techncat.quantum.app.service.user.UserService;
@@ -35,7 +34,7 @@ public class CasLoginController {
     @PostMapping
     public ResponseEntity login(@RequestBody LoginPayload payload) {
         if (casService.login(payload.getSid(), payload.getPassword())) {
-            peopleShowService.fetchBySid(payload.getSid()); // if not exist, throw notfound exception
+//            peopleShowService.fetchBySid(payload.getSid()); // if not exist, throw notfound exception
             User user = userService.fetch(payload.getSid());
             return ResponseEntity.ok(jwtService.encode(user.getSid(), user.getRoles()));
         } else {

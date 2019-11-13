@@ -4,7 +4,9 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "people")
+@Table(name = "people", indexes = {
+        @Index(name = "people_index_sid", columnList = "sid", unique = true)
+})
 public class People {
     public enum Type {
         base, admin, postdoctoral, researcher, student, teacher, visitor
@@ -29,6 +31,7 @@ public class People {
     private Date updateAt;
     private Date createdAt;
 
+    @Column(length = 14)
     private String sid;
     @Enumerated
     private Type type = Type.base; // default
