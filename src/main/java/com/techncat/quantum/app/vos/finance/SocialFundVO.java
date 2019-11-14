@@ -13,7 +13,7 @@ import java.util.Date;
 public class SocialFundVO {
     private Long id;
 
-    @ValueType(value = "object", option_url = "/api/people/options") // TODO
+    @ValueType(value = "person", option_url = "/api/people/options")
     private People people;
 
     private String fund_account_no;

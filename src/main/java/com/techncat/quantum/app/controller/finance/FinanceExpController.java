@@ -48,7 +48,7 @@ public class FinanceExpController {
         Exp exp = financeExpShowService.fetch(id);
         ExpVO vo = voUtils.copy(exp, ExpVO.class);
         Map result = voEnhanceUtil.enhance("data", vo);
-        result.put("index", "finance.exp");
+        result.put("index", "finance.expenditure");
         result.put("post_url", "/api/finance/exps/base");
         result.put("update_url", "/api/finance/exps/" + id + "/base");
         result.put("delete_url", "/api/finance/exps/" + id);
@@ -65,7 +65,7 @@ public class FinanceExpController {
         Exp exp = financeExpShowService.fetch(id);
         Object obj = financeExpShowService.fetchDetail(id);
         Map result = voEnhanceUtil.enhance("data", obj);
-        result.put("index", "people.other_info");
+        result.put("index", "finance.expenditure");
         result.put("post_url", "/api/finance/exps/" + exp.getType().name());
         result.put("update_url", "/api/finance/exps/" + id + "/" + exp.getType().name());
         result.put("delete_url", "/api/finance/exps/" + id);
