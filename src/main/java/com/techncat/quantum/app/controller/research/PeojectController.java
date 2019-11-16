@@ -28,17 +28,17 @@ public class PeojectController {
 
     /* project member */
 
-    @GetMapping("/member/{project_id}")
+    @GetMapping("/{project_id}/member")
     public List listMember(@PathVariable("project_id") Long projectId) throws ResearchShowService.ProjectNotFoundException {
         return memberService.list(projectId);
     }
 
-    @PostMapping("/member/{project_id}/{people_id}")
+    @PostMapping("/{project_id}/member/{people_id}")
     public ProjectMember addMember(@PathVariable("project_id") Long projectId, @PathVariable("people_id") Long peopleId) throws ResearchShowService.ProjectNotFoundException {
         return memberService.add(projectId, peopleId);
     }
 
-    @DeleteMapping("/member/{project_id}/{people_id}")
+    @DeleteMapping("/{project_id}/member/{people_id}")
     public ResponseEntity removeMember(@PathVariable("project_id") Long projectId, @PathVariable("people_id") Long peopleId) throws ResearchShowService.ProjectNotFoundException {
         memberService.remove(projectId, peopleId);
         return ResponseEntity.status(204).build();
@@ -46,22 +46,22 @@ public class PeojectController {
 
     /* project fund */
 
-    @GetMapping("/fund/{project_id}")
+    @GetMapping("/{project_id}/fund")
     public List listFund(@PathVariable("project_id") Long projectId) throws ResearchShowService.ProjectNotFoundException {
         return fundService.list(projectId);
     }
 
-    @PostMapping("/fund/{project_id}")
+    @PostMapping("/{project_id}/fund")
     public ProjectFund addFund(@PathVariable("project_id") Long projectId, @RequestBody ProjectFund data) throws ResearchShowService.ProjectNotFoundException {
         return fundService.create(projectId, data);
     }
 
-    @PutMapping("/fund/{project_id}/{fund_id}")
+    @PutMapping("/{project_id}/fund/{fund_id}")
     public ProjectFund updateFund(@PathVariable("project_id") Long projectId, @PathVariable("fund_id") Long fundId, @RequestBody ProjectFund data) throws ProjectFundService.ProjectFundNotFoundException, ResearchShowService.ProjectNotFoundException {
         return fundService.update(projectId, fundId, data);
     }
 
-    @DeleteMapping("/fund/{project_id}/{fund_id}")
+    @DeleteMapping("/{project_id}/fund/{fund_id}")
     public ResponseEntity removeFund(@PathVariable("project_id") Long projectId, @PathVariable("fund_id") Long fundId) throws ResearchShowService.ProjectNotFoundException {
         fundService.delete(projectId, fundId);
         return ResponseEntity.status(204).build();

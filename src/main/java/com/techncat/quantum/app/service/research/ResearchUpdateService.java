@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 @Service
 public class ResearchUpdateService {
@@ -38,6 +39,7 @@ public class ResearchUpdateService {
         Paper paper = showService.fetchPaper(id);
         BeanUtils.copyProperties(data, paper);
         paper.setId(id);
+        paper.setUpdateAt(new Date());
         return researchPaperRepository.save(paper);
     }
 
@@ -45,6 +47,7 @@ public class ResearchUpdateService {
         Patent record = showService.fetchPatent(id);
         BeanUtils.copyProperties(data, record);
         record.setId(id);
+        record.setUpdateAt(new Date());
         return researchPatentRepository.save(record);
     }
 
@@ -52,6 +55,7 @@ public class ResearchUpdateService {
         Project record = showService.fetchProject(id);
         BeanUtils.copyProperties(data, record);
         record.setId(id);
+        record.setUpdateAt(new Date());
         return researchProjectRepository.save(record);
     }
 
@@ -59,6 +63,7 @@ public class ResearchUpdateService {
         Reward record = showService.fetchReward(id);
         BeanUtils.copyProperties(data, record);
         record.setId(id);
+        record.setUpdateAt(new Date());
         return researchRewardRepository.save(record);
     }
 }
