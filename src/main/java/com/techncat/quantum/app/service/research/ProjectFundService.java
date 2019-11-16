@@ -19,6 +19,12 @@ public class ProjectFundService {
     private ResearchShowService showService;
     @Autowired
     private ResearchProjectFundRepository projectFundRepository;
+    @Autowired
+    private ResearchShowService researchShowService;
+
+    public List<ProjectFund> list(Long projectId) throws ResearchShowService.ProjectNotFoundException {
+        return list(researchShowService.fetchProject(projectId));
+    }
 
     public List<ProjectFund> list(Project project) {
         return projectFundRepository.findAllByProject(project);
@@ -64,6 +70,8 @@ public class ProjectFundService {
     }
 
     public static class ProjectFundNotFoundException extends Exception {
-        ProjectFundNotFoundException(Long id) { super("ProjectFund id[" + id + "] is not found"); }
+        ProjectFundNotFoundException(Long id) {
+            super("ProjectFund id[" + id + "] is not found");
+        }
     }
 }

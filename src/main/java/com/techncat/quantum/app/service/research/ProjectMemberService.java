@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class ProjectMemberService {
@@ -16,6 +17,10 @@ public class ProjectMemberService {
     private ResearchShowService researchShowService;
     @Resource
     private ResearchProjectMemberRepository repository;
+
+    public List<ProjectMember> list(Long projectId) throws ResearchShowService.ProjectNotFoundException {
+        return repository.findAllByProject(researchShowService.fetchProject(projectId));
+    }
 
     public ProjectMember add(Long projectId, Long peopleId) throws ResearchShowService.ProjectNotFoundException {
         ProjectMember member = new ProjectMember();

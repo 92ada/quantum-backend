@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/research/project")
 @CrossOrigin(
@@ -26,6 +28,11 @@ public class PeojectController {
 
     /* project member */
 
+    @GetMapping("/member/{project_id}")
+    public List listMember(@PathVariable("project_id") Long projectId) throws ResearchShowService.ProjectNotFoundException {
+        return memberService.list(projectId);
+    }
+
     @PostMapping("/member/{project_id}/{people_id}")
     public ProjectMember addMember(@PathVariable("project_id") Long projectId, @PathVariable("people_id") Long peopleId) throws ResearchShowService.ProjectNotFoundException {
         return memberService.add(projectId, peopleId);
@@ -38,6 +45,11 @@ public class PeojectController {
     }
 
     /* project fund */
+
+    @GetMapping("/fund/{project_id}")
+    public List listFund(@PathVariable("project_id") Long projectId) throws ResearchShowService.ProjectNotFoundException {
+        return fundService.list(projectId);
+    }
 
     @PostMapping("/fund/{project_id}")
     public ProjectFund addFund(@PathVariable("project_id") Long projectId, @RequestBody ProjectFund data) throws ResearchShowService.ProjectNotFoundException {
