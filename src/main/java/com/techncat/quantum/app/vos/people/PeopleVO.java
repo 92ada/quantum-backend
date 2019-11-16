@@ -39,6 +39,8 @@ import java.util.Date;
 public class PeopleVO {
     private Long id;
     private String sid;
+    @ValueType("photo")
+    private String identity_photo_url;
     // base info
     @ValueType("enumerated")
     @Editable(false)
@@ -49,8 +51,6 @@ public class PeopleVO {
     @ValueType("enumerated")
     private People.IdentityType identity_type;
     private String identity_no;
-    @ValueType("photo")
-    private String identity_photo_url;
     @Visible(requiredRoles = {Visible.ROLE.root, Visible.ROLE.admin})
     private Date birth_date;
     @ValueType("phone")
