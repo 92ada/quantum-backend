@@ -47,9 +47,9 @@ public class Project {
     @Column(precision = 10, scale = 2)
     private BigDecimal approved_funds;
 
-    @ManyToMany
-    @JoinColumn(name = "member_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
-    private List<People> member;
+//    @ManyToMany
+//    @JoinColumn(name = "member_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+//    private List<People> member;
     @Column(columnDefinition = "json")
     @Convert(converter = JpaConverterJson.class)
     private Object membersJson;

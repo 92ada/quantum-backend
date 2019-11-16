@@ -39,7 +39,7 @@ public class ResearchController {
     /* paper */
 
     @GetMapping("/paper/structure")
-    public ResponseEntity<Map> structureInfo1() throws IllegalAccessException {
+    public ResponseEntity<Map> astructureInfo1() throws IllegalAccessException {
         Map result = voEnhanceUtil.enhance("data", new PaperVO());
         result.put("index", "research.paper_info");
         result.put("post_url", "/api/research/paper");
@@ -80,7 +80,7 @@ public class ResearchController {
     /* patent */
 
     @GetMapping("/patent/structure")
-    public ResponseEntity<Map> structureInfo2() throws IllegalAccessException {
+    public ResponseEntity<Map> astructureInfo2() throws IllegalAccessException {
         Map result = voEnhanceUtil.enhance("data", new PatentVO());
         result.put("index", "research.patent_info");
         result.put("post_url", "/api/research/patent");
@@ -121,7 +121,7 @@ public class ResearchController {
     /* project */
 
     @GetMapping("/project/structure")
-    public ResponseEntity<Map> structureInfo3() throws IllegalAccessException {
+    public ResponseEntity<Map> astructureInfo3() throws IllegalAccessException {
         Map result = voEnhanceUtil.enhance("data", new ProjectVO());
         result.put("index", "research.project_info");
         result.put("post_url", "/api/research/project");
@@ -163,7 +163,7 @@ public class ResearchController {
     /* reward */
 
     @GetMapping("/reward/structure")
-    public ResponseEntity<Map> structureInfo4() throws IllegalAccessException {
+    public ResponseEntity<Map> astructureInfo4() throws IllegalAccessException {
         Map result = voEnhanceUtil.enhance("data", new RewardVO());
         result.put("index", "research.reward_info");
         result.put("post_url", "/api/research/reward");
