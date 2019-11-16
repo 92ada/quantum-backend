@@ -29,11 +29,11 @@ public class ProjectFundService {
         return voUtils.copy(info, ProjectFundVO.class);
     }
 
-    public ProjectFund fetchDO(Long id) throws ProjectFundNotFoundException {
-        ProjectFund info = projectFundRepository.findFirstById(id);
+    public ProjectFund fetchDO(Long fundId) throws ProjectFundNotFoundException {
+        ProjectFund info = projectFundRepository.findFirstById(fundId);
         if (info != null)
             return info;
-        throw new ProjectFundNotFoundException(id);
+        throw new ProjectFundNotFoundException(fundId);
     }
 
     public ProjectFund create(Long projectId, ProjectFund info) throws ResearchShowService.ProjectNotFoundException {
@@ -44,8 +44,8 @@ public class ProjectFundService {
         return projectFundRepository.save(info);
     }
 
-    public ProjectFund update(Long projectId, Long familyId, ProjectFund info) throws ResearchShowService.ProjectNotFoundException, ProjectFundNotFoundException {
-        ProjectFund record = this.fetchDO(familyId);
+    public ProjectFund update(Long projectId, Long fundId, ProjectFund info) throws ResearchShowService.ProjectNotFoundException, ProjectFundNotFoundException {
+        ProjectFund record = this.fetchDO(fundId);
         Project project = showService.fetchProject(projectId);
         info.setId(record.getId());
         info.setProject(project);
@@ -58,9 +58,9 @@ public class ProjectFundService {
         projectFundRepository.deleteAllByProject(project);
     }
 
-    public void delete(Long projectId, Long familyId) throws ResearchShowService.ProjectNotFoundException {
+    public void delete(Long projectId, Long fundId) throws ResearchShowService.ProjectNotFoundException {
         Project project = showService.fetchProject(projectId);
-        projectFundRepository.deleteAllByProjectAndId(project, familyId);
+        projectFundRepository.deleteAllByProjectAndId(project, fundId);
     }
 
     public static class ProjectFundNotFoundException extends Exception {

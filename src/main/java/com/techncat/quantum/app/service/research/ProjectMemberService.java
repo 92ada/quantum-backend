@@ -17,10 +17,14 @@ public class ProjectMemberService {
     @Resource
     private ResearchProjectMemberRepository repository;
 
-    ProjectMember add(Long projectId, Long peopleId) throws ResearchShowService.ProjectNotFoundException {
+    public ProjectMember add(Long projectId, Long peopleId) throws ResearchShowService.ProjectNotFoundException {
         ProjectMember member = new ProjectMember();
         member.setPeople(peopleShowService.fetchBase(peopleId));
         member.setProject(researchShowService.fetchProject(projectId));
         return repository.save(member);
+    }
+
+    public void remove(Long projectId, Long peopleId) throws ResearchShowService.ProjectNotFoundException {
+        repository.deleteAllByPeopleAndProject(peopleShowService.fetchBase(peopleId), researchShowService.fetchProject(projectId));
     }
 }

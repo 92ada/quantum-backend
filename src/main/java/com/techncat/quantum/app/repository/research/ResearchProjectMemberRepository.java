@@ -22,4 +22,6 @@ public interface ResearchProjectMemberRepository extends JpaRepository<ProjectMe
     void deleteAllByPeople(People people);
 
     void deleteAllByPeopleAndId(People people, @Param("id") Long id);
+
+    void deleteAllByPeopleAndProject(People people, Project project);
 }
