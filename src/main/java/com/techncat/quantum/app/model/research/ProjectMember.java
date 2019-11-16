@@ -13,8 +13,11 @@ public class ProjectMember {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @ManyToOne
     @JoinColumn(name = "project_id", referencedColumnName = "id")
     private Project project;
+
+    @ManyToOne
     @JoinColumn(name = "people_id", referencedColumnName = "id")
     private People people;
 }
