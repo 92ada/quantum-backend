@@ -46,6 +46,8 @@ public class Visit {
     private String accommodation;
     private Boolean needs_pick_up;
 
+    private Date time;
+
     @Column(precision = 10, scale = 2)
     private BigDecimal expenditure;
     @Column(precision = 10, scale = 2)
