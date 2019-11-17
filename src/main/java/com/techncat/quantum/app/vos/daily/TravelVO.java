@@ -19,8 +19,8 @@ public class TravelVO {
     @ValueType("enumerated")
     private Travel.Type type;
     private BigDecimal budget;
-    private Date start_date;
-    private Date end_date;
+    private Date startDate;
+    private Date endDate;
 
     @ValueType("enumerated")
     private Travel.identity_type identity_type;

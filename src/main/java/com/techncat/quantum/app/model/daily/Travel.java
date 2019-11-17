@@ -40,9 +40,9 @@ public class Travel {
     @Column(precision = 10, scale = 2)
     private BigDecimal budget;
     @Temporal(TemporalType.DATE)
-    private Date start_date;
+    private Date startDate;
     @Temporal(TemporalType.DATE)
-    private Date end_date;
+    private Date endDate;
 
     private identity_type identity_type;
     private String identity_no;

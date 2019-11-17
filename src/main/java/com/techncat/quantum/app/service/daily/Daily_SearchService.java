@@ -38,7 +38,7 @@ public class Daily_SearchService {
 
     public Page<Travel> searchTravel(Date start, Date end, PageRequest pageRequest) {
         if (start == null || end == null) return travelRepository.findAll(pageRequest);
-        return travelRepository.findAllByStart_dateBetween(start, end, pageRequest);
+        return travelRepository.findAllByStartDateBetween(start, end, pageRequest);
     }
 
     public Page<Visit> searchVisit(Date start, Date end, PageRequest pageRequest) {
