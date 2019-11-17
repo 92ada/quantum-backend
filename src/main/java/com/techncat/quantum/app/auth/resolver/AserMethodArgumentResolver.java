@@ -3,6 +3,8 @@ package com.techncat.quantum.app.auth.resolver;
 import com.techncat.quantum.app.auth.annotation.ForkiAser;
 import com.techncat.quantum.app.auth.entity.Aser;
 import com.techncat.quantum.app.auth.service.JwtService;
+import com.techncat.quantum.app.model.user.User;
+import com.techncat.quantum.app.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
@@ -19,6 +21,8 @@ import java.util.List;
 public class AserMethodArgumentResolver implements HandlerMethodArgumentResolver {
     @Autowired
     private JwtService jwtService;
+    @Autowired
+    private UserService userService;
 
     @Override
     public boolean supportsParameter(MethodParameter methodParameter) {
@@ -37,12 +41,16 @@ public class AserMethodArgumentResolver implements HandlerMethodArgumentResolver
             throw new AserDecodeException(token);
         if (aser.isExpiration())
             throw new AserDecodeException(token);
+        // refetch aser roles, 可能存在用户未更新 TOKEN，但权限更新的情况
+        User user = userService.fetch(aser.getSid());
+
         Annotation[] methodAnnotations = methodParameter.getParameterAnnotations();
         for (Annotation methodAnnotation : methodAnnotations) {
             if (methodAnnotation instanceof ForkiAser) {
                 // 角色检验
                 ForkiAser forkiAser = (ForkiAser) methodAnnotation;
-                if (isRoleRequireSuccess(forkiAser.requiredRoles(), aser.getRoles())) {
+//                if (isRoleRequireSuccess(forkiAser.requiredRoles(), aser.getRoles())) {
+                if (isRoleRequireSuccess(forkiAser.requiredRoles(), user.getRoles())) {
                     return aser;
                 } else {
                     throw new AserNoAuthException(forkiAser.requiredRoles());
