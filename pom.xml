@@ -82,6 +82,12 @@
             <artifactId>jsoup</artifactId>
             <version>1.10.2</version>
         </dependency>
+        <!-- Excel Export & Import-->
+        <dependency>
+            <groupId>com.github.houbb</groupId>
+            <artifactId>iexcel</artifactId>
+            <version>0.0.4</version>
+        </dependency>
     </dependencies>
 
     <build>

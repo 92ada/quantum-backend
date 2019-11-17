@@ -31,8 +31,9 @@ public class Stock {
     @ManyToOne
     @JoinColumn(name = "taker_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People taker;
-    @Column(columnDefinition = "text")
-    private String takerJson;
+    @Column(columnDefinition = "json")
+    @Convert(converter = JpaConverterJson.class)
+    private Object takerJson;
     private String placement_site;
     private String factory_no;
     private String status;

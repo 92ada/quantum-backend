@@ -1,13 +1,12 @@
-package com.techncat.quantum.app.vos.equipment;
+package com.techncat.quantum.app.excel.model.equipment;
 
-import com.techncat.quantum.app.common.voenhance.annotation.ValueType;
 import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
-public class StockVO {
+public class StockRow {
     private Long id;
 
     private Date updateAt;
@@ -21,8 +20,7 @@ public class StockVO {
     private BigDecimal net_value;
     private String taker_institution;
 
-    @ValueType(value = "people", option_url = "/api/people/options")
-    private Object takerJson;
+    private String takerName;
 
     private String placement_site;
     private String factory_no;
@@ -31,8 +29,7 @@ public class StockVO {
     private Integer min_usage_years;
     private Date inbound_date;
 
-    @ValueType(value = "people", option_url = "/api/people/options")
-    private Object adminJson;
+    private Object adminName;
 
     private String document_no;
     private String remark;
