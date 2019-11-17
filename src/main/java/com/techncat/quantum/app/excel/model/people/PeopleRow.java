@@ -35,7 +35,7 @@ import java.util.Date;
 
 @Data
 public class PeopleRow {
-    private Long id;
+//    private Long id;
     private String sid;
     private String identity_photo_url;
     // base info
@@ -66,7 +66,7 @@ public class PeopleRow {
 
     public static PeopleRow render(People people) {
         PeopleRow row = new PeopleRow();
-        row.id = people.getId();
+//        row.id = people.getId();
         row.sid = people.getSid();
         row.identity_photo_url = people.getIdentity_photo_url();
         row.type = people.getType();
@@ -92,7 +92,7 @@ public class PeopleRow {
 
     public static People load(PeopleRow row) {
         People people = new People();
-        people.setId(row.id);
+//        people.setId(row.id);
         people.setSid(row.sid);
         people.setIdentity_photo_url(row.identity_photo_url);
         people.setType(row.type);
