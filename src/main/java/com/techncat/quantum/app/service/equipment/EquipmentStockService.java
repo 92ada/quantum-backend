@@ -6,10 +6,13 @@ import com.techncat.quantum.app.repository.equipment.EquStockRepository;
 import com.techncat.quantum.app.vos.equipment.StockVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,6 +22,18 @@ public class EquipmentStockService {
 
     @Autowired
     private VOUtils voUtils;
+
+    public Page<Stock> page(String word, Pageable pageable) {
+        if (word == null) return stockRepository.findAll(pageable);
+        String wordLike = "%" + word + "%";
+        return stockRepository.findAllByTitleLike(wordLike, pageable);
+    }
+
+    public List<Stock> list(String word) {
+        if (word == null) return stockRepository.findAll();
+        String wordLike = "%" + word + "%";
+        return stockRepository.findAllByTitleLike(wordLike);
+    }
 
     public StockVO fetchVO(Long id) {
         return voUtils.copy(fetch(id), StockVO.class);
