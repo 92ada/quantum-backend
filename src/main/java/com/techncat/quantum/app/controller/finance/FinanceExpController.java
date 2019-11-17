@@ -63,7 +63,7 @@ public class FinanceExpController {
     @GetMapping("/{id}/extra/structure")
     public ResponseEntity<Map> extraStructureInfo(@PathVariable("id") Long id) throws PeopleShowService.PeopleNotFoundException, IllegalAccessException {
         Exp exp = financeExpShowService.fetch(id);
-        Object obj = financeExpShowService.fetchDetail(id);
+        Object obj = financeExpShowService.fetchDetailVO(id);
         Map result = voEnhanceUtil.enhance("data", obj);
         result.put("index", "finance.expenditure");
         result.put("post_url", "/api/finance/exps/" + exp.getType().name());
