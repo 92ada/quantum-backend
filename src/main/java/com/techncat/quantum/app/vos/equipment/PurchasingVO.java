@@ -11,9 +11,6 @@ import java.util.Date;
 public class PurchasingVO {
     private Long id;
 
-    private Date updateAt;
-    private Date createdAt;
-
     private String title;
     private BigDecimal budget;
     private Boolean is_imported;

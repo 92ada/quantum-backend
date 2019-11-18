@@ -24,6 +24,15 @@ public class VisitFlight {
     private String arrival_site;
     private String flight_no;
     private String price;
+    private String remark;
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 
     public Long getId() {
         return id;

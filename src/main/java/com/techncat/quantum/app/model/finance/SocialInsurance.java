@@ -13,22 +13,24 @@ import java.util.Date;
 @Entity
 @Table(name = "social_insurances")
 public class SocialInsurance {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+        @Id
+        @GeneratedValue(strategy = GenerationType.AUTO)
+        private Long id;
 
-    private Date updateAt;
-    private Date createdAt;
+        private Date updateAt;
+        private Date createdAt;
 
-    @OneToOne
-    @JoinColumn(name = "people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
-    private People people;
-    @Column(columnDefinition = "json")
-    @Convert(converter = JpaConverterJson.class)
-    private Object peopleJson;
+        @OneToOne
+        @JoinColumn(name = "people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+        private People people;
+        @Column(columnDefinition = "json")
+        @Convert(converter = JpaConverterJson.class)
+        private Object peopleJson;
 
     @Temporal(TemporalType.DATE)
     private Date date;
+
+    private String fund_source;
 
     @Column(precision = 10, scale = 2)
     private BigDecimal receivable_total;

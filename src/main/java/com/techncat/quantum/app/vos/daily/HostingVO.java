@@ -9,11 +9,6 @@ import java.util.Date;
 public class HostingVO {
     private Long id;
 
-    private Date updateAt;
-    private Date createdAt;
-
-    @ValueType(value = "people", option_url = "/api/people/options")
-    private Object inviterJson;
     private Date time;
     private String title;
     private String site;

@@ -10,9 +10,6 @@ import java.util.Date;
 public class StockVO {
     private Long id;
 
-    private Date updateAt;
-    private Date createdAt;
-
     private String type;
     private String no;
     private String title;

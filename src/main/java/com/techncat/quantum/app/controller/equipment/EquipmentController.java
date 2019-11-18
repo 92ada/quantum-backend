@@ -45,7 +45,7 @@ public class EquipmentController {
     @GetMapping("/purchasing/{id}/structure")
     public ResponseEntity<Map> showPurchasingStructure(@PathVariable("id") Long id) throws IllegalAccessException {
         Map result = voEnhanceUtil.enhance("data", purchasingService.fetchVO(id));
-        result.put("index", "daily.purchasing");
+        result.put("index", "equipment.purchasing");
         result.put("update_url", "/api/equipment/purchasing/" + id);
         result.put("delete_url", "/api/equipment/purchasing/" + id);
         return ResponseEntity.ok(result);
@@ -85,7 +85,7 @@ public class EquipmentController {
     @GetMapping("/stock/{id}/structure")
     public ResponseEntity<Map> showStockStructure(@PathVariable("id") Long id) throws IllegalAccessException {
         Map result = voEnhanceUtil.enhance("data", stockService.fetchVO(id));
-        result.put("index", "daily.stock");
+        result.put("index", "equipment.stock");
         result.put("update_url", "/api/equipment/stock/" + id);
         result.put("delete_url", "/api/equipment/stock/" + id);
         return ResponseEntity.ok(result);

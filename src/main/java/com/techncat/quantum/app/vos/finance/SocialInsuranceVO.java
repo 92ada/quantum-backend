@@ -15,8 +15,11 @@ public class SocialInsuranceVO {
 
     @ValueType(value = "person", option_url = "/api/people/options")
     private People people;
+    private String peopleJson;
 
     private Date date;
+
+    private String fund_source;
 
     private BigDecimal receivable_total;
     private BigDecimal receivable_by_individual;

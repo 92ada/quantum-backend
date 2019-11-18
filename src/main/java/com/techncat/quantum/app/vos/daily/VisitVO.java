@@ -11,9 +11,6 @@ import java.util.Date;
 public class VisitVO {
     private Long id;
 
-    private Date updateAt;
-    private Date createdAt;
-
     private String name;
     @ValueType("enumerated")
     private Visit.Status approval_status;

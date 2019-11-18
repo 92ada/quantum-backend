@@ -8,6 +8,7 @@ import com.techncat.quantum.app.vos.research.ProjectFundVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 
@@ -64,6 +65,7 @@ public class ProjectFundService {
         projectFundRepository.deleteAllByProject(project);
     }
 
+    @Transactional
     public void delete(Long projectId, Long fundId) throws ResearchShowService.ProjectNotFoundException {
         Project project = showService.fetchProject(projectId);
         projectFundRepository.deleteAllByProjectAndId(project, fundId);
