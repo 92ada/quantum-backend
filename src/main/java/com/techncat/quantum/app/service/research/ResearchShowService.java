@@ -82,25 +82,25 @@ public class ResearchShowService {
         throw new RewardNotFoundException(id);
     }
 
-    public static class PaperNotFoundException extends Exception {
+    public static class PaperNotFoundException extends RuntimeException {
         PaperNotFoundException(Long id) {
             super("Paper id=[" + id + "] Not Found");
         }
     }
 
-    public static class PatentNotFoundException extends Exception {
+    public static class PatentNotFoundException extends RuntimeException {
         PatentNotFoundException(Long id) {
             super("Patent id=[" + id + "] Not Found");
         }
     }
 
-    public static class ProjectNotFoundException extends Exception {
+    public static class ProjectNotFoundException extends RuntimeException {
         ProjectNotFoundException(Long id) {
             super("Project id=[" + id + "] Not Found");
         }
     }
 
-    public static class RewardNotFoundException extends Exception {
+    public static class RewardNotFoundException extends RuntimeException {
         RewardNotFoundException(Long id) {
             super("Reward id=[" + id + "] Not Found");
         }

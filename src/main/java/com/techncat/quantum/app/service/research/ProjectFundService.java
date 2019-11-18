@@ -60,6 +60,7 @@ public class ProjectFundService {
         return projectFundRepository.save(info);
     }
 
+    @Transactional
     public void delete(Long projectId) throws ResearchShowService.ProjectNotFoundException {
         Project project = showService.fetchProject(projectId);
         projectFundRepository.deleteAllByProject(project);
