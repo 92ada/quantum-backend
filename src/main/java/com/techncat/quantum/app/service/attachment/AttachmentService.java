@@ -9,6 +9,7 @@ import com.techncat.quantum.app.model.attachment.research.PaperAttachment;
 import com.techncat.quantum.app.model.attachment.research.PatentAttachment;
 import com.techncat.quantum.app.model.attachment.research.ProjectAttachment;
 import com.techncat.quantum.app.model.attachment.research.RewardAttachment;
+import com.techncat.quantum.app.repository.attachment.AttachmentRepository;
 import com.techncat.quantum.app.repository.attachment.daily.HostingAttachmentRepository;
 import com.techncat.quantum.app.repository.attachment.daily.ReportAttachmentRepository;
 import com.techncat.quantum.app.repository.attachment.daily.VisitAttachmentRepository;
@@ -29,6 +30,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class AttachmentService {
+    @Resource
+    private AttachmentRepository attachmentRepository;
     @Resource
     private HostingAttachmentRepository hostingAttachmentRepository;
     @Resource
@@ -90,7 +93,7 @@ public class AttachmentService {
 
     public void createHostingAttachment(Long hostingId, Attachment attachment) {
         HostingAttachment model = new HostingAttachment();
-        model.setAttachment(attachment);
+        model.setAttachment(saveAttachment(attachment));
         model.setHosting(dailyShowService.fetchHosting(hostingId));
         hostingAttachmentRepository.save(model);
     }
@@ -103,7 +106,7 @@ public class AttachmentService {
 
     public void createReportAttachment(Long reportId, Attachment attachment) {
         ReportAttachment model = new ReportAttachment();
-        model.setAttachment(attachment);
+        model.setAttachment(saveAttachment(attachment));
         model.setReport(dailyShowService.fetchReport(reportId));
         reportAttachmentRepository.save(model);
     }
@@ -116,7 +119,7 @@ public class AttachmentService {
 
     public void createVisitAttachment(Long visitId, Attachment attachment) {
         VisitAttachment model = new VisitAttachment();
-        model.setAttachment(attachment);
+        model.setAttachment(saveAttachment(attachment));
         model.setVisit(dailyShowService.fetchVisit(visitId));
         visitAttachmentRepository.save(model);
     }
@@ -131,7 +134,7 @@ public class AttachmentService {
 
     public void createPaperAttachment(Long paperId, Attachment attachment) {
         PaperAttachment model = new PaperAttachment();
-        model.setAttachment(attachment);
+        model.setAttachment(saveAttachment(attachment));
         model.setPaper(researchShowService.fetchPaper(paperId));
         paperAttachmentRepository.save(model);
     }
@@ -144,7 +147,7 @@ public class AttachmentService {
 
     public void createPatentAttachment(Long patentId, Attachment attachment) {
         PatentAttachment model = new PatentAttachment();
-        model.setAttachment(attachment);
+        model.setAttachment(saveAttachment(attachment));
         model.setPatent(researchShowService.fetchPatent(patentId));
         patentAttachmentRepository.save(model);
     }
@@ -157,7 +160,7 @@ public class AttachmentService {
 
     public void createProjectAttachment(Long projectId, Attachment attachment) {
         ProjectAttachment model = new ProjectAttachment();
-        model.setAttachment(attachment);
+        model.setAttachment(saveAttachment(attachment));
         model.setProject(researchShowService.fetchProject(projectId));
         projectAttachmentRepository.save(model);
     }
@@ -170,7 +173,7 @@ public class AttachmentService {
 
     public void createRewardAttachment(Long rewardId, Attachment attachment) {
         RewardAttachment model = new RewardAttachment();
-        model.setAttachment(attachment);
+        model.setAttachment(saveAttachment(attachment));
         model.setReward(researchShowService.fetchReward(rewardId));
         rewardAttachmentRepository.save(model);
     }
@@ -185,7 +188,7 @@ public class AttachmentService {
 
     public void createPeopleAttachment(Long peopleId, Attachment attachment) {
         PeopleAttachment model = new PeopleAttachment();
-        model.setAttachment(attachment);
+        model.setAttachment(saveAttachment(attachment));
         model.setPeople(peopleShowService.fetchBase(peopleId));
         peopleAttachmentRepository.save(model);
     }
@@ -194,5 +197,10 @@ public class AttachmentService {
         PeopleAttachment record = peopleAttachmentRepository.getOne(peopleAttachmentId);
         if (record != null)
             peopleAttachmentRepository.delete(record);
+    }
+
+    // helper
+    private Attachment saveAttachment(Attachment attachment) {
+        return attachmentRepository.save(saveAttachment(attachment));
     }
 }
