@@ -3,7 +3,7 @@ package com.techncat.quantum.app.auth.annotation;
 public enum ROLE {
     root,
     // 其他
-    expenditureort_excel,
+    export_excel,
     import_excel,
     view_hide_field, // 隐藏字段可见，如年龄、身份证等
     // 人员
@@ -11,21 +11,21 @@ public enum ROLE {
     people_researcher,
     people_student,
     people_teacher,
-    people_admin,
+    people_administration,
     people_postdoctoral,
     people_visitor,
     edit_people,
     edit_people_researcher,
     edit_people_student,
     edit_people_teacher,
-    edit_people_admin,
+    edit_people_administration,
     edit_people_postdoctoral,
     edit_people_visitor,
     delete_people,
     delete_people_researcher,
     delete_people_student,
     delete_people_teacher,
-    delete_people_admin,
+    delete_people_administration,
     delete_people_postdoctoral,
     delete_people_visitor,
     // 科研
