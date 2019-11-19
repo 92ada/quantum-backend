@@ -58,35 +58,59 @@ public class AttachmentService {
     // list
 
     public List<Attachment> listHostingAttachment(Long id) {
-        return hostingAttachmentRepository.findAllByHosting(dailyShowService.fetchHosting(id)).parallelStream().map(HostingAttachment::getAttachment).collect(Collectors.toList());
+        return hostingAttachmentRepository.findAllByHosting(dailyShowService.fetchHosting(id)).parallelStream().map(i -> {
+            i.getAttachment().setRecordId(i.getId());
+            return i.getAttachment();
+        }).collect(Collectors.toList());
     }
 
     public List<Attachment> listReportAttachment(Long id) {
-        return reportAttachmentRepository.findAllByReport(dailyShowService.fetchReport(id)).parallelStream().map(ReportAttachment::getAttachment).collect(Collectors.toList());
+        return reportAttachmentRepository.findAllByReport(dailyShowService.fetchReport(id)).parallelStream().map(i -> {
+            i.getAttachment().setRecordId(i.getId());
+            return i.getAttachment();
+        }).collect(Collectors.toList());
     }
 
     public List<Attachment> listVisitAttachment(Long id) {
-        return visitAttachmentRepository.findAllByVisit(dailyShowService.fetchVisit(id)).parallelStream().map(VisitAttachment::getAttachment).collect(Collectors.toList());
+        return visitAttachmentRepository.findAllByVisit(dailyShowService.fetchVisit(id)).parallelStream().map(i -> {
+            i.getAttachment().setRecordId(i.getId());
+            return i.getAttachment();
+        }).collect(Collectors.toList());
     }
 
     public List<Attachment> listPaperAttachment(Long id) {
-        return paperAttachmentRepository.findAllByPaper(researchShowService.fetchPaper(id)).parallelStream().map(PaperAttachment::getAttachment).collect(Collectors.toList());
+        return paperAttachmentRepository.findAllByPaper(researchShowService.fetchPaper(id)).parallelStream().map(i -> {
+            i.getAttachment().setRecordId(i.getId());
+            return i.getAttachment();
+        }).collect(Collectors.toList());
     }
 
     public List<Attachment> listPatentAttachment(Long id) {
-        return patentAttachmentRepository.findAllByPatent(researchShowService.fetchPatent(id)).parallelStream().map(PatentAttachment::getAttachment).collect(Collectors.toList());
+        return patentAttachmentRepository.findAllByPatent(researchShowService.fetchPatent(id)).parallelStream().map(i -> {
+            i.getAttachment().setRecordId(i.getId());
+            return i.getAttachment();
+        }).collect(Collectors.toList());
     }
 
     public List<Attachment> listProjectAttachment(Long id) {
-        return projectAttachmentRepository.findAllByProject(researchShowService.fetchProject(id)).parallelStream().map(ProjectAttachment::getAttachment).collect(Collectors.toList());
+        return projectAttachmentRepository.findAllByProject(researchShowService.fetchProject(id)).parallelStream().map(i -> {
+            i.getAttachment().setRecordId(i.getId());
+            return i.getAttachment();
+        }).collect(Collectors.toList());
     }
 
     public List<Attachment> listRewardAttachment(Long id) {
-        return rewardAttachmentRepository.findAllByReward(researchShowService.fetchReward(id)).parallelStream().map(RewardAttachment::getAttachment).collect(Collectors.toList());
+        return rewardAttachmentRepository.findAllByReward(researchShowService.fetchReward(id)).parallelStream().map(i -> {
+            i.getAttachment().setRecordId(i.getId());
+            return i.getAttachment();
+        }).collect(Collectors.toList());
     }
 
     public List<Attachment> listPeopleAttachment(Long id) {
-        return peopleAttachmentRepository.findAllByPeople(peopleShowService.fetchBase(id)).parallelStream().map(PeopleAttachment::getAttachment).collect(Collectors.toList());
+        return peopleAttachmentRepository.findAllByPeople(peopleShowService.fetchBase(id)).parallelStream().map(i -> {
+            i.getAttachment().setRecordId(i.getId());
+            return i.getAttachment();
+        }).collect(Collectors.toList());
     }
 
     // daily
@@ -201,6 +225,6 @@ public class AttachmentService {
 
     // helper
     private Attachment saveAttachment(Attachment attachment) {
-        return attachmentRepository.save(saveAttachment(attachment));
+        return attachmentRepository.save(attachment);
     }
 }

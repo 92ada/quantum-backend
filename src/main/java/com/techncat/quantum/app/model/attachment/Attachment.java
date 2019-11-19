@@ -21,4 +21,7 @@ public class Attachment {
     @Enumerated
     private TYPE type;
     private Date createdAt = new Date(); // default
+
+    @Transient
+    private Long recordId;
 }
