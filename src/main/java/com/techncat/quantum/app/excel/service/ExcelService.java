@@ -25,12 +25,12 @@ public class ExcelService {
     }
 
     public void export(List<?> dataSource, String filename) {
-        String filePath = location + "/" + filename + ".xls";
+        String filePath = location + "/" + filename + ".xlsx";
         ExcelBs.newInstance(filePath).write(dataSource);
     }
 
     public <T> List<T> read(MultipartFile xlsFile, Class<T> clazz) throws IOException {
-        File tempFile = new File(location + "/IMPORT_EXCEL_" + System.currentTimeMillis() + ".xls");
+        File tempFile = new File(location + "/IMPORT_EXCEL_" + System.currentTimeMillis() + ".xlsx");
         xlsFile.transferTo(tempFile);
         IExcelReader<T> reader = ExcelUtil.getExcelReader(tempFile);
         return reader.readAll(clazz);

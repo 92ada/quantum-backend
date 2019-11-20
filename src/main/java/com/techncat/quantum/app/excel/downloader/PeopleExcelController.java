@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RestController
@@ -92,7 +93,7 @@ public class PeopleExcelController {
      */
     @PostMapping
     public ResponseEntity excelImport(MultipartFile file) throws IOException {
-        List<People> data = excelService.read(file, PeopleRow.class).parallelStream().map(PeopleRow::load).collect(Collectors.toList());
+        List<People> data = excelService.read(file, PeopleRow.class).parallelStream().map(PeopleRow::load).filter(Objects::nonNull).collect(Collectors.toList());
         // insert
         people_repository.saveAll(data);
         return ResponseEntity.status(201).body("import success");
