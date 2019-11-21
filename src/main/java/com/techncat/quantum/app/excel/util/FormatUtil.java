@@ -17,6 +17,7 @@ public class FormatUtil {
     }
 
     public static String formatDate(Date date) {
+        if (date == null) return null;
         return DateFormat.getInstance().format(date);
     }
 
