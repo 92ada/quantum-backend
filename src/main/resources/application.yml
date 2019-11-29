@@ -19,12 +19,9 @@ spring:
   datasource:
     druid:
       # 这4个参数key里不带druid也可以，即可以还用上面的这个4个参数
-      url: jdbc:mysql://rm-wz98fdnqzec28s9y6fo.mysql.rds.aliyuncs.com:3306/quantum_dev?autoReconnect=true&useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
-      username: forki
+      url: jdbc:mysql://localhost:3306/quantum_prod?autoReconnect=true&useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
+      username: root
       password: SEEUps000
-#      url: jdbc:mysql://localhost:3306/quantum_prod?autoReconnect=true&useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
-#      username: root
-#      password: SEEUps000
 #      url: jdbc:mysql://localhost:3306/quantum?autoReconnect=true&useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
 #      username: root
 #      password: LXT980106
@@ -70,5 +67,5 @@ jwt:
   refresh_expiration: 2400000 # 30 days
 
 file:
-  location: /Users/neo/Desktop
-#  location: /root/quantum_files
+#  location: /Users/neo/Desktop
+  location: /usr/quantum_files
