@@ -50,7 +50,10 @@ public class PeopleController {
         result.put("key", "base");
         result.put("priority", "1");
 //        result.put("post_url", "/api/people/" + peopleVO.getType().name());
-        result.put("update_url", "/api/people/" + peopleId + "/" + peopleVO.getType().name());
+        if (peopleVO.getType() != null)
+            result.put("update_url", "/api/people/" + peopleId + "/" + peopleVO.getType().name());
+        else
+            result.put("update_url", "/api/people/" + peopleId + "/base");
         result.put("delete_url", "/api/people/" + peopleId);
         return ResponseEntity.ok(result);
     }

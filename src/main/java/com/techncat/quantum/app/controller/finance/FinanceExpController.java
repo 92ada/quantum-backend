@@ -66,8 +66,13 @@ public class FinanceExpController {
         Object obj = financeExpShowService.fetchDetailVO(id);
         Map result = voEnhanceUtil.enhance("data", obj);
         result.put("index", "finance.expenditure");
-        result.put("post_url", "/api/finance/exps/" + exp.getType().name());
-        result.put("update_url", "/api/finance/exps/" + id + "/" + exp.getType().name());
+        if (exp.getType() != null) {
+            result.put("post_url", "/api/finance/exps/" + exp.getType().name());
+            result.put("update_url", "/api/finance/exps/" + id + "/" + exp.getType().name());
+        } else {
+            result.put("post_url", "/api/finance/exps/base");
+            result.put("update_url", "/api/finance/exps/" + id + "/base");
+        }
         result.put("delete_url", "/api/finance/exps/" + id);
         return ResponseEntity.ok(result);
     }

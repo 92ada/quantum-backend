@@ -23,6 +23,9 @@ public class VOEnhanceUtil {
     private VOUtils voUtils;
 
     public Map<String, Object> enhance(String key, Object object) throws IllegalAccessException {
+        if (object == null) {
+            return new HashMap<>();
+        }
         List<EnhancedVO> list = enhance(object);
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put(key, list);

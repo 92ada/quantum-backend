@@ -1,5 +1,6 @@
 package com.techncat.quantum.app.controller;
 
+import com.github.houbb.iexcel.exception.ExcelRuntimeException;
 import com.techncat.quantum.app.common.voutils.VOUtils;
 import com.techncat.quantum.app.service.people.PeopleShowService;
 import org.springframework.http.HttpStatus;
@@ -7,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,7 +31,27 @@ public class GlobalExceptionHandler {
         return toJsonResponse(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage());
     }
 
-    private ResponseEntity toJsonResponse(HttpStatus status, String message) {
+    @ExceptionHandler(value = IllegalArgumentException.class)
+    public ResponseEntity<Object> IllegalArgumentException(IllegalArgumentException exception) {
+        return toJsonResponse(HttpStatus.BAD_REQUEST, "参数类型错误，请确认格式");
+    }
+
+    @ExceptionHandler(value = SQLIntegrityConstraintViolationException.class)
+    public ResponseEntity<Object> SQLIntegrityConstraintViolationException(SQLIntegrityConstraintViolationException exception) {
+        return toJsonResponse(HttpStatus.BAD_REQUEST, exception.getMessage());
+    }
+
+    @ExceptionHandler(value = SQLException.class)
+    public ResponseEntity<Object> SQLException(SQLException exception) {
+        return toJsonResponse(HttpStatus.BAD_REQUEST, exception.getMessage());
+    }
+
+    @ExceptionHandler(value = ExcelRuntimeException.class)
+    public ResponseEntity<Object> ExcelRuntimeException(ExcelRuntimeException exception) {
+        return toJsonResponse(HttpStatus.BAD_REQUEST, exception.getMessage());
+    }
+
+    private ResponseEntity<Object> toJsonResponse(HttpStatus status, String message) {
         Map map = new HashMap();
         map.put("status", status.value());
         map.put("message", message);

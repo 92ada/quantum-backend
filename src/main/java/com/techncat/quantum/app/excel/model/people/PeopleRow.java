@@ -1,5 +1,6 @@
 package com.techncat.quantum.app.excel.model.people;
 
+import com.github.houbb.iexcel.annotation.ExcelField;
 import com.techncat.quantum.app.common.voenhance.annotation.Visible;
 import com.techncat.quantum.app.excel.util.FormatUtil;
 import com.techncat.quantum.app.model.people.People;
@@ -34,28 +35,47 @@ import lombok.Data;
 @Data
 public class PeopleRow {
     //    private Long id;
+    @ExcelField(headName = "工号")
     private String sid;
+    @ExcelField(headName = "照片链接", readRequire = false, writeRequire = false)
     private String identity_photo_url;
     // base info
-    private String type;
-    private String status;
+    @ExcelField(headName = "人员类型")
+    private String type = "base";
+    @ExcelField(headName = "状态", readRequire = false, writeRequire = false)
+    private String status = "normal";
+    @ExcelField(headName = "姓名")
     private String name;
+    @ExcelField(headName = "证件类型")
     private String identity_type;
+    @ExcelField(headName = "证件号码")
     private String identity_no;
     @Visible(requiredRoles = {Visible.ROLE.root, Visible.ROLE.admin})
+    @ExcelField(headName = "生日")
     private String birth_date;
+    @ExcelField(headName = "办公电话")
     private String office_phone;
+    @ExcelField(headName = "移动电话")
     private String mobile_phone;
+    @ExcelField(headName = "办公地址")
     private String office_address;
+    @ExcelField(headName = "邮箱")
     private String email;
+    @ExcelField(headName = "政治面貌")
     private String political_status;
+    @ExcelField(headName = "个人简介")
     private String description;
+    @ExcelField(headName = "紧急联系人")
     private String emergency_contact;
+    @ExcelField(headName = "入职时间")
     private String entry_date;
+    @ExcelField(headName = "离职时间")
     private String departure_date;
+    @ExcelField(headName = "性别")
     private String gender;
     //    @ValueType(value = "lab", option_url = "/api/labs/options")
 //    private Lab lab;
+    @ExcelField(headName = "实验室", readRequire = false)
     private String labName;
 
     public static PeopleRow render(People people) {
