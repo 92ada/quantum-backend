@@ -45,7 +45,7 @@ public class PeopleExcelController {
      * @param response
      * @throws IOException
      */
-    @GetMapping("/{anyname}-template.xls")
+    @GetMapping("/{anyname}-template.xlsx")
     public void aexcelModel(HttpServletResponse response) throws IOException {
         List<PeopleRow> peopleRows = new ArrayList<>();
         PeopleRow row = new PeopleRow();
@@ -63,7 +63,7 @@ public class PeopleExcelController {
      * @param response
      * @throws IOException
      */
-    @GetMapping("/{anyname}.xls") // 导出后下载保存名字为：anyname.xls
+    @GetMapping("/{anyname}.xlsx") // 导出后下载保存名字为：anyname.xls
     public void excelExport(@RequestParam(value = "word", required = false) String word,
                             @RequestParam(value = "type", required = false) People.Type type,
                             @RequestParam(value = "order", defaultValue = "desc") String order,

@@ -45,8 +45,8 @@ public class PurchasingRow {
     public static PurchasingRow render(Purchasing purchasing) {
         PurchasingRow row = new PurchasingRow();
 //        row.id = purchasing.getId();
-        row.createdAt = FormatUtil.formatDate(purchasing.getCreatedAt());
-        row.updateAt = FormatUtil.formatDate(purchasing.getUpdateAt());
+        row.createdAt = FormatUtil.formatDateTime(purchasing.getCreatedAt());
+        row.updateAt = FormatUtil.formatDateTime(purchasing.getUpdateAt());
         row.title = purchasing.getTitle();
         row.budget = purchasing.getBudget();
         row.is_imported = purchasing.getIs_imported();

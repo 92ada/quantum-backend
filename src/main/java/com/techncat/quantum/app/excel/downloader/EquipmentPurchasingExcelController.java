@@ -44,7 +44,7 @@ public class EquipmentPurchasingExcelController {
      * @param response
      * @throws IOException
      */
-    @GetMapping("/{anyname}-template.xls")
+    @GetMapping("/{anyname}-template.xlsx")
     public void aexcelModel(HttpServletResponse response) throws IOException {
         List<PurchasingRow> purchasingRows = new ArrayList<>();
         PurchasingRow row = new PurchasingRow();
@@ -61,7 +61,7 @@ public class EquipmentPurchasingExcelController {
      * @param response
      * @throws IOException
      */
-    @GetMapping("/{anyname}.xls") // 导出后下载保存名字为：anyname.xls
+    @GetMapping("/{anyname}.xlsx") // 导出后下载保存名字为：anyname.xls
     public void excelExport(@RequestParam(value = "word", required = false) String word,
                             @RequestParam(value = "order", defaultValue = "desc") String order,
                             @RequestParam(value = "by", defaultValue = "createdAt") String byProp,

@@ -39,8 +39,8 @@ public class StockRow {
     public static StockRow render(Stock stock) {
         StockRow row = new StockRow();
 //        row.id = stock.getId();
-        row.updateAt = FormatUtil.formatDate(stock.getUpdateAt());
-        row.createdAt = FormatUtil.formatDate(stock.getCreatedAt());
+        row.updateAt = FormatUtil.formatDateTime(stock.getUpdateAt());
+        row.createdAt = FormatUtil.formatDateTime(stock.getCreatedAt());
         row.type = stock.getType();
         row.no = stock.getNo();
         row.title = stock.getTitle();

@@ -48,7 +48,7 @@ public class FinanceExcelController {
      * @param response
      * @throws IOException
      */
-    @GetMapping("/{anyname}-template.xls")
+    @GetMapping("/{anyname}-template.xlsx")
     public void aexcelModel(HttpServletResponse response) throws IOException {
         List<ExpRow> expRows = new ArrayList<>();
         ExpRow row = new ExpRow();
@@ -57,7 +57,7 @@ public class FinanceExcelController {
     }
 
 
-    @GetMapping("/{anyname}.xls") // 导出后下载保存名字为：anyname.xls
+    @GetMapping("/{anyname}.xlsx") // 导出后下载保存名字为：anyname.xls
     public void excelExport(@RequestParam(value = "start", required = false) String start, // 2018-01-01
                             @RequestParam(value = "end", required = false) String end,
                             @RequestParam(value = "type", required = false) Exp.Type type,

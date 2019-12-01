@@ -31,10 +31,10 @@ public class GlobalExceptionHandler {
         return toJsonResponse(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage());
     }
 
-    @ExceptionHandler(value = IllegalArgumentException.class)
-    public ResponseEntity<Object> IllegalArgumentException(IllegalArgumentException exception) {
-        return toJsonResponse(HttpStatus.BAD_REQUEST, "参数类型错误，请确认格式");
-    }
+//    @ExceptionHandler(value = IllegalArgumentException.class)
+//    public ResponseEntity<Object> IllegalArgumentException(IllegalArgumentException exception) {
+//        return toJsonResponse(HttpStatus.BAD_REQUEST, "参数类型错误，请确认格式");
+//    }
 
     @ExceptionHandler(value = SQLIntegrityConstraintViolationException.class)
     public ResponseEntity<Object> SQLIntegrityConstraintViolationException(SQLIntegrityConstraintViolationException exception) {
