@@ -29,19 +29,27 @@ public class PeopleDeleteService {
 
     public void delete(Long id) throws PeopleShowService.PeopleNotFoundException {
         People people = peopleShowService.fetchBase(id);
-        switch (people.getType()) {
-            case administration:
-                peopleAdminRepository.delete(people.getPeopleAdmin()); break;
-            case postdoctoral:
-                peoplePostdoctoralRepository.delete(people.getPeoplePostdoctoral()); break;
-            case researcher:
-                peopleResearcherRepository.delete(people.getPeopleResearcher()); break;
-            case student:
-                peopleStudentRepository.delete(people.getPeopleStudent()); break;
-            case teacher:
-                peopleTeacherRepository.delete(people.getPeopleTeacher()); break;
-            case visitor:
-                peopleVisitorRepository.delete(people.getPeopleVisitor()); break;
+        if (people.getType() != null) {
+            switch (people.getType()) {
+                case administration:
+                    peopleAdminRepository.delete(people.getPeopleAdmin());
+                    break;
+                case postdoctoral:
+                    peoplePostdoctoralRepository.delete(people.getPeoplePostdoctoral());
+                    break;
+                case researcher:
+                    peopleResearcherRepository.delete(people.getPeopleResearcher());
+                    break;
+                case student:
+                    peopleStudentRepository.delete(people.getPeopleStudent());
+                    break;
+                case teacher:
+                    peopleTeacherRepository.delete(people.getPeopleTeacher());
+                    break;
+                case visitor:
+                    peopleVisitorRepository.delete(people.getPeopleVisitor());
+                    break;
+            }
         }
         peopleRepository.delete(people);
     }
