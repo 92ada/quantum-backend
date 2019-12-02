@@ -124,8 +124,17 @@ public class ExcelReader<T> implements IExcelReader<T> {
                         cellValue = InnerExcelUtil.getCellValue(cell, cell.getCellTypeEnum(), fieldType);
                     }
                     if (cellValue instanceof Double) {
+                        String value_ = null;
                         BigDecimal decimal = new BigDecimal(cellValue + "");
-                        cellValue = String.valueOf(decimal.toPlainString());
+                        if (decimal.longValue() == decimal.doubleValue()) {
+                            String dec = decimal.toPlainString();
+                            int index_ = dec.indexOf(".");
+                            index_ = index_ == -1 ? dec.length() : index_;
+                            value_ = dec.substring(0, index_);
+                        } else {
+                            value_ = new BigDecimal(cellValue + "").toPlainString();
+                        }
+                        cellValue = String.valueOf(value_);
                     }
                     field.set(instance, cellValue);
                 }
