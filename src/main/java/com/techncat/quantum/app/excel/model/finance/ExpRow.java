@@ -1,5 +1,6 @@
 package com.techncat.quantum.app.excel.model.finance;
 
+import com.github.houbb.iexcel.annotation.ExcelField;
 import com.techncat.quantum.app.common.voenhance.annotation.Editable;
 import com.techncat.quantum.app.excel.util.FormatUtil;
 import com.techncat.quantum.app.model.finance.Exp;
@@ -10,30 +11,38 @@ import java.util.Date;
 
 @Data
 public class ExpRow {
-    private Long id;
-
-    //    @ValueType(value = "lab", option_url = "/api/labs/options")
-//    private Lab lab;
+    @ExcelField(headName = "所属课题组")
     private String labName;
 
-    @Editable(false)
+    @ExcelField(headName = "费用类别")
     private String type;
+
+    @ExcelField(headName = "日期")
     private String date;
+
+    @ExcelField(headName = "预约单号")
     private String reservation_no;
-    private BigDecimal amount;
-    private Integer document_month;
+
+    @ExcelField(headName = "金额（实际费用）")
+    private String amount;
+
+    @ExcelField(headName = "凭证月份")
+    private String document_month;
+
+    @ExcelField(headName = "凭证编号")
     private String document_no;
+
+    @ExcelField(headName = "备注")
     private String remark;
 
     public static ExpRow render(Exp exp) {
         ExpRow row = new ExpRow();
-        row.id = exp.getId();
         if (exp.getType() != null)
             row.type = exp.getType().name();
         row.date = FormatUtil.formatDate(exp.getDate());
         row.reservation_no = exp.getReservation_no();
-        row.amount = exp.getAmount();
-        row.document_month = exp.getDocument_month();
+        row.amount = FormatUtil.format(exp.getAmount());
+        row.document_month = FormatUtil.format(exp.getDocument_month());
         row.document_no = exp.getDocument_no();
         row.remark = exp.getRemark();
         if (exp.getLab() != null)
@@ -44,13 +53,12 @@ public class ExpRow {
     public static Exp load(ExpRow row) {
         if (row.reservation_no == null || row.reservation_no.trim().length() == 0) return null;
         Exp exp = new Exp();
-        exp.setId(row.id);
-//        exp.setLab(null);
+        exp.setId(null);
         exp.setType(FormatUtil.formatEnum(Exp.Type.class, row.type));
         exp.setDate(FormatUtil.formatDate(row.date));
         exp.setReservation_no(row.reservation_no);
-        exp.setAmount(row.amount);
-        exp.setDocument_month(row.document_month);
+        exp.setAmount(FormatUtil.toBigDecimal(row.amount));
+        exp.setDocument_month(FormatUtil.toInteger(row.document_month));
         exp.setDocument_no(row.document_no);
         exp.setRemark(row.remark);
         return exp;

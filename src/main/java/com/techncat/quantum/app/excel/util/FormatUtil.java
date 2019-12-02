@@ -2,6 +2,7 @@ package com.techncat.quantum.app.excel.util;
 
 import com.techncat.quantum.app.model.people.People;
 
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,6 +21,36 @@ public class FormatUtil {
         } catch (ParseException e) {
             return null;
         }
+    }
+
+    public static String format(BigDecimal number) {
+        if (number == null) return null;
+        return number.toPlainString();
+    }
+
+    public static String format(Integer number) {
+        if (number == null) return null;
+        return number.toString();
+    }
+
+    public static String format(Boolean bool) {
+        if (bool == null) return null;
+        return bool ? "true" : "false";
+    }
+
+    public static BigDecimal toBigDecimal(String data) {
+        if (data == null) return null;
+        return new BigDecimal(data);
+    }
+
+    public static Integer toInteger(String data) {
+        if (data == null) return null;
+        return new Integer(data);
+    }
+
+    public static Boolean toBoolean(String data) {
+        if (data == null) return null;
+        return new Boolean(data);
     }
 
     public static String formatDate(Date date) {

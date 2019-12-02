@@ -51,7 +51,7 @@ public class PeopleRow {
     @ExcelField(headName = "证件号码")
     private String identity_no;
     @Visible(requiredRoles = {Visible.ROLE.root, Visible.ROLE.admin})
-    @ExcelField(headName = "生日")
+    @ExcelField(headName = "出生日期")
     private String birth_date;
     @ExcelField(headName = "办公电话")
     private String office_phone;
