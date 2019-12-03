@@ -3,8 +3,9 @@ package com.techncat.quantum.app.excel.downloader;
 
 import com.techncat.quantum.app.excel.model.people.PeopleRow;
 import com.techncat.quantum.app.excel.service.ExcelService;
-import com.techncat.quantum.app.model.people.People;
-import com.techncat.quantum.app.repository.people.People_Repository;
+import com.techncat.quantum.app.model.people.*;
+import com.techncat.quantum.app.repository.attachment.people.PeopleAttachmentRepository;
+import com.techncat.quantum.app.repository.people.*;
 import com.techncat.quantum.app.service.people.People_SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,6 +22,7 @@ import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @RestController
@@ -36,6 +38,18 @@ public class PeopleExcelController {
     private People_SearchService people_searchService;
     @Resource
     private People_Repository people_repository;
+    @Resource
+    private PeopleAdminRepository adminRepository;
+    @Resource
+    private PeoplePostdoctoralRepository postdoctoralRepository;
+    @Resource
+    private PeopleResearcherRepository researcherRepository;
+    @Resource
+    private PeopleStudentRepository studentRepository;
+    @Resource
+    private PeopleTeacherRepository teacherRepository;
+    @Resource
+    private PeopleVisitorRepository visitorRepository;
     @Autowired
     private ExcelService excelService;
 
@@ -95,8 +109,32 @@ public class PeopleExcelController {
     @PostMapping
     public ResponseEntity excelImport(MultipartFile file) throws IOException, SQLIntegrityConstraintViolationException {
         List<People> data = excelService.read(file, PeopleRow.class).parallelStream().map(PeopleRow::load).filter(Objects::nonNull).collect(Collectors.toList());
+        List<People> dataF = data.parallelStream().map(people -> {
+            if (null != people.getType())
+                switch (people.getType()) {
+                    case administration:
+                        people.setPeopleAdmin(adminRepository.save(new PeopleAdmin()));
+                        break;
+                    case postdoctoral:
+                        people.setPeoplePostdoctoral(postdoctoralRepository.save(new PeoplePostdoctoral()));
+                        break;
+                    case researcher:
+                        people.setPeopleResearcher(researcherRepository.save(new PeopleResearcher()));
+                        break;
+                    case student:
+                        people.setPeopleStudent(studentRepository.save(new PeopleStudent()));
+                        break;
+                    case teacher:
+                        people.setPeopleTeacher(teacherRepository.save(new PeopleTeacher()));
+                        break;
+                    case visitor:
+                        people.setPeopleVisitor(visitorRepository.save(new PeopleVisitor()));
+                        break;
+                }
+            return people;
+        }).collect(Collectors.toList());
         // insert
-        people_repository.saveAll(data);
+        people_repository.saveAll(dataF);
         return ResponseEntity.status(201).body("import success");
     }
 }

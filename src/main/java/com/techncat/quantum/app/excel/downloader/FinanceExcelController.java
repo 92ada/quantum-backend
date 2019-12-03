@@ -3,8 +3,8 @@ package com.techncat.quantum.app.excel.downloader;
 
 import com.techncat.quantum.app.excel.model.finance.ExpRow;
 import com.techncat.quantum.app.excel.service.ExcelService;
-import com.techncat.quantum.app.model.finance.Exp;
-import com.techncat.quantum.app.repository.finance.FinExp_Repository;
+import com.techncat.quantum.app.model.finance.*;
+import com.techncat.quantum.app.repository.finance.*;
 import com.techncat.quantum.app.service.finance.FinanceExp_SearchService;
 import com.techncat.quantum.app.service.utils.TimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +37,29 @@ public class FinanceExcelController {
     private FinanceExp_SearchService financeExp_searchService;
     @Resource
     private FinExp_Repository finExp_repository;
+    @Resource
+    private FinExpConferenceRepository conferenceRepository;
+    @Resource
+    private FinExpConsultationRepository consultationRepository;
+    @Resource
+    private FinExpEquipmentRepository equipmentRepository;
+    @Resource
+    private FinExpIndirectiveRepository indirectiveRepository;
+    @Resource
+    private FinExpInternationalRepository internationalRepository;
+    @Resource
+    private FinExpLaborRepository laborRepository;
+    @Resource
+    private FinExpMaterialRepository materialRepository;
+    @Resource
+    private FinExpOtherRepository otherRepository;
+    @Resource
+    private FinExpProcessingRepository processingRepository;
+    @Resource
+    private FinExpPublicationRepository publicationRepository;
+    @Resource
+    private FinExpTravelRepository travelRepository;
+
     @Autowired
     private TimeFormatter timeFormatter;
     @Autowired
@@ -94,6 +117,45 @@ public class FinanceExcelController {
     @PostMapping
     public ResponseEntity excelImport(MultipartFile file) throws IOException {
         List<Exp> data = excelService.read(file, ExpRow.class).parallelStream().map(ExpRow::load).filter(Objects::nonNull).collect(Collectors.toList());
+        List<Exp> dataF = data.parallelStream().map(exp -> {
+            if (null != exp.getType())
+                switch (exp.getType()) {
+                    case conference:
+                        exp.setExpConference(conferenceRepository.save(new ExpConference()));
+                        break;
+                    case consultation:
+                        exp.setExpConsultation(consultationRepository.save(new ExpConsultation()));
+                        break;
+                    case equipment:
+                        exp.setExpEquipment(equipmentRepository.save(new ExpEquipment()));
+                        break;
+                    case indirective:
+                        exp.setExpIndirective(indirectiveRepository.save(new ExpIndirective()));
+                        break;
+                    case international:
+                        exp.setExpInternational(internationalRepository.save(new ExpInternational()));
+                        break;
+                    case labor:
+                        exp.setExpLabor(laborRepository.save(new ExpLabor()));
+                        break;
+                    case material:
+                        exp.setExpMaterial(materialRepository.save(new ExpMaterial()));
+                        break;
+                    case other:
+                        exp.setExpOther(otherRepository.save(new ExpOther()));
+                        break;
+                    case travel:
+                        exp.setExpTravel(travelRepository.save(new ExpTravel()));
+                        break;
+                    case processing:
+                        exp.setExpProcessing(processingRepository.save(new ExpProcessing()));
+                        break;
+                    case publication:
+                        exp.setExpPublication(publicationRepository.save(new ExpPublication()));
+                        break;
+                }
+            return exp;
+        }).collect(Collectors.toList());
         // insert
         finExp_repository.saveAll(data);
         return ResponseEntity.status(201).body("import success");

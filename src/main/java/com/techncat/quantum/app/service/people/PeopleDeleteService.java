@@ -32,22 +32,28 @@ public class PeopleDeleteService {
         if (people.getType() != null) {
             switch (people.getType()) {
                 case administration:
-                    peopleAdminRepository.delete(people.getPeopleAdmin());
+                    if (null != people.getPeopleAdmin())
+                        peopleAdminRepository.delete(people.getPeopleAdmin());
                     break;
                 case postdoctoral:
-                    peoplePostdoctoralRepository.delete(people.getPeoplePostdoctoral());
+                    if (null != people.getPeoplePostdoctoral())
+                        peoplePostdoctoralRepository.delete(people.getPeoplePostdoctoral());
                     break;
                 case researcher:
-                    peopleResearcherRepository.delete(people.getPeopleResearcher());
+                    if (null != people.getPeopleResearcher())
+                        peopleResearcherRepository.delete(people.getPeopleResearcher());
                     break;
                 case student:
-                    peopleStudentRepository.delete(people.getPeopleStudent());
+                    if (null != people.getPeopleStudent())
+                        peopleStudentRepository.delete(people.getPeopleStudent());
                     break;
                 case teacher:
-                    peopleTeacherRepository.delete(people.getPeopleTeacher());
+                    if (null != people.getPeopleTeacher())
+                        peopleTeacherRepository.delete(people.getPeopleTeacher());
                     break;
                 case visitor:
-                    peopleVisitorRepository.delete(people.getPeopleVisitor());
+                    if (null != people.getPeopleVisitor())
+                        peopleVisitorRepository.delete(people.getPeopleVisitor());
                     break;
             }
         }
