@@ -37,7 +37,9 @@ public class LabController {
 
     @GetMapping("/{id}")
     public ResponseEntity get(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(labService.fetch(id));
+        Lab record = labService.fetch(id);
+        LabVO data = voUtils.copy(record, LabVO.class);
+        return ResponseEntity.ok(data);
     }
 
     @GetMapping("/{id}/structure")

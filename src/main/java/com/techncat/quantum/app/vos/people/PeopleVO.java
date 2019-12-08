@@ -8,6 +8,7 @@ import com.techncat.quantum.app.model.people.People;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * [{
@@ -68,5 +69,5 @@ public class PeopleVO {
     @ValueType("enumerated")
     private People.Gender gender;
     @ValueType(value = "lab", option_url = "/api/labs/options")
-    private Lab lab;
+    private List<LabVO> lab;
 }

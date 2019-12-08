@@ -23,9 +23,9 @@ public class VOEnhanceUtil {
     private VOUtils voUtils;
 
     public Map<String, Object> enhance(String key, Object object) throws IllegalAccessException {
-        if (object == null) {
-            return new HashMap<>();
-        }
+//        if (object == null) {
+//            return new HashMap<>();
+//        }
         List<EnhancedVO> list = enhance(object);
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put(key, list);
@@ -33,6 +33,7 @@ public class VOEnhanceUtil {
     }
 
     public List<EnhancedVO> enhance(Object object) throws IllegalAccessException {
+        if (object == null) return new ArrayList<>();
         Field[] childFields = object.getClass().getDeclaredFields();
 //        Field[] fatherFields = object.getClass().getSuperclass().getDeclaredFields();
 //        Field[] fields = concat(fatherFields, childFields);
@@ -53,21 +54,7 @@ public class VOEnhanceUtil {
                     break;
                 case lab:
                     if (!isEmpty(typeResult.getOptionUrl())) {
-//                        vo = new EnhancedVO(index, JSON.toJSONString(value), typeResult.getValue().name(), typeResult.getOptionUrl());
-                        LabVO labVO = voUtils.copy(value, LabVO.class);
-                        if (labVO != null) { // set null if exist people info
-                            People people = labVO.getPi();
-                            if (people != null) {
-                                people.setPeopleAdmin(null);
-                                people.setPeoplePostdoctoral(null);
-                                people.setPeopleResearcher(null);
-                                people.setPeopleStudent(null);
-                                people.setPeopleTeacher(null);
-                                people.setPeopleVisitor(null);
-                                people.setLab(null);
-                            }
-                        }
-                        vo = new EnhancedVO(index, labVO, typeResult.getValue().name(), typeResult.getOptionUrl());
+                        vo = new EnhancedVO(index, value, typeResult.getValue().name(), typeResult.getOptionUrl());
                         vo.setEditable(isEditable);
                         vos.add(vo);
                         break;
@@ -76,7 +63,6 @@ public class VOEnhanceUtil {
                 case person:
                 case object:
                     if (!isEmpty(typeResult.getOptionUrl())) {
-//                        vo = new EnhancedVO(index, JSON.toJSONString(value), typeResult.getValue().name(), typeResult.getOptionUrl());
                         vo = new EnhancedVO(index, value, typeResult.getValue().name(), typeResult.getOptionUrl());
                         vo.setEditable(isEditable);
                         vos.add(vo);

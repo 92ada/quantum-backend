@@ -1,6 +1,7 @@
 package com.techncat.quantum.app.service.people;
 
 import com.techncat.quantum.app.common.repo.RepoUtils;
+import com.techncat.quantum.app.common.voutils.VOUtils;
 import com.techncat.quantum.app.model.people.*;
 import com.techncat.quantum.app.repository.people.*;
 import com.techncat.quantum.app.vos.people.*;
@@ -9,13 +10,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class PeopleUpdateService {
 
     @Autowired
     private RepoUtils repoUtils;
+    @Autowired
+    private VOUtils voUtils;
     @Resource
     private People_Repository peopleRepository;
     @Resource
@@ -33,12 +38,25 @@ public class PeopleUpdateService {
     @Autowired
     private PeopleShowService showService;
 
+    private List<Lab> loadLab(List<LabVO> labVOS) {
+        if (labVOS.isEmpty()) return new ArrayList<>();
+        List<Lab> labs = new ArrayList<>();
+        for (LabVO labVO: labVOS) {
+            Lab lab = new Lab();
+            lab.setId(labVO.getId());
+            labs.add(lab);
+        }
+        return labs;
+    }
+
     // 1. base update
     public People update(Long peopleId, PeopleVO vo) {
         Assert.notNull(vo, "data can not be null");
+        List<LabVO> labVOS = vo.getLab();
         return repoUtils.process(peopleRepository, vo, People.class, model -> {
             People people = (People) model;
             people.setId(peopleId);
+            people.setLab(loadLab(labVOS));
             people.setUpdateAt(new Date());
             return people;
         });
@@ -111,6 +129,7 @@ public class PeopleUpdateService {
     public People update(Long peopleId, PeopleVO peopleVO, PeopleStudentVO extraVo) {
         Assert.notNull(peopleVO, "data can not be null");
         Assert.notNull(extraVo, "data can not be null");
+        List<LabVO> labVOS = peopleVO.getLab();
         PeopleStudent record = showService.fetchBase(peopleId).getPeopleStudent();
 
         return repoUtils.process(peopleVO, extraVo, PeopleStudent.class, preData1 -> {
@@ -120,6 +139,7 @@ public class PeopleUpdateService {
         }, People.class, (postData1, preData2) -> {
             // set each other
             preData2.setId(peopleId);
+            preData2.setLab(loadLab(labVOS));
             preData2.setPeopleStudent(postData1);
             People postData2 = peopleRepository.save(preData2);
             postData1.setPeople(postData2);

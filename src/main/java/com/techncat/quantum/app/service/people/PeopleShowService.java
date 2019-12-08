@@ -32,7 +32,9 @@ public class PeopleShowService {
 
     public PeopleVO showBase(Long id) throws PeopleNotFoundException {
         People people = fetchBase(id);
-        return voUtils.copy(people, PeopleVO.class);
+        PeopleVO vo = voUtils.copy(people, PeopleVO.class);
+        vo.setLab(LabVO.renderSimple(people.getLab()));
+        return vo;
     }
 
     public Object showExtra(People people, People.Type type) throws PeopleNotFoundException {
