@@ -3,8 +3,13 @@ package com.techncat.quantum.app.excel.model.people;
 import com.github.houbb.iexcel.annotation.ExcelField;
 import com.techncat.quantum.app.common.voenhance.annotation.Visible;
 import com.techncat.quantum.app.excel.util.FormatUtil;
+import com.techncat.quantum.app.model.people.Lab;
 import com.techncat.quantum.app.model.people.People;
 import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * [{
@@ -101,12 +106,16 @@ public class PeopleRow {
         if (people.getGender() != null)
             row.gender = people.getGender().name();
         if (people.getLab() != null)
-            row.labName = people.getLab().getName();
+            row.labName = renderLabs(people.getLab());
 
         row.birth_date = FormatUtil.formatDate(people.getBirth_date());
         row.entry_date = FormatUtil.formatDate(people.getEntry_date());
         row.departure_date = FormatUtil.formatDate(people.getDeparture_date());
         return row;
+    }
+
+    private static String renderLabs(List<Lab> labs) {
+        return String.join(",", labs.parallelStream().map(Lab::getName).collect(Collectors.toList()));
     }
 
     public static People load(PeopleRow row) {
@@ -134,5 +143,12 @@ public class PeopleRow {
         people.setIdentity_type(FormatUtil.formatEnum(People.IdentityType.class, row.identity_type));
         people.setGender(FormatUtil.formatEnum(People.Gender.class, row.gender));
         return people;
+    }
+
+    private static List<Lab> loadLabs(String labNames) {
+        String[] names = labNames.replaceAll("，", ",").split(",");
+        // TODO..
+        // find in db
+        return new ArrayList<>();
     }
 }
