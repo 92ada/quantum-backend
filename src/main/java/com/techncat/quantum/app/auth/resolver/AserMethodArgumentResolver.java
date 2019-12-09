@@ -36,6 +36,8 @@ public class AserMethodArgumentResolver implements HandlerMethodArgumentResolver
                                   NativeWebRequest nativeWebRequest,
                                   WebDataBinderFactory webDataBinderFactory) throws Exception {
         String token = nativeWebRequest.getHeader("Authorization");
+        if (token == null || token.trim().length() == 0)
+            throw new AserDecodeException(token);
         Aser aser = jwtService.decode(token);
         if (aser == null)
             throw new AserDecodeException(token);

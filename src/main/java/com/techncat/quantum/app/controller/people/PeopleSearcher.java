@@ -1,5 +1,7 @@
 package com.techncat.quantum.app.controller.people;
 
+import com.techncat.quantum.app.auth.annotation.ForkiAser;
+import com.techncat.quantum.app.auth.entity.Aser;
 import com.techncat.quantum.app.model.people.People;
 import com.techncat.quantum.app.service.people.People_SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +26,14 @@ public class PeopleSearcher {
     private People_SearchService people_searchService;
 
     @GetMapping
-    public Page<People> search(@RequestParam(value = "word", required = false) String word,
+    public Page<People> search(@ForkiAser Aser aser,
+                               @RequestParam(value = "word", required = false) String word,
                                @RequestParam(value = "type", required = false) People.Type type,
                                @RequestParam(value = "page", defaultValue = "1") Integer page,
                                @RequestParam(value = "limit", defaultValue = "10") Integer size,
                                @RequestParam(value = "order", defaultValue = "desc") String order,
                                @RequestParam(value = "by", defaultValue = "createdAt") String byProp) {
+        // sort
         Sort sort = null;
         if (order.toLowerCase().equals("desc")) {
             sort = Sort.by(byProp).descending();
@@ -37,11 +41,22 @@ public class PeopleSearcher {
             sort = Sort.by(byProp).ascending();
         }
         PageRequest request = PageRequest.of(page - 1, size, sort);
-        if (type == null) {
+        // find in ids
+
+        boolean isRoot = aser.getRoles().contains("ROOT") || aser.getRoles().contains("root");
+        if (type == null && !isRoot) {
+            return people_searchService.search(word, aser.getSid(), request);
+        }
+        if (type == null && isRoot) {
             return people_searchService.search(word, request);
-        } else {
+        }
+        if (type != null && !isRoot) {
+            return people_searchService.search(word, type, aser.getSid(), request);
+        }
+        if (type != null && isRoot) {
             return people_searchService.search(word, type, request);
         }
+        return null;
     }
 
     @GetMapping("/options")

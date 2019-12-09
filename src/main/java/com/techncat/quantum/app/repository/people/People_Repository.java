@@ -9,20 +9,47 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface People_Repository extends JpaRepository<People, Long> {
+    Page<People> findAllByNameLikeAndIdInOrSidLikeAndIdInOrEmailLikeAndIdIn(
+            @Param("name") String name,
+            List<Long> ids1,
+            @Param("sid") String sid,
+            List<Long> ids2,
+            @Param("email") String email,
+            List<Long> ids3,
+            Pageable pageable);
+
     Page<People> findAllByNameLikeOrSidLikeOrEmailLike(
             @Param("name") String name,
             @Param("sid") String sid,
             @Param("email") String email,
             Pageable pageable);
 
-    Page<People> findAllByTypeAndNameLikeOrSidLikeOrEmailLike(
-            @Param("type") People.Type type,
+    Page<People> findAllByTypeAndNameLikeAndIdInOrTypeAndSidLikeAndIdInOrTypeAndEmailLikeAndIdIn(
+            @Param("type") People.Type type1,
             @Param("name") String name,
+            List<Long> ids1,
+            @Param("type") People.Type type2,
             @Param("sid") String sid,
+            List<Long> ids2,
+            @Param("type") People.Type type3,
+            @Param("email") String email,
+            List<Long> ids3,
+            Pageable pageable);
+
+    Page<People> findAllByTypeAndNameLikeOrTypeAndSidLikeOrTypeAndEmailLike(
+            @Param("type") People.Type type1,
+            @Param("name") String name,
+            @Param("type") People.Type type2,
+            @Param("sid") String sid,
+            @Param("type") People.Type type3,
             @Param("email") String email,
             Pageable pageable);
 
+    Page<People> findAllByTypeAndIdIn(@Param("type") People.Type type, List<Long> ids, Pageable pageable);
+
     Page<People> findAllByType(@Param("type") People.Type type, Pageable pageable);
+
+    Page<People> findAllByIdIn(List<Long> ids, Pageable pageable);
 
     List<People> findAllByNameLike(@Param("name") String name);
 

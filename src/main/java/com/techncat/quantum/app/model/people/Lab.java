@@ -23,4 +23,10 @@ public class Lab {
 
     @Column(columnDefinition = "text")
     private String description;
+
+    @ManyToOne
+    @JoinColumn(name = "father_lab_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+    private Lab fatherLab; // 所属实验室
+
+    private Integer level = 9; // default 9, [0-9]
 }
