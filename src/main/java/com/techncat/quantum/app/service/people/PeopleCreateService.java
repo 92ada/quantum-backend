@@ -47,9 +47,11 @@ public class PeopleCreateService {
     // 1. base create
     public People create(PeopleVO vo) {
         Assert.notNull(vo, "data can not be null");
+        List<LabVO> labVOS = vo.getLab();
         return repoUtils.process(peopleRepository, vo, People.class, model -> {
             People people = (People) model;
             people.setId(null);
+            people.setLab(loadLab(labVOS));
             people.setType(People.Type.base);
             people.setUpdateAt(new Date());
             people.setCreatedAt(new Date());
