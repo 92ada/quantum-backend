@@ -17,6 +17,9 @@ public class LabVO {
     private People pi;
     private String name;
     private String description;
+    @ValueType(value = "lab", option_url = "/api/labs/options")
+    private Lab fatherLab;
+    private Integer level = 9; // default 9, [0-9]
 
     public static LabVO renderSimple(Lab lab) {
        LabVO labVO = new LabVO();
