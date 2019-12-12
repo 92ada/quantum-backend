@@ -52,13 +52,8 @@ public class VOEnhanceUtil {
                     vo.setEditable(isEditable);
                     vos.add(vo);
                     break;
+                case labs:
                 case lab:
-                    if (!isEmpty(typeResult.getOptionUrl())) {
-                        vo = new EnhancedVO(index, value, typeResult.getValue().name(), typeResult.getOptionUrl());
-                        vo.setEditable(isEditable);
-                        vos.add(vo);
-                        break;
-                    }
                 case people:
                 case person:
                 case object:
@@ -140,7 +135,8 @@ public class VOEnhanceUtil {
             photo,
             people,
             lab,
-            person
+            person,
+            labs
         }
 
         private Type value;
