@@ -34,7 +34,7 @@ public class PeopleCreateService {
     private PeopleVisitorRepository peopleVisitorRepository;
 
     private List<Lab> loadLab(List<LabVO> labVOS) {
-        if (labVOS.isEmpty()) return new ArrayList<>();
+        if (labVOS == null || labVOS.isEmpty()) return new ArrayList<>();
         List<Lab> labs = new ArrayList<>();
         for (LabVO labVO: labVOS) {
             Lab lab = new Lab();
