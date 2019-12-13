@@ -91,10 +91,10 @@ public class PeopleRow {
         if (people.getType() != null)
             row.type = people.getType().name();
         if (people.getStatus() != null)
-            row.status = people.getStatus().name();
+            row.status = people.getStatus().getValue();
         row.name = people.getName();
         if (people.getIdentity_type() != null)
-            row.identity_type = people.getIdentity_type().name();
+            row.identity_type = people.getIdentity_type().getValue();
         row.identity_no = people.getIdentity_no();
         row.office_phone = people.getOffice_phone();
         row.mobile_phone = people.getMobile_phone();
@@ -104,7 +104,7 @@ public class PeopleRow {
         row.description = people.getDescription();
         row.emergency_contact = people.getEmergency_contact();
         if (people.getGender() != null)
-            row.gender = people.getGender().name();
+            row.gender = people.getGender().getValue();
         if (people.getLab() != null)
             row.labName = renderLabs(people.getLab());
 
