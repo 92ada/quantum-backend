@@ -66,6 +66,18 @@ public class FormatUtil {
     public static <T extends Enum<T>> T formatEnum(Class<T> clazz, String value) {
         if (value == null) return null;
         if (value.trim().length() == 0) return null;
-        return Enum.valueOf(clazz, value);
+        String value_ = value;
+        switch (value) {
+            case "男": value_ = "male"; break;
+            case "女": value_ = "female"; break;
+            case "其他": value_ = "other"; break;
+            case "正常": value_ = "normal"; break;
+            case "非正常": value_ = "abnormal"; break;
+            case "离职": value_ = "dismissed"; break;
+            case "休假": value_ = "on_vacation"; break;
+            case "身份证": value_ = "ID_card"; break;
+            case "护照": value_ = "password"; break;
+        }
+        return Enum.valueOf(clazz, value_);
     }
 }

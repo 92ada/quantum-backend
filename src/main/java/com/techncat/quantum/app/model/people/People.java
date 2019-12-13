@@ -17,15 +17,42 @@ public class People {
     }
 
     public enum IdentityType {
-        ID_card, passport
+        ID_card("身份证"), passport("护照");
+        private String value;
+
+        public String getValue() {
+            return this.value;
+        }
+
+        IdentityType(String value) {
+            this.value = value;
+        }
     }
 
     public enum Gender {
-        male, female, other
+        male("男"), female("女"), other("其他");
+        private String value;
+
+        public String getValue() {
+            return this.value;
+        }
+
+        Gender(String value) {
+            this.value = value;
+        }
     }
 
     public enum Status {
-        normal, abnormal, dismissed, on_vacation
+        normal("正常"), abnormal("非正常"), dismissed("离职"), on_vacation("休假");
+        private String value;
+
+        public String getValue() {
+            return this.value;
+        }
+
+        Status(String value) {
+            this.value = value;
+        }
     }
 
     @Id
