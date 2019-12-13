@@ -80,7 +80,8 @@ public class PeopleExcelController {
      * @throws IOException
      */
     @GetMapping("/{anyname}.xlsx") // 导出后下载保存名字为：anyname.xls
-    public void excelExport(@RequestParam(required = false) String sid,
+    public void excelExport(// @RequestParam(required = false) String sid,
+                            @ForkiAser Aser aser,
                             @RequestParam(value = "word", required = false) String word,
                             @RequestParam(value = "type", required = false) People.Type type,
                             @RequestParam(value = "order", defaultValue = "desc") String order,
@@ -95,24 +96,24 @@ public class PeopleExcelController {
         PageRequest request = PageRequest.of(0, 10000, sort); // max: 10000
         Page<People> peoplePage = null;
 
-        if (type == null) {
-            peoplePage =  people_searchService.search(word, sid, request);
-        } else {
-            peoplePage =  people_searchService.search(word, type, sid, request);
+//        if (type == null) {
+//            peoplePage =  people_searchService.search(word, sid, request);
+//        } else {
+//            peoplePage =  people_searchService.search(word, type, sid, request);
+//        }
+        boolean isRoot = aser.getRoles().contains("ROOT") || aser.getRoles().contains("root");
+        if (type == null && !isRoot) {
+            peoplePage =  people_searchService.search(word, aser.getSid(), request);
         }
-//        boolean isRoot = aser.getRoles().contains("ROOT") || aser.getRoles().contains("root");
-//        if (type == null && !isRoot) {
-//            peoplePage =  people_searchService.search(word, aser.getSid(), request);
-//        }
-//        if (type == null && isRoot) {
-//            peoplePage =  people_searchService.search(word, request);
-//        }
-//        if (type != null && !isRoot) {
-//            peoplePage =  people_searchService.search(word, type, aser.getSid(), request);
-//        }
-//        if (type != null && isRoot) {
-//            peoplePage =  people_searchService.search(word, type, request);
-//        }
+        if (type == null && isRoot) {
+            peoplePage =  people_searchService.search(word, request);
+        }
+        if (type != null && !isRoot) {
+            peoplePage =  people_searchService.search(word, type, aser.getSid(), request);
+        }
+        if (type != null && isRoot) {
+            peoplePage =  people_searchService.search(word, type, request);
+        }
         excelService.export(peoplePage.getContent().parallelStream().map(PeopleRow::render).collect(Collectors.toList()), response.getOutputStream());
     }
 
