@@ -68,6 +68,6 @@ public class PeopleVO {
     private Date departure_date;
     @ValueType("enumerated")
     private People.Gender gender;
-    @ValueType(value = "lab", option_url = "/api/labs/options")
+    @ValueType(value = "labs", option_url = "/api/labs/options")
     private List<LabVO> lab;
 }
