@@ -67,5 +67,5 @@ jwt:
   refresh_expiration: 2400000 # 30 days
 
 file:
-  location: /Users/neo/Desktop
-#  location: /usr/quantum_files
+#  location: /Users/neo/Desktop
+  location: /usr/quantum_files
