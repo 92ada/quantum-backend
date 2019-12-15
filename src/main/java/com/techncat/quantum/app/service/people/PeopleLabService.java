@@ -15,7 +15,7 @@ public class PeopleLabService {
     private PeopleLabRepository repository;
 
     public void resetLabs(Long peopleId, List<LabVO> labVOS) {
-        if (labVOS.isEmpty()) return;
+        if (labVOS == null || labVOS.isEmpty()) return;
         this.update(peopleId, labVOS.parallelStream().map(LabVO::getId).collect(Collectors.toList()));
     }
 
