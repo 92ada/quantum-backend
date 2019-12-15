@@ -19,6 +19,7 @@ public class ExpVO {
     @Editable(false)
     private Exp.Type type;
     private Date date;
+    private String expenditure_no;
     private String reservation_no;
     private BigDecimal amount;
     private Integer document_month;
