@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -115,6 +116,7 @@ public class FinanceExcelController {
      * @throws IOException
      */
     @PostMapping
+    @Transactional
     public ResponseEntity excelImport(MultipartFile file) throws IOException {
         List<Exp> data = excelService.read(file, ExpRow.class).parallelStream().map(ExpRow::load).filter(Objects::nonNull).collect(Collectors.toList());
         List<Exp> dataF = data.parallelStream().map(exp -> {
@@ -157,7 +159,7 @@ public class FinanceExcelController {
             return exp;
         }).collect(Collectors.toList());
         // insert
-        finExp_repository.saveAll(data);
+        finExp_repository.saveAll(dataF);
         return ResponseEntity.status(201).body("import success");
     }
 }

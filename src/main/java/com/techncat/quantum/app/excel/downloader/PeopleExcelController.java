@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
@@ -125,7 +126,8 @@ public class PeopleExcelController {
      * @throws IOException
      */
     @PostMapping
-    public ResponseEntity excelImport(MultipartFile file) throws IOException, SQLIntegrityConstraintViolationException {
+    @Transactional
+    public ResponseEntity excelImport(MultipartFile file) throws IOException {
         List<People> data = excelService.read(file, PeopleRow.class).parallelStream().map(PeopleRow::load).filter(Objects::nonNull).collect(Collectors.toList());
         List<People> dataF = data.parallelStream().map(people -> {
             if (null != people.getType())
