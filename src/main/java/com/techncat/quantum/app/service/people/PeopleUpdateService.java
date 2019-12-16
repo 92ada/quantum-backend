@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -37,26 +36,18 @@ public class PeopleUpdateService {
     private PeopleVisitorRepository peopleVisitorRepository;
     @Autowired
     private PeopleShowService showService;
+    @Autowired
+    private PeopleLabService peopleLabService;
 
-    private List<Lab> loadLab(List<LabVO> labVOS) {
-        if (labVOS.isEmpty()) return new ArrayList<>();
-        List<Lab> labs = new ArrayList<>();
-        for (LabVO labVO: labVOS) {
-            Lab lab = new Lab();
-            lab.setId(labVO.getId());
-            labs.add(lab);
-        }
-        return labs;
-    }
 
     // 1. base update
     public People update(Long peopleId, PeopleVO vo) {
         Assert.notNull(vo, "data can not be null");
         List<LabVO> labVOS = vo.getLab();
         return repoUtils.process(peopleRepository, vo, People.class, model -> {
+            peopleLabService.resetLabs(peopleId, labVOS);
             People people = (People) model;
             people.setId(peopleId);
-            people.setLab(loadLab(labVOS));
             people.setUpdateAt(new Date());
             return people;
         });
@@ -75,8 +66,8 @@ public class PeopleUpdateService {
             return peopleAdminRepository.save(preData1);
         }, People.class, (postData1, preData2) -> {
             // set each other
+            peopleLabService.resetLabs(peopleId, labVOS);
             preData2.setId(peopleId);
-            preData2.setLab(loadLab(labVOS));
             preData2.setPeopleAdmin(postData1);
             People postData2 = peopleRepository.save(preData2);
             postData1.setPeople(postData2);
@@ -98,8 +89,8 @@ public class PeopleUpdateService {
             return peoplePostdoctoralRepository.save(preData1);
         }, People.class, (postData1, preData2) -> {
             // set each other
+            peopleLabService.resetLabs(peopleId, labVOS);
             preData2.setId(peopleId);
-            preData2.setLab(loadLab(labVOS));
             preData2.setPeoplePostdoctoral(postData1);
             People postData2 = peopleRepository.save(preData2);
             postData1.setPeople(postData2);
@@ -121,8 +112,8 @@ public class PeopleUpdateService {
             return peopleResearcherRepository.save(preData1);
         }, People.class, (postData1, preData2) -> {
             // set each other
+            peopleLabService.resetLabs(peopleId, labVOS);
             preData2.setId(peopleId);
-            preData2.setLab(loadLab(labVOS));
             preData2.setPeopleResearcher(postData1);
             People postData2 = peopleRepository.save(preData2);
             postData1.setPeople(postData2);
@@ -144,8 +135,8 @@ public class PeopleUpdateService {
             return peopleStudentRepository.save(preData1);
         }, People.class, (postData1, preData2) -> {
             // set each other
+            peopleLabService.resetLabs(peopleId, labVOS);
             preData2.setId(peopleId);
-            preData2.setLab(loadLab(labVOS));
             preData2.setPeopleStudent(postData1);
             People postData2 = peopleRepository.save(preData2);
             postData1.setPeople(postData2);
@@ -167,8 +158,8 @@ public class PeopleUpdateService {
             return peopleTeacherRepository.save(preData1);
         }, People.class, (postData1, preData2) -> {
             // set each other
+            peopleLabService.resetLabs(peopleId, labVOS);
             preData2.setId(peopleId);
-            preData2.setLab(loadLab(labVOS));
             preData2.setPeopleTeacher(postData1);
             People postData2 = peopleRepository.save(preData2);
             postData1.setPeople(postData2);
@@ -189,8 +180,8 @@ public class PeopleUpdateService {
             return peopleVisitorRepository.save(preData1);
         }, People.class, (postData1, preData2) -> {
             // set each other
+            peopleLabService.resetLabs(peopleId, labVOS);
             preData2.setId(peopleId);
-            preData2.setLab(loadLab(labVOS));
             preData2.setPeopleVisitor(postData1);
             People postData2 = peopleRepository.save(preData2);
             postData1.setPeople(postData2);
