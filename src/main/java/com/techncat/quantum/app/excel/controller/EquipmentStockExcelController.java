@@ -1,11 +1,11 @@
-package com.techncat.quantum.app.excel.downloader;
+package com.techncat.quantum.app.excel.controller;
 
 
-import com.techncat.quantum.app.excel.model.equipment.PurchasingRow;
+import com.techncat.quantum.app.excel.model.equipment.StockRow;
 import com.techncat.quantum.app.excel.service.ExcelService;
-import com.techncat.quantum.app.model.equipment.Purchasing;
-import com.techncat.quantum.app.repository.equipment.EquPurchasingRepository;
-import com.techncat.quantum.app.service.equipment.EquipmentPurchasingService;
+import com.techncat.quantum.app.model.equipment.Stock;
+import com.techncat.quantum.app.repository.equipment.EquStockRepository;
+import com.techncat.quantum.app.service.equipment.EquipmentStockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,18 +23,18 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/excel/equipment/purchasing")
+@RequestMapping("/api/excel/equipment/stock")
 @CrossOrigin(
         origins = "*",
         allowedHeaders = "*",
         allowCredentials = "true",
         methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS, RequestMethod.HEAD}
 )
-public class EquipmentPurchasingExcelController {
+public class EquipmentStockExcelController {
     @Autowired
-    private EquipmentPurchasingService equipmentPurchasingService;
+    private EquipmentStockService equipmentStockService;
     @Resource
-    private EquPurchasingRepository equPurchasingRepository;
+    private EquStockRepository equStockRepository;
     @Autowired
     private ExcelService excelService;
 
@@ -46,10 +46,10 @@ public class EquipmentPurchasingExcelController {
      */
     @GetMapping("/{anyname}-template.xlsx")
     public void aexcelModel(HttpServletResponse response) throws IOException {
-        List<PurchasingRow> purchasingRows = new ArrayList<>();
-        PurchasingRow row = new PurchasingRow();
-        purchasingRows.add(row);
-        excelService.export(purchasingRows, response.getOutputStream());
+        List<StockRow> stockRows = new ArrayList<>();
+        StockRow row = new StockRow();
+        stockRows.add(row);
+        excelService.export(stockRows, response.getOutputStream());
     }
 
     /**
@@ -73,9 +73,9 @@ public class EquipmentPurchasingExcelController {
             sort = Sort.by(byProp).ascending();
         }
         PageRequest request = PageRequest.of(0, 10000, sort); // max: 10000
-        Page<Purchasing> purchasingPage = null;
-        purchasingPage = equipmentPurchasingService.page(word, request);
-        excelService.export(purchasingPage.getContent().parallelStream().map(PurchasingRow::render).collect(Collectors.toList()), response.getOutputStream());
+        Page<Stock> stockPage = null;
+        stockPage = equipmentStockService.page(word, request);
+        excelService.export(stockPage.getContent().parallelStream().map(StockRow::render).collect(Collectors.toList()), response.getOutputStream());
     }
 
     /**
@@ -87,9 +87,9 @@ public class EquipmentPurchasingExcelController {
      */
     @PostMapping
     public ResponseEntity excelImport(MultipartFile file) throws IOException {
-        List<Purchasing> data = excelService.read(file, PurchasingRow.class).parallelStream().map(PurchasingRow::load).filter(Objects::nonNull).collect(Collectors.toList());
+        List<Stock> data = excelService.read(file, StockRow.class).parallelStream().map(StockRow::load).filter(Objects::nonNull).collect(Collectors.toList());
         // insert
-        equPurchasingRepository.saveAll(data);
+        equStockRepository.saveAll(data);
         return ResponseEntity.status(201).body("import success");
     }
 }

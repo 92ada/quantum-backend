@@ -1,4 +1,4 @@
-package com.techncat.quantum.app.excel.downloader;
+package com.techncat.quantum.app.excel.controller;
 
 
 import com.techncat.quantum.app.auth.annotation.ForkiAser;
@@ -6,7 +6,6 @@ import com.techncat.quantum.app.auth.entity.Aser;
 import com.techncat.quantum.app.excel.model.people.PeopleRow;
 import com.techncat.quantum.app.excel.service.ExcelService;
 import com.techncat.quantum.app.model.people.*;
-import com.techncat.quantum.app.repository.attachment.people.PeopleAttachmentRepository;
 import com.techncat.quantum.app.repository.people.*;
 import com.techncat.quantum.app.service.people.People_SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,6 @@ import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @RestController

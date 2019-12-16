@@ -1,4 +1,4 @@
-package com.techncat.quantum.app.excel.downloader;
+package com.techncat.quantum.app.excel.controller;
 
 
 import com.techncat.quantum.app.excel.model.finance.ExpRow;
@@ -157,7 +157,7 @@ public class FinanceExcelController {
             return exp;
         }).collect(Collectors.toList());
         // insert
-        finExp_repository.saveAll(data);
+        finExp_repository.saveAll(dataF);
         return ResponseEntity.status(201).body("import success");
     }
 }
