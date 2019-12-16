@@ -69,6 +69,9 @@ public class PeopleUpdateService {
             peopleLabService.resetLabs(peopleId, labVOS);
             preData2.setId(peopleId);
             preData2.setPeopleAdmin(postData1);
+
+            // TODO: 加了lab之后 put /api/people/9/administration 500
+            //      java.lang.IllegalArgumentException: Can not set java.lang.Long field com.techncat.quantum.app.model.people.Lab.id to com.techncat.quantum.app.vos.people.LabVO
             People postData2 = peopleRepository.save(preData2);
             postData1.setPeople(postData2);
             peopleAdminRepository.save(postData1);
