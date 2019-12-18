@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -48,6 +49,7 @@ public class PeopleUpdateService {
             peopleLabService.resetLabs(peopleId, labVOS);
             People people = (People) model;
             people.setId(peopleId);
+            people.setLab(new ArrayList<>());
             people.setUpdateAt(new Date());
             return people;
         });
@@ -69,7 +71,7 @@ public class PeopleUpdateService {
             peopleLabService.resetLabs(peopleId, labVOS);
             preData2.setId(peopleId);
             preData2.setPeopleAdmin(postData1);
-
+            preData2.setLab(new ArrayList<>());
             // TODO: 加了lab之后 put /api/people/9/administration 500
             //      java.lang.IllegalArgumentException: Can not set java.lang.Long field com.techncat.quantum.app.model.people.Lab.id to com.techncat.quantum.app.vos.people.LabVO
             People postData2 = peopleRepository.save(preData2);
@@ -95,6 +97,7 @@ public class PeopleUpdateService {
             peopleLabService.resetLabs(peopleId, labVOS);
             preData2.setId(peopleId);
             preData2.setPeoplePostdoctoral(postData1);
+            preData2.setLab(new ArrayList<>());
             People postData2 = peopleRepository.save(preData2);
             postData1.setPeople(postData2);
             peoplePostdoctoralRepository.save(postData1);
@@ -118,6 +121,7 @@ public class PeopleUpdateService {
             peopleLabService.resetLabs(peopleId, labVOS);
             preData2.setId(peopleId);
             preData2.setPeopleResearcher(postData1);
+            preData2.setLab(new ArrayList<>());
             People postData2 = peopleRepository.save(preData2);
             postData1.setPeople(postData2);
             peopleResearcherRepository.save(postData1);
@@ -141,6 +145,7 @@ public class PeopleUpdateService {
             peopleLabService.resetLabs(peopleId, labVOS);
             preData2.setId(peopleId);
             preData2.setPeopleStudent(postData1);
+            preData2.setLab(new ArrayList<>());
             People postData2 = peopleRepository.save(preData2);
             postData1.setPeople(postData2);
             peopleStudentRepository.save(postData1);
@@ -164,6 +169,7 @@ public class PeopleUpdateService {
             peopleLabService.resetLabs(peopleId, labVOS);
             preData2.setId(peopleId);
             preData2.setPeopleTeacher(postData1);
+            preData2.setLab(new ArrayList<>());
             People postData2 = peopleRepository.save(preData2);
             postData1.setPeople(postData2);
             peopleTeacherRepository.save(postData1);
@@ -186,6 +192,7 @@ public class PeopleUpdateService {
             peopleLabService.resetLabs(peopleId, labVOS);
             preData2.setId(peopleId);
             preData2.setPeopleVisitor(postData1);
+            preData2.setLab(new ArrayList<>());
             People postData2 = peopleRepository.save(preData2);
             postData1.setPeople(postData2);
             peopleVisitorRepository.save(postData1);

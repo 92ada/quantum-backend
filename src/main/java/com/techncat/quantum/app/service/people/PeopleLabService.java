@@ -6,6 +6,7 @@ import com.techncat.quantum.app.vos.people.LabVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,7 +15,9 @@ public class PeopleLabService {
     @Resource
     private PeopleLabRepository repository;
 
+    @Transactional
     public void resetLabs(Long peopleId, List<LabVO> labVOS) {
+        repository.deleteAllByPeopleId(peopleId);
         if (labVOS == null || labVOS.isEmpty()) return;
         this.update(peopleId, labVOS.parallelStream().map(LabVO::getId).collect(Collectors.toList()));
     }

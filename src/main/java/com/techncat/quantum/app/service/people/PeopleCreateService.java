@@ -47,6 +47,7 @@ public class PeopleCreateService {
             people.setType(People.Type.base);
             people.setUpdateAt(new Date());
             people.setCreatedAt(new Date());
+            people.setLab(new ArrayList<>());
             return people;
         });
         peopleLabService.resetLabs(peopleSaved.getId(), labVOS);
@@ -69,6 +70,7 @@ public class PeopleCreateService {
             preData2.setId(null);
             preData2.setPeopleAdmin(postData1);
             preData2.setType(People.Type.administration);
+            preData2.setLab(new ArrayList<>());
             People postData2 = peopleRepository.save(preData2);
             postData1.setPeople(postData2);
             peopleAdminRepository.save(postData1);
@@ -94,6 +96,7 @@ public class PeopleCreateService {
             preData2.setId(null);
             preData2.setPeoplePostdoctoral(postData1);
             preData2.setType(People.Type.postdoctoral);
+            preData2.setLab(new ArrayList<>());
             People postData2 = peopleRepository.save(preData2);
             postData1.setPeople(postData2);
             peoplePostdoctoralRepository.save(postData1);
@@ -119,6 +122,7 @@ public class PeopleCreateService {
             preData2.setId(null);
             preData2.setPeopleResearcher(postData1);
             preData2.setType(People.Type.researcher);
+            preData2.setLab(new ArrayList<>());
             People postData2 = peopleRepository.save(preData2);
             postData1.setPeople(postData2);
             peopleResearcherRepository.save(postData1);
@@ -144,6 +148,7 @@ public class PeopleCreateService {
             preData2.setId(null);
             preData2.setPeopleStudent(postData1);
             preData2.setType(People.Type.student);
+            preData2.setLab(new ArrayList<>());
             People postData2 = peopleRepository.save(preData2);
             postData1.setPeople(postData2);
             peopleStudentRepository.save(postData1);
@@ -169,6 +174,7 @@ public class PeopleCreateService {
             preData2.setId(null);
             preData2.setPeopleTeacher(postData1);
             preData2.setType(People.Type.teacher);
+            preData2.setLab(new ArrayList<>());
             People postData2 = peopleRepository.save(preData2);
             postData1.setPeople(postData2);
             peopleTeacherRepository.save(postData1);
@@ -194,6 +200,7 @@ public class PeopleCreateService {
             preData2.setId(null);
             preData2.setPeopleVisitor(postData1);
             preData2.setType(People.Type.visitor);
+            preData2.setLab(new ArrayList<>());
             People postData2 = peopleRepository.save(preData2);
             postData1.setPeople(postData2);
             peopleVisitorRepository.save(postData1);

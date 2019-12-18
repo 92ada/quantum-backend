@@ -119,48 +119,89 @@ public class FinanceExcelController {
     @Transactional
     public ResponseEntity excelImport(MultipartFile file) throws IOException {
         List<Exp> data = excelService.read(file, ExpRow.class).parallelStream().map(ExpRow::load).filter(Objects::nonNull).collect(Collectors.toList());
-        List<Exp> dataF = data.parallelStream().map(exp -> {
+        data.parallelStream().forEach(exp -> {
             if (null != exp.getType())
                 switch (exp.getType()) {
                     case conference:
                         // TODO: 这儿～ set exp_id
-                        exp.setExpConference(conferenceRepository.save(new ExpConference()));
-                        break;
+                        ExpConference expConference = conferenceRepository.save(new ExpConference());
+                        exp.setExpConference(expConference);
+                        exp = finExp_repository.save(exp);
+                        expConference.setExp(exp);
+                        conferenceRepository.save(expConference);
+                        return;
                     case consultation:
-                        exp.setExpConsultation(consultationRepository.save(new ExpConsultation()));
-                        break;
+                        ExpConsultation expConsultation = consultationRepository.save(new ExpConsultation());
+                        exp.setExpConsultation(expConsultation);
+                        exp = finExp_repository.save(exp);
+                        expConsultation.setExp(exp);
+                        consultationRepository.save(expConsultation);
+                        return;
                     case equipment:
-                        exp.setExpEquipment(equipmentRepository.save(new ExpEquipment()));
-                        break;
+                        ExpEquipment expEquipment = equipmentRepository.save(new ExpEquipment());
+                        exp.setExpEquipment(expEquipment);
+                        exp = finExp_repository.save(exp);
+                        expEquipment.setExp(exp);
+                        equipmentRepository.save(expEquipment);
+                        return;
                     case indirective:
-                        exp.setExpIndirective(indirectiveRepository.save(new ExpIndirective()));
-                        break;
+                        ExpIndirective expIndirective = indirectiveRepository.save(new ExpIndirective());
+                        exp.setExpIndirective(expIndirective);
+                        exp = finExp_repository.save(exp);
+                        expIndirective.setExp(exp);
+                        indirectiveRepository.save(expIndirective);
+                        return;
                     case international:
-                        exp.setExpInternational(internationalRepository.save(new ExpInternational()));
-                        break;
+                        ExpInternational expInternational = internationalRepository.save(new ExpInternational());
+                        exp.setExpInternational(expInternational);
+                        exp = finExp_repository.save(exp);
+                        expInternational.setExp(exp);
+                        internationalRepository.save(expInternational);
+                        return;
                     case labor:
-                        exp.setExpLabor(laborRepository.save(new ExpLabor()));
-                        break;
+                        ExpLabor expLabor = laborRepository.save(new ExpLabor());
+                        exp.setExpLabor(expLabor);
+                        exp = finExp_repository.save(exp);
+                        expLabor.setExp(exp);
+                        laborRepository.save(expLabor);
+                        return;
                     case material:
-                        exp.setExpMaterial(materialRepository.save(new ExpMaterial()));
-                        break;
+                        ExpMaterial expMaterial = materialRepository.save(new ExpMaterial());
+                        exp.setExpMaterial(expMaterial);
+                        exp = finExp_repository.save(exp);
+                        expMaterial.setExp(exp);
+                        materialRepository.save(expMaterial);
+                        return;
                     case other:
-                        exp.setExpOther(otherRepository.save(new ExpOther()));
-                        break;
+                        ExpOther expOther = otherRepository.save(new ExpOther());
+                        exp.setExpOther(expOther);
+                        exp = finExp_repository.save(exp);
+                        expOther.setExp(exp);
+                        otherRepository.save(expOther);
+                        return;
                     case travel:
-                        exp.setExpTravel(travelRepository.save(new ExpTravel()));
-                        break;
+                        ExpTravel expTravel = travelRepository.save(new ExpTravel());
+                        exp.setExpTravel(expTravel);
+                        exp = finExp_repository.save(exp);
+                        expTravel.setExp(exp);
+                        travelRepository.save(expTravel);
+                        return;
                     case processing:
-                        exp.setExpProcessing(processingRepository.save(new ExpProcessing()));
-                        break;
+                        ExpProcessing expProcessing = processingRepository.save(new ExpProcessing());
+                        exp.setExpProcessing(expProcessing);
+                        exp = finExp_repository.save(exp);
+                        expProcessing.setExp(exp);
+                        processingRepository.save(expProcessing);
+                        return;
                     case publication:
-                        exp.setExpPublication(publicationRepository.save(new ExpPublication()));
-                        break;
+                        ExpPublication expPublication = publicationRepository.save(new ExpPublication());
+                        exp.setExpPublication(expPublication);
+                        exp = finExp_repository.save(exp);
+                        expPublication.setExp(exp);
+                        publicationRepository.save(expPublication);
+                        return;
                 }
-            return exp;
-        }).collect(Collectors.toList());
-        // insert
-        finExp_repository.saveAll(dataF);
+        });
         return ResponseEntity.status(201).body("import success");
     }
 }

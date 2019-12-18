@@ -127,33 +127,54 @@ public class PeopleExcelController {
     @Transactional
     public ResponseEntity excelImport(MultipartFile file) throws IOException {
         List<People> data = excelService.read(file, PeopleRow.class).parallelStream().map(PeopleRow::load).filter(Objects::nonNull).collect(Collectors.toList());
-        List<People> dataF = data.parallelStream().map(people -> {
+        data.parallelStream().forEach(people -> {
             if (null != people.getType())
                 switch (people.getType()) {
                     case administration:
                         // TODO: 这儿～ set people_id
-                        people.setPeopleAdmin(adminRepository.save(new PeopleAdmin()));
-                        break;
+                        PeopleAdmin peopleAdmin = adminRepository.save(new PeopleAdmin());
+                        people.setPeopleAdmin(peopleAdmin);
+                        people = people_repository.save(people);
+                        peopleAdmin.setPeople(people);
+                        adminRepository.save(peopleAdmin);
+                        return;
                     case postdoctoral:
-                        people.setPeoplePostdoctoral(postdoctoralRepository.save(new PeoplePostdoctoral()));
-                        break;
+                        PeoplePostdoctoral peoplePostdoctoral = postdoctoralRepository.save(new PeoplePostdoctoral());
+                        people.setPeoplePostdoctoral(peoplePostdoctoral);
+                        people = people_repository.save(people);
+                        peoplePostdoctoral.setPeople(people);
+                        postdoctoralRepository.save(peoplePostdoctoral);
+                        return;
                     case researcher:
-                        people.setPeopleResearcher(researcherRepository.save(new PeopleResearcher()));
-                        break;
+                        PeopleResearcher peopleResearcher = researcherRepository.save(new PeopleResearcher());
+                        people.setPeopleResearcher(peopleResearcher);
+                        people = people_repository.save(people);
+                        peopleResearcher.setPeople(people);
+                        researcherRepository.save(peopleResearcher);
+                        return;
                     case student:
-                        people.setPeopleStudent(studentRepository.save(new PeopleStudent()));
-                        break;
+                        PeopleStudent peopleStudent = studentRepository.save(new PeopleStudent());
+                        people.setPeopleStudent(peopleStudent);
+                        people = people_repository.save(people);
+                        peopleStudent.setPeople(people);
+                        studentRepository.save(peopleStudent);
+                        return;
                     case teacher:
-                        people.setPeopleTeacher(teacherRepository.save(new PeopleTeacher()));
-                        break;
+                        PeopleTeacher peopleTeacher = teacherRepository.save(new PeopleTeacher());
+                        people.setPeopleTeacher(peopleTeacher);
+                        people = people_repository.save(people);
+                        peopleTeacher.setPeople(people);
+                        teacherRepository.save(peopleTeacher);
+                        return;
                     case visitor:
-                        people.setPeopleVisitor(visitorRepository.save(new PeopleVisitor()));
-                        break;
+                        PeopleVisitor peopleVisitor = visitorRepository.save(new PeopleVisitor());
+                        people.setPeopleVisitor(peopleVisitor);
+                        people = people_repository.save(people);
+                        peopleVisitor.setPeople(people);
+                        visitorRepository.save(peopleVisitor);
+                        return;
                 }
-            return people;
-        }).collect(Collectors.toList());
-        // insert
-        people_repository.saveAll(dataF);
+        });
         return ResponseEntity.status(201).body("import success");
     }
 }
