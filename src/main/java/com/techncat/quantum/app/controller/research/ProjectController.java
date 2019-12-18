@@ -1,8 +1,10 @@
 package com.techncat.quantum.app.controller.research;
 
 
+import com.techncat.quantum.app.model.research.ProjectAdmin;
 import com.techncat.quantum.app.model.research.ProjectFund;
 import com.techncat.quantum.app.model.research.ProjectMember;
+import com.techncat.quantum.app.service.research.ProjectAdminService;
 import com.techncat.quantum.app.service.research.ProjectFundService;
 import com.techncat.quantum.app.service.research.ProjectMemberService;
 import com.techncat.quantum.app.service.research.ResearchShowService;
@@ -20,11 +22,31 @@ import java.util.List;
         allowCredentials = "true",
         methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS, RequestMethod.HEAD}
 )
-public class PeojectController {
+public class ProjectController {
+    @Autowired
+    private ProjectAdminService adminService;
     @Autowired
     private ProjectMemberService memberService;
     @Autowired
     private ProjectFundService fundService;
+
+    /* project admin */
+
+    @GetMapping("/{project_id}/admin")
+    public List listAdmin(@PathVariable("project_id") Long projectId) throws ResearchShowService.ProjectNotFoundException {
+        return adminService.list(projectId);
+    }
+
+    @PostMapping("/{project_id}/admin/{people_id}")
+    public ProjectAdmin addAdmin(@PathVariable("project_id") Long projectId, @PathVariable("people_id") Long peopleId) throws ResearchShowService.ProjectNotFoundException {
+        return adminService.add(projectId, peopleId);
+    }
+
+    @DeleteMapping("/{project_id}/admin/{people_id}")
+    public ResponseEntity removeAdmin(@PathVariable("project_id") Long projectId, @PathVariable("people_id") Long peopleId) throws ResearchShowService.ProjectNotFoundException {
+        adminService.remove(projectId, peopleId);
+        return ResponseEntity.status(204).build();
+    }
 
     /* project member */
 

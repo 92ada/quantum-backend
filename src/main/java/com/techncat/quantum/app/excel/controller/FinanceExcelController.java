@@ -123,7 +123,6 @@ public class FinanceExcelController {
             if (null != exp.getType())
                 switch (exp.getType()) {
                     case conference:
-                        // TODO: 这儿～ set exp_id
                         ExpConference expConference = conferenceRepository.save(new ExpConference());
                         exp.setExpConference(expConference);
                         exp = finExp_repository.save(exp);

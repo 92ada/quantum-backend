@@ -131,7 +131,6 @@ public class PeopleExcelController {
             if (null != people.getType())
                 switch (people.getType()) {
                     case administration:
-                        // TODO: 这儿～ set people_id
                         PeopleAdmin peopleAdmin = adminRepository.save(new PeopleAdmin());
                         people.setPeopleAdmin(peopleAdmin);
                         people = people_repository.save(people);

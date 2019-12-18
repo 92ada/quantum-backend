@@ -46,6 +46,7 @@ public class Project {
     private WayOfTaking way_of_taking;
     @Column(precision = 10, scale = 2)
     private BigDecimal approved_funds;
+    private String expenditure_no;
 
 //    @ManyToMany
 //    @JoinColumn(name = "member_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))

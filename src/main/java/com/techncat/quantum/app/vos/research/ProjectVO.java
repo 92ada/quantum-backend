@@ -24,6 +24,8 @@ public class ProjectVO {
     @ValueType("enumerated")
     private Project.WayOfTaking way_of_taking;
     private BigDecimal approved_funds;
+    private String expenditure_no;
+
 //    @ValueType(value = "people", option_url = "/api/people/options")
 //    private Object membersJson;
 }
