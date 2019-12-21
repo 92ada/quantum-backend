@@ -15,24 +15,21 @@ public class TimeFormatter {
      * @param date 2018-01-01
      * @return Date()
      */
-    public Date formatDate(String date) throws ParseException {
-        return dateFormat.parse(date);
+    public Date formatDate(String date) {
+        if (date == null) return null;
+        try {
+            return dateFormat.parse(date);
+        } catch (ParseException e) {
+            return null;
+        }
     }
 
     public Date formatDate(String date, Date defaultDate) {
         if (date == null) return defaultDate;
-        try {
-            return formatDate(date);
-        } catch (ParseException e) {
-            return defaultDate;
-        }
+        return formatDate(date);
     }
     public Date formatDate(String date, String defaultDate) {
-        try {
-            if (date == null) return formatDate(defaultDate);
-            return formatDate(date);
-        } catch (ParseException e) {
-            return null;
-        }
+        if (date == null) return formatDate(defaultDate);
+        return formatDate(date);
     }
 }

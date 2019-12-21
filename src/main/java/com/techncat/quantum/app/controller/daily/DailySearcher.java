@@ -35,8 +35,8 @@ public class DailySearcher {
                                        @RequestParam(value = "limit", defaultValue = "10") Integer size,
                                        @RequestParam(value = "order", defaultValue = "desc") String order,
                                        @RequestParam(value = "by", defaultValue = "createdAt") String byProp) {
-        Date startDate = timeFormatter.formatDate(start, "2000-01-01");
-        Date endDate = timeFormatter.formatDate(end, "2099-12-31");
+        Date startDate = timeFormatter.formatDate(start);
+        Date endDate = timeFormatter.formatDate(end);
         Sort sort = null;
         if (order.toLowerCase().equals("desc")) {
             sort = Sort.by(byProp).descending();
@@ -54,8 +54,8 @@ public class DailySearcher {
                                      @RequestParam(value = "limit", defaultValue = "10") Integer size,
                                      @RequestParam(value = "order", defaultValue = "desc") String order,
                                      @RequestParam(value = "by", defaultValue = "createdAt") String byProp) {
-        Date startDate = timeFormatter.formatDate(start, "2000-01-01");
-        Date endDate = timeFormatter.formatDate(end, "2099-12-31");
+        Date startDate = timeFormatter.formatDate(start);
+        Date endDate = timeFormatter.formatDate(end);
         Sort sort = null;
         if (order.toLowerCase().equals("desc")) {
             sort = Sort.by(byProp).descending();
@@ -73,8 +73,8 @@ public class DailySearcher {
                                      @RequestParam(value = "limit", defaultValue = "10") Integer size,
                                      @RequestParam(value = "order", defaultValue = "desc") String order,
                                      @RequestParam(value = "by", defaultValue = "createdAt") String byProp) {
-        Date startDate = timeFormatter.formatDate(start, "2000-01-01");
-        Date endDate = timeFormatter.formatDate(end, "2099-12-31");
+        Date startDate = timeFormatter.formatDate(start);
+        Date endDate = timeFormatter.formatDate(end);
         Sort sort = null;
         if (order.toLowerCase().equals("desc")) {
             sort = Sort.by(byProp).descending();
@@ -92,8 +92,8 @@ public class DailySearcher {
                                    @RequestParam(value = "limit", defaultValue = "10") Integer size,
                                    @RequestParam(value = "order", defaultValue = "desc") String order,
                                    @RequestParam(value = "by", defaultValue = "createdAt") String byProp) {
-        Date startDate = timeFormatter.formatDate(start, "2000-01-01");
-        Date endDate = timeFormatter.formatDate(end, "2099-12-31");
+        Date startDate = timeFormatter.formatDate(start);
+        Date endDate = timeFormatter.formatDate(end);
         Sort sort = null;
         if (order.toLowerCase().equals("desc")) {
             sort = Sort.by(byProp).descending();

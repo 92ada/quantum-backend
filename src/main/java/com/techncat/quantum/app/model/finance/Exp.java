@@ -38,6 +38,7 @@ public class Exp {
     private Integer document_month;
     private String document_no;
     private String remark;
+    private String summary;
 
 
     @OneToOne

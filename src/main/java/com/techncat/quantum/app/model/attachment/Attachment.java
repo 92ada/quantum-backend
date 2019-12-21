@@ -10,7 +10,7 @@ import java.util.Date;
 @Table(name = "attachments")
 public class Attachment {
     enum TYPE {
-        doc, xls, ppt, docx, xlsx, pptx, pdf, image, text, zip, rar, mp3, mp4
+        doc, xls, ppt, docx, xlsx, pptx, pdf, txt, zip, rar, mp3, mp4, jpg, png, jpeg
     }
 
     @Id

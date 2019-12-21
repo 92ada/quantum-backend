@@ -1,18 +1,17 @@
 package com.techncat.quantum.app.excel.model.finance;
 
 import com.github.houbb.iexcel.annotation.ExcelField;
-import com.techncat.quantum.app.common.voenhance.annotation.Editable;
 import com.techncat.quantum.app.excel.util.FormatUtil;
 import com.techncat.quantum.app.model.finance.Exp;
 import lombok.Data;
 
-import java.math.BigDecimal;
-import java.util.Date;
-
 @Data
 public class ExpRow {
-    @ExcelField(headName = "所属课题组")
-    private String labName;
+    @ExcelField(headName = "经费号")
+    private String expenditure_no;
+
+    @ExcelField(headName = "摘要")
+    private String summary;
 
     @ExcelField(headName = "费用类别")
     private String type;
@@ -35,10 +34,15 @@ public class ExpRow {
     @ExcelField(headName = "备注")
     private String remark;
 
+    @ExcelField(headName = "所属课题组")
+    private String labName;
+
     public static ExpRow render(Exp exp) {
         ExpRow row = new ExpRow();
         if (exp.getType() != null)
             row.type = exp.getType().name();
+        row.expenditure_no = exp.getExpenditure_no();
+        row.summary = exp.getSummary();
         row.date = FormatUtil.formatDate(exp.getDate());
         row.reservation_no = exp.getReservation_no();
         row.amount = FormatUtil.format(exp.getAmount());
@@ -57,10 +61,12 @@ public class ExpRow {
         exp.setType(FormatUtil.formatEnum(Exp.Type.class, row.type));
         exp.setDate(FormatUtil.formatDate(row.date));
         exp.setReservation_no(row.reservation_no);
+        exp.setExpenditure_no(row.expenditure_no);
         exp.setAmount(FormatUtil.toBigDecimal(row.amount));
         exp.setDocument_month(FormatUtil.toInteger(row.document_month));
         exp.setDocument_no(row.document_no);
         exp.setRemark(row.remark);
+        exp.setSummary(row.summary);
         return exp;
     }
 }
