@@ -45,14 +45,15 @@ public class PeopleUpdateService {
     public People update(Long peopleId, PeopleVO vo) {
         Assert.notNull(vo, "data can not be null");
         List<LabVO> labVOS = vo.getLab();
-        return repoUtils.process(peopleRepository, vo, People.class, model -> {
-            peopleLabService.resetLabs(peopleId, labVOS);
+        People peopleSaved = repoUtils.process(peopleRepository, vo, People.class, model -> {
             People people = (People) model;
             people.setId(peopleId);
             people.setLab(new ArrayList<>());
             people.setUpdateAt(new Date());
             return people;
         });
+        peopleLabService.resetLabs(peopleId, labVOS);
+        return peopleSaved;
     }
 
     // 2. admin
@@ -68,13 +69,11 @@ public class PeopleUpdateService {
             return peopleAdminRepository.save(preData1);
         }, People.class, (postData1, preData2) -> {
             // set each other
-            peopleLabService.resetLabs(peopleId, labVOS);
             preData2.setId(peopleId);
             preData2.setPeopleAdmin(postData1);
             preData2.setLab(new ArrayList<>());
-            // TODO: 加了lab之后 put /api/people/9/administration 500
-            //      java.lang.IllegalArgumentException: Can not set java.lang.Long field com.techncat.quantum.app.model.people.Lab.id to com.techncat.quantum.app.vos.people.LabVO
             People postData2 = peopleRepository.save(preData2);
+            peopleLabService.resetLabs(peopleId, labVOS);
             postData1.setPeople(postData2);
             peopleAdminRepository.save(postData1);
             return postData2;
@@ -94,11 +93,11 @@ public class PeopleUpdateService {
             return peoplePostdoctoralRepository.save(preData1);
         }, People.class, (postData1, preData2) -> {
             // set each other
-            peopleLabService.resetLabs(peopleId, labVOS);
             preData2.setId(peopleId);
             preData2.setPeoplePostdoctoral(postData1);
             preData2.setLab(new ArrayList<>());
             People postData2 = peopleRepository.save(preData2);
+            peopleLabService.resetLabs(peopleId, labVOS);
             postData1.setPeople(postData2);
             peoplePostdoctoralRepository.save(postData1);
             return postData2;
@@ -118,11 +117,11 @@ public class PeopleUpdateService {
             return peopleResearcherRepository.save(preData1);
         }, People.class, (postData1, preData2) -> {
             // set each other
-            peopleLabService.resetLabs(peopleId, labVOS);
             preData2.setId(peopleId);
             preData2.setPeopleResearcher(postData1);
             preData2.setLab(new ArrayList<>());
             People postData2 = peopleRepository.save(preData2);
+            peopleLabService.resetLabs(peopleId, labVOS);
             postData1.setPeople(postData2);
             peopleResearcherRepository.save(postData1);
             return postData2;
@@ -142,11 +141,11 @@ public class PeopleUpdateService {
             return peopleStudentRepository.save(preData1);
         }, People.class, (postData1, preData2) -> {
             // set each other
-            peopleLabService.resetLabs(peopleId, labVOS);
             preData2.setId(peopleId);
             preData2.setPeopleStudent(postData1);
             preData2.setLab(new ArrayList<>());
             People postData2 = peopleRepository.save(preData2);
+            peopleLabService.resetLabs(peopleId, labVOS);
             postData1.setPeople(postData2);
             peopleStudentRepository.save(postData1);
             return postData2;
@@ -166,11 +165,11 @@ public class PeopleUpdateService {
             return peopleTeacherRepository.save(preData1);
         }, People.class, (postData1, preData2) -> {
             // set each other
-            peopleLabService.resetLabs(peopleId, labVOS);
             preData2.setId(peopleId);
             preData2.setPeopleTeacher(postData1);
             preData2.setLab(new ArrayList<>());
             People postData2 = peopleRepository.save(preData2);
+            peopleLabService.resetLabs(peopleId, labVOS);
             postData1.setPeople(postData2);
             peopleTeacherRepository.save(postData1);
             return postData2;
@@ -189,11 +188,11 @@ public class PeopleUpdateService {
             return peopleVisitorRepository.save(preData1);
         }, People.class, (postData1, preData2) -> {
             // set each other
-            peopleLabService.resetLabs(peopleId, labVOS);
             preData2.setId(peopleId);
             preData2.setPeopleVisitor(postData1);
             preData2.setLab(new ArrayList<>());
             People postData2 = peopleRepository.save(preData2);
+            peopleLabService.resetLabs(peopleId, labVOS);
             postData1.setPeople(postData2);
             peopleVisitorRepository.save(postData1);
             return postData2;
