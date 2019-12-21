@@ -48,7 +48,7 @@ public class PeopleRow {
     @ExcelField(headName = "人员类型")
     private String type = "base";
     @ExcelField(headName = "状态", readRequire = false, writeRequire = false)
-    private String status = "normal";
+    private String status;
     @ExcelField(headName = "姓名")
     private String name;
     @ExcelField(headName = "证件类型")
