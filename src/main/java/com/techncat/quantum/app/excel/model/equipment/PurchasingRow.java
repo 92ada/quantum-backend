@@ -98,8 +98,8 @@ public class PurchasingRow {
         row.status = purchasing.getStatus();
         row.supplier_reply_delivery_time = purchasing.getSupplier_reply_delivery_time();
         row.bid_winning_supplier = purchasing.getBid_winning_supplier();
-        row.contract_amount = purchasing.getContract_amount().toString();
-        row.paid_amount = purchasing.getPaid_amount().toString();
+        row.contract_amount = FormatUtil.format(purchasing.getContract_amount());
+        row.paid_amount = FormatUtil.format(purchasing.getPaid_amount());
         row.contract_date = FormatUtil.formatDate(purchasing.getContract_date());
         row.placement_site = purchasing.getPlacement_site();
         row.funding_source = purchasing.getFunding_source();
