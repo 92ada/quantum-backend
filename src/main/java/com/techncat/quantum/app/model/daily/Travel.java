@@ -14,11 +14,30 @@ import java.util.Date;
 @Table(name = "travels")
 public class Travel {
     public enum Type {
-        conference, cooperation
+        conference("会议"), cooperation("合作");
+
+        private String value;
+
+        public String getValue() {
+            return this.value;
+        }
+
+        Type(String value) {
+            this.value = value;
+        }
     }
 
-    public enum identity_type {
-        id_card, passport
+    public enum IdentityType {
+        ID_card("身份证"), passport("护照");
+        private String value;
+
+        public String getValue() {
+            return this.value;
+        }
+
+        IdentityType(String value) {
+            this.value = value;
+        }
     }
 
     @Id
@@ -44,6 +63,6 @@ public class Travel {
     @Temporal(TemporalType.DATE)
     private Date endDate;
 
-    private identity_type identity_type;
+    private IdentityType identity_type;
     private String identity_no;
 }
