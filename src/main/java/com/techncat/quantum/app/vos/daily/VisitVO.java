@@ -21,7 +21,7 @@ public class VisitVO {
     @ValueType(value = "people", option_url = "/api/people/options")
     private Object receptionistJson;
     @ValueType("enumerated")
-    private Visit.identity_type identity_type;
+    private Visit.IdentityType identity_type;
     private String identity_no;
     private String phone_no;
     private String email;
