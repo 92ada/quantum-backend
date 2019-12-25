@@ -12,8 +12,6 @@ import java.util.Date;
 
 @Data
 public class SocialFundRow {
-    @Autowired
-    private PeopleShowService showService;
 
     @ExcelField(headName = "工号")
     private String personSid;
