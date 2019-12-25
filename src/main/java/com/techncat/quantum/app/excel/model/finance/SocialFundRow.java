@@ -50,4 +50,6 @@ public class SocialFundRow {
         row.date = FormatUtil.formatDate(fund.getDate());
         return row;
     }
+
+
 }

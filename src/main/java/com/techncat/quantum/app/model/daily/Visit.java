@@ -14,11 +14,30 @@ import java.util.Date;
 @Table(name = "visits")
 public class Visit {
     public enum Status {
-        unsubmitted, in_progress, approved
+        unsubmitted("未提交"), in_progress("审批中"), approved("已批准");
+
+        private String value;
+
+        public String getValue() {
+            return this.value;
+        }
+
+        Status(String value) {
+            this.value = value;
+        }
     }
 
-    public enum identity_type {
-        id_card, passport
+    public enum IdentityType {
+        ID_card("身份证"), passport("护照");
+        private String value;
+
+        public String getValue() {
+            return this.value;
+        }
+
+        IdentityType(String value) {
+            this.value = value;
+        }
     }
 
     @Id
@@ -39,7 +58,7 @@ public class Visit {
     @Column(columnDefinition = "json")
     @Convert(converter = JpaConverterJson.class)
     private Object receptionistJson; // {name: xxx, sid: xxx, id: xxx}
-    private identity_type identity_type;
+    private IdentityType identity_type;
     private String identity_no;
     private String phone_no;
     private String email;

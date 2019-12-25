@@ -76,7 +76,10 @@ public class FormatUtil {
             case "离职": value_ = "dismissed"; break;
             case "休假": value_ = "on_vacation"; break;
             case "身份证": value_ = "ID_card"; break;
-            case "护照": value_ = "password"; break;
+            case "护照": value_ = "passport"; break;
+            case "未提交": value_ = "unsubmitted"; break;
+            case "审批中": value_ = "in_progress"; break;
+            case "已批准": value_ = "approved"; break;
         }
         return Enum.valueOf(clazz, value_);
     }
