@@ -20,6 +20,6 @@ public class TravelVO {
     private Date endDate;
 
     @ValueType("enumerated")
-    private Travel.identity_type identity_type;
+    private Travel.IdentityType identity_type;
     private String identity_no;
 }

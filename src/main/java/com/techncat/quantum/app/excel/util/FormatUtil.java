@@ -80,6 +80,8 @@ public class FormatUtil {
             case "未提交": value_ = "unsubmitted"; break;
             case "审批中": value_ = "in_progress"; break;
             case "已批准": value_ = "approved"; break;
+            case "会议": value_ = "conference"; break;
+            case "合作": value_ = "cooperation"; break;
         }
         return Enum.valueOf(clazz, value_);
     }
