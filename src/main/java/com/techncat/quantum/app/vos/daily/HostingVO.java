@@ -9,6 +9,7 @@ import java.util.Date;
 public class HostingVO {
     private Long id;
 
+    @ValueType("datetime")
     private Date time;
     private String title;
     private String site;

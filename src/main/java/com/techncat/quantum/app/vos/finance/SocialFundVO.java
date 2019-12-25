@@ -2,6 +2,7 @@ package com.techncat.quantum.app.vos.finance;
 
 import com.techncat.quantum.app.common.voenhance.annotation.ValueType;
 import com.techncat.quantum.app.model.people.People;
+import com.techncat.quantum.app.vos.people.PeopleVO;
 import lombok.Data;
 
 import javax.persistence.Temporal;
@@ -14,7 +15,7 @@ public class SocialFundVO {
     private Long id;
 
     @ValueType(value = "person", option_url = "/api/people/options")
-    private People people;
+    private PeopleVO people;
 
     private String fund_account_no;
     private String fund_source;

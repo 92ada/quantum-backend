@@ -15,6 +15,7 @@ public class FormatUtil {
 
     public static Date formatDate(String date) {
         if (date == null) return null;
+        if (date.trim().equals("")) return null;
         try {
             if (date.trim().length() >= 16) return dateTimeFormat.parse(date);
             else return dateFormat.parse(date);
@@ -40,16 +41,19 @@ public class FormatUtil {
 
     public static BigDecimal toBigDecimal(String data) {
         if (data == null) return null;
+        if (data.trim().equals("")) return null;
         return new BigDecimal(data);
     }
 
     public static Integer toInteger(String data) {
         if (data == null) return null;
+        if (data.trim().equals("")) return null;
         return new Integer(data);
     }
 
     public static Boolean toBoolean(String data) {
         if (data == null) return null;
+        if (data.trim().equals("")) return null;
         return new Boolean(data);
     }
 

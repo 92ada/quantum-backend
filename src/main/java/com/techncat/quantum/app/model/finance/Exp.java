@@ -11,7 +11,7 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "exps", indexes = {
-        @Index(name = "exps_expenditure_no", columnList = "expenditureNo", unique = false)
+        @Index(name = "exps_expenditure_no1", columnList = "expenditureNo", unique = false)
 })
 public class Exp {
     public enum Type {

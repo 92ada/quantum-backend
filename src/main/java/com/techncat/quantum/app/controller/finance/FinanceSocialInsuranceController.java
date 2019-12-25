@@ -5,6 +5,7 @@ import com.techncat.quantum.app.common.voutils.VOUtils;
 import com.techncat.quantum.app.model.finance.SocialInsurance;
 import com.techncat.quantum.app.service.finance.social.FinanceSocialInsuranceService;
 import com.techncat.quantum.app.vos.finance.SocialInsuranceVO;
+import com.techncat.quantum.app.vos.people.PeopleVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,13 +30,20 @@ public class FinanceSocialInsuranceController {
 
     @GetMapping("/{id}")
     public ResponseEntity get(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(financeSocialInsuranceService.fetch(id));
+        SocialInsurance record = financeSocialInsuranceService.fetch(id);
+        SocialInsuranceVO data = voUtils.copy(record, SocialInsuranceVO.class);
+        data.setPeople(PeopleVO.renderSimple(record.getPeople()));
+
+        return ResponseEntity.ok(data);
     }
 
     @GetMapping("/{id}/structure")
     public ResponseEntity structure(@PathVariable("id") Long id) throws IllegalAccessException {
         SocialInsurance record = financeSocialInsuranceService.fetch(id);
+
         SocialInsuranceVO data = voUtils.copy(record, SocialInsuranceVO.class);
+        data.setPeople(PeopleVO.renderSimple(record.getPeople()));
+
         Map result = voEnhanceUtil.enhance("data", data);
         result.put("index", "finance.social_insurance");
         result.put("post_url", "/api/finance/social_insurances");

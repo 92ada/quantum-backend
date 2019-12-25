@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "projects", indexes = {
-        @Index(name = "projects_expenditure_no", columnList = "expenditureNo", unique = false)
+        @Index(name = "projects_expenditure_no1", columnList = "expenditureNo", unique = false)
 })
 public class Project {
     public enum Category {

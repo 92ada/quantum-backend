@@ -65,6 +65,7 @@ public class VOEnhanceUtil {
                     }
                 case bool:
                 case date:
+                case datetime:
                 case number:
                 case string:
                 default:
@@ -127,6 +128,7 @@ public class VOEnhanceUtil {
             number,
             bool,
             date,
+            datetime,
             text,
             enumerated,
             object,

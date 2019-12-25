@@ -26,7 +26,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/excel/daily/visits")
+@RequestMapping("/api/excel/daily/visit")
 @CrossOrigin(
         origins = "*",
         allowedHeaders = "*",

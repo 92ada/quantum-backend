@@ -29,5 +29,6 @@ public class VisitVO {
     private Boolean needs_pick_up;
     private BigDecimal expenditure;
     private BigDecimal budget;
+    @ValueType("datetime")
     private Date time;
 }

@@ -4,6 +4,7 @@ import com.techncat.quantum.app.common.voutils.VOUtils;
 import com.techncat.quantum.app.model.finance.SocialFund;
 import com.techncat.quantum.app.repository.finance.FinSocialFundRepository;
 import com.techncat.quantum.app.vos.finance.SocialFundVO;
+import com.techncat.quantum.app.vos.people.PeopleVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

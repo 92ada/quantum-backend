@@ -13,6 +13,7 @@ public class ReportVO {
     @ValueType(value = "people", option_url = "/api/people/options")
     private Object inviterJson;
 
+    @ValueType("datetime")
     private Date time;
     private String title;
     private String invitee_name;
