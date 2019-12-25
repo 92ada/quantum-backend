@@ -3,10 +3,18 @@ package com.techncat.quantum.app.excel.model.finance;
 import com.github.houbb.iexcel.annotation.ExcelField;
 import com.techncat.quantum.app.excel.util.FormatUtil;
 import com.techncat.quantum.app.model.finance.SocialFund;
+import com.techncat.quantum.app.service.people.PeopleShowService;
+import com.techncat.quantum.app.service.people.People_SearchService;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Date;
 
 @Data
 public class SocialFundRow {
+    @Autowired
+    private PeopleShowService showService;
+
     @ExcelField(headName = "工号")
     private String personSid;
     @ExcelField(headName = "姓名")
@@ -51,5 +59,22 @@ public class SocialFundRow {
         return row;
     }
 
-
+    public static SocialFund load(SocialFundRow row) {
+        if (row.personSid == null || row.personSid.trim().length() == 0) return null;
+        SocialFund p = new SocialFund();
+        p.setId(null);
+        p.setUpdateAt(new Date());
+        p.setCreatedAt(new Date());
+//        p.setPeople(null);
+        p.setFund_account_no(row.fund_account_no);
+        p.setFund_source(row.fund_source);
+        p.setRemark(row.remark);
+        p.setPersonal_payment(FormatUtil.toBigDecimal(row.personal_payment));
+        p.setInstitutional_payment(FormatUtil.toBigDecimal(row.institutional_payment));
+        p.setBase_amount(FormatUtil.toBigDecimal(row.base_amount));
+        p.setRatio_of_institutional_payment(FormatUtil.toBigDecimal(row.ratio_of_institutional_payment));
+        p.setAmount(FormatUtil.toBigDecimal(row.amount));
+        p.setDate(FormatUtil.formatDate(row.date));
+        return p;
+    }
 }

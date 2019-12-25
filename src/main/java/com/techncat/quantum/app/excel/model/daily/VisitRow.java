@@ -67,6 +67,7 @@ public class VisitRow {
     }
 
     public static Visit load(VisitRow row) {
+        if (row.name == null || row.name.trim().length() == 0) return null;
         Visit p = new Visit();
         p.setId(null);
         p.setUpdateAt(new Date());
