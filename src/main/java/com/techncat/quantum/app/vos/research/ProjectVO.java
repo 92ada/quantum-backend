@@ -1,5 +1,7 @@
 package com.techncat.quantum.app.vos.research;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.techncat.quantum.app.common.voenhance.annotation.ValueType;
 import com.techncat.quantum.app.model.research.Project;
 import lombok.Data;
@@ -24,7 +26,10 @@ public class ProjectVO {
     @ValueType("enumerated")
     private Project.WayOfTaking way_of_taking;
     private BigDecimal approved_funds;
-    private String expenditure_no;
+
+    @JsonAlias("expenditure_no")
+    @JSONField(name = "expenditure_no")
+    private String expenditureNo;
 
 //    @ValueType(value = "people", option_url = "/api/people/options")
 //    private Object membersJson;

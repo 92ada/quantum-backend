@@ -41,7 +41,7 @@ public class ExpRow {
         ExpRow row = new ExpRow();
         if (exp.getType() != null)
             row.type = exp.getType().name();
-        row.expenditure_no = exp.getExpenditure_no();
+        row.expenditure_no = exp.getExpenditureNo();
         row.summary = exp.getSummary();
         row.date = FormatUtil.formatDate(exp.getDate());
         row.reservation_no = exp.getReservation_no();
@@ -61,7 +61,7 @@ public class ExpRow {
         exp.setType(FormatUtil.formatEnum(Exp.Type.class, row.type));
         exp.setDate(FormatUtil.formatDate(row.date));
         exp.setReservation_no(row.reservation_no);
-        exp.setExpenditure_no(row.expenditure_no);
+        exp.setExpenditureNo(row.expenditure_no);
         exp.setAmount(FormatUtil.toBigDecimal(row.amount));
         exp.setDocument_month(FormatUtil.toInteger(row.document_month));
         exp.setDocument_no(row.document_no);

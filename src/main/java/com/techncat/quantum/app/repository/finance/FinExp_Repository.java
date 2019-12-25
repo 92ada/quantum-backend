@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -18,5 +19,9 @@ public interface FinExp_Repository extends JpaRepository<Exp, Long> {
 
     Page<Exp> findAllByDateBetween(Date start, Date end, Pageable pageable);
 
-    List<Exp> findAllByDateBetween(Date start, Date end);
+    Page<Exp> findAllByTypeAndExpenditureNoIn(@Param("type") Exp.Type type, Collection<String> expenditureNos, Pageable pageable);
+
+    Page<Exp> findAllByTypeAndDateBetweenAndExpenditureNoIn(@Param("type") Exp.Type type, Date start, Date end, Collection<String> expenditureNos, Pageable pageable);
+
+    Page<Exp> findAllByDateBetweenAndExpenditureNoIn(Date start, Date end, Collection<String> expenditureNos, Pageable pageable);
 }

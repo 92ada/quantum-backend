@@ -10,7 +10,9 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "exps")
+@Table(name = "exps", indexes = {
+        @Index(name = "exps_expenditure_no", columnList = "expenditureNo", unique = false)
+})
 public class Exp {
     public enum Type {
         equipment, material, processing, travel, conference, international, publication, labor, consultation, other, indirective
@@ -31,9 +33,10 @@ public class Exp {
 
     @Temporal(TemporalType.DATE)
     private Date date;
-    private String expenditure_no;
+    @Column(length = 45)
+    private String expenditureNo;
     private String reservation_no;
-    @Column(precision=10, scale=2)
+    @Column(precision = 10, scale = 2)
     private BigDecimal amount;
     private Integer document_month;
     private String document_no;

@@ -1,6 +1,8 @@
 package com.techncat.quantum.app.excel.controller;
 
 
+import com.techncat.quantum.app.auth.annotation.ForkiAser;
+import com.techncat.quantum.app.auth.entity.Aser;
 import com.techncat.quantum.app.excel.model.finance.ExpRow;
 import com.techncat.quantum.app.excel.service.ExcelService;
 import com.techncat.quantum.app.model.finance.*;
@@ -82,7 +84,8 @@ public class FinanceExcelController {
 
 
     @GetMapping("/{anyname}.xlsx") // 导出后下载保存名字为：anyname.xls
-    public void excelExport(@RequestParam(value = "start", required = false) String start, // 2018-01-01
+    public void excelExport(@ForkiAser Aser aser,
+                            @RequestParam(value = "start", required = false) String start, // 2018-01-01
                             @RequestParam(value = "end", required = false) String end,
                             @RequestParam(value = "type", required = false) Exp.Type type,
                             @RequestParam(value = "page", defaultValue = "1") Integer page,
@@ -101,9 +104,9 @@ public class FinanceExcelController {
         PageRequest request = PageRequest.of(page - 1, size, sort);
         Page<Exp> expPage = null;
         if (type == null) {
-            expPage = financeExp_searchService.search(startDate, endDate, request);
+            expPage = financeExp_searchService.search(aser.getSid(), startDate, endDate, request);
         } else {
-            expPage = financeExp_searchService.search(startDate, endDate, type, request);
+            expPage = financeExp_searchService.search(aser.getSid(), startDate, endDate, type, request);
         }
         excelService.export(expPage.getContent().parallelStream().map(ExpRow::render).collect(Collectors.toList()), response.getOutputStream());
     }

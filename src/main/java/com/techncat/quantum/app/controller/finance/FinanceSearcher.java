@@ -1,5 +1,7 @@
 package com.techncat.quantum.app.controller.finance;
 
+import com.techncat.quantum.app.auth.annotation.ForkiAser;
+import com.techncat.quantum.app.auth.entity.Aser;
 import com.techncat.quantum.app.model.finance.Exp;
 import com.techncat.quantum.app.model.finance.SocialFund;
 import com.techncat.quantum.app.model.finance.SocialInsurance;
@@ -35,7 +37,8 @@ public class FinanceSearcher {
     private TimeFormatter timeFormatter;
 
     @GetMapping("/exps")
-    public Page<Exp> search(@RequestParam(value = "start", required = false) String start, // 2018-01-01
+    public Page<Exp> search(@ForkiAser Aser aser,
+                            @RequestParam(value = "start", required = false) String start, // 2018-01-01
                             @RequestParam(value = "end", required = false) String end,
                             @RequestParam(value = "type", required = false) Exp.Type type,
                             @RequestParam(value = "page", defaultValue = "1") Integer page,
@@ -52,9 +55,9 @@ public class FinanceSearcher {
         }
         PageRequest request = PageRequest.of(page - 1, size, sort);
         if (type == null) {
-            return financeExp_searchService.search(startDate, endDate, request);
+            return financeExp_searchService.search(aser.getSid(), startDate, endDate, request);
         } else {
-            return financeExp_searchService.search(startDate, endDate, type, request);
+            return financeExp_searchService.search(aser.getSid(), startDate, endDate, type, request);
         }
     }
 

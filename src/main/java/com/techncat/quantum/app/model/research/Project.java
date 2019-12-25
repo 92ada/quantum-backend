@@ -11,7 +11,9 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "projects")
+@Table(name = "projects", indexes = {
+        @Index(name = "projects_expenditure_no", columnList = "expenditureNo", unique = false)
+})
 public class Project {
     public enum Category {
         applying, approved
@@ -46,9 +48,10 @@ public class Project {
     private WayOfTaking way_of_taking;
     @Column(precision = 10, scale = 2)
     private BigDecimal approved_funds;
-    private String expenditure_no;
+    @Column(length = 45)
+    private String expenditureNo;
 
-//    @ManyToMany
+    //    @ManyToMany
 //    @JoinColumn(name = "member_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
 //    private List<People> member;
     @Column(columnDefinition = "json")
