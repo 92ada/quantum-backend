@@ -11,12 +11,11 @@ import java.util.Date;
 @Data
 public class PeoplePostdoctoralVO {
     // detail
-    private String edu_system;
     private String category;
     @ValueType(value = "people", option_url = "/api/people/options")
-    private Object advisorJson;
+    private Object supervisorJson;
     @ValueType(value = "people", option_url = "/api/people/options")
-    private Object viceAdvisorJson;
+    private Object coSupervisorJson;
     private String midterm_assessment_status;
     private String opening_assessment_status;
 }
