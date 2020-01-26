@@ -13,7 +13,16 @@ import java.util.List;
 })
 public class People {
     public enum Type {
-        base, administration, postdoctoral, researcher, student, teacher, visitor
+        base("base"), administration("行政人员"), postdoctoral("博士后"), researcher("科研人员"), student("学生"), teacher("教辅人员"), visitor("访问人员");
+        private String value;
+
+        public String getValue() {
+            return this.value;
+        }
+
+        Type(String value) {
+            this.value = value;
+        }
     }
 
     public enum IdentityType {

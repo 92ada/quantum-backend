@@ -95,11 +95,6 @@ public class PeopleExcelController {
         PageRequest request = PageRequest.of(0, 10000, sort); // max: 10000
         Page<People> peoplePage = null;
 
-//        if (type == null) {
-//            peoplePage =  people_searchService.search(word, sid, request);
-//        } else {
-//            peoplePage =  people_searchService.search(word, type, sid, request);
-//        }
         boolean isRoot = aser.getRoles().contains("ROOT") || aser.getRoles().contains("root");
         if (type == null && !isRoot) {
             peoplePage =  people_searchService.search(word, aser.getSid(), request);
@@ -113,7 +108,13 @@ public class PeopleExcelController {
         if (type != null && isRoot) {
             peoplePage =  people_searchService.search(word, type, request);
         }
-        excelService.export(peoplePage.getContent().parallelStream().map(PeopleRow::render).collect(Collectors.toList()), response.getOutputStream());
+        excelService.export(peoplePage
+                .getContent()
+                .parallelStream()
+                .map(PeopleRow::render)
+                .collect(Collectors.toList())
+                , response.getOutputStream()
+        );
     }
 
     /**
@@ -131,7 +132,7 @@ public class PeopleExcelController {
             if (null != people.getType())
                 switch (people.getType()) {
                     case administration:
-                        PeopleAdmin peopleAdmin = adminRepository.save(new PeopleAdmin());
+                        PeopleAdmin peopleAdmin = adminRepository.save(people.getPeopleAdmin());
                         people.setPeopleAdmin(peopleAdmin);
                         people = people_repository.save(people);
                         peopleAdmin.setPeople(people);

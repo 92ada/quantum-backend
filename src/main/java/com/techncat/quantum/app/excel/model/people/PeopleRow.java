@@ -3,48 +3,19 @@ package com.techncat.quantum.app.excel.model.people;
 import com.github.houbb.iexcel.annotation.ExcelField;
 import com.techncat.quantum.app.common.voenhance.annotation.Visible;
 import com.techncat.quantum.app.excel.util.FormatUtil;
-import com.techncat.quantum.app.model.people.Lab;
-import com.techncat.quantum.app.model.people.People;
+import com.techncat.quantum.app.model.people.*;
 import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * [{
- * value: 300123199901014444
- * type: string
- * index: identity_no
- * },
- * {
- * value: 300123199901014444
- * type: enum
- * index: type
- * options: ["admin", "researcher"]
- * }
- * {
- * value: [
- * {
- * value: null
- * type: string
- * index: description
- * },
- * ]
- * type: object
- * index: lab,
- * // option_url: "/api/labs/options"
- * }]
- */
-
 @Data
 public class PeopleRow {
-    //    private Long id;
     @ExcelField(headName = "工号")
     private String sid;
     @ExcelField(headName = "照片链接", readRequire = false, writeRequire = false)
     private String identity_photo_url;
-    // base info
     @ExcelField(headName = "人员类型")
     private String type = "base";
     @ExcelField(headName = "状态", readRequire = false, writeRequire = false)
@@ -78,18 +49,28 @@ public class PeopleRow {
     private String departure_date;
     @ExcelField(headName = "性别")
     private String gender;
-    //    @ValueType(value = "lab", option_url = "/api/labs/options")
-//    private Lab lab;
+
     @ExcelField(headName = "实验室", readRequire = false)
-    private String labName;
+    private String labName; // TODO
 
     public static PeopleRow render(People people) {
-        PeopleRow row = new PeopleRow();
-//        row.id = people.getId();
+        PeopleRow row;
+        if (people.getType() != null) {
+            switch (people.getType()) {
+                case administration:
+                    row = PeopleAdminRow.render(people.getPeopleAdmin());
+                    break;
+                default: row = new PeopleRow();
+            }
+        } else {
+            row = new PeopleRow();
+        }
+
         row.sid = people.getSid();
         row.identity_photo_url = people.getIdentity_photo_url();
-        if (people.getType() != null)
+        if (people.getType() != null) {
             row.type = people.getType().name();
+        }
         if (people.getStatus() != null)
             row.status = people.getStatus().getValue();
         row.name = people.getName();
@@ -111,6 +92,7 @@ public class PeopleRow {
         row.birth_date = FormatUtil.formatDate(people.getBirth_date());
         row.entry_date = FormatUtil.formatDate(people.getEntry_date());
         row.departure_date = FormatUtil.formatDate(people.getDeparture_date());
+
         return row;
     }
 
@@ -121,7 +103,43 @@ public class PeopleRow {
     public static People load(PeopleRow row) {
         if (row.sid == null || row.sid.trim().length() == 0) return null;
         People people = new People();
-//        people.setId(row.id);
+
+        /**
+         * 设置 Detail 部分的值
+         */
+        if (row.type != null) {
+            People.Type type = Enum.valueOf(People.Type.class, row.type);
+            switch (type) {
+                case administration:
+                    PeopleAdmin admin = PeopleAdminRow.loadDetail((PeopleAdminRow)row);
+                    people.setPeopleAdmin(admin);
+                    break;
+                case postdoctoral:
+                    PeoplePostdoctoral postdoctoral = PeoplePostdoctoralRow.loadDetail((PeoplePostdoctoralRow)row);
+                    people.setPeoplePostdoctoral(postdoctoral);
+                    break;
+                case researcher:
+                    PeopleResearcher researcher = PeopleResearcherRow.loadDetail((PeopleResearcherRow)row);
+                    people.setPeopleResearcher(researcher);
+                    break;
+                case student:
+                    PeopleStudent student = PeopleStudentRow.loadDetail((PeopleStudentRow)row);
+                    people.setPeopleStudent(student);
+                    break;
+                case teacher:
+                    PeopleTeacher teacher = PeopleTeacherRow.loadDetail((PeopleTeacherRow)row);
+                    people.setPeopleTeacher(teacher);
+                    break;
+                case visitor:
+                    PeopleVisitor visitor = PeopleVisitorRow.loadDetail((PeopleVisitorRow)row);
+                    people.setPeopleVisitor(visitor);
+                    break;
+            }
+        }
+
+        /**
+         * 设置 Base 部分的值
+         */
         people.setSid(row.sid);
         people.setIdentity_photo_url(row.identity_photo_url);
         people.setName(row.name);
