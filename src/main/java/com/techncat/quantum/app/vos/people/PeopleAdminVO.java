@@ -14,7 +14,7 @@ public class PeopleAdminVO {
     private String contract_no;
     private Date contract_start_date;
     private Date contract_end_date;
-    private BigDecimal annual_salary;
-    private BigDecimal monthly_salary;
-    private BigDecimal housing_subsidy;
+//    private BigDecimal annual_salary;
+//    private BigDecimal monthly_salary;
+//    private BigDecimal housing_subsidy;
 }

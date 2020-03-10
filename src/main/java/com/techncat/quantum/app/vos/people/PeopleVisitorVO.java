@@ -17,6 +17,6 @@ public class PeopleVisitorVO {
     private String citizenship;
     private String institution;
     private String research_direction;
-    private BigDecimal salary;
+//    private BigDecimal salary;
     private String remark;
 }
