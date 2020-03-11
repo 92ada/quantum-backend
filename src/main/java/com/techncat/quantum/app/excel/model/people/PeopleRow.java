@@ -60,6 +60,22 @@ public class PeopleRow {
                 case administration:
                     row = PeopleAdminRow.render(people.getPeopleAdmin());
                     break;
+                case postdoctoral:
+                    row = PeoplePostdoctoralRow.render(people.getPeoplePostdoctoral());
+                    break;
+                case researcher:
+                    row = PeopleResearcherRow.render(people.getPeopleResearcher());
+                    break;
+                case student:
+                    row = PeopleStudentRow.render(people.getPeopleStudent());
+                    break;
+                case teacher:
+                    row = PeopleTeacherRow.render(people.getPeopleTeacher());
+                    break;
+                case visitor:
+                    row = PeopleVisitorRow.render(people.getPeopleVisitor());
+                    break;
+
                 default: row = new PeopleRow();
             }
         } else {

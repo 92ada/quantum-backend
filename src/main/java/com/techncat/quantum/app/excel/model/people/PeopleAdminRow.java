@@ -1,5 +1,6 @@
 package com.techncat.quantum.app.excel.model.people;
 
+import com.github.houbb.iexcel.annotation.ExcelField;
 import com.techncat.quantum.app.excel.util.FormatUtil;
 import com.techncat.quantum.app.model.people.PeopleAdmin;
 import lombok.Data;
@@ -7,15 +8,18 @@ import lombok.Data;
 @Data
 public class PeopleAdminRow extends PeopleRow {
     // detail
+    @ExcelField(headName = "是否工会成员")
     private String is_union_member;
+    @ExcelField(headName = "银行卡号")
     private String salary_card_no;
+    @ExcelField(headName = "开户行")
     private String bank;
+    @ExcelField(headName = "合同号")
     private String contract_no;
+    @ExcelField(headName = "合同开始日期")
     private String contract_start_date;
+    @ExcelField(headName = "合同结束日期")
     private String contract_end_date;
-    private String annual_salary;
-    private String monthly_salary;
-    private String housing_subsidy;
 
     public static PeopleAdminRow render(PeopleAdmin detail) {
         PeopleAdminRow row = new PeopleAdminRow();
@@ -27,9 +31,6 @@ public class PeopleAdminRow extends PeopleRow {
         row.contract_no = detail.getContract_no();
         row.contract_start_date = FormatUtil.formatDate(detail.getContract_start_date());
         row.contract_end_date = FormatUtil.formatDate(detail.getContract_end_date());
-        row.annual_salary = FormatUtil.format(detail.getAnnual_salary());
-        row.monthly_salary = FormatUtil.format(detail.getMonthly_salary());
-        row.housing_subsidy = FormatUtil.format(detail.getHousing_subsidy());
 
         return row;
     }
@@ -43,9 +44,6 @@ public class PeopleAdminRow extends PeopleRow {
         detail.setContract_no(row.contract_no);
         detail.setContract_start_date(FormatUtil.formatDate(row.contract_start_date));
         detail.setContract_end_date(FormatUtil.formatDate(row.contract_end_date));
-        detail.setAnnual_salary(FormatUtil.toBigDecimal(row.annual_salary));
-        detail.setMonthly_salary(FormatUtil.toBigDecimal(row.monthly_salary));
-        detail.setHousing_subsidy(FormatUtil.toBigDecimal(row.housing_subsidy));
 
         return detail;
     }

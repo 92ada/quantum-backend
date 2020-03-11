@@ -1,5 +1,6 @@
 package com.techncat.quantum.app.excel.model.people;
 
+import com.github.houbb.iexcel.annotation.ExcelField;
 import com.techncat.quantum.app.excel.util.FormatUtil;
 import com.techncat.quantum.app.model.people.PeopleTeacher;
 import lombok.Data;
@@ -7,21 +8,31 @@ import lombok.Data;
 @Data
 public class PeopleTeacherRow extends PeopleRow {
     // detail
+
+    @ExcelField(headName = "岗位名称")
     private String position_title;
+    @ExcelField(headName = "职务")
     private String job;
+    @ExcelField(headName = "社会职务")
     private String social_job;
+    @ExcelField(headName = "历史获奖情况")
     private String achievements;
+    @ExcelField(headName = "是否博导")
     private String is_phd_mentor;
+    @ExcelField(headName = "是否硕导")
     private String is_master_mentor;
+    @ExcelField(headName = "是否工会成员")
     private String is_union_member;
+    @ExcelField(headName = "银行卡号")
     private String salary_card_no;
+    @ExcelField(headName = "开户行")
     private String bank;
+    @ExcelField(headName = "合同号")
     private String contract_no;
+    @ExcelField(headName = "合同开始日期")
     private String contract_start_date;
+    @ExcelField(headName = "合同结束日期")
     private String contract_end_date;
-    private String annual_salary;
-    private String monthly_salary;
-    private String housing_subsidy;
 
     public static PeopleTeacherRow render(PeopleTeacher detail) {
         PeopleTeacherRow row = new PeopleTeacherRow();
@@ -39,9 +50,6 @@ public class PeopleTeacherRow extends PeopleRow {
         row.contract_no = detail.getContract_no();
         row.contract_start_date = FormatUtil.formatDate(detail.getContract_start_date());
         row.contract_end_date = FormatUtil.formatDate(detail.getContract_end_date());
-        row.annual_salary = FormatUtil.format(detail.getAnnual_salary());
-        row.monthly_salary = FormatUtil.format(detail.getMonthly_salary());
-        row.housing_subsidy = FormatUtil.format(detail.getHousing_subsidy());
 
         return row;
     }
@@ -60,9 +68,6 @@ public class PeopleTeacherRow extends PeopleRow {
         detail.setBank(row.bank);
         detail.setContract_no(row.contract_no);
         detail.setContract_start_date(FormatUtil.formatDate(row.contract_start_date));
-        detail.setAnnual_salary(FormatUtil.toBigDecimal(row.annual_salary));
-        detail.setMonthly_salary(FormatUtil.toBigDecimal(row.monthly_salary));
-        detail.setHousing_subsidy(FormatUtil.toBigDecimal(row.housing_subsidy));
 
         return detail;
     }
