@@ -1,6 +1,8 @@
 package com.techncat.quantum.app.model.people;
 
 import lombok.Data;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -18,7 +20,8 @@ public class Lab {
     private Date createdAt;
 
     @OneToOne
-    @JoinColumn(name = "pi_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+    @NotFound(action= NotFoundAction.IGNORE)
+    @JoinColumn(name = "pi_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT))
     private People pi;
 
     @Column(columnDefinition = "text")
