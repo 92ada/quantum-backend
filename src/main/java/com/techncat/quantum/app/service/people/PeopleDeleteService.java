@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 
 @Service
 public class PeopleDeleteService {
@@ -27,6 +28,7 @@ public class PeopleDeleteService {
     @Resource
     private PeopleVisitorRepository peopleVisitorRepository;
 
+    @Transactional
     public void delete(Long id) throws PeopleShowService.PeopleNotFoundException {
         People people = peopleShowService.fetchBase(id);
         if (people.getType() != null) {
