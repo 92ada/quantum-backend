@@ -1,6 +1,8 @@
 package com.techncat.quantum.app.model.people;
 
 import lombok.Data;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -99,25 +101,32 @@ public class People {
     private Gender gender;
 
     @ManyToMany
+    @NotFound(action= NotFoundAction.IGNORE)
     @JoinColumn(name = "lab_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private List<Lab> lab;
 
     @OneToOne
+    @NotFound(action= NotFoundAction.IGNORE)
     @JoinColumn(name = "people_admin_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private PeopleAdmin peopleAdmin;
     @OneToOne
+    @NotFound(action= NotFoundAction.IGNORE)
     @JoinColumn(name = "people_postdoctoral_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private PeoplePostdoctoral peoplePostdoctoral;
     @OneToOne
+    @NotFound(action= NotFoundAction.IGNORE)
     @JoinColumn(name = "people_researcher_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private PeopleResearcher peopleResearcher;
     @OneToOne
+    @NotFound(action= NotFoundAction.IGNORE)
     @JoinColumn(name = "people_student_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private PeopleStudent peopleStudent;
     @OneToOne
+    @NotFound(action= NotFoundAction.IGNORE)
     @JoinColumn(name = "people_teacher_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private PeopleTeacher peopleTeacher;
     @OneToOne
+    @NotFound(action= NotFoundAction.IGNORE)
     @JoinColumn(name = "people_visitor_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private PeopleVisitor peopleVisitor;
 }
