@@ -2,11 +2,8 @@ package com.techncat.quantum.app.vos.finance;
 
 import com.techncat.quantum.app.common.voenhance.annotation.ValueType;
 import com.techncat.quantum.app.model.people.People;
-import com.techncat.quantum.app.vos.people.PeopleVO;
 import lombok.Data;
 
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -15,8 +12,7 @@ public class SocialInsuranceVO {
     private Long id;
 
     @ValueType(value = "person", option_url = "/api/people/options")
-    private PeopleVO people;
-    private String peopleJson;
+    private People people;
 
     private Date date;
 

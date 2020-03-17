@@ -3,8 +3,9 @@ package com.techncat.quantum.app.excel.controller;
 
 import com.techncat.quantum.app.auth.annotation.ForkiAser;
 import com.techncat.quantum.app.auth.entity.Aser;
-import com.techncat.quantum.app.excel.model.people.PeopleRow;
+import com.techncat.quantum.app.excel.model.people.*;
 import com.techncat.quantum.app.excel.service.ExcelService;
+import com.techncat.quantum.app.excel.service.PeopleExcelService;
 import com.techncat.quantum.app.model.people.*;
 import com.techncat.quantum.app.repository.people.*;
 import com.techncat.quantum.app.service.people.People_SearchService;
@@ -20,11 +21,14 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+
+import static com.techncat.quantum.app.model.people.People.Type.*;
 
 @RestController
 @RequestMapping("/api/excel/people")
@@ -53,6 +57,8 @@ public class PeopleExcelController {
     private PeopleVisitorRepository visitorRepository;
     @Autowired
     private ExcelService excelService;
+    @Autowired
+    private PeopleExcelService peopleExcelService;
 
     /**
      * 模版下载
@@ -124,57 +130,55 @@ public class PeopleExcelController {
      * @return
      * @throws IOException
      */
-    @PostMapping
+    @PostMapping(("/{peopleType}"))
     @Transactional
-    public ResponseEntity excelImport(MultipartFile file) throws IOException {
-        List<People> data = excelService.read(file, PeopleRow.class).parallelStream().map(PeopleRow::load).filter(Objects::nonNull).collect(Collectors.toList());
-        data.parallelStream().forEach(people -> {
-            if (null != people.getType())
-                switch (people.getType()) {
-                    case administration:
-                        PeopleAdmin peopleAdmin = adminRepository.save(people.getPeopleAdmin());
-                        people.setPeopleAdmin(peopleAdmin);
-                        people = people_repository.save(people);
-                        peopleAdmin.setPeople(people);
-                        adminRepository.save(peopleAdmin);
-                        return;
-                    case postdoctoral:
-                        PeoplePostdoctoral peoplePostdoctoral = postdoctoralRepository.save(new PeoplePostdoctoral());
-                        people.setPeoplePostdoctoral(peoplePostdoctoral);
-                        people = people_repository.save(people);
-                        peoplePostdoctoral.setPeople(people);
-                        postdoctoralRepository.save(peoplePostdoctoral);
-                        return;
-                    case researcher:
-                        PeopleResearcher peopleResearcher = researcherRepository.save(new PeopleResearcher());
-                        people.setPeopleResearcher(peopleResearcher);
-                        people = people_repository.save(people);
-                        peopleResearcher.setPeople(people);
-                        researcherRepository.save(peopleResearcher);
-                        return;
-                    case student:
-                        PeopleStudent peopleStudent = studentRepository.save(new PeopleStudent());
-                        people.setPeopleStudent(peopleStudent);
-                        people = people_repository.save(people);
-                        peopleStudent.setPeople(people);
-                        studentRepository.save(peopleStudent);
-                        return;
-                    case teacher:
-                        PeopleTeacher peopleTeacher = teacherRepository.save(new PeopleTeacher());
-                        people.setPeopleTeacher(peopleTeacher);
-                        people = people_repository.save(people);
-                        peopleTeacher.setPeople(people);
-                        teacherRepository.save(peopleTeacher);
-                        return;
-                    case visitor:
-                        PeopleVisitor peopleVisitor = visitorRepository.save(new PeopleVisitor());
-                        people.setPeopleVisitor(peopleVisitor);
-                        people = people_repository.save(people);
-                        peopleVisitor.setPeople(people);
-                        visitorRepository.save(peopleVisitor);
-                        return;
-                }
+    public ResponseEntity excelImport2(@PathVariable("peopleType") People.Type peopleType, @RequestParam(required = false) Boolean force, MultipartFile file) throws IOException {
+        List<People> data;
+        switch (peopleType) {
+            case administration:
+                data = excelService.read(file, PeopleAdminRow.class).parallelStream().map(PeopleRow::load).filter(Objects::nonNull).collect(Collectors.toList());
+                break;
+            case postdoctoral:
+                data = excelService.read(file, PeoplePostdoctoralRow.class).parallelStream().map(PeopleRow::load).filter(Objects::nonNull).collect(Collectors.toList());
+                break;
+            case researcher:
+                data = excelService.read(file, PeopleResearcherRow.class).parallelStream().map(PeopleRow::load).filter(Objects::nonNull).collect(Collectors.toList());
+                break;
+            case student:
+                data = excelService.read(file, PeopleStudentRow.class).parallelStream().map(PeopleRow::load).filter(Objects::nonNull).collect(Collectors.toList());
+                break;
+            case teacher:
+                data = excelService.read(file, PeopleTeacherRow.class).parallelStream().map(PeopleRow::load).filter(Objects::nonNull).collect(Collectors.toList());
+                break;
+            case visitor:
+                data = excelService.read(file, PeopleVisitorRow.class).parallelStream().map(PeopleRow::load).filter(Objects::nonNull).collect(Collectors.toList());
+                break;
+            default:
+                return ResponseEntity.status(400).body("Invalid path variable");
+        }
+
+        Boolean typeCheck = data.parallelStream().allMatch(people -> {
+            return peopleType == people.getType();
         });
+
+        if (!typeCheck) {
+            throw new IOException("人员类型错误");
+        }
+
+        Boolean sidCheck = data.parallelStream().allMatch(people -> {
+            return !peopleExcelService.exist(people);
+        });
+
+        if (sidCheck) {
+            data.parallelStream().forEach(people -> {
+                peopleExcelService.create(people);
+            });
+        } else if (force != null && force) {
+            data.parallelStream().forEach(people -> {
+                peopleExcelService.update(people);
+            });
+        } else return ResponseEntity.status(403).body("人员SID重复");
+
         return ResponseEntity.status(201).body("import success");
     }
 }

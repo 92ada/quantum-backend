@@ -1,10 +1,13 @@
 package com.techncat.quantum.app.service.research;
 
+import com.alibaba.fastjson.JSONArray;
 import com.techncat.quantum.app.common.voutils.VOUtils;
+import com.techncat.quantum.app.model.people.People;
 import com.techncat.quantum.app.model.research.Paper;
 import com.techncat.quantum.app.model.research.Patent;
 import com.techncat.quantum.app.model.research.Project;
 import com.techncat.quantum.app.model.research.Reward;
+import com.techncat.quantum.app.repository.people.People_Repository;
 import com.techncat.quantum.app.repository.research.ResearchPaperRepository;
 import com.techncat.quantum.app.repository.research.ResearchPatentRepository;
 import com.techncat.quantum.app.repository.research.ResearchProjectRepository;
@@ -17,7 +20,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class ResearchCreateService {
@@ -31,12 +38,33 @@ public class ResearchCreateService {
     private ResearchProjectRepository researchProjectRepository;
     @Resource
     private ResearchRewardRepository researchRewardRepository;
+    @Resource
+    private People_Repository peopleRepository;
+
+    private List<People> loadPeople(Object applicantJson) {
+        List<People> list = new ArrayList<>();
+        try {
+            JSONArray jsonArray = (JSONArray) applicantJson;
+            for (Object item : jsonArray) {
+                String str = (String) item;
+                Matcher m = Pattern.compile("\\(([^)]+)\\)").matcher(str);
+                while(m.find()) {
+                    Long id = Long.parseLong(m.group(1));
+                    list.add(peopleRepository.findById(id).get());
+                }
+            }
+        } catch (Exception e) {
+            throw new JSONParseError("Load JSON failed");
+        }
+        return list;
+    }
 
     public Paper create(PaperVO data) {
         Paper record = voUtils.copy(data, Paper.class);
         record.setId(null);
         record.setUpdateAt(new Date());
         record.setCreatedAt(new Date());
+        record.setSustech_people(loadPeople(data.getAuthorJson()));
         return researchPaperRepository.save(record);
     }
 
@@ -45,6 +73,7 @@ public class ResearchCreateService {
         record.setId(null);
         record.setUpdateAt(new Date());
         record.setCreatedAt(new Date());
+        record.setApplicant(loadPeople(data.getApplicantJson()));
         return researchPatentRepository.save(record);
     }
 
@@ -62,5 +91,11 @@ public class ResearchCreateService {
         record.setUpdateAt(new Date());
         record.setCreatedAt(new Date());
         return researchRewardRepository.save(record);
+    }
+
+    public static class JSONParseError extends RuntimeException {
+        JSONParseError(String message) {
+            super(message);
+        }
     }
 }

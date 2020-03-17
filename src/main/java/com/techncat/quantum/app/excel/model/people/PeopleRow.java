@@ -18,7 +18,7 @@ public class PeopleRow {
     private String identity_photo_url;
     @ExcelField(headName = "人员类型")
     private String type = "base";
-    @ExcelField(headName = "状态", readRequire = false, writeRequire = false)
+    @ExcelField(headName = "状态")
     private String status;
     @ExcelField(headName = "姓名")
     private String name;

@@ -3,6 +3,7 @@ package com.techncat.quantum.app.vos.research;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.techncat.quantum.app.common.voenhance.annotation.ValueType;
+import com.techncat.quantum.app.model.people.People;
 import com.techncat.quantum.app.model.research.Project;
 import lombok.Data;
 
@@ -19,7 +20,7 @@ public class ProjectVO {
     private Project.Category category;
 
     @ValueType(value = "people", option_url = "/api/people/options")
-    private Object leaderJson;
+    private People leader;
 
     private Date start_date;
     private Date end_date;
@@ -30,7 +31,4 @@ public class ProjectVO {
     @JsonAlias("expenditure_no")
     @JSONField(name = "expenditure_no")
     private String expenditureNo;
-
-//    @ValueType(value = "people", option_url = "/api/people/options")
-//    private Object membersJson;
 }

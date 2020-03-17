@@ -32,7 +32,7 @@ public class FinanceSocialInsuranceController {
     public ResponseEntity get(@PathVariable("id") Long id) {
         SocialInsurance record = financeSocialInsuranceService.fetch(id);
         SocialInsuranceVO data = voUtils.copy(record, SocialInsuranceVO.class);
-        data.setPeople(PeopleVO.renderSimple(record.getPeople()));
+//        data.setPeople(PeopleVO.renderSimple(record.getPeople()));
 
         return ResponseEntity.ok(data);
     }
@@ -42,7 +42,7 @@ public class FinanceSocialInsuranceController {
         SocialInsurance record = financeSocialInsuranceService.fetch(id);
 
         SocialInsuranceVO data = voUtils.copy(record, SocialInsuranceVO.class);
-        data.setPeople(PeopleVO.renderSimple(record.getPeople()));
+//        data.setPeople(PeopleVO.renderSimple(record.getPeople()));
 
         Map result = voEnhanceUtil.enhance("data", data);
         result.put("index", "finance.social_insurance");

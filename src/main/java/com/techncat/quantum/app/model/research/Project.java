@@ -1,13 +1,11 @@
 package com.techncat.quantum.app.model.research;
 
-import com.techncat.quantum.app.common.repo.JpaConverterJson;
 import com.techncat.quantum.app.model.people.People;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
 @Data
 @Entity
@@ -37,9 +35,6 @@ public class Project {
     @ManyToOne
     @JoinColumn(name = "leader_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People leader;
-    @Column(columnDefinition = "json")
-    @Convert(converter = JpaConverterJson.class)
-    private Object leaderJson;
 
     @Temporal(TemporalType.DATE)
     private Date start_date;
@@ -50,11 +45,4 @@ public class Project {
     private BigDecimal approved_funds;
     @Column(length = 45)
     private String expenditureNo;
-
-    //    @ManyToMany
-//    @JoinColumn(name = "member_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
-//    private List<People> member;
-    @Column(columnDefinition = "json")
-    @Convert(converter = JpaConverterJson.class)
-    private Object membersJson;
 }

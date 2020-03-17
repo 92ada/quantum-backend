@@ -6,6 +6,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -26,12 +27,13 @@ public class Patent {
     private Date updateAt;
     private Date createdAt;
 
-    @ManyToOne
+    @ManyToMany
     @JoinColumn(name = "applicant_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
-    private People applicant;
+    private List<People> applicant;
     @Column(columnDefinition = "json")
     @Convert(converter = JpaConverterJson.class)
     private Object applicantJson;
+
     private String title;
     @Enumerated
     private Type type;
