@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 @Service
 public class PeopleExcelService {
@@ -25,59 +26,89 @@ public class PeopleExcelService {
     @Resource
     private PeopleVisitorRepository visitorRepository;
 
-    public Boolean exist(People people) {
+    /**
+     * public::
+     */
+
+    @Transactional
+    public boolean create_or_update(People people, boolean forceUpdate) {
+        return exist(people) ? update(people, forceUpdate) : create(people);
+    }
+
+    /**
+     * private::
+     */
+
+    private boolean exist(People people) {
         return null != people_repository.findFirstBySid(people.getSid());
     }
 
-    @Transactional
-    public People update(People people) {
+    private boolean update(People people, boolean forceUpdate) {
+        if (!forceUpdate) return true;
         People original = people_repository.findFirstBySid(people.getSid());
         Long id = original.getId();
 
+        // check type
+        if (people.getType() != original.getType()) return false; // 类型不一致不可导入 ：：原类型和现在导入的类型不一致
+
+        // dispatch
         switch (people.getType()) {
             case administration:
                 PeopleAdmin peopleAdmin = people.getPeopleAdmin();
                 peopleAdmin.setId(original.getPeopleAdmin().getId());
+                peopleAdmin.setUpdateAt(new Date());
                 adminRepository.save(peopleAdmin);
                 break;
             case postdoctoral:
                 PeoplePostdoctoral peoplePostdoctoral = people.getPeoplePostdoctoral();
                 peoplePostdoctoral.setId(original.getPeoplePostdoctoral().getId());
+                peoplePostdoctoral.setUpdateAt(new Date());
                 postdoctoralRepository.save(peoplePostdoctoral);
                 break;
             case researcher:
                 PeopleResearcher peopleResearcher = people.getPeopleResearcher();
                 peopleResearcher.setId(original.getPeopleResearcher().getId());
+                peopleResearcher.setUpdateAt(new Date());
                 researcherRepository.save(peopleResearcher);
                 break;
             case student:
                 PeopleStudent peopleStudent = people.getPeopleStudent();
                 peopleStudent.setId(original.getPeopleStudent().getId());
+                peopleStudent.setUpdateAt(new Date());
                 studentRepository.save(peopleStudent);
                 break;
             case teacher:
                 PeopleTeacher peopleTeacher = people.getPeopleTeacher();
                 peopleTeacher.setId(original.getPeopleTeacher().getId());
+                peopleTeacher.setUpdateAt(new Date());
                 teacherRepository.save(peopleTeacher);
                 break;
             case visitor:
                 PeopleVisitor peopleVisitor = people.getPeopleVisitor();
                 peopleVisitor.setId(original.getPeopleVisitor().getId());
+                peopleVisitor.setUpdateAt(new Date());
                 visitorRepository.save(peopleVisitor);
                 break;
         }
+
+        // save base
         people.setId(id);
-        return people_repository.save(people);
+        people.setUpdateAt(new Date());
+        people_repository.save(people);
+        return true;
     }
 
-    @Transactional
-    public People create(People people) {
+    private boolean create(People people) {
+        people.setUpdateAt(new Date());
+        people.setCreatedAt(new Date());
         switch (people.getType()) {
             case administration:
                 PeopleAdmin peopleAdmin = adminRepository.save(people.getPeopleAdmin());
                 people.setPeopleAdmin(peopleAdmin);
                 people = people_repository.save(people);
                 peopleAdmin.setPeople(people);
+                peopleAdmin.setUpdateAt(new Date());
+                peopleAdmin.setCreatedAt(new Date());
                 adminRepository.save(peopleAdmin);
                 break;
             case postdoctoral:
@@ -85,6 +116,8 @@ public class PeopleExcelService {
                 people.setPeoplePostdoctoral(peoplePostdoctoral);
                 people = people_repository.save(people);
                 peoplePostdoctoral.setPeople(people);
+                peoplePostdoctoral.setUpdateAt(new Date());
+                peoplePostdoctoral.setCreatedAt(new Date());
                 postdoctoralRepository.save(peoplePostdoctoral);
                 break;
             case researcher:
@@ -92,6 +125,8 @@ public class PeopleExcelService {
                 people.setPeopleResearcher(peopleResearcher);
                 people = people_repository.save(people);
                 peopleResearcher.setPeople(people);
+                peopleResearcher.setUpdateAt(new Date());
+                peopleResearcher.setCreatedAt(new Date());
                 researcherRepository.save(peopleResearcher);
                 break;
             case student:
@@ -99,6 +134,8 @@ public class PeopleExcelService {
                 people.setPeopleStudent(peopleStudent);
                 people = people_repository.save(people);
                 peopleStudent.setPeople(people);
+                peopleStudent.setUpdateAt(new Date());
+                peopleStudent.setCreatedAt(new Date());
                 studentRepository.save(peopleStudent);
                 break;
             case teacher:
@@ -106,6 +143,8 @@ public class PeopleExcelService {
                 people.setPeopleTeacher(peopleTeacher);
                 people = people_repository.save(people);
                 peopleTeacher.setPeople(people);
+                peopleTeacher.setUpdateAt(new Date());
+                peopleTeacher.setCreatedAt(new Date());
                 teacherRepository.save(peopleTeacher);
                 break;
             case visitor:
@@ -113,9 +152,11 @@ public class PeopleExcelService {
                 people.setPeopleVisitor(peopleVisitor);
                 people = people_repository.save(people);
                 peopleVisitor.setPeople(people);
+                peopleVisitor.setUpdateAt(new Date());
+                peopleVisitor.setCreatedAt(new Date());
                 visitorRepository.save(peopleVisitor);
                 break;
         }
-        return people;
+        return true;
     }
 }

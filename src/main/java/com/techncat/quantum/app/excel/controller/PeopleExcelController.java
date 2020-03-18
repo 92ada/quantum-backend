@@ -103,22 +103,22 @@ public class PeopleExcelController {
 
         boolean isRoot = aser.getRoles().contains("ROOT") || aser.getRoles().contains("root");
         if (type == null && !isRoot) {
-            peoplePage =  people_searchService.search(word, aser.getSid(), request);
+            peoplePage = people_searchService.search(word, aser.getSid(), request);
         }
         if (type == null && isRoot) {
-            peoplePage =  people_searchService.search(word, request);
+            peoplePage = people_searchService.search(word, request);
         }
         if (type != null && !isRoot) {
-            peoplePage =  people_searchService.search(word, type, aser.getSid(), request);
+            peoplePage = people_searchService.search(word, type, aser.getSid(), request);
         }
         if (type != null && isRoot) {
-            peoplePage =  people_searchService.search(word, type, request);
+            peoplePage = people_searchService.search(word, type, request);
         }
         excelService.export(peoplePage
-                .getContent()
-                .parallelStream()
-                .map(PeopleRow::render)
-                .collect(Collectors.toList())
+                        .getContent()
+                        .parallelStream()
+                        .map(PeopleRow::render)
+                        .collect(Collectors.toList())
                 , response.getOutputStream()
         );
     }
@@ -132,7 +132,8 @@ public class PeopleExcelController {
      */
     @PostMapping(("/{peopleType}"))
     @Transactional
-    public ResponseEntity excelImport2(@PathVariable("peopleType") People.Type peopleType, @RequestParam(required = false) Boolean force, MultipartFile file) throws IOException {
+    public ResponseEntity excelImport2(@PathVariable("peopleType") People.Type peopleType, @RequestParam(required = false, defaultValue = "false") Boolean force, MultipartFile file) throws IOException {
+        // data prepare
         List<People> data;
         switch (peopleType) {
             case administration:
@@ -157,28 +158,24 @@ public class PeopleExcelController {
                 return ResponseEntity.status(400).body("Invalid path variable");
         }
 
-        Boolean typeCheck = data.parallelStream().allMatch(people -> {
-            return peopleType == people.getType();
-        });
+        Boolean typeCheck = data.parallelStream().allMatch(people -> peopleType == people.getType());
 
         if (!typeCheck) {
-            throw new IOException("人员类型错误");
+            throw new IOException("导出数据中【人员类型】设置有误，请检查");
         }
 
-        Boolean sidCheck = data.parallelStream().allMatch(people -> {
-            return !peopleExcelService.exist(people);
-        });
+        // start import
 
-        if (sidCheck) {
-            data.parallelStream().forEach(people -> {
-                peopleExcelService.create(people);
-            });
-        } else if (force != null && force) {
-            data.parallelStream().forEach(people -> {
-                peopleExcelService.update(people);
-            });
-        } else return ResponseEntity.status(403).body("人员SID重复");
+        List<Boolean> total_result = data.parallelStream().map(people -> peopleExcelService.create_or_update(people, force)).collect(Collectors.toList());
 
-        return ResponseEntity.status(201).body("import success");
+        // count result
+        int nb_count = 0;
+        int total_count = 0;
+        for (boolean pass : total_result) {
+            total_count += 1;
+            nb_count += pass ? 1 : 0;
+        }
+
+        return ResponseEntity.status(201).body("总共数据【" + total_count + "】条；成功导入【" + nb_count + "】条，失败【" + (total_count - nb_count) + "】条");
     }
 }
