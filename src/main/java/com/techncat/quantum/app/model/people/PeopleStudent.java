@@ -17,10 +17,6 @@ public class PeopleStudent {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
-    private People people;
-
     private String edu_system;
     private String category;
 

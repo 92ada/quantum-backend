@@ -19,8 +19,6 @@ public class PeopleUpdateService {
 
     @Autowired
     private RepoUtils repoUtils;
-    @Autowired
-    private VOUtils voUtils;
     @Resource
     private People_Repository peopleRepository;
     @Resource
@@ -74,8 +72,6 @@ public class PeopleUpdateService {
             preData2.setLab(new ArrayList<>());
             People postData2 = peopleRepository.save(preData2);
             peopleLabService.resetLabs(peopleId, labVOS);
-            postData1.setPeople(postData2);
-            peopleAdminRepository.save(postData1);
             return postData2;
         });
     }
@@ -98,8 +94,6 @@ public class PeopleUpdateService {
             preData2.setLab(new ArrayList<>());
             People postData2 = peopleRepository.save(preData2);
             peopleLabService.resetLabs(peopleId, labVOS);
-            postData1.setPeople(postData2);
-            peoplePostdoctoralRepository.save(postData1);
             return postData2;
         });
     }
@@ -122,8 +116,6 @@ public class PeopleUpdateService {
             preData2.setLab(new ArrayList<>());
             People postData2 = peopleRepository.save(preData2);
             peopleLabService.resetLabs(peopleId, labVOS);
-            postData1.setPeople(postData2);
-            peopleResearcherRepository.save(postData1);
             return postData2;
         });
     }
@@ -146,8 +138,6 @@ public class PeopleUpdateService {
             preData2.setLab(new ArrayList<>());
             People postData2 = peopleRepository.save(preData2);
             peopleLabService.resetLabs(peopleId, labVOS);
-            postData1.setPeople(postData2);
-            peopleStudentRepository.save(postData1);
             return postData2;
         });
     }
@@ -170,8 +160,6 @@ public class PeopleUpdateService {
             preData2.setLab(new ArrayList<>());
             People postData2 = peopleRepository.save(preData2);
             peopleLabService.resetLabs(peopleId, labVOS);
-            postData1.setPeople(postData2);
-            peopleTeacherRepository.save(postData1);
             return postData2;
         });
     }
@@ -193,8 +181,6 @@ public class PeopleUpdateService {
             preData2.setLab(new ArrayList<>());
             People postData2 = peopleRepository.save(preData2);
             peopleLabService.resetLabs(peopleId, labVOS);
-            postData1.setPeople(postData2);
-            peopleVisitorRepository.save(postData1);
             return postData2;
         });
     }

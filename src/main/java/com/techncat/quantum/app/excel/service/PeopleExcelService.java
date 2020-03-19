@@ -106,7 +106,6 @@ public class PeopleExcelService {
                 PeopleAdmin peopleAdmin = adminRepository.save(people.getPeopleAdmin());
                 people.setPeopleAdmin(peopleAdmin);
                 people = people_repository.save(people);
-                peopleAdmin.setPeople(people);
                 peopleAdmin.setUpdateAt(new Date());
                 peopleAdmin.setCreatedAt(new Date());
                 adminRepository.save(peopleAdmin);
@@ -115,7 +114,6 @@ public class PeopleExcelService {
                 PeoplePostdoctoral peoplePostdoctoral = postdoctoralRepository.save(people.getPeoplePostdoctoral());
                 people.setPeoplePostdoctoral(peoplePostdoctoral);
                 people = people_repository.save(people);
-                peoplePostdoctoral.setPeople(people);
                 peoplePostdoctoral.setUpdateAt(new Date());
                 peoplePostdoctoral.setCreatedAt(new Date());
                 postdoctoralRepository.save(peoplePostdoctoral);
@@ -124,7 +122,6 @@ public class PeopleExcelService {
                 PeopleResearcher peopleResearcher = researcherRepository.save(people.getPeopleResearcher());
                 people.setPeopleResearcher(peopleResearcher);
                 people = people_repository.save(people);
-                peopleResearcher.setPeople(people);
                 peopleResearcher.setUpdateAt(new Date());
                 peopleResearcher.setCreatedAt(new Date());
                 researcherRepository.save(peopleResearcher);
@@ -133,7 +130,6 @@ public class PeopleExcelService {
                 PeopleStudent peopleStudent = studentRepository.save(people.getPeopleStudent());
                 people.setPeopleStudent(peopleStudent);
                 people = people_repository.save(people);
-                peopleStudent.setPeople(people);
                 peopleStudent.setUpdateAt(new Date());
                 peopleStudent.setCreatedAt(new Date());
                 studentRepository.save(peopleStudent);
@@ -142,7 +138,6 @@ public class PeopleExcelService {
                 PeopleTeacher peopleTeacher = teacherRepository.save(people.getPeopleTeacher());
                 people.setPeopleTeacher(peopleTeacher);
                 people = people_repository.save(people);
-                peopleTeacher.setPeople(people);
                 peopleTeacher.setUpdateAt(new Date());
                 peopleTeacher.setCreatedAt(new Date());
                 teacherRepository.save(peopleTeacher);
@@ -151,7 +146,6 @@ public class PeopleExcelService {
                 PeopleVisitor peopleVisitor = visitorRepository.save(people.getPeopleVisitor());
                 people.setPeopleVisitor(peopleVisitor);
                 people = people_repository.save(people);
-                peopleVisitor.setPeople(people);
                 peopleVisitor.setUpdateAt(new Date());
                 peopleVisitor.setCreatedAt(new Date());
                 visitorRepository.save(peopleVisitor);

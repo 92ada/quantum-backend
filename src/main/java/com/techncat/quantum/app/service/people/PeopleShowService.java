@@ -39,17 +39,17 @@ public class PeopleShowService {
     public Object showExtra(People people, People.Type type) throws PeopleNotFoundException {
         switch (type) {
             case administration:
-                return voUtils.copy(peopleAdminRepository.findByPeople(people), PeopleAdminVO.class);
+                return voUtils.copy(people.getPeopleAdmin(), PeopleAdminVO.class);
             case postdoctoral:
-                return voUtils.copy(peoplePostdoctoralRepository.findByPeople(people), PeoplePostdoctoralVO.class);
+                return voUtils.copy(people.getPeoplePostdoctoral(), PeoplePostdoctoralVO.class);
             case researcher:
-                return voUtils.copy(peopleResearcherRepository.findByPeople(people), PeopleResearcherVO.class);
+                return voUtils.copy(people.getPeopleResearcher(), PeopleResearcherVO.class);
             case student:
-                return voUtils.copy(peopleStudentRepository.findByPeople(people), PeopleStudentVO.class);
+                return voUtils.copy(people.getPeopleStudent(), PeopleStudentVO.class);
             case teacher:
-                return voUtils.copy(peopleTeacherRepository.findByPeople(people), PeopleTeacherVO.class);
+                return voUtils.copy(people.getPeopleTeacher(), PeopleTeacherVO.class);
             case visitor:
-                return voUtils.copy(peopleVisitorRepository.findByPeople(people), PeopleVisitorVO.class);
+                return voUtils.copy(people.getPeopleVisitor(), PeopleVisitorVO.class);
         }
         return null;
     }
