@@ -37,7 +37,8 @@ public class PeopleResearcherRow extends PeopleRow {
         PeopleResearcherRow row = new PeopleResearcherRow();
         if (detail == null) return row;
 
-        row.position_title = detail.getPosition_title();
+        if (detail.getPosition_title() != null)
+            row.position_title = detail.getPosition_title().getValue();
         row.job = detail.getJob();
         row.social_job = detail.getSocial_job();
         row.achievements = detail.getAchievements();
@@ -56,7 +57,7 @@ public class PeopleResearcherRow extends PeopleRow {
     public static PeopleResearcher loadDetail(PeopleResearcherRow row) {
         PeopleResearcher detail = new PeopleResearcher();
 
-        detail.setPosition_title(row.position_title);
+        detail.setPosition_title(FormatUtil.formatEnum(PeopleResearcher.Position.class, row.position_title));
         detail.setJob(row.job);
         detail.setSocial_job(row.social_job);
         detail.setAchievements(row.achievements);

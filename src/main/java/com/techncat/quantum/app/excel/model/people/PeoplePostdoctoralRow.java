@@ -1,6 +1,7 @@
 package com.techncat.quantum.app.excel.model.people;
 
 import com.github.houbb.iexcel.annotation.ExcelField;
+import com.techncat.quantum.app.excel.util.FormatUtil;
 import com.techncat.quantum.app.model.people.PeoplePostdoctoral;
 import lombok.Data;
 
@@ -22,7 +23,7 @@ public class PeoplePostdoctoralRow extends PeopleRow {
         PeoplePostdoctoralRow row = new PeoplePostdoctoralRow();
         if (detail == null) return row;
 
-        row.category = detail.getCategory();
+        row.category = detail.getCategory().getValue();
         row.midterm_assessment_status = detail.getMidterm_assessment_status();
         row.opening_assessment_status = detail.getOpening_assessment_status();
 
@@ -32,7 +33,7 @@ public class PeoplePostdoctoralRow extends PeopleRow {
     public static PeoplePostdoctoral loadDetail(PeoplePostdoctoralRow row) {
         PeoplePostdoctoral detail = new PeoplePostdoctoral();
 
-        detail.setCategory(row.category);
+        detail.setCategory(FormatUtil.formatEnum(PeoplePostdoctoral.Category.class, row.category));
         detail.setOpening_assessment_status(row.opening_assessment_status);
         detail.setMidterm_assessment_status(row.midterm_assessment_status);
 

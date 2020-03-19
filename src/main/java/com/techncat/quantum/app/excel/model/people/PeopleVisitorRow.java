@@ -27,7 +27,7 @@ public class PeopleVisitorRow extends PeopleRow {
         PeopleVisitorRow row = new PeopleVisitorRow();
         if (detail == null) return row;
 
-        row.position_title = detail.getPosition_title();
+        row.position_title = detail.getPosition_title().getValue();
         row.salary_card_no = detail.getSalary_card_no();
         row.bank = detail.getBank();
         row.citizenship = detail.getCitizenship();
@@ -41,7 +41,7 @@ public class PeopleVisitorRow extends PeopleRow {
     public static PeopleVisitor loadDetail(PeopleVisitorRow row) {
         PeopleVisitor detail = new PeopleVisitor();
 
-        detail.setPosition_title(row.position_title);
+        detail.setPosition_title(FormatUtil.formatEnum(PeopleVisitor.Position.class, row.position_title));
         detail.setSalary_card_no(row.salary_card_no);
         detail.setBank(row.bank);
         detail.setCitizenship(row.citizenship);

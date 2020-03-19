@@ -10,6 +10,21 @@ import java.util.Date;
 @Entity
 @Table(name = "people_visitor")
 public class PeopleVisitor {
+    public enum Position {
+        visiting_scholar("访问学者"),
+        visiting_student("访问学生");
+
+        private String value;
+
+        public String getValue() {
+            return this.value;
+        }
+
+        Position(String value) {
+            this.value = value;
+        }
+    }
+
     private Date updateAt;
     private Date createdAt;
 
@@ -17,7 +32,8 @@ public class PeopleVisitor {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String position_title;
+    @Enumerated
+    private Position position_title;
 
     private String salary_card_no;
     private String bank;

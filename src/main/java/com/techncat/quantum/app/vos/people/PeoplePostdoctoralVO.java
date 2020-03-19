@@ -1,12 +1,14 @@
 package com.techncat.quantum.app.vos.people;
 
 import com.techncat.quantum.app.common.voenhance.annotation.ValueType;
+import com.techncat.quantum.app.model.people.PeoplePostdoctoral;
 import lombok.Data;
 
 @Data
 public class PeoplePostdoctoralVO {
     // detail
-    private String category;
+    @ValueType("enumerated")
+    private PeoplePostdoctoral.Category category;
     @ValueType(value = "people", option_url = "/api/people/options")
     private Object supervisorJson;
     @ValueType(value = "people", option_url = "/api/people/options")

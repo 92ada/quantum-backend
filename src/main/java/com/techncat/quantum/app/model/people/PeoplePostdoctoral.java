@@ -10,6 +10,20 @@ import java.util.Date;
 @Entity
 @Table(name = "people_postdoctoral")
 public class PeoplePostdoctoral {
+    public enum Category {
+        independent("南科大独立培养"), cooperation("联培");
+
+        private String value;
+
+        public String getValue() {
+            return this.value;
+        }
+
+        Category(String value) {
+            this.value = value;
+        }
+    }
+
     private Date updateAt;
     private Date createdAt;
 
@@ -17,7 +31,8 @@ public class PeoplePostdoctoral {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String category;
+    @Enumerated
+    private Category category;
 
     @ManyToOne
     @JoinColumn(name = "supervisor_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))

@@ -9,15 +9,15 @@ public class PeopleStudentRow extends PeopleRow {
     // detail
     @ExcelField(headName = "学制")
     private String edu_system;
-    @ExcelField(headName = "学生分类")
+    @ExcelField(headName = "专业") // 之前叫 学生分类，修改了展示名称
     private String category;
 
 //    private Object advisorJson; // TODO
 //    private Object viceAdvisorJson;
 
-    @ExcelField(headName = "中期考核进程")
+    @ExcelField(headName = "年度考核进展") // 之前叫 中期考核进展，修改了展示名称
     private String midterm_assessment_status;
-    @ExcelField(headName = "开题考核进程")
+    @ExcelField(headName = "开题考核进展")
     private String opening_assessment_status;
 
     public static PeopleStudentRow render(PeopleStudent detail) {

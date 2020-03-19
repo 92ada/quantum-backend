@@ -1,5 +1,6 @@
 package com.techncat.quantum.app.vos.people;
 
+import com.techncat.quantum.app.common.voenhance.annotation.ValueType;
 import com.techncat.quantum.app.model.people.People;
 import com.techncat.quantum.app.model.people.PeopleVisitor;
 import lombok.Data;
@@ -11,7 +12,8 @@ import java.util.Date;
 @Data
 public class PeopleVisitorVO {
     // detail
-    private String position_title;
+    @ValueType("enumerated")
+    private PeopleVisitor.Position position_title;
     private String salary_card_no;
     private String bank;
     private String citizenship;
