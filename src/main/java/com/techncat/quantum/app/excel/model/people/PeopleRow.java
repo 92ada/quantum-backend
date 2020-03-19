@@ -43,9 +43,9 @@ public class PeopleRow {
     private String description;
     @ExcelField(headName = "紧急联系人")
     private String emergency_contact;
-    @ExcelField(headName = "入职时间")
+    @ExcelField(headName = "入职/入学时间")
     private String entry_date;
-    @ExcelField(headName = "离职时间")
+    @ExcelField(headName = "离职/离校时间")
     private String departure_date;
     @ExcelField(headName = "性别")
     private String gender;
