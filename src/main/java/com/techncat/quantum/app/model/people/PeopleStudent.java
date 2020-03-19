@@ -18,7 +18,7 @@ public class PeopleStudent {
     private Long id;
 
     private String edu_system;
-    private String category;
+    private String major;
 
     @ManyToOne
     @JoinColumn(name = "advisor_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))

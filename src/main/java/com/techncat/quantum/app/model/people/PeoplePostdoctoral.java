@@ -11,7 +11,7 @@ import java.util.Date;
 @Table(name = "people_postdoctoral")
 public class PeoplePostdoctoral {
     public enum Category {
-        independent("南科大独立培养"), cooperation("联培");
+        SUSTech_independent("南科大独立培养"), cooperation("联培");
 
         private String value;
 

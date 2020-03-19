@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class PeoplePostdoctoralRow extends PeopleRow {
     // detail
-    @ExcelField(headName = "学生分类")
+    @ExcelField(headName = "培养方式") // 之前叫 学生分类，修改了展示名称
     private String category;
 
 //    private Object supervisorJson; // TODO
