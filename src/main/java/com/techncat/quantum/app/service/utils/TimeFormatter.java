@@ -8,14 +8,13 @@ import java.util.Date;
 
 @Service
 public class TimeFormatter {
-
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
     /**
      * @param date 2018-01-01
      * @return Date()
      */
     public Date formatDate(String date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
         if (date == null) return null;
         try {
             return dateFormat.parse(date);

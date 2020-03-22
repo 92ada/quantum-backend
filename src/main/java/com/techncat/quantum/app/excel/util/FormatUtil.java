@@ -1,7 +1,5 @@
 package com.techncat.quantum.app.excel.util;
 
-import com.techncat.quantum.app.model.people.People;
-
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -9,16 +7,18 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class FormatUtil {
-
-    private static DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    private static DateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    // Note：SimpleDateFormat 线程不安全
 
     public static Date formatDate(String date) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//        DateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
         if (date == null) return null;
         if (date.trim().equals("")) return null;
         try {
-            if (date.trim().length() >= 16) return dateTimeFormat.parse(date);
-            else return dateFormat.parse(date);
+//            if (date.trim().length() >= 16) return dateTimeFormat.parse(date);
+//            else
+                return dateFormat.parse(date);
         } catch (ParseException e) {
             return null;
         }
@@ -58,11 +58,15 @@ public class FormatUtil {
     }
 
     public static String formatDate(Date date) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
         if (date == null) return null;
         return dateFormat.format(date);
     }
 
     public static String formatDateTime(Date date) {
+        DateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
         if (date == null) return null;
         return dateTimeFormat.format(date);
     }
@@ -86,6 +90,20 @@ public class FormatUtil {
             case "已批准": value_ = "approved"; break;
             case "会议": value_ = "conference"; break;
             case "合作": value_ = "cooperation"; break;
+            case "研究员": value_ = "researcher"; break;
+            case "副研究员": value_ = "associate_researcher"; break;
+            case "助理研究员": value_ = "assistant_researcher"; break;
+            case "助理教授": value_ = "assistant_professor"; break;
+            case "副教授": value_ = "associate_professor"; break;
+            case "RA": value_ = "RA"; break;
+            case "工程师": value_ = "engineer"; break;
+            case "助理研究教授": value_ = "assistant_research_professor"; break;
+            case "研究教授": value_ = "research_professor"; break;
+            case "高级研究学者": value_ = "senior_research_scholar"; break;
+            case "南科大独立培养": value_ = "SUSTech_independent"; break;
+            case "联培": value_ = "cooperation"; break;
+            case "访问学者": value_ = "visiting_scholar"; break;
+            case "访问学生": value_ = "visiting_student"; break;
         }
         return Enum.valueOf(clazz, value_);
     }
