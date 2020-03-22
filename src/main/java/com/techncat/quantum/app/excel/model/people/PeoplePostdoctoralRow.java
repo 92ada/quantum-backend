@@ -22,15 +22,15 @@ public class PeoplePostdoctoralRow extends PeopleRow {
     public static PeoplePostdoctoralRow render(PeoplePostdoctoral detail) {
         PeoplePostdoctoralRow row = new PeoplePostdoctoralRow();
         if (detail == null) return row;
-
-        row.category = detail.getCategory().getValue();
+        if (detail.getCategory() != null)
+            row.category = detail.getCategory().getValue();
         row.midterm_assessment_status = detail.getMidterm_assessment_status();
         row.opening_assessment_status = detail.getOpening_assessment_status();
 
         return row;
     }
 
-    public static PeoplePostdoctoral loadDetail(PeoplePostdoctoralRow row) {
+    static PeoplePostdoctoral loadDetail(PeoplePostdoctoralRow row) {
         PeoplePostdoctoral detail = new PeoplePostdoctoral();
 
         detail.setCategory(FormatUtil.formatEnum(PeoplePostdoctoral.Category.class, row.category));
