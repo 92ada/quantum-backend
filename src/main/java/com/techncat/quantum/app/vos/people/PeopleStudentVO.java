@@ -12,7 +12,7 @@ import java.util.Date;
 public class PeopleStudentVO {
     // detail
     private String edu_system;
-    private String category;
+    private String major;
     @ValueType(value = "people", option_url = "/api/people/options")
     private Object advisorJson;
     @ValueType(value = "people", option_url = "/api/people/options")
