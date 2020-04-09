@@ -51,14 +51,14 @@ public class GlobalExceptionHandler {
         return toJsonResponse(HttpStatus.BAD_REQUEST, exception.getMessage());
     }
 
-    @ExceptionHandler(value = Exception.class)
-    public ResponseEntity<Object> Exception(Exception exception) {
-        String message = exception.getMessage();
-        if (message.contains("constraint [people_index_sid]")) {
-            return toJsonResponse(HttpStatus.BAD_REQUEST, "人员SID不能重复");
-        }
-        return toJsonResponse(HttpStatus.BAD_REQUEST, exception.getMessage());
-    }
+//    @ExceptionHandler(value = Exception.class)
+//    public ResponseEntity<Object> Exception(Exception exception) {
+//        String message = exception.getMessage();
+//        if (message.contains("constraint [people_index_sid]")) {
+//            return toJsonResponse(HttpStatus.BAD_REQUEST, "人员SID不能重复");
+//        }
+//        return toJsonResponse(HttpStatus.BAD_REQUEST, exception.getMessage());
+//    }
 
 
     private ResponseEntity<Object> toJsonResponse(HttpStatus status, String message) {

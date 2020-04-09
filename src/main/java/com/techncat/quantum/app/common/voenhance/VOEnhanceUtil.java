@@ -2,6 +2,7 @@ package com.techncat.quantum.app.common.voenhance;
 
 import com.alibaba.fastjson.JSON;
 import com.techncat.quantum.app.common.voenhance.annotation.Editable;
+import com.techncat.quantum.app.common.voenhance.annotation.Hidden;
 import com.techncat.quantum.app.common.voenhance.annotation.ValueType;
 import com.techncat.quantum.app.common.voenhance.vo.EnhancedVO;
 import com.techncat.quantum.app.common.voutils.VOUtils;
@@ -42,6 +43,7 @@ public class VOEnhanceUtil {
             field.setAccessible(true);
             TypeResult typeResult = getType(field);
             Boolean isEditable = getEditable(field);
+            Boolean isHidden = getHidden(field);
             String index = field.getName();
             Object value = field.get(object);
             EnhancedVO vo;
@@ -50,6 +52,7 @@ public class VOEnhanceUtil {
                     Object[] enumValue = getEnumValues(field);
                     vo = new EnhancedVO(index, value, typeResult.getValue().name(), enumValue);
                     vo.setEditable(isEditable);
+                    vo.setHidden(isHidden);
                     vos.add(vo);
                     break;
                 case labs:
@@ -60,6 +63,7 @@ public class VOEnhanceUtil {
                     if (!isEmpty(typeResult.getOptionUrl())) {
                         vo = new EnhancedVO(index, value, typeResult.getValue().name(), typeResult.getOptionUrl());
                         vo.setEditable(isEditable);
+                        vo.setHidden(isHidden);
                         vos.add(vo);
                         break;
                     }
@@ -71,6 +75,7 @@ public class VOEnhanceUtil {
                 default:
                     vo = new EnhancedVO(index, value, typeResult.getValue().name());
                     vo.setEditable(isEditable);
+                    vo.setHidden(isHidden);
                     vos.add(vo);
             }
             field.setAccessible(false);
@@ -84,6 +89,14 @@ public class VOEnhanceUtil {
             return anno.value();
         }
         return true;
+    }
+
+    private Boolean getHidden(Field field) {
+        if (field.isAnnotationPresent(Hidden.class)) {
+            Hidden anno = field.getAnnotation(Hidden.class);
+            return anno.value();
+        }
+        return false;
     }
 
     private TypeResult getType(Field field) {

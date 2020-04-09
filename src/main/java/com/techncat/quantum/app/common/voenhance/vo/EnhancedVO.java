@@ -1,5 +1,10 @@
 package com.techncat.quantum.app.common.voenhance.vo;
 
+import lombok.Data;
+
+import java.util.Arrays;
+
+@Data
 public class EnhancedVO {
     private String index;
     private Object value;
@@ -10,6 +15,7 @@ public class EnhancedVO {
 
     private Boolean require;
     private Boolean editable = true;
+    private Boolean hidden = false;
 
     public EnhancedVO(String index, Object value, String type) {
         this.index = index;
@@ -28,78 +34,17 @@ public class EnhancedVO {
         this.option_url = option_url;
     }
 
-    public String getIndex() {
-        return index;
-    }
-
-    public void setIndex(String index) {
-        this.index = index;
-    }
-
-    public Object getValue() {
-        return value;
-    }
-
-    public void setValue(Object value) {
-        this.value = value;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public Object[] getOptions() {
-        return options;
-    }
-
-    public void setOptions(Object[] options) {
-        this.options = options;
-    }
-
-    public String getOption_url() {
-        return option_url;
-    }
-
-    public void setOption_url(String option_url) {
-        this.option_url = option_url;
-    }
-
-    public Boolean getRequire() {
-        return require;
-    }
-
-    public void setRequire(Boolean require) {
-        this.require = require;
-    }
-
-    public Boolean getEditable() {
-        return editable;
-    }
-
-    public void setEditable(Boolean editable) {
-        this.editable = editable;
-    }
-
     @Override
     public String toString() {
-        String optionsStr = "";
-        if (options != null) {
-            for (Object option : options) {
-                optionsStr += option + " ";
-            }
-        }
         return "EnhancedVO{" +
                 "index='" + index + '\'' +
-                ", value='" + value + '\'' +
+                ", value=" + value +
                 ", type='" + type + '\'' +
-                ", options=[" + optionsStr + ']' +
+                ", options=" + Arrays.toString(options) +
                 ", option_url='" + option_url + '\'' +
                 ", require=" + require +
                 ", editable=" + editable +
+                ", hidden=" + hidden +
                 '}';
     }
 }

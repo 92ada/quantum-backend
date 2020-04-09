@@ -14,7 +14,7 @@ public interface LabRepository extends JpaRepository<Lab, Long> {
 
     Lab findAllByPi(People people);
 
-    List<Lab> findAllByNameLike(@Param("name") String name);
+    List<Lab> findAllByPi_NameLike(@Param("name") String name);
 
-    Page<Lab> findAllByNameLike(@Param("name") String name, Pageable pageable);
+    Page<Lab> findAllByPi_NameLike(@Param("name") String name, Pageable pageable);
 }

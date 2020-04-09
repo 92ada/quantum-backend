@@ -9,7 +9,7 @@ public class LabRow {
 //    private People pi;
     private String personName;
 
-    private String name;
+//    private String name;
 
     private String description;
 }

@@ -3,7 +3,7 @@ package com.techncat.quantum.app.vos.people;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import com.techncat.quantum.app.common.voenhance.annotation.Visible;
+import com.techncat.quantum.app.common.auth.annotation.Visible;
 import com.techncat.quantum.app.common.voenhance.annotation.Editable;
 import com.techncat.quantum.app.common.voenhance.annotation.ValueType;
 import com.techncat.quantum.app.model.people.Lab;

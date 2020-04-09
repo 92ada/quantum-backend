@@ -1,5 +1,6 @@
 package com.techncat.quantum.app.service.people.lab;
 
+import com.techncat.quantum.app.common.auth.AuthUtil;
 import com.techncat.quantum.app.common.voutils.VOUtils;
 import com.techncat.quantum.app.model.people.Lab;
 import com.techncat.quantum.app.repository.people.LabRepository;
@@ -20,23 +21,25 @@ public class LabService {
 
     @Autowired
     private VOUtils voUtils;
+    @Autowired
+    private AuthUtil authUtil;
 
     public List<Lab> list(String word) {
         if (word == null) return repository.findAll();
         String wordLike = "%" + word + "%";
-        return repository.findAllByNameLike(wordLike);
+        return repository.findAllByPi_NameLike(wordLike);
     }
 
     public Page<Lab> page(String word, Pageable pageable) {
         if (word == null) return repository.findAll(pageable);
         String wordLike = "%" + word + "%";
-        return repository.findAllByNameLike(wordLike, pageable);
+        return repository.findAllByPi_NameLike(wordLike, pageable);
     }
 
     public Lab fetch(Long id) {
-        Lab fund = repository.findFirstById(id);
-        if (fund == null) throw new LabNotFoundException(id);
-        return fund;
+        Lab found = repository.findFirstById(id);
+        if (found == null) throw new LabNotFoundException(id);
+        return found;
     }
 
     public Lab create(LabVO vo) {
@@ -55,8 +58,8 @@ public class LabService {
     }
 
     public void delete(Long id) {
-        Lab fund = fetch(id);
-        repository.delete(fund);
+        Lab found = fetch(id);
+        repository.delete(found);
     }
 
     public static class LabNotFoundException extends RuntimeException {

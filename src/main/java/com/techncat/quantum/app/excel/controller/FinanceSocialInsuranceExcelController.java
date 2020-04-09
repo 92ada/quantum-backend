@@ -30,7 +30,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/excel/finance/social_insurances")
+@RequestMapping(value={"/api/excel/finance/social_insurance", "/api/excel/finance/social_insurances"})
 @CrossOrigin(
         origins = "*",
         allowedHeaders = "*",

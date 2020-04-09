@@ -1,7 +1,7 @@
 package com.techncat.quantum.app.excel.model.people;
 
 import com.github.houbb.iexcel.annotation.ExcelField;
-import com.techncat.quantum.app.common.voenhance.annotation.Visible;
+import com.techncat.quantum.app.common.auth.annotation.Visible;
 import com.techncat.quantum.app.excel.util.FormatUtil;
 import com.techncat.quantum.app.model.people.*;
 import lombok.Data;

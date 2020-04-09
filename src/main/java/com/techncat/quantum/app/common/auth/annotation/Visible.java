@@ -8,5 +8,15 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface Visible {
-    String auths() default "string";
+    enum ROLE {
+        root("root"), admin("admin");
+
+        String value;
+
+        ROLE(String value) {
+            this.value = value;
+        }
+    }
+
+    ROLE[] requiredRoles() default {};
 }

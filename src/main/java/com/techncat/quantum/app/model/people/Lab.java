@@ -32,4 +32,9 @@ public class Lab {
     private Lab fatherLab; // 所属实验室
 
     private Integer level = 9; // default 9, [0-9]
+
+    public String getName() {
+        if (pi == null) return null;
+        return pi.getName();
+    }
 }

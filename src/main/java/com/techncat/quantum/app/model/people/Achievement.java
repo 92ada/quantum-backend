@@ -18,12 +18,13 @@ public class Achievement {
     private Date updateAt;
     private Date createdAt;
 
-    @ManyToMany
+    @ManyToOne
     @JoinColumn(name = "people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
-    private Set<People> people;
+    private People people;
+
+    private String type; // achievement type
+
     @Column(columnDefinition = "json")
     @Convert(converter = JpaConverterJson.class)
-    private Object peopleJson;
-
-    private String achievement_type;
+    private Object data; // achievement post data
 }

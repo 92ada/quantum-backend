@@ -7,9 +7,6 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface Visible {
-    enum ROLE {
-        root, admin
-    }
-    ROLE[] requiredRoles() default {};
+public @interface Hidden {
+    boolean value() default false;
 }
