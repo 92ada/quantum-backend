@@ -4,6 +4,8 @@ package com.techncat.quantum.app.model.daily;
 import com.techncat.quantum.app.common.repo.JpaConverterJson;
 import com.techncat.quantum.app.model.people.People;
 import lombok.Data;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -53,6 +55,7 @@ public class Visit {
     private String visitor_institution;
     private String job_title;
     @ManyToOne
+    @NotFound(action= NotFoundAction.IGNORE)
     @JoinColumn(name = "receptionist_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People receptionist;
     @Column(columnDefinition = "json")

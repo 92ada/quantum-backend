@@ -3,6 +3,8 @@ package com.techncat.quantum.app.model.equipment;
 import com.techncat.quantum.app.common.repo.JpaConverterJson;
 import com.techncat.quantum.app.model.people.People;
 import lombok.Data;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -29,6 +31,7 @@ public class Stock {
     private BigDecimal net_value;
     private String taker_institution;
     @ManyToOne
+    @NotFound(action= NotFoundAction.IGNORE)
     @JoinColumn(name = "taker_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People taker;
     @Column(columnDefinition = "json")
@@ -42,6 +45,7 @@ public class Stock {
     @Temporal(TemporalType.DATE)
     private Date inbound_date;
     @ManyToOne
+    @NotFound(action= NotFoundAction.IGNORE)
     @JoinColumn(name = "admin_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People admin;
     @Column(columnDefinition = "json")

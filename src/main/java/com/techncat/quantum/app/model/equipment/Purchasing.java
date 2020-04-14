@@ -4,6 +4,8 @@ package com.techncat.quantum.app.model.equipment;
 import com.techncat.quantum.app.common.repo.JpaConverterJson;
 import com.techncat.quantum.app.model.people.People;
 import lombok.Data;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -30,12 +32,14 @@ public class Purchasing {
     private Date request_date;
 
     @ManyToOne
+    @NotFound(action= NotFoundAction.IGNORE)
     @JoinColumn(name = "handler_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People handler;
     @Column(columnDefinition="json")
     @Convert(converter = JpaConverterJson.class)
     private Object handlerJson;
     @ManyToOne
+    @NotFound(action= NotFoundAction.IGNORE)
     @JoinColumn(name = "pi_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People pi;
     @Column(columnDefinition="text")

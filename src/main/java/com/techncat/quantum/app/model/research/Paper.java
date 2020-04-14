@@ -3,6 +3,8 @@ package com.techncat.quantum.app.model.research;
 import com.techncat.quantum.app.common.repo.JpaConverterJson;
 import com.techncat.quantum.app.model.people.People;
 import lombok.Data;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -29,6 +31,7 @@ public class Paper {
     private Integer sustech_institution_rank;
 
     @ManyToMany
+    @NotFound(action= NotFoundAction.IGNORE)
     @JoinColumn(name = "author_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private List<People> sustech_people;
     @Column(columnDefinition = "json")

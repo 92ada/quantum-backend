@@ -4,6 +4,8 @@ package com.techncat.quantum.app.model.finance;
 import com.techncat.quantum.app.common.repo.JpaConverterJson;
 import com.techncat.quantum.app.model.people.People;
 import lombok.Data;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -21,6 +23,7 @@ public class SocialFund {
     private Date createdAt;
 
     @OneToOne
+    @NotFound(action= NotFoundAction.IGNORE)
     @JoinColumn(name = "people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People people;
     @Column(columnDefinition = "json")

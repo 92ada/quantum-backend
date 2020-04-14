@@ -4,6 +4,8 @@ package com.techncat.quantum.app.model.daily;
 import com.techncat.quantum.app.common.repo.JpaConverterJson;
 import com.techncat.quantum.app.model.people.People;
 import lombok.Data;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -20,6 +22,7 @@ public class Report {
     private Date createdAt;
 
     @ManyToOne
+    @NotFound(action= NotFoundAction.IGNORE)
     @JoinColumn(name = "inviter_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People inviter;
     @Column(columnDefinition = "json")

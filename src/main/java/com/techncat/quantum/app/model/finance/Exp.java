@@ -3,6 +3,8 @@ package com.techncat.quantum.app.model.finance;
 
 import com.techncat.quantum.app.model.people.Lab;
 import lombok.Data;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -26,6 +28,7 @@ public class Exp {
     private Date createdAt;
 
     @ManyToOne
+    @NotFound(action= NotFoundAction.IGNORE)
     @JoinColumn(name = "lab_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private Lab lab;
 
@@ -45,36 +48,47 @@ public class Exp {
 
 
     @OneToOne
+    @NotFound(action= NotFoundAction.IGNORE)
     @JoinColumn(name = "exp_conference_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private ExpConference expConference;
     @OneToOne
+    @NotFound(action= NotFoundAction.IGNORE)
     @JoinColumn(name = "exp_consultation_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private ExpConsultation expConsultation;
     @OneToOne
+    @NotFound(action= NotFoundAction.IGNORE)
     @JoinColumn(name = "exp_equipment_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private ExpEquipment expEquipment;
     @OneToOne
+    @NotFound(action= NotFoundAction.IGNORE)
     @JoinColumn(name = "exp_indirective_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private ExpIndirective expIndirective;
     @OneToOne
+    @NotFound(action= NotFoundAction.IGNORE)
     @JoinColumn(name = "exp_international_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private ExpInternational expInternational;
     @OneToOne
+    @NotFound(action= NotFoundAction.IGNORE)
     @JoinColumn(name = "exp_labor_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private ExpLabor expLabor;
     @OneToOne
+    @NotFound(action= NotFoundAction.IGNORE)
     @JoinColumn(name = "exp_material_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private ExpMaterial expMaterial;
     @OneToOne
+    @NotFound(action= NotFoundAction.IGNORE)
     @JoinColumn(name = "exp_other_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private ExpOther expOther;
     @OneToOne
+    @NotFound(action= NotFoundAction.IGNORE)
     @JoinColumn(name = "exp_processing_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private ExpProcessing expProcessing;
     @OneToOne
+    @NotFound(action= NotFoundAction.IGNORE)
     @JoinColumn(name = "exp_publication_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private ExpPublication expPublication;
     @OneToOne
+    @NotFound(action= NotFoundAction.IGNORE)
     @JoinColumn(name = "exp_travel_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private ExpTravel expTravel;
 }

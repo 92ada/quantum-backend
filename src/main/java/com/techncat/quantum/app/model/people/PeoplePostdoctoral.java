@@ -2,6 +2,8 @@ package com.techncat.quantum.app.model.people;
 
 import com.techncat.quantum.app.common.repo.JpaConverterJson;
 import lombok.Data;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -35,12 +37,14 @@ public class PeoplePostdoctoral {
     private Category category;
 
     @ManyToOne
+    @NotFound(action= NotFoundAction.IGNORE)
     @JoinColumn(name = "supervisor_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People supervisor;
     @Column(columnDefinition = "json")
     @Convert(converter = JpaConverterJson.class)
     private Object supervisorJson;
     @ManyToOne
+    @NotFound(action= NotFoundAction.IGNORE)
     @JoinColumn(name = "co_supervisor_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People co_supervisor;
     @Column(columnDefinition = "json")

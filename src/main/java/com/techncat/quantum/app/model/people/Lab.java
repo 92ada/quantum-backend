@@ -28,6 +28,7 @@ public class Lab {
     private String description;
 
     @ManyToOne
+    @NotFound(action= NotFoundAction.IGNORE)
     @JoinColumn(name = "father_lab_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private Lab fatherLab; // 所属实验室
 

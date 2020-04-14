@@ -3,6 +3,8 @@ package com.techncat.quantum.app.model.finance;
 import com.techncat.quantum.app.common.repo.JpaConverterJson;
 import com.techncat.quantum.app.model.people.People;
 import lombok.Data;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -21,6 +23,7 @@ public class ExpConference {
     private Date createdAt;
 
     @OneToOne
+    @NotFound(action= NotFoundAction.IGNORE)
     @JoinColumn(name = "exp_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private Exp exp;
 
@@ -43,6 +46,7 @@ public class ExpConference {
     private BigDecimal labor_expenses;
 
     @ManyToMany
+    @NotFound(action= NotFoundAction.IGNORE)
     @JoinColumn(name = "officer_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private List<People> officer;
     @Column(columnDefinition = "json")
