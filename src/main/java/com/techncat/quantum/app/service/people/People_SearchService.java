@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class People_SearchService {
@@ -25,42 +26,63 @@ public class People_SearchService {
 
     public Page<People> search(String word, PageRequest pageRequest) {
         if (word == null) {
-            return peopleRepository.findAll(pageRequest);
+            return avoidRef(peopleRepository.findAll(pageRequest));
         }
         String wordLike = "%" + word + "%";
-        return peopleRepository.findAllByNameLikeOrSidLikeOrEmailLike(wordLike, wordLike, wordLike, pageRequest);
+        return avoidRef(peopleRepository.findAllByNameLikeOrSidLikeOrEmailLike(wordLike, wordLike, wordLike, pageRequest));
     }
 
     public Page<People> search(String word, People.Type type, PageRequest pageRequest) {
         if (word == null) {
-            return peopleRepository.findAllByType(type, pageRequest);
+            return avoidRef(peopleRepository.findAllByType(type, pageRequest));
         }
         String wordLike = "%" + word + "%";
-        return peopleRepository.findAllByTypeAndNameLikeOrTypeAndSidLikeOrTypeAndEmailLike(type, wordLike, type, wordLike, type, wordLike, pageRequest);
+        return avoidRef(peopleRepository.findAllByTypeAndNameLikeOrTypeAndSidLikeOrTypeAndEmailLike(type, wordLike, type, wordLike, type, wordLike, pageRequest));
     }
 
     public Page<People> search(String word, String sid, PageRequest pageRequest) {
         List<Long> ids = runner.fixUserIds(sid);
         if (word == null) {
-            return peopleRepository.findAllByIdIn(ids, pageRequest);
+            return avoidRef(peopleRepository.findAllByIdIn(ids, pageRequest));
         }
         String wordLike = "%" + word + "%";
-        return peopleRepository.findAllByNameLikeAndIdInOrSidLikeAndIdInOrEmailLikeAndIdIn(wordLike, ids, wordLike, ids, wordLike, ids, pageRequest);
+        return avoidRef(peopleRepository.findAllByNameLikeAndIdInOrSidLikeAndIdInOrEmailLikeAndIdIn(wordLike, ids, wordLike, ids, wordLike, ids, pageRequest));
     }
 
     public Page<People> search(String word, People.Type type, String sid, PageRequest pageRequest) {
         List<Long> ids = runner.fixUserIds(sid);
         if (word == null) {
-            return peopleRepository.findAllByTypeAndIdIn(type, ids, pageRequest);
+            return avoidRef(peopleRepository.findAllByTypeAndIdIn(type, ids, pageRequest));
         }
         String wordLike = "%" + word + "%";
-        return peopleRepository.findAllByTypeAndNameLikeAndIdInOrTypeAndSidLikeAndIdInOrTypeAndEmailLikeAndIdIn(type, wordLike, ids, type, wordLike, ids, type, wordLike, ids, pageRequest);
+        return avoidRef(peopleRepository.findAllByTypeAndNameLikeAndIdInOrTypeAndSidLikeAndIdInOrTypeAndEmailLikeAndIdIn(type, wordLike, ids, type, wordLike, ids, type, wordLike, ids, pageRequest));
     }
 
 
     public List<People> search(String word) {
-        if (word == null) return peopleRepository.findAll();
+        if (word == null) return avoidRef(peopleRepository.findAll());
         String wordLike = "%" + word + "%";
-        return peopleRepository.findAllByNameLike(wordLike);
+        return avoidRef(peopleRepository.findAllByNameLike(wordLike));
+    }
+
+    private static List<People> avoidRef(List<People> source) {
+        return source.stream().map(People_SearchService::avoidRef).collect(Collectors.toList());
+    }
+
+    private static Page<People> avoidRef(Page<People> source) {
+        return source.map(People_SearchService::avoidRef);
+    }
+
+    private static People avoidRef(People source) {
+        People target = new People();
+        target.setId(source.getId());
+        target.setSid(source.getSid());
+        target.setName(source.getName());
+        target.setMobile_phone(source.getMobile_phone());
+        target.setOffice_phone(source.getOffice_phone());
+        target.setOffice_address(source.getOffice_address());
+        target.setEmail(source.getEmail());
+        target.setStatus(source.getStatus());
+        return target;
     }
 }
