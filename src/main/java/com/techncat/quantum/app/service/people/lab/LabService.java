@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class LabService {
@@ -25,15 +26,31 @@ public class LabService {
     private AuthUtil authUtil;
 
     public List<Lab> list(String word) {
-        if (word == null) return repository.findAll();
-        String wordLike = "%" + word + "%";
-        return repository.findAllByPi_NameLike(wordLike);
+        List<Lab> labs;
+        if (word == null) labs = repository.findAll();
+        else {
+            String wordLike = "%" + word + "%";
+            labs = repository.findAllByPi_NameLike(wordLike);
+        }
+        return labs.stream().map(LabService::avoidRef).collect(Collectors.toList());
     }
 
     public Page<Lab> page(String word, Pageable pageable) {
-        if (word == null) return repository.findAll(pageable);
-        String wordLike = "%" + word + "%";
-        return repository.findAllByPi_NameLike(wordLike, pageable);
+        Page<Lab> labs;
+        if (word == null) labs = repository.findAll(pageable);
+        else {
+            String wordLike = "%" + word + "%";
+            labs = repository.findAllByPi_NameLike(wordLike, pageable);
+        }
+        return labs.map(LabService::avoidRef);
+    }
+
+    private static Lab avoidRef(Lab lab) {
+        Lab labCopy = new Lab();
+        labCopy.setId(lab.getId());
+        labCopy.setPi(lab.getPi());
+        labCopy.setDescription(lab.getDescription());
+        return labCopy;
     }
 
     public Lab fetch(Long id) {
