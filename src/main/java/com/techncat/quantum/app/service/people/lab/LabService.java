@@ -46,7 +46,7 @@ public class LabService {
         return labs.map(LabService::avoidRef);
     }
 
-    private static Lab avoidRef(Lab lab) {
+    public static Lab avoidRef(Lab lab) {
         People _pi = new People();
         _pi.setId(lab.getPi().getId());
         _pi.setName(lab.getPi().getName());

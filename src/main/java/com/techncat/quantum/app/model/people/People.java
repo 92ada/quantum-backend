@@ -1,10 +1,12 @@
 package com.techncat.quantum.app.model.people;
 
+import com.techncat.quantum.app.service.people.lab.LabService;
 import lombok.Data;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -129,4 +131,14 @@ public class People {
     @NotFound(action= NotFoundAction.IGNORE)
     @JoinColumn(name = "people_visitor_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private PeopleVisitor peopleVisitor;
-}
+
+    public List<Lab> getLab() {
+        if (this.lab == null) return null;
+
+        ArrayList<Lab> _lab = new ArrayList<>();
+        for (Lab lb : this.lab) {
+            _lab.add(LabService.avoidRef(lb));
+        }
+        return _lab;
+    }
+ }
