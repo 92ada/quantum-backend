@@ -26,6 +26,20 @@ public class FinanceExp_SearchService {
     @Autowired
     private PeopleShowService peopleShowService;
 
+    public Page<Exp> search(Date start, Date end, PageRequest pageRequest) {
+        if (start == null || end == null) {
+            return repository.findAll(pageRequest);
+        }
+        return repository.findAllByDateBetween(start, end, pageRequest);
+    }
+
+    public Page<Exp> search(Date start, Date end, Exp.Type type, PageRequest pageRequest) {
+        if (start == null || end == null) {
+            return repository.findAllByType(type, pageRequest);
+        }
+        return repository.findAllByTypeAndDateBetween(type, start, end, pageRequest);
+    }
+
     public Page<Exp> search(String sid, Date start, Date end, PageRequest pageRequest) {
         if (start == null || end == null) {
             return repository.findAll(pageRequest);
@@ -41,13 +55,17 @@ public class FinanceExp_SearchService {
     }
 
     private List<String> availableENOs(String sid) {
-        People people = peopleShowService.fetchBySid(sid);
-        List<String> ids = new ArrayList<>();
-        for (ProjectAdmin pa : projectAdminRepository.findAllByPeople(people)) {
-            if (pa.getProject() != null) {
-                ids.add(pa.getProject().getExpenditureNo());
+        try {
+            People people = peopleShowService.fetchBySid(sid);
+            List<String> ids = new ArrayList<>();
+            for (ProjectAdmin pa : projectAdminRepository.findAllByPeople(people)) {
+                if (pa.getProject() != null) {
+                    ids.add(pa.getProject().getExpenditureNo());
+                }
             }
+            return ids;
+        } catch (PeopleShowService.PeopleNotFoundException e) {
+            return new ArrayList<>();
         }
-        return ids;
     }
 }

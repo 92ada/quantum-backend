@@ -44,6 +44,7 @@ public class PeopleSearcher {
         // find in ids
 
         boolean isRoot = aser.getRoles().contains("ROOT") || aser.getRoles().contains("root");
+//        isRoot = true;
         if (type == null && !isRoot) {
             return people_searchService.search(word, aser.getSid(), request);
         }

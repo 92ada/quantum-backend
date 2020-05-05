@@ -1,6 +1,9 @@
 package com.techncat.quantum.app.controller.people;
 
 import com.alibaba.fastjson.JSONObject;
+import com.techncat.quantum.app.auth.annotation.ForkiAser;
+import com.techncat.quantum.app.auth.annotation.ROLE;
+import com.techncat.quantum.app.auth.entity.Aser;
 import com.techncat.quantum.app.common.voenhance.VOEnhanceUtil;
 import com.techncat.quantum.app.common.voutils.VOUtils;
 import com.techncat.quantum.app.model.people.FamilyInfo;
@@ -111,55 +114,64 @@ public class PeopleController {
     // create
 
     @PostMapping("/base")
-    public ResponseEntity<People> createBase(@RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
+    public ResponseEntity<People> createBase(@ForkiAser(requiredRoles = {ROLE.edit_people}) Aser aser,
+                                             @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         PeopleVO peopleVO = requestBody.getJSONObject("base").toJavaObject(PeopleVO.class);
         return ResponseEntity.status(201).body(createService.create(peopleVO));
     }
 
     @PostMapping("/administration")
-    public ResponseEntity<People> createAdmin(@RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
+    public ResponseEntity<People> createAdmin(@ForkiAser(requiredRoles = {ROLE.edit_people, ROLE.edit_people_administration}) Aser aser,
+                                              @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         PeopleVO peopleVO = requestBody.getJSONObject("base").toJavaObject(PeopleVO.class);
         PeopleAdminVO adminVO = requestBody.getJSONObject("extra").toJavaObject(PeopleAdminVO.class);
         return ResponseEntity.status(201).body(createService.create(peopleVO, adminVO));
     }
 
     @PostMapping("/postdoctoral")
-    public ResponseEntity<People> createPostdoctoral(@RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
+    public ResponseEntity<People> createPostdoctoral(@ForkiAser(requiredRoles = {ROLE.edit_people, ROLE.edit_people_postdoctoral}) Aser aser,
+                                                     @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         PeopleVO peopleVO = requestBody.getJSONObject("base").toJavaObject(PeopleVO.class);
         PeoplePostdoctoralVO extraVO = requestBody.getJSONObject("extra").toJavaObject(PeoplePostdoctoralVO.class);
         return ResponseEntity.status(201).body(createService.create(peopleVO, extraVO));
     }
 
     @PostMapping("/researcher")
-    public ResponseEntity<People> createResearcher(@RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
+    public ResponseEntity<People> createResearcher(@ForkiAser(requiredRoles = {ROLE.edit_people, ROLE.edit_people_researcher}) Aser aser,
+                                                   @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         PeopleVO peopleVO = requestBody.getJSONObject("base").toJavaObject(PeopleVO.class);
         PeopleResearcherVO extraVO = requestBody.getJSONObject("extra").toJavaObject(PeopleResearcherVO.class);
         return ResponseEntity.status(201).body(createService.create(peopleVO, extraVO));
     }
 
     @PostMapping("/student")
-    public ResponseEntity<People> createStudent(@RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
+    public ResponseEntity<People> createStudent(@ForkiAser(requiredRoles = {ROLE.edit_people, ROLE.edit_people_student}) Aser aser,
+                                                @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         PeopleVO peopleVO = requestBody.getJSONObject("base").toJavaObject(PeopleVO.class);
         PeopleStudentVO extraVO = requestBody.getJSONObject("extra").toJavaObject(PeopleStudentVO.class);
         return ResponseEntity.status(201).body(createService.create(peopleVO, extraVO));
     }
 
     @PostMapping("/teacher")
-    public ResponseEntity<People> createTeacher(@RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
+    public ResponseEntity<People> createTeacher(@ForkiAser(requiredRoles = {ROLE.edit_people, ROLE.edit_people_teacher}) Aser aser,
+                                                @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         PeopleVO peopleVO = requestBody.getJSONObject("base").toJavaObject(PeopleVO.class);
         PeopleTeacherVO extraVO = requestBody.getJSONObject("extra").toJavaObject(PeopleTeacherVO.class);
         return ResponseEntity.status(201).body(createService.create(peopleVO, extraVO));
     }
 
     @PostMapping("/visitor")
-    public ResponseEntity<People> createVisitor(@RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
+    public ResponseEntity<People> createVisitor(@ForkiAser(requiredRoles = {ROLE.edit_people, ROLE.edit_people_visitor}) Aser aser,
+                                                @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         PeopleVO peopleVO = requestBody.getJSONObject("base").toJavaObject(PeopleVO.class);
         PeopleVisitorVO extraVO = requestBody.getJSONObject("extra").toJavaObject(PeopleVisitorVO.class);
         return ResponseEntity.status(201).body(createService.create(peopleVO, extraVO));
     }
 
     @PostMapping("/{people_id}/families")
-    public ResponseEntity<FamilyInfo> create(@PathVariable("people_id") Long peopleId, @RequestBody FamilyInfo familyInfo) throws PeopleShowService.PeopleNotFoundException {
+    public ResponseEntity<FamilyInfo> create(@ForkiAser(requiredRoles = {ROLE.edit_people}) Aser aser,
+                                             @PathVariable("people_id") Long peopleId,
+                                             @RequestBody FamilyInfo familyInfo) throws PeopleShowService.PeopleNotFoundException {
         return ResponseEntity.status(201).body(familyService.create(peopleId, familyInfo));
     }
 
@@ -167,74 +179,94 @@ public class PeopleController {
     // update
 
     @PutMapping("/{people_id}/base")
-    public ResponseEntity<People> updateBase(@PathVariable("people_id") Long id, @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
+    public ResponseEntity<People> updateBase(@ForkiAser(requiredRoles = {ROLE.edit_people}) Aser aser,
+                                             @PathVariable("people_id") Long id,
+                                             @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         PeopleVO peopleVO = requestBody.getJSONObject("base").toJavaObject(PeopleVO.class);
         return ResponseEntity.status(200).body(updateService.update(id, peopleVO));
     }
 
     @PutMapping("/{people_id}/administration")
-    public ResponseEntity<People> updateAdmin(@PathVariable("people_id") Long id, @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
+    public ResponseEntity<People> updateAdmin(@ForkiAser(requiredRoles = {ROLE.edit_people, ROLE.edit_people_administration}) Aser aser,
+                                              @PathVariable("people_id") Long id,
+                                              @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         PeopleVO peopleVO = requestBody.getJSONObject("base").toJavaObject(PeopleVO.class);
         PeopleAdminVO adminVO = requestBody.getJSONObject("extra").toJavaObject(PeopleAdminVO.class);
         return ResponseEntity.status(200).body(updateService.update(id, peopleVO, adminVO));
     }
 
     @PutMapping("/{people_id}/postdoctoral")
-    public ResponseEntity<People> updatePostdoctoral(@PathVariable("people_id") Long id, @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
+    public ResponseEntity<People> updatePostdoctoral(@ForkiAser(requiredRoles = {ROLE.edit_people, ROLE.edit_people_postdoctoral}) Aser aser,
+                                                     @PathVariable("people_id") Long id,
+                                                     @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         PeopleVO peopleVO = requestBody.getJSONObject("base").toJavaObject(PeopleVO.class);
         PeoplePostdoctoralVO extraVO = requestBody.getJSONObject("extra").toJavaObject(PeoplePostdoctoralVO.class);
         return ResponseEntity.status(200).body(updateService.update(id, peopleVO, extraVO));
     }
 
     @PutMapping("/{people_id}/researcher")
-    public ResponseEntity<People> updateResearcher(@PathVariable("people_id") Long id, @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
+    public ResponseEntity<People> updateResearcher(@ForkiAser(requiredRoles = {ROLE.edit_people, ROLE.edit_people_researcher}) Aser aser,
+                                                   @PathVariable("people_id") Long id,
+                                                   @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         PeopleVO peopleVO = requestBody.getJSONObject("base").toJavaObject(PeopleVO.class);
         PeopleResearcherVO extraVO = requestBody.getJSONObject("extra").toJavaObject(PeopleResearcherVO.class);
         return ResponseEntity.status(200).body(updateService.update(id, peopleVO, extraVO));
     }
 
     @PutMapping("/{people_id}/student")
-    public ResponseEntity<People> updateStudent(@PathVariable("people_id") Long id, @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
+    public ResponseEntity<People> updateStudent(@ForkiAser(requiredRoles = {ROLE.edit_people, ROLE.edit_people_student}) Aser aser,
+                                                @PathVariable("people_id") Long id,
+                                                @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         PeopleVO peopleVO = requestBody.getJSONObject("base").toJavaObject(PeopleVO.class);
         PeopleStudentVO extraVO = requestBody.getJSONObject("extra").toJavaObject(PeopleStudentVO.class);
         return ResponseEntity.status(200).body(updateService.update(id, peopleVO, extraVO));
     }
 
     @PutMapping("/{people_id}/teacher")
-    public ResponseEntity<People> updateTeacher(@PathVariable("people_id") Long id, @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
+    public ResponseEntity<People> updateTeacher(@ForkiAser(requiredRoles = {ROLE.edit_people, ROLE.edit_people_teacher}) Aser aser,
+                                                @PathVariable("people_id") Long id,
+                                                @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         PeopleVO peopleVO = requestBody.getJSONObject("base").toJavaObject(PeopleVO.class);
         PeopleTeacherVO extraVO = requestBody.getJSONObject("extra").toJavaObject(PeopleTeacherVO.class);
         return ResponseEntity.status(200).body(updateService.update(id, peopleVO, extraVO));
     }
 
     @PutMapping("/{people_id}/visitor")
-    public ResponseEntity<People> updateVisitor(@PathVariable("people_id") Long id, @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
+    public ResponseEntity<People> updateVisitor(@ForkiAser(requiredRoles = {ROLE.edit_people, ROLE.edit_people_visitor}) Aser aser,
+                                                @PathVariable("people_id") Long id,
+                                                @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         PeopleVO peopleVO = requestBody.getJSONObject("base").toJavaObject(PeopleVO.class);
         PeopleVisitorVO extraVO = requestBody.getJSONObject("extra").toJavaObject(PeopleVisitorVO.class);
         return ResponseEntity.status(200).body(updateService.update(id, peopleVO, extraVO));
     }
 
     @PutMapping("/{people_id}/families/{family_id}")
-    public ResponseEntity<FamilyInfo> update(@PathVariable("people_id") Long peopleId, @PathVariable("family_id") Long familyId, @RequestBody FamilyInfo familyInfo) throws PeopleShowService.PeopleNotFoundException, PeopleFamilyService.FamilyInfoNotFoundException {
+    public ResponseEntity<FamilyInfo> update(@ForkiAser(requiredRoles = {ROLE.edit_people}) Aser aser,
+                                             @PathVariable("people_id") Long peopleId,
+                                             @PathVariable("family_id") Long familyId, @RequestBody FamilyInfo familyInfo) throws PeopleShowService.PeopleNotFoundException, PeopleFamilyService.FamilyInfoNotFoundException {
         return ResponseEntity.status(200).body(familyService.update(peopleId, familyId, familyInfo));
     }
 
     // delete
 
     @DeleteMapping("/{people_id}")
-    public ResponseEntity delete(@PathVariable("people_id") Long peopleId) throws PeopleShowService.PeopleNotFoundException {
+    public ResponseEntity delete(@ForkiAser(requiredRoles = {ROLE.delete_people}) Aser aser,
+                                 @PathVariable("people_id") Long peopleId) throws PeopleShowService.PeopleNotFoundException {
         deleteService.delete(peopleId);
         return ResponseEntity.status(204).build();
     }
 
     @DeleteMapping("/{people_id}/families")
-    public ResponseEntity deleteFamilies(@PathVariable("people_id") Long peopleId) throws PeopleShowService.PeopleNotFoundException {
+    public ResponseEntity deleteFamilies(@ForkiAser(requiredRoles = {ROLE.delete_people}) Aser aser,
+                                         @PathVariable("people_id") Long peopleId) throws PeopleShowService.PeopleNotFoundException {
         familyService.delete(peopleId);
         return ResponseEntity.status(204).build();
     }
 
     @DeleteMapping("/{people_id}/families/{family_id}")
-    public ResponseEntity deleteFamily(@PathVariable("people_id") Long peopleId, @PathVariable("family_id") Long familyId) throws PeopleShowService.PeopleNotFoundException {
+    public ResponseEntity deleteFamily(@ForkiAser(requiredRoles = {ROLE.delete_people}) Aser aser,
+                                       @PathVariable("people_id") Long peopleId,
+                                       @PathVariable("family_id") Long familyId) throws PeopleShowService.PeopleNotFoundException {
         familyService.delete(peopleId, familyId);
         return ResponseEntity.status(204).build();
     }

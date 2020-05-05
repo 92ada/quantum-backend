@@ -28,7 +28,5 @@ public class ProjectVO {
     private Project.WayOfTaking way_of_taking;
     private BigDecimal approved_funds;
 
-    @JsonAlias("expenditure_no")
-    @JSONField(name = "expenditure_no")
     private String expenditureNo;
 }

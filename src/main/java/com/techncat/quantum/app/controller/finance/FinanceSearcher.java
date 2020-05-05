@@ -38,6 +38,7 @@ public class FinanceSearcher {
 
     @GetMapping("/exps")
     public Page<Exp> search(@ForkiAser Aser aser,
+                            @RequestParam(value = "word", required = false) String word,
                             @RequestParam(value = "start", required = false) String start, // 2018-01-01
                             @RequestParam(value = "end", required = false) String end,
                             @RequestParam(value = "type", required = false) Exp.Type type,
@@ -55,9 +56,11 @@ public class FinanceSearcher {
         }
         PageRequest request = PageRequest.of(page - 1, size, sort);
         if (type == null) {
-            return financeExp_searchService.search(aser.getSid(), startDate, endDate, request);
+            return financeExp_searchService.search(startDate, endDate, request);
+//            return financeExp_searchService.search(aser.getSid(), startDate, endDate, request);
         } else {
-            return financeExp_searchService.search(aser.getSid(), startDate, endDate, type, request);
+            return financeExp_searchService.search(startDate, endDate, type, request);
+//            return financeExp_searchService.search(aser.getSid(), startDate, endDate, type, request);
         }
     }
 

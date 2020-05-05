@@ -13,7 +13,7 @@ import java.util.Date;
 public class ExpVO {
     private Long id;
 
-    private String expenditure_no;
+    private String expenditureNo;
     private String summary;
 
     @Editable(false)

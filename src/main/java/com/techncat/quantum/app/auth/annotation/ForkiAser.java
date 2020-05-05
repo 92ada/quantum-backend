@@ -6,5 +6,5 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface ForkiAser {
-    String[] requiredRoles() default {};
+    ROLE[] requiredRoles() default {};
 }

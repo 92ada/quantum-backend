@@ -26,9 +26,6 @@ public class SocialFund {
     @NotFound(action= NotFoundAction.IGNORE)
     @JoinColumn(name = "people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People people;
-    @Column(columnDefinition = "json")
-    @Convert(converter = JpaConverterJson.class)
-    private Object peopleJson;
 
     private String fund_account_no;
     private String fund_source;

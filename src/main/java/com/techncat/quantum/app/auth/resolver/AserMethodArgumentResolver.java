@@ -1,6 +1,7 @@
 package com.techncat.quantum.app.auth.resolver;
 
 import com.techncat.quantum.app.auth.annotation.ForkiAser;
+import com.techncat.quantum.app.auth.annotation.ROLE;
 import com.techncat.quantum.app.auth.entity.Aser;
 import com.techncat.quantum.app.auth.service.JwtService;
 import com.techncat.quantum.app.model.user.User;
@@ -14,6 +15,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
 import java.lang.annotation.Annotation;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -67,11 +69,11 @@ public class AserMethodArgumentResolver implements HandlerMethodArgumentResolver
         return aser;
     }
 
-    private boolean isRoleRequireSuccess(String[] requiredRoles, List<String> userRoles) {
+    private boolean isRoleRequireSuccess(ROLE[] requiredRoles, List<String> userRoles) {
         if (requiredRoles.length == 0) return true; // require nothing
-        for (String requiredRole : requiredRoles) {
+        for (ROLE requiredRole : requiredRoles) {
             for (String userRole : userRoles) {
-                if (userRole.equals(requiredRole)) {
+                if (userRole.equals(requiredRole.toString()) || userRole.equals("root")) {
                     return true; // 只要有一个 role 满足就算 success
                 }
             }
@@ -92,8 +94,8 @@ public class AserMethodArgumentResolver implements HandlerMethodArgumentResolver
     }
 
     public static class AserNoAuthException extends Exception {
-        AserNoAuthException(String[] requiredRoles) {
-            super("Role required: " + String.join(", ", requiredRoles));
+        AserNoAuthException(ROLE[] requiredRoles) {
+            super("Role required: " + String.join(", ", Arrays.toString(requiredRoles)));
         }
     }
 }

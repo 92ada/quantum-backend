@@ -114,7 +114,7 @@ public class PurchasingRow {
     }
 
     public static Purchasing load(PurchasingRow row) {
-        if (row.contract_no == null || row.contract_no.trim().length() == 0) return null;
+        if (row.title == null || row.title.trim().length() == 0) return null;
         Purchasing p = new Purchasing();
         p.setId(null);
         p.setUpdateAt(new Date());

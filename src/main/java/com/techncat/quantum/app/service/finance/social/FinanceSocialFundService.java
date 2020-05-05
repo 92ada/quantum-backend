@@ -2,6 +2,7 @@ package com.techncat.quantum.app.service.finance.social;
 
 import com.techncat.quantum.app.common.voutils.VOUtils;
 import com.techncat.quantum.app.model.finance.SocialFund;
+import com.techncat.quantum.app.model.people.People;
 import com.techncat.quantum.app.repository.finance.FinSocialFundRepository;
 import com.techncat.quantum.app.vos.finance.SocialFundVO;
 import com.techncat.quantum.app.vos.people.PeopleVO;
@@ -37,6 +38,9 @@ public class FinanceSocialFundService {
 
     public SocialFund create(SocialFundVO vo) {
         SocialFund data = voUtils.copy(vo, SocialFund.class);
+        People _people = new People();
+        _people.setId(vo.getPeople().getId());
+        data.setPeople(_people);
         data.setId(null);
         data.setCreatedAt(new Date());
         data.setUpdateAt(new Date());
