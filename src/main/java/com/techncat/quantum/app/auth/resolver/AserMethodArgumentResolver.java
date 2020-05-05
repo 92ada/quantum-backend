@@ -26,6 +26,9 @@ public class AserMethodArgumentResolver implements HandlerMethodArgumentResolver
 
     @Override
     public boolean supportsParameter(MethodParameter methodParameter) {
+        // 如果参数为 Aser 且有参数注解 @ForkiAser，则执行这个拦截器
+        // 翻译成英文：methodParameter.getParameterType().isAssignableFrom(Aser.class)
+        // 且 methodParameter.hasParameterAnnotation(ForkiAser.class)
         return (methodParameter.getParameterType().isAssignableFrom(Aser.class) && methodParameter.hasParameterAnnotation(ForkiAser.class));
     }
 
@@ -45,6 +48,7 @@ public class AserMethodArgumentResolver implements HandlerMethodArgumentResolver
             throw new AserDecodeException(token);
         // refetch aser roles, 可能存在用户未更新 TOKEN，但权限更新的情况
         User user = userService.fetch(aser.getSid());
+        aser.setRoles(user.getRoles()); // 更新一下 aser 的 roles 信息，确保和 user 保持一致（Aser 信息来自 token，可能用户 30 天 token 都没换？）
 
         Annotation[] methodAnnotations = methodParameter.getParameterAnnotations();
         for (Annotation methodAnnotation : methodAnnotations) {
@@ -52,6 +56,7 @@ public class AserMethodArgumentResolver implements HandlerMethodArgumentResolver
                 // 角色检验
                 ForkiAser forkiAser = (ForkiAser) methodAnnotation;
 //                if (isRoleRequireSuccess(forkiAser.requiredRoles(), aser.getRoles())) {
+                // 权限判断，满足则返回 aser，否则抛异常终结此次 HTTP 请求
                 if (isRoleRequireSuccess(forkiAser.requiredRoles(), user.getRoles())) {
                     return aser;
                 } else {
@@ -67,7 +72,7 @@ public class AserMethodArgumentResolver implements HandlerMethodArgumentResolver
         for (String requiredRole : requiredRoles) {
             for (String userRole : userRoles) {
                 if (userRole.equals(requiredRole)) {
-                    return true;
+                    return true; // 只要有一个 role 满足就算 success
                 }
             }
         }
