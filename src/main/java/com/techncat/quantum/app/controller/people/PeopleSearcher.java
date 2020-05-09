@@ -43,8 +43,8 @@ public class PeopleSearcher {
         PageRequest request = PageRequest.of(page - 1, size, sort);
         // find in ids
 
-        boolean isRoot = aser.getRoles().contains("ROOT") || aser.getRoles().contains("root");
-//        isRoot = true;
+        boolean isRoot = aser.getRoles().contains("root") || aser.getRoles().contains("people");
+
         if (type == null && !isRoot) {
             return people_searchService.search(word, aser.getSid(), request);
         }
