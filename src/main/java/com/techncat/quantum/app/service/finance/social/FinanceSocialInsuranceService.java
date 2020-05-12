@@ -1,9 +1,11 @@
 package com.techncat.quantum.app.service.finance.social;
 
+import com.techncat.quantum.app.auth.entity.Aser;
 import com.techncat.quantum.app.common.voutils.VOUtils;
 import com.techncat.quantum.app.model.finance.SocialInsurance;
 import com.techncat.quantum.app.model.people.People;
 import com.techncat.quantum.app.repository.finance.FinSocialInsuranceRepository;
+import com.techncat.quantum.app.service.people.LabRunner;
 import com.techncat.quantum.app.vos.finance.SocialInsuranceVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,6 +18,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.techncat.quantum.app.common.auth.AuthUtil.isRoot;
+
 @Service
 @Transactional
 public class FinanceSocialInsuranceService {
@@ -23,13 +27,15 @@ public class FinanceSocialInsuranceService {
     private FinSocialInsuranceRepository repository;
     @Autowired
     private VOUtils voUtils;
+    @Autowired
+    private LabRunner runner;
 
-    public List<SocialInsurance> list(Date start, Date end) {
-        return avoidRef(repository.findAllByDateBetween(start, end));
-    }
-
-    public Page<SocialInsurance> page(Date start, Date end, Pageable pageable) {
-        return avoidRef(repository.findAllByDateBetween(start, end, pageable));
+    public Page<SocialInsurance> page(Aser aser, Date start, Date end, Pageable pageable) {
+        if (isRoot(aser)) {
+            return avoidRef(repository.findAllByDateBetween(start, end, pageable));
+        }
+        List<Long> peopleIds = runner.fixUserIds(aser.getSid());
+        return avoidRef(repository.findAllByDateBetweenAndPeople_IdIn(start, end, peopleIds, pageable));
     }
 
     public SocialInsurance fetch(Long id) {

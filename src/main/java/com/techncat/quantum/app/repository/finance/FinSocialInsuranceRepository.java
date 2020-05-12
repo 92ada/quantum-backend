@@ -1,6 +1,7 @@
 package com.techncat.quantum.app.repository.finance;
 
 import com.techncat.quantum.app.model.finance.SocialInsurance;
+import com.techncat.quantum.app.model.people.People;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,6 +14,8 @@ public interface FinSocialInsuranceRepository extends JpaRepository<SocialInsura
     SocialInsurance findFirstById(@Param("id") Long id);
 
     Page<SocialInsurance> findAllByDateBetween(Date start, Date end, Pageable pageable);
+
+    Page<SocialInsurance> findAllByDateBetweenAndPeople_IdIn(Date start, Date end, List<Long> peopleIds, Pageable pageable);
 
     List<SocialInsurance> findAllByDateBetween(Date start, Date end);
 }

@@ -1,8 +1,11 @@
 package com.techncat.quantum.app.service.equipment;
 
+import com.techncat.quantum.app.auth.entity.Aser;
 import com.techncat.quantum.app.common.voutils.VOUtils;
 import com.techncat.quantum.app.model.equipment.Stock;
 import com.techncat.quantum.app.repository.equipment.EquStockRepository;
+import com.techncat.quantum.app.service.people.LabRunner;
+import com.techncat.quantum.app.service.utils.JsonLoader;
 import com.techncat.quantum.app.vos.equipment.StockVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import static com.techncat.quantum.app.common.auth.AuthUtil.isRoot;
+
 @Service
 public class EquipmentStockService {
     @Resource
@@ -22,11 +27,18 @@ public class EquipmentStockService {
 
     @Autowired
     private VOUtils voUtils;
+    @Autowired
+    private JsonLoader jsonLoader;
+    @Autowired
+    private LabRunner runner;
 
-    public Page<Stock> page(String word, Pageable pageable) {
-        if (word == null) return stockRepository.findAll(pageable);
+    public Page<Stock> page(Aser aser, String word, Pageable pageable) {
+        if (isRoot(aser)) return stockRepository.findAll(pageable);
+
+        List<Long> peopleIds = runner.fixUserIds(aser.getSid());
+        if (word == null) return stockRepository.findAllByAdmin_IdIn(peopleIds, pageable);
         String wordLike = "%" + word + "%";
-        return stockRepository.findAllByTitleLike(wordLike, pageable);
+        return stockRepository.findAllByTitleLikeAndAdmin_IdIn(wordLike, peopleIds, pageable);
     }
 
     public List<Stock> list(String word) {
@@ -50,6 +62,8 @@ public class EquipmentStockService {
         preData.setId(null);
         preData.setUpdateAt(new Date());
         preData.setCreatedAt(new Date());
+        preData.setAdmin(jsonLoader.loadPeople(preData.getAdminJson()));
+        preData.setTaker(jsonLoader.loadPeople(preData.getTakerJson()));
         return stockRepository.save(preData);
     }
 
@@ -58,6 +72,8 @@ public class EquipmentStockService {
         BeanUtils.copyProperties(data, record);
         record.setId(id);
         record.setUpdateAt(new Date());
+        record.setAdmin(jsonLoader.loadPeople(record.getAdminJson()));
+        record.setTaker(jsonLoader.loadPeople(record.getTakerJson()));
         return stockRepository.save(record);
     }
 

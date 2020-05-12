@@ -42,7 +42,7 @@ public class Purchasing {
     @NotFound(action= NotFoundAction.IGNORE)
     @JoinColumn(name = "pi_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People pi;
-    @Column(columnDefinition="text")
+    @Column(columnDefinition="json")
     private String piJson;
 
     private Boolean is_finished;

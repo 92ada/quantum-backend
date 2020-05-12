@@ -11,9 +11,11 @@ import java.util.List;
 public interface EquStockRepository extends JpaRepository<Stock, Long> {
     Page<Stock> findAll(Pageable pageable);
 
+    Page<Stock> findAllByAdmin_IdIn(List<Long> peopleIds, Pageable pageable);
+
     List<Stock> findAll();
 
-    Page<Stock> findAllByTitleLike(@Param("title") String title, Pageable pageable);
+    Page<Stock> findAllByTitleLikeAndAdmin_IdIn(@Param("title") String title, List<Long> peopleIds, Pageable pageable);
 
     List<Stock> findAllByTitleLike(@Param("title") String title);
 

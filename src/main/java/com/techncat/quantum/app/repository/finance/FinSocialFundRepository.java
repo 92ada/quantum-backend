@@ -14,5 +14,7 @@ public interface FinSocialFundRepository extends JpaRepository<SocialFund, Long>
 
     Page<SocialFund> findAllByDateBetween(Date start, Date end, Pageable pageable);
 
+    Page<SocialFund> findAllByDateBetweenAndPeople_IdIn(Date start, Date end, List<Long> peopleIds, Pageable pageable);
+
     List<SocialFund> findAllByDateBetween(Date start, Date end);
 }

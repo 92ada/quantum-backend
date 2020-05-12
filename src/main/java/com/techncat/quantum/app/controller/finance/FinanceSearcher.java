@@ -56,17 +56,16 @@ public class FinanceSearcher {
         }
         PageRequest request = PageRequest.of(page - 1, size, sort);
         if (type == null) {
-            return financeExp_searchService.search(startDate, endDate, request);
-//            return financeExp_searchService.search(aser.getSid(), startDate, endDate, request);
+            return financeExp_searchService.search(aser, startDate, endDate, request);
         } else {
-            return financeExp_searchService.search(startDate, endDate, type, request);
-//            return financeExp_searchService.search(aser.getSid(), startDate, endDate, type, request);
+            return financeExp_searchService.search(aser, startDate, endDate, type, request);
         }
     }
 
 
     @GetMapping("/social_funds")
-    public Page<SocialFund> searchSocialFunds(@RequestParam(value = "start", required = false) String start, // 2018-01-01
+    public Page<SocialFund> searchSocialFunds(@ForkiAser Aser aser,
+                                              @RequestParam(value = "start", required = false) String start, // 2018-01-01
                                               @RequestParam(value = "end", required = false) String end,
                                               @RequestParam(value = "page", defaultValue = "1") Integer page,
                                               @RequestParam(value = "limit", defaultValue = "10") Integer size,
@@ -81,11 +80,12 @@ public class FinanceSearcher {
             sort = Sort.by(byProp).ascending();
         }
         PageRequest request = PageRequest.of(page - 1, size, sort);
-        return financeSocialFundService.page(startDate, endDate, request);
+        return financeSocialFundService.page(aser, startDate, endDate, request);
     }
 
     @GetMapping("/social_insurances")
-    public Page<SocialInsurance> searchSocialInsurances(@RequestParam(value = "start", required = false) String start, // 2018-01-01
+    public Page<SocialInsurance> searchSocialInsurances(@ForkiAser Aser aser,
+                                                        @RequestParam(value = "start", required = false) String start, // 2018-01-01
                                                         @RequestParam(value = "end", required = false) String end,
                                                         @RequestParam(value = "page", defaultValue = "1") Integer page,
                                                         @RequestParam(value = "limit", defaultValue = "10") Integer size,
@@ -100,6 +100,6 @@ public class FinanceSearcher {
             sort = Sort.by(byProp).ascending();
         }
         PageRequest request = PageRequest.of(page - 1, size, sort);
-        return financeSocialInsuranceService.page(startDate, endDate, request);
+        return financeSocialInsuranceService.page(aser, startDate, endDate, request);
     }
 }

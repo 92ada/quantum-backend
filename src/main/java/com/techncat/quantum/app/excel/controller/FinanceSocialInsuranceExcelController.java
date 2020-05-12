@@ -80,7 +80,7 @@ public class FinanceSocialInsuranceExcelController {
             sort = Sort.by(byProp).ascending();
         }
         PageRequest request = PageRequest.of(page - 1, size, sort);
-        Page<SocialInsurance> expPage = financeSocialInsuranceService.page(startDate, endDate, request);
+        Page<SocialInsurance> expPage = financeSocialInsuranceService.page(aser, startDate, endDate, request);
         excelService.export(expPage.getContent().parallelStream().map(SocialInsuranceRow::render).collect(Collectors.toList()), response.getOutputStream());
     }
 

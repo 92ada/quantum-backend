@@ -1,12 +1,13 @@
 package com.techncat.quantum.app.excel.controller;
 
 
+import com.techncat.quantum.app.auth.annotation.ForkiAser;
+import com.techncat.quantum.app.auth.entity.Aser;
 import com.techncat.quantum.app.excel.model.daily.HostingRow;
 import com.techncat.quantum.app.excel.service.ExcelService;
 import com.techncat.quantum.app.model.daily.Hosting;
 import com.techncat.quantum.app.repository.daily.DailyHostingRepository;
 import com.techncat.quantum.app.service.daily.Daily_SearchService;
-import com.techncat.quantum.app.service.people.PeopleShowService;
 import com.techncat.quantum.app.service.utils.TimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -60,7 +61,7 @@ public class DailyHostingExcelController {
     }
 
     @GetMapping("/{anyname}.xlsx") // 导出后下载保存名字为：anyname.xls
-    public void excelExport(// @ForkiAser Aser aser,
+    public void excelExport(@ForkiAser Aser aser,
                             @RequestParam(value = "start", required = false) String start, // 2018-01-01
                             @RequestParam(value = "end", required = false) String end,
                             @RequestParam(value = "page", defaultValue = "1") Integer page,
@@ -77,7 +78,7 @@ public class DailyHostingExcelController {
             sort = Sort.by(byProp).ascending();
         }
         PageRequest request = PageRequest.of(page - 1, size, sort);
-        Page<Hosting> expPage = daily_searchService.searchHosting(startDate, endDate, request);
+        Page<Hosting> expPage = daily_searchService.searchHosting(aser, startDate, endDate, request);
         excelService.export(expPage.getContent().parallelStream().map(HostingRow::render).collect(Collectors.toList()), response.getOutputStream());
     }
 

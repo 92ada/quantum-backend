@@ -6,8 +6,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface ResearchPatentRepository extends JpaRepository<Patent, Long> {
-    Page<Patent> findAllByTitleLike(
+    Page<Patent> findAllByTitleLikeAndIdIn(
             @Param("title") String title,
-            Pageable pageable);
+            List<Long> longs, Pageable pageable);
+
+    Page<Patent> findAllByIdIn(
+            List<Long> longs, Pageable pageable);
 }

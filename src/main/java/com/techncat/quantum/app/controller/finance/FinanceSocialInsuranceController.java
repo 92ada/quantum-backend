@@ -1,16 +1,21 @@
 package com.techncat.quantum.app.controller.finance;
 
+import com.techncat.quantum.app.auth.annotation.ForkiAser;
+import com.techncat.quantum.app.auth.annotation.ROLE;
+import com.techncat.quantum.app.auth.entity.Aser;
 import com.techncat.quantum.app.common.voenhance.VOEnhanceUtil;
 import com.techncat.quantum.app.common.voutils.VOUtils;
 import com.techncat.quantum.app.model.finance.SocialInsurance;
 import com.techncat.quantum.app.service.finance.social.FinanceSocialInsuranceService;
 import com.techncat.quantum.app.vos.finance.SocialInsuranceVO;
-import com.techncat.quantum.app.vos.people.PeopleVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+
+import static com.techncat.quantum.app.common.auth.AuthUtil.hasAuth;
 
 @RestController
 @RequestMapping("/api/finance/social_insurances")
@@ -29,8 +34,12 @@ public class FinanceSocialInsuranceController {
     private VOEnhanceUtil voEnhanceUtil;
 
     @GetMapping("/{id}")
-    public ResponseEntity get(@PathVariable("id") Long id) {
+    public ResponseEntity get(@ForkiAser(requiredRoles = {ROLE.finance, ROLE.finance_social_insurance}) Aser aser,
+                              @PathVariable("id") Long id) {
         SocialInsurance record = financeSocialInsuranceService.fetch(id);
+        if (record.getPeople() != null && !hasAuth(aser, record.getPeople().getId()))
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+
         SocialInsuranceVO data = voUtils.copy(record, SocialInsuranceVO.class);
 //        data.setPeople(PeopleVO.renderSimple(record.getPeople()));
 
@@ -38,8 +47,11 @@ public class FinanceSocialInsuranceController {
     }
 
     @GetMapping("/{id}/structure")
-    public ResponseEntity structure(@PathVariable("id") Long id) throws IllegalAccessException {
+    public ResponseEntity structure(@ForkiAser(requiredRoles = {ROLE.finance, ROLE.finance_social_insurance}) Aser aser,
+                                    @PathVariable("id") Long id) throws IllegalAccessException {
         SocialInsurance record = financeSocialInsuranceService.fetch(id);
+        if (record.getPeople() != null && !hasAuth(aser, record.getPeople().getId()))
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         SocialInsuranceVO data = voUtils.copy(record, SocialInsuranceVO.class);
 //        data.setPeople(PeopleVO.renderSimple(record.getPeople()));
@@ -53,17 +65,28 @@ public class FinanceSocialInsuranceController {
     }
 
     @PostMapping
-    public ResponseEntity create(@RequestBody SocialInsuranceVO payload) {
+    public ResponseEntity create(@ForkiAser(requiredRoles = {ROLE.edit_finance, ROLE.edit_finance_social_insurance}) Aser aser,
+                                 @RequestBody SocialInsuranceVO payload) {
         return ResponseEntity.status(201).body(financeSocialInsuranceService.create(payload));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity update(@PathVariable("id") Long id, @RequestBody SocialInsuranceVO payload) {
+    public ResponseEntity update(@ForkiAser(requiredRoles = {ROLE.edit_finance, ROLE.edit_finance_social_insurance}) Aser aser,
+                                 @PathVariable("id") Long id, @RequestBody SocialInsuranceVO payload) {
+        SocialInsurance record = financeSocialInsuranceService.fetch(id);
+        if (record.getPeople() != null && !hasAuth(aser, record.getPeople().getId()))
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+
         return ResponseEntity.status(200).body(financeSocialInsuranceService.update(id, payload));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable("id") Long id) {
+    public ResponseEntity delete(@ForkiAser(requiredRoles = {ROLE.delete_finance, ROLE.delete_finance_social_insurance}) Aser aser,
+                                 @PathVariable("id") Long id) {
+        SocialInsurance record = financeSocialInsuranceService.fetch(id);
+        if (record.getPeople() != null && !hasAuth(aser, record.getPeople().getId()))
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+
         financeSocialInsuranceService.delete(id);
         return ResponseEntity.status(204).build();
     }

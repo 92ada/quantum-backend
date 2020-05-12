@@ -1,5 +1,7 @@
 package com.techncat.quantum.app.controller.equipment;
 
+import com.techncat.quantum.app.auth.annotation.ForkiAser;
+import com.techncat.quantum.app.auth.entity.Aser;
 import com.techncat.quantum.app.model.equipment.Purchasing;
 import com.techncat.quantum.app.model.equipment.Stock;
 import com.techncat.quantum.app.service.equipment.EquipmentPurchasingService;
@@ -25,7 +27,8 @@ public class EquipmentSearcher {
     private EquipmentPurchasingService purchasingService;
 
     @GetMapping("/purchasing")
-    public Page<Purchasing> searchPurchasing(@RequestParam(value = "word", required = false) String word,
+    public Page<Purchasing> searchPurchasing(@ForkiAser Aser aser,
+                                             @RequestParam(value = "word", required = false) String word,
                                              @RequestParam(value = "page", defaultValue = "1") Integer page,
                                              @RequestParam(value = "limit", defaultValue = "10") Integer size,
                                              @RequestParam(value = "order", defaultValue = "desc") String order,
@@ -37,11 +40,12 @@ public class EquipmentSearcher {
             sort = Sort.by(byProp).ascending();
         }
         PageRequest request = PageRequest.of(page - 1, size, sort);
-        return purchasingService.page(word, request);
+        return purchasingService.page(aser, word, request);
     }
 
     @GetMapping("/stock")
-    public Page<Stock> searchStock(@RequestParam(value = "word", required = false) String word,
+    public Page<Stock> searchStock(@ForkiAser Aser aser,
+                                   @RequestParam(value = "word", required = false) String word,
                                    @RequestParam(value = "page", defaultValue = "1") Integer page,
                                    @RequestParam(value = "limit", defaultValue = "10") Integer size,
                                    @RequestParam(value = "order", defaultValue = "desc") String order,
@@ -53,6 +57,6 @@ public class EquipmentSearcher {
             sort = Sort.by(byProp).ascending();
         }
         PageRequest request = PageRequest.of(page - 1, size, sort);
-        return equipmentStockService.page(word, request);
+        return equipmentStockService.page(aser, word, request);
     }
 }

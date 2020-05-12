@@ -32,7 +32,7 @@ public class LabRunner {
 
 
     // 找到合适的访问区间，根据该人员的所属实验室
-    private List<Long> findVisitableLabIds(String sid) {
+    public List<Long> findVisitableLabIds(String sid) {
         List<Long> ids = new ArrayList<>();
         People me = peopleRepository.findFirstBySid(sid);
         if (me == null) return ids; // 如果访问者不在库内
@@ -43,7 +43,7 @@ public class LabRunner {
     }
 
     // 可访问的lab有哪些？
-    public List<Long> findVisitableLabIds(List<Lab> LABS, List<Lab> myLabs) {
+    private List<Long> findVisitableLabIds(List<Lab> LABS, List<Lab> myLabs) {
         if (myLabs.isEmpty()) return new ArrayList<>();
         if (LABS.isEmpty()) return new ArrayList<>();
         return this.create(LABS, myLabs);

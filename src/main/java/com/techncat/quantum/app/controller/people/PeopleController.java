@@ -15,8 +15,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
+
+import static com.techncat.quantum.app.common.auth.AuthUtil.hasAuth;
 
 @RestController
 @RequestMapping("/api/people")
@@ -40,17 +41,6 @@ public class PeopleController {
     private PeopleFamilyService familyService;
     @Autowired
     private VOEnhanceUtil voEnhanceUtil;
-    @Autowired
-    private LabRunner runner;
-
-    private Boolean hasAuth(Aser aser, Long targetId) {
-        List<String> roles = aser.getRoles();
-        if (roles.contains("root") || roles.contains("people") || roles.contains("delete_people") || roles.contains("edit_people")) {
-            return true;
-        }
-        List<Long> ids = runner.fixUserIds(aser.getSid());
-        return ids.contains(targetId);
-    }
 
     // show
     @GetMapping("/{people_id}/base")

@@ -1,6 +1,8 @@
 package com.techncat.quantum.app.excel.controller;
 
 
+import com.techncat.quantum.app.auth.annotation.ForkiAser;
+import com.techncat.quantum.app.auth.entity.Aser;
 import com.techncat.quantum.app.excel.model.daily.VisitRow;
 import com.techncat.quantum.app.excel.service.ExcelService;
 import com.techncat.quantum.app.model.daily.Visit;
@@ -59,7 +61,7 @@ public class DailyVisitExcelController {
     }
 
     @GetMapping("/{anyname}.xlsx") // 导出后下载保存名字为：anyname.xls
-    public void excelExport(// @ForkiAser Aser aser,
+    public void excelExport(@ForkiAser Aser aser,
                             @RequestParam(value = "start", required = false) String start, // 2018-01-01
                             @RequestParam(value = "end", required = false) String end,
                             @RequestParam(value = "page", defaultValue = "1") Integer page,
@@ -76,7 +78,7 @@ public class DailyVisitExcelController {
             sort = Sort.by(byProp).ascending();
         }
         PageRequest request = PageRequest.of(page - 1, size, sort);
-        Page<Visit> expPage = daily_searchService.searchVisit(startDate, endDate, request);
+        Page<Visit> expPage = daily_searchService.searchVisit(aser, startDate, endDate, request);
         excelService.export(expPage.getContent().parallelStream().map(VisitRow::render).collect(Collectors.toList()), response.getOutputStream());
     }
 

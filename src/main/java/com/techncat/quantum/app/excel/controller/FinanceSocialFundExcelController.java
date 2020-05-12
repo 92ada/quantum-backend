@@ -3,13 +3,11 @@ package com.techncat.quantum.app.excel.controller;
 
 import com.techncat.quantum.app.auth.annotation.ForkiAser;
 import com.techncat.quantum.app.auth.entity.Aser;
-import com.techncat.quantum.app.excel.model.finance.ExpRow;
 import com.techncat.quantum.app.excel.model.finance.SocialFundRow;
 import com.techncat.quantum.app.excel.service.ExcelService;
-import com.techncat.quantum.app.model.finance.*;
+import com.techncat.quantum.app.model.finance.SocialFund;
 import com.techncat.quantum.app.model.people.People;
-import com.techncat.quantum.app.repository.finance.*;
-import com.techncat.quantum.app.service.finance.FinanceExp_SearchService;
+import com.techncat.quantum.app.repository.finance.FinSocialFundRepository;
 import com.techncat.quantum.app.service.finance.social.FinanceSocialFundService;
 import com.techncat.quantum.app.service.people.PeopleShowService;
 import com.techncat.quantum.app.service.utils.TimeFormatter;
@@ -82,7 +80,7 @@ public class FinanceSocialFundExcelController {
             sort = Sort.by(byProp).ascending();
         }
         PageRequest request = PageRequest.of(page - 1, size, sort);
-        Page<SocialFund> expPage = financeSocialFundService.page(startDate, endDate, request);
+        Page<SocialFund> expPage = financeSocialFundService.page(aser, startDate, endDate, request);
         excelService.export(expPage.getContent().parallelStream().map(SocialFundRow::render).collect(Collectors.toList()), response.getOutputStream());
     }
 

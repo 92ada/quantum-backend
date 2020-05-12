@@ -1,6 +1,5 @@
 package com.techncat.quantum.app.service.research;
 
-import com.techncat.quantum.app.common.voutils.VOUtils;
 import com.techncat.quantum.app.model.research.Paper;
 import com.techncat.quantum.app.model.research.Patent;
 import com.techncat.quantum.app.model.research.Project;
@@ -9,6 +8,7 @@ import com.techncat.quantum.app.repository.research.ResearchPaperRepository;
 import com.techncat.quantum.app.repository.research.ResearchPatentRepository;
 import com.techncat.quantum.app.repository.research.ResearchProjectRepository;
 import com.techncat.quantum.app.repository.research.ResearchRewardRepository;
+import com.techncat.quantum.app.service.utils.JsonLoader;
 import com.techncat.quantum.app.vos.research.PaperVO;
 import com.techncat.quantum.app.vos.research.PatentVO;
 import com.techncat.quantum.app.vos.research.ProjectVO;
@@ -26,6 +26,8 @@ public class ResearchUpdateService {
 //    private VOUtils voUtils;
     @Autowired
     private ResearchShowService showService;
+    @Autowired
+    private JsonLoader jsonLoader;
     @Resource
     private ResearchPaperRepository researchPaperRepository;
     @Resource
@@ -40,6 +42,7 @@ public class ResearchUpdateService {
         BeanUtils.copyProperties(data, paper);
         paper.setId(id);
         paper.setUpdateAt(new Date());
+        paper.setSustech_people(jsonLoader.loadPeopleList(paper.getAuthorJson()));
         return researchPaperRepository.save(paper);
     }
 
@@ -48,6 +51,7 @@ public class ResearchUpdateService {
         BeanUtils.copyProperties(data, record);
         record.setId(id);
         record.setUpdateAt(new Date());
+        record.setApplicant(jsonLoader.loadPeopleList(record.getApplicantJson()));
         return researchPatentRepository.save(record);
     }
 

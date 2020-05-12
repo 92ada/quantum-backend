@@ -11,9 +11,11 @@ import java.util.List;
 public interface EquPurchasingRepository extends JpaRepository<Purchasing, Long> {
     Page<Purchasing> findAll(Pageable pageable);
 
+    Page<Purchasing> findAllByPi_IdIn(List<Long> peopleIds, Pageable pageable);
+
     List<Purchasing> findAll();
 
-    Page<Purchasing> findAllByTitleLike(@Param("title") String title, Pageable pageable);
+    Page<Purchasing> findAllByTitleLikeAndPi_IdIn(@Param("title") String title, List<Long> peopleIds, Pageable pageable);
 
     List<Purchasing> findAllByTitleLike(@Param("title") String title);
 }

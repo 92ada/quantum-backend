@@ -104,9 +104,9 @@ public class FinanceExcelController {
         PageRequest request = PageRequest.of(page - 1, size, sort);
         Page<Exp> expPage = null;
         if (type == null) {
-            expPage = financeExp_searchService.search(aser.getSid(), startDate, endDate, request);
+            expPage = financeExp_searchService.search(aser, startDate, endDate, request);
         } else {
-            expPage = financeExp_searchService.search(aser.getSid(), startDate, endDate, type, request);
+            expPage = financeExp_searchService.search(aser, startDate, endDate, type, request);
         }
         excelService.export(expPage.getContent().parallelStream().map(ExpRow::render).collect(Collectors.toList()), response.getOutputStream());
     }

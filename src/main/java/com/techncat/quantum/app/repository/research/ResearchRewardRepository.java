@@ -6,8 +6,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface ResearchRewardRepository extends JpaRepository<Reward, Long> {
-    Page<Reward> findAllByTitleLike(
+    Page<Reward> findAllByTitleLikeAndRewarded_IdIn(
             @Param("title") String title,
-            Pageable pageable);
+            List<Long> peopleIds, Pageable pageable);
+
+    Page<Reward> findAllByRewarded_IdIn(
+            List<Long> peopleIds, Pageable pageable);
 }

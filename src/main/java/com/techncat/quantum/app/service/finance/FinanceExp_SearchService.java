@@ -1,5 +1,6 @@
 package com.techncat.quantum.app.service.finance;
 
+import com.techncat.quantum.app.auth.entity.Aser;
 import com.techncat.quantum.app.model.finance.Exp;
 import com.techncat.quantum.app.model.people.People;
 import com.techncat.quantum.app.model.research.ProjectAdmin;
@@ -16,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static com.techncat.quantum.app.common.auth.AuthUtil.isRoot;
+
 @Service
 public class FinanceExp_SearchService {
 
@@ -26,33 +29,27 @@ public class FinanceExp_SearchService {
     @Autowired
     private PeopleShowService peopleShowService;
 
-    public Page<Exp> search(Date start, Date end, PageRequest pageRequest) {
-        if (start == null || end == null) {
+    public Page<Exp> search(Aser aser, Date start, Date end, PageRequest pageRequest) {
+        if (isRoot(aser)) {
             return repository.findAll(pageRequest);
         }
-        return repository.findAllByDateBetween(start, end, pageRequest);
-    }
-
-    public Page<Exp> search(Date start, Date end, Exp.Type type, PageRequest pageRequest) {
         if (start == null || end == null) {
-            return repository.findAllByType(type, pageRequest);
+            return repository.findAllByExpenditureNoIn(this.availableENOs(aser.getSid()), pageRequest);
         }
-        return repository.findAllByTypeAndDateBetween(type, start, end, pageRequest);
+        return repository.findAllByDateBetweenAndExpenditureNoIn(start, end, this.availableENOs(aser.getSid()), pageRequest);
     }
 
-    public Page<Exp> search(String sid, Date start, Date end, PageRequest pageRequest) {
-        if (start == null || end == null) {
+    public Page<Exp> search(Aser aser, Date start, Date end, Exp.Type type, PageRequest pageRequest) {
+        if (isRoot(aser)) {
             return repository.findAll(pageRequest);
         }
-        return repository.findAllByDateBetweenAndExpenditureNoIn(start, end, this.availableENOs(sid), pageRequest);
+        if (start == null || end == null) {
+            return repository.findAllByTypeAndExpenditureNoIn(type, this.availableENOs(aser.getSid()), pageRequest);
+        }
+        return repository.findAllByTypeAndDateBetweenAndExpenditureNoIn(type, start, end, this.availableENOs(aser.getSid()), pageRequest);
     }
 
-    public Page<Exp> search(String sid, Date start, Date end, Exp.Type type, PageRequest pageRequest) {
-        if (start == null || end == null) {
-            return repository.findAllByTypeAndExpenditureNoIn(type, this.availableENOs(sid), pageRequest);
-        }
-        return repository.findAllByTypeAndDateBetweenAndExpenditureNoIn(type, start, end, this.availableENOs(sid), pageRequest);
-    }
+
 
     private List<String> availableENOs(String sid) {
         try {

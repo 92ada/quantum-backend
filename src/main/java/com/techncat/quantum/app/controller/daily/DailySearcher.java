@@ -1,5 +1,7 @@
 package com.techncat.quantum.app.controller.daily;
 
+import com.techncat.quantum.app.auth.annotation.ForkiAser;
+import com.techncat.quantum.app.auth.entity.Aser;
 import com.techncat.quantum.app.model.daily.Hosting;
 import com.techncat.quantum.app.model.daily.Report;
 import com.techncat.quantum.app.model.daily.Travel;
@@ -29,7 +31,8 @@ public class DailySearcher {
     private TimeFormatter timeFormatter;
 
     @GetMapping("/hosting")
-    public Page<Hosting> searchHosting(@RequestParam(value = "start", required = false) String start, // 2018-01-01
+    public Page<Hosting> searchHosting(@ForkiAser Aser aser,
+                                       @RequestParam(value = "start", required = false) String start, // 2018-01-01
                                        @RequestParam(value = "end", required = false) String end,
                                        @RequestParam(value = "page", defaultValue = "1") Integer page,
                                        @RequestParam(value = "limit", defaultValue = "10") Integer size,
@@ -44,11 +47,12 @@ public class DailySearcher {
             sort = Sort.by(byProp).ascending();
         }
         PageRequest request = PageRequest.of(page - 1, size, sort);
-        return searchService.searchHosting(startDate, endDate, request);
+        return searchService.searchHosting(aser, startDate, endDate, request);
     }
 
     @GetMapping("/report")
-    public Page<Report> searchReport(@RequestParam(value = "start", required = false) String start, // 2018-01-01
+    public Page<Report> searchReport(@ForkiAser Aser aser,
+                                     @RequestParam(value = "start", required = false) String start, // 2018-01-01
                                      @RequestParam(value = "end", required = false) String end,
                                      @RequestParam(value = "page", defaultValue = "1") Integer page,
                                      @RequestParam(value = "limit", defaultValue = "10") Integer size,
@@ -63,11 +67,12 @@ public class DailySearcher {
             sort = Sort.by(byProp).ascending();
         }
         PageRequest request = PageRequest.of(page - 1, size, sort);
-        return searchService.searchReport(startDate, endDate, request);
+        return searchService.searchReport(aser, startDate, endDate, request);
     }
 
     @GetMapping("/travel")
-    public Page<Travel> searchTravel(@RequestParam(value = "start", required = false) String start, // 2018-01-01
+    public Page<Travel> searchTravel(@ForkiAser Aser aser,
+                                     @RequestParam(value = "start", required = false) String start, // 2018-01-01
                                      @RequestParam(value = "end", required = false) String end,
                                      @RequestParam(value = "page", defaultValue = "1") Integer page,
                                      @RequestParam(value = "limit", defaultValue = "10") Integer size,
@@ -82,11 +87,12 @@ public class DailySearcher {
             sort = Sort.by(byProp).ascending();
         }
         PageRequest request = PageRequest.of(page - 1, size, sort);
-        return searchService.searchTravel(startDate, endDate, request);
+        return searchService.searchTravel(aser, startDate, endDate, request);
     }
 
     @GetMapping("/visit")
-    public Page<Visit> searchVisit(@RequestParam(value = "start", required = false) String start, // 2018-01-01
+    public Page<Visit> searchVisit(@ForkiAser Aser aser,
+                                   @RequestParam(value = "start", required = false) String start, // 2018-01-01
                                    @RequestParam(value = "end", required = false) String end,
                                    @RequestParam(value = "page", defaultValue = "1") Integer page,
                                    @RequestParam(value = "limit", defaultValue = "10") Integer size,
@@ -101,7 +107,7 @@ public class DailySearcher {
             sort = Sort.by(byProp).ascending();
         }
         PageRequest request = PageRequest.of(page - 1, size, sort);
-        return searchService.searchVisit(startDate, endDate, request);
+        return searchService.searchVisit(aser, startDate, endDate, request);
     }
 
 }

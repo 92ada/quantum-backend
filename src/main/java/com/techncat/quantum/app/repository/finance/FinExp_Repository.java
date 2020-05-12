@@ -19,6 +19,8 @@ public interface FinExp_Repository extends JpaRepository<Exp, Long> {
 
     Page<Exp> findAllByDateBetween(Date start, Date end, Pageable pageable);
 
+    Page<Exp> findAllByExpenditureNoIn(Collection<String> expenditureNos, Pageable pageable);
+
     Page<Exp> findAllByTypeAndExpenditureNoIn(@Param("type") Exp.Type type, Collection<String> expenditureNos, Pageable pageable);
 
     Page<Exp> findAllByTypeAndDateBetweenAndExpenditureNoIn(@Param("type") Exp.Type type, Date start, Date end, Collection<String> expenditureNos, Pageable pageable);
