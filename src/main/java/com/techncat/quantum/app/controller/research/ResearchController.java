@@ -1,6 +1,14 @@
 package com.techncat.quantum.app.controller.research;
 
+import com.techncat.quantum.app.auth.annotation.ForkiAser;
+import com.techncat.quantum.app.auth.annotation.ROLE;
+import com.techncat.quantum.app.auth.entity.Aser;
 import com.techncat.quantum.app.common.voenhance.VOEnhanceUtil;
+import com.techncat.quantum.app.model.research.Paper;
+import com.techncat.quantum.app.model.research.Patent;
+import com.techncat.quantum.app.model.research.Project;
+import com.techncat.quantum.app.model.research.Reward;
+import com.techncat.quantum.app.service.people.LabRunner;
 import com.techncat.quantum.app.service.research.ResearchCreateService;
 import com.techncat.quantum.app.service.research.ResearchDeleteService;
 import com.techncat.quantum.app.service.research.ResearchShowService;
@@ -10,10 +18,13 @@ import com.techncat.quantum.app.vos.research.PatentVO;
 import com.techncat.quantum.app.vos.research.ProjectVO;
 import com.techncat.quantum.app.vos.research.RewardVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/research")
@@ -35,6 +46,24 @@ public class ResearchController {
 
     @Autowired
     private VOEnhanceUtil voEnhanceUtil;
+    @Autowired
+    private LabRunner runner;
+
+    private Boolean hasAuth(Aser aser, Long targetId) {
+        List<String> roles = aser.getRoles();
+        if (roles.contains("root") || roles.contains("people")) {
+            return true;
+        }
+        List<Long> ids = runner.fixUserIds(aser.getSid());
+        return ids.contains(targetId);
+    }
+
+    private Boolean hasAuth(Aser aser, List<Long> targetIds) {
+        for (Long id : targetIds) {
+            if (hasAuth(aser, id)) return true; // 有访问一个人的权限即可有权限
+        }
+        return false;
+    }
 
     /* paper */
 
@@ -47,12 +76,22 @@ public class ResearchController {
     }
 
     @GetMapping("/paper/{paper_id}")
-    public ResponseEntity<PaperVO> showPaper(@PathVariable("paper_id") Long id) throws ResearchShowService.PaperNotFoundException {
-        return ResponseEntity.ok(showService.showPaper(id));
+    public ResponseEntity<PaperVO> showPaper(@ForkiAser(requiredRoles = {ROLE.research, ROLE.research_paper}) Aser aser,
+                                             @PathVariable("paper_id") Long id) throws ResearchShowService.PaperNotFoundException {
+        Paper paper = showService.fetchPaper(id);
+        if (!hasAuth(aser, paper.getSustech_people().stream().map(x -> x.getId()).collect(Collectors.toList())))
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+        else
+            return ResponseEntity.ok(showService.showPaper(id));
     }
 
     @GetMapping("/paper/{paper_id}/structure")
-    public ResponseEntity<Map> showPaperStructure(@PathVariable("paper_id") Long id) throws ResearchShowService.PaperNotFoundException, IllegalAccessException {
+    public ResponseEntity<Map> showPaperStructure(@ForkiAser(requiredRoles = {ROLE.research, ROLE.research_paper}) Aser aser,
+                                                  @PathVariable("paper_id") Long id) throws ResearchShowService.PaperNotFoundException, IllegalAccessException {
+        Paper paper = showService.fetchPaper(id);
+        if (!hasAuth(aser, paper.getSustech_people().stream().map(x -> x.getId()).collect(Collectors.toList())))
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+
         PaperVO paperVO = showService.showPaper(id);
         Map result = voEnhanceUtil.enhance("data", paperVO);
         result.put("index", "research.paper_info");
@@ -67,12 +106,22 @@ public class ResearchController {
     }
 
     @PutMapping("/paper/{id}")
-    public ResponseEntity update(@PathVariable("id") Long id, @RequestBody PaperVO data) throws ResearchShowService.PaperNotFoundException {
+    public ResponseEntity update(@ForkiAser(requiredRoles = {ROLE.edit_research, ROLE.edit_research_paper}) Aser aser,
+                                 @PathVariable("id") Long id, @RequestBody PaperVO data) throws ResearchShowService.PaperNotFoundException {
+        Paper paper = showService.fetchPaper(id);
+        if (!hasAuth(aser, paper.getSustech_people().stream().map(x -> x.getId()).collect(Collectors.toList())))
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+
         return ResponseEntity.status(201).body(updateService.update(id, data));
     }
 
     @DeleteMapping("/paper/{id}")
-    public ResponseEntity deletePaper(@PathVariable("id") Long id) throws ResearchShowService.PaperNotFoundException {
+    public ResponseEntity deletePaper(@ForkiAser(requiredRoles = {ROLE.delete_research, ROLE.delete_research_paper}) Aser aser,
+                                      @PathVariable("id") Long id) throws ResearchShowService.PaperNotFoundException {
+        Paper paper = showService.fetchPaper(id);
+        if (!hasAuth(aser, paper.getSustech_people().stream().map(x -> x.getId()).collect(Collectors.toList())))
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+
         deleteService.deletePaper(id);
         return ResponseEntity.status(204).build();
     }
@@ -88,12 +137,22 @@ public class ResearchController {
     }
 
     @GetMapping("/patent/{patent_id}")
-    public ResponseEntity<PatentVO> showPatent(@PathVariable("patent_id") Long id) throws ResearchShowService.PatentNotFoundException {
+    public ResponseEntity<PatentVO> showPatent(@ForkiAser(requiredRoles = {ROLE.research, ROLE.research_patent}) Aser aser,
+                                               @PathVariable("patent_id") Long id) throws ResearchShowService.PatentNotFoundException {
+        Patent patent = showService.fetchPatent(id);
+        if (!hasAuth(aser, patent.getApplicant().stream().map(x -> x.getId()).collect(Collectors.toList())))
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+
         return ResponseEntity.ok(showService.showPatent(id));
     }
 
     @GetMapping("/patent/{patent_id}/structure")
-    public ResponseEntity<Map> showPatentStructure(@PathVariable("patent_id") Long id) throws ResearchShowService.PatentNotFoundException, IllegalAccessException {
+    public ResponseEntity<Map> showPatentStructure(@ForkiAser(requiredRoles = {ROLE.research, ROLE.research_patent}) Aser aser,
+                                                   @PathVariable("patent_id") Long id) throws ResearchShowService.PatentNotFoundException, IllegalAccessException {
+        Patent patent = showService.fetchPatent(id);
+        if (!hasAuth(aser, patent.getApplicant().stream().map(x -> x.getId()).collect(Collectors.toList())))
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+
         PatentVO patentVO = showService.showPatent(id);
         Map result = voEnhanceUtil.enhance("data", patentVO);
         result.put("index", "research.patent_info");
@@ -108,12 +167,22 @@ public class ResearchController {
     }
 
     @PutMapping("/patent/{id}")
-    public ResponseEntity update(@PathVariable("id") Long id, @RequestBody PatentVO data) throws ResearchShowService.PatentNotFoundException {
+    public ResponseEntity update(@ForkiAser(requiredRoles = {ROLE.edit_research, ROLE.edit_research_patent}) Aser aser,
+                                 @PathVariable("id") Long id, @RequestBody PatentVO data) throws ResearchShowService.PatentNotFoundException {
+        Patent patent = showService.fetchPatent(id);
+        if (!hasAuth(aser, patent.getApplicant().stream().map(x -> x.getId()).collect(Collectors.toList())))
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+
         return ResponseEntity.status(201).body(updateService.update(id, data));
     }
 
     @DeleteMapping("/patent/{id}")
-    public ResponseEntity deletePatent(@PathVariable("id") Long id) throws ResearchShowService.PatentNotFoundException {
+    public ResponseEntity deletePatent(@ForkiAser(requiredRoles = {ROLE.delete_research, ROLE.delete_research_patent}) Aser aser,
+                                       @PathVariable("id") Long id) throws ResearchShowService.PatentNotFoundException {
+        Patent patent = showService.fetchPatent(id);
+        if (!hasAuth(aser, patent.getApplicant().stream().map(x -> x.getId()).collect(Collectors.toList())))
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+
         deleteService.deletePatent(id);
         return ResponseEntity.status(204).build();
     }
@@ -129,12 +198,22 @@ public class ResearchController {
     }
 
     @GetMapping("/project/{project_id}")
-    public ResponseEntity<ProjectVO> showProject(@PathVariable("project_id") Long id) throws ResearchShowService.ProjectNotFoundException {
+    public ResponseEntity<ProjectVO> showProject(@ForkiAser(requiredRoles = {ROLE.research, ROLE.research_project}) Aser aser,
+                                                 @PathVariable("project_id") Long id) throws ResearchShowService.ProjectNotFoundException {
+        Project project = showService.fetchProject(id);
+        if (!hasAuth(aser, project.getLeader().getId()))
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+
         return ResponseEntity.ok(showService.showProject(id));
     }
 
     @GetMapping("/project/{project_id}/structure")
-    public ResponseEntity<Map> showProjectStructure(@PathVariable("project_id") Long id) throws IllegalAccessException, ResearchShowService.ProjectNotFoundException {
+    public ResponseEntity<Map> showProjectStructure(@ForkiAser(requiredRoles = {ROLE.research, ROLE.research_project}) Aser aser,
+                                                    @PathVariable("project_id") Long id) throws IllegalAccessException, ResearchShowService.ProjectNotFoundException {
+        Project project = showService.fetchProject(id);
+        if (!hasAuth(aser, project.getLeader().getId()))
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+
         ProjectVO projectVO = showService.showProject(id);
         Map result = voEnhanceUtil.enhance("data", projectVO);
         result.put("index", "research.project_info");
@@ -149,12 +228,22 @@ public class ResearchController {
     }
 
     @PutMapping("/project/{id}")
-    public ResponseEntity update(@PathVariable("id") Long id, @RequestBody ProjectVO data) throws ResearchShowService.ProjectNotFoundException {
+    public ResponseEntity update(@ForkiAser(requiredRoles = {ROLE.edit_research, ROLE.edit_research_project}) Aser aser,
+                                 @PathVariable("id") Long id, @RequestBody ProjectVO data) throws ResearchShowService.ProjectNotFoundException {
+        Project project = showService.fetchProject(id);
+        if (!hasAuth(aser, project.getLeader().getId()))
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+
         return ResponseEntity.status(201).body(updateService.update(id, data));
     }
 
     @DeleteMapping("/project/{id}")
-    public ResponseEntity deleteProject(@PathVariable("id") Long id) throws ResearchShowService.ProjectNotFoundException {
+    public ResponseEntity deleteProject(@ForkiAser(requiredRoles = {ROLE.delete_research, ROLE.delete_research_project}) Aser aser,
+                                        @PathVariable("id") Long id) throws ResearchShowService.ProjectNotFoundException {
+        Project project = showService.fetchProject(id);
+        if (!hasAuth(aser, project.getLeader().getId()))
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+
         deleteService.deleteProject(id);
         return ResponseEntity.status(204).build();
     }
@@ -171,12 +260,22 @@ public class ResearchController {
     }
 
     @GetMapping("/reward/{reward_id}")
-    public ResponseEntity<RewardVO> showReward(@PathVariable("reward_id") Long id) throws ResearchShowService.RewardNotFoundException {
+    public ResponseEntity<RewardVO> showReward(@ForkiAser(requiredRoles = {ROLE.research, ROLE.research_reward}) Aser aser,
+                                               @PathVariable("reward_id") Long id) throws ResearchShowService.RewardNotFoundException {
+        Reward reward = showService.fetchReward(id);
+        if (!hasAuth(aser, reward.getRewarded().getId()))
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+
         return ResponseEntity.ok(showService.showReward(id));
     }
 
     @GetMapping("/reward/{reward_id}/structure")
-    public ResponseEntity<Map> showRewardStructure(@PathVariable("reward_id") Long id) throws IllegalAccessException, ResearchShowService.RewardNotFoundException {
+    public ResponseEntity<Map> showRewardStructure(@ForkiAser(requiredRoles = {ROLE.research, ROLE.research_reward}) Aser aser,
+                                                   @PathVariable("reward_id") Long id) throws IllegalAccessException, ResearchShowService.RewardNotFoundException {
+        Reward reward = showService.fetchReward(id);
+        if (!hasAuth(aser, reward.getRewarded().getId()))
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+
         RewardVO rewardVO = showService.showReward(id);
         Map result = voEnhanceUtil.enhance("data", rewardVO);
         result.put("index", "research.reward_info");
@@ -191,15 +290,23 @@ public class ResearchController {
     }
 
     @PutMapping("/reward/{id}")
-    public ResponseEntity update(@PathVariable("id") Long id, @RequestBody RewardVO data) throws ResearchShowService.RewardNotFoundException {
+    public ResponseEntity update(@ForkiAser(requiredRoles = {ROLE.edit_research, ROLE.edit_research_reward}) Aser aser,
+                                 @PathVariable("id") Long id, @RequestBody RewardVO data) throws ResearchShowService.RewardNotFoundException {
+        Reward reward = showService.fetchReward(id);
+        if (!hasAuth(aser, reward.getRewarded().getId()))
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+
         return ResponseEntity.status(201).body(updateService.update(id, data));
     }
 
     @DeleteMapping("/reward/{id}")
-    public ResponseEntity delete(@PathVariable("id") Long id) throws ResearchShowService.RewardNotFoundException {
+    public ResponseEntity delete(@ForkiAser(requiredRoles = {ROLE.delete_research, ROLE.delete_research_reward}) Aser aser,
+                                 @PathVariable("id") Long id) throws ResearchShowService.RewardNotFoundException {
+        Reward reward = showService.fetchReward(id);
+        if (!hasAuth(aser, reward.getRewarded().getId()))
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+
         deleteService.deleteReward(id);
         return ResponseEntity.status(204).build();
     }
-
-
 }

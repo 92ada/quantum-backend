@@ -83,6 +83,7 @@ public class People_SearchService {
         target.setOffice_address(source.getOffice_address());
         target.setEmail(source.getEmail());
         target.setStatus(source.getStatus());
+        target.setType(source.getType());
         return target;
     }
 }
