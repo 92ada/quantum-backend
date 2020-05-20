@@ -3,6 +3,7 @@ package com.techncat.quantum.app.controller.finance;
 import com.techncat.quantum.app.auth.annotation.ForkiAser;
 import com.techncat.quantum.app.auth.annotation.ROLE;
 import com.techncat.quantum.app.auth.entity.Aser;
+import com.techncat.quantum.app.common.auth.AuthUtil;
 import com.techncat.quantum.app.common.voenhance.VOEnhanceUtil;
 import com.techncat.quantum.app.common.voutils.VOUtils;
 import com.techncat.quantum.app.model.finance.SocialFund;
@@ -15,8 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
-
-import static com.techncat.quantum.app.common.auth.AuthUtil.hasAuth;
 
 @RestController
 @RequestMapping("/api/finance/social_funds")
@@ -33,12 +32,14 @@ public class FinanceSocialFundController {
     private VOUtils voUtils;
     @Autowired
     private VOEnhanceUtil voEnhanceUtil;
+    @Autowired
+    private AuthUtil authUtil;
 
     @GetMapping("/{id}")
     public ResponseEntity get(@ForkiAser(requiredRoles = {ROLE.finance, ROLE.finance_social_funds}) Aser aser,
                               @PathVariable("id") Long id) {
         SocialFund record = financeSocialFundService.fetch(id);
-        if (record.getPeople() != null && !hasAuth(aser, record.getPeople().getId()))
+        if (record.getPeople() != null && !authUtil.hasAuth(aser, record.getPeople().getId()))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         SocialFundVO data = voUtils.copy(record, SocialFundVO.class);
@@ -51,7 +52,7 @@ public class FinanceSocialFundController {
     public ResponseEntity structure(@ForkiAser(requiredRoles = {ROLE.finance, ROLE.finance_social_funds}) Aser aser,
                                     @PathVariable("id") Long id) throws IllegalAccessException {
         SocialFund record = financeSocialFundService.fetch(id);
-        if (record.getPeople() != null && !hasAuth(aser, record.getPeople().getId()))
+        if (record.getPeople() != null && !authUtil.hasAuth(aser, record.getPeople().getId()))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         SocialFundVO data = voUtils.copy(record, SocialFundVO.class);
@@ -75,7 +76,7 @@ public class FinanceSocialFundController {
     public ResponseEntity update(@ForkiAser(requiredRoles = {ROLE.edit_finance, ROLE.edit_finance_social_funds}) Aser aser,
                                  @PathVariable("id") Long id, @RequestBody SocialFundVO payload) {
         SocialFund record = financeSocialFundService.fetch(id);
-        if (record.getPeople() != null && !hasAuth(aser, record.getPeople().getId()))
+        if (record.getPeople() != null && !authUtil.hasAuth(aser, record.getPeople().getId()))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         return ResponseEntity.status(200).body(financeSocialFundService.update(id, payload));
@@ -85,7 +86,7 @@ public class FinanceSocialFundController {
     public ResponseEntity delete(@ForkiAser(requiredRoles = {ROLE.delete_finance, ROLE.delete_finance_social_funds}) Aser aser,
                                  @PathVariable("id") Long id) {
         SocialFund record = financeSocialFundService.fetch(id);
-        if (record.getPeople() != null && !hasAuth(aser, record.getPeople().getId()))
+        if (record.getPeople() != null && !authUtil.hasAuth(aser, record.getPeople().getId()))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         financeSocialFundService.delete(id);

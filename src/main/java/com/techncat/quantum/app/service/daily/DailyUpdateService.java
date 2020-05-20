@@ -2,6 +2,7 @@ package com.techncat.quantum.app.service.daily;
 
 import com.techncat.quantum.app.model.daily.*;
 import com.techncat.quantum.app.repository.daily.*;
+import com.techncat.quantum.app.service.utils.JsonLoader;
 import com.techncat.quantum.app.vos.daily.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class DailyUpdateService {
     @Resource
     private DailyVisitFlightRepository visitFlightRepository;
 
+    @Autowired
+    JsonLoader jsonLoader;
+
     public Hosting update(Long id, HostingVO data) {
         Hosting record = showService.fetchHosting(id);
         BeanUtils.copyProperties(data, record);
@@ -40,6 +44,7 @@ public class DailyUpdateService {
         BeanUtils.copyProperties(data, record);
         record.setId(id);
         record.setUpdateAt(new Date());
+        record.setInviter(jsonLoader.loadPeople(record.getInviterJson()));
         return reportRepository.save(record);
     }
 
@@ -48,6 +53,7 @@ public class DailyUpdateService {
         BeanUtils.copyProperties(data, record);
         record.setId(id);
         record.setUpdateAt(new Date());
+        record.setTraveler(jsonLoader.loadPeople(record.getTravelerJson()));
         return travelRepository.save(record);
     }
 
@@ -56,6 +62,7 @@ public class DailyUpdateService {
         BeanUtils.copyProperties(data, record);
         record.setId(id);
         record.setUpdateAt(new Date());
+        record.setReceptionist(jsonLoader.loadPeople(record.getReceptionistJson()));
         return visitRepository.save(record);
     }
 

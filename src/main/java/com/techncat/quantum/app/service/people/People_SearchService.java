@@ -73,7 +73,7 @@ public class People_SearchService {
         return source.map(People_SearchService::avoidRef);
     }
 
-    private static People avoidRef(People source) {
+    public static People avoidRef(People source) {
         People target = new People();
         target.setId(source.getId());
         target.setSid(source.getSid());

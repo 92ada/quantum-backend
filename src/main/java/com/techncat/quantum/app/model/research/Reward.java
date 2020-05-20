@@ -42,6 +42,7 @@ public class Reward {
     private Level level;
     @Enumerated
     private Grade grade;
+    @Temporal(TemporalType.DATE)
     private Date date;
     private String remark;
 }

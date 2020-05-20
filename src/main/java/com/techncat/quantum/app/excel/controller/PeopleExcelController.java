@@ -6,8 +6,7 @@ import com.techncat.quantum.app.auth.entity.Aser;
 import com.techncat.quantum.app.excel.model.people.*;
 import com.techncat.quantum.app.excel.service.ExcelService;
 import com.techncat.quantum.app.excel.service.PeopleExcelService;
-import com.techncat.quantum.app.model.people.*;
-import com.techncat.quantum.app.repository.people.*;
+import com.techncat.quantum.app.model.people.People;
 import com.techncat.quantum.app.service.people.People_SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,18 +16,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.io.IOException;
-import java.lang.reflect.Type;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-
-import static com.techncat.quantum.app.model.people.People.Type.*;
 
 @RestController
 @RequestMapping("/api/excel/people")
@@ -41,20 +35,6 @@ import static com.techncat.quantum.app.model.people.People.Type.*;
 public class PeopleExcelController {
     @Autowired
     private People_SearchService people_searchService;
-    @Resource
-    private People_Repository people_repository;
-    @Resource
-    private PeopleAdminRepository adminRepository;
-    @Resource
-    private PeoplePostdoctoralRepository postdoctoralRepository;
-    @Resource
-    private PeopleResearcherRepository researcherRepository;
-    @Resource
-    private PeopleStudentRepository studentRepository;
-    @Resource
-    private PeopleTeacherRepository teacherRepository;
-    @Resource
-    private PeopleVisitorRepository visitorRepository;
     @Autowired
     private ExcelService excelService;
     @Autowired

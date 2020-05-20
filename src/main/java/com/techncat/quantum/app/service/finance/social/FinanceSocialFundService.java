@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.techncat.quantum.app.common.auth.AuthUtil.isRoot;
 
@@ -29,10 +30,10 @@ public class FinanceSocialFundService {
 
     public Page<SocialFund> page(Aser aser, Date start, Date end, Pageable pageable) {
         if (isRoot(aser)) {
-            return repository.findAllByDateBetween(start, end, pageable);
+            return avoidRef(repository.findAllByDateBetween(start, end, pageable));
         }
         List<Long> peopleIds = runner.fixUserIds(aser.getSid());
-        return repository.findAllByDateBetweenAndPeople_IdIn(start, end, peopleIds, pageable);
+        return avoidRef(repository.findAllByDateBetweenAndPeople_IdIn(start, end, peopleIds, pageable));
     }
 
     public SocialFund fetch(Long id) {
@@ -68,5 +69,23 @@ public class FinanceSocialFundService {
         SocialFundNotFoundException(Long id) {
             super("SocialFund not found, id=[" + id + "]");
         }
+    }
+
+    private static List<SocialFund> avoidRef(List<SocialFund> list) {
+        return list.stream().map(FinanceSocialFundService::avoidRef).collect(Collectors.toList());
+    }
+
+    private static Page<SocialFund> avoidRef(Page<SocialFund> page) {
+        return page.map(FinanceSocialFundService::avoidRef);
+    }
+
+    private static SocialFund avoidRef(SocialFund sf) {
+        People p1 = sf.getPeople();
+        People p2 = new People();
+        p2.setId(p1.getId());
+        p2.setSid(p1.getSid());
+        p2.setName(p1.getName());
+        sf.setPeople(p2);
+        return sf;
     }
 }

@@ -3,6 +3,7 @@ package com.techncat.quantum.app.service.daily;
 import com.techncat.quantum.app.common.voutils.VOUtils;
 import com.techncat.quantum.app.model.daily.*;
 import com.techncat.quantum.app.repository.daily.*;
+import com.techncat.quantum.app.service.utils.JsonLoader;
 import com.techncat.quantum.app.vos.daily.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,9 @@ public class DailyCreateService {
     @Resource
     private DailyVisitFlightRepository visitFlightRepository;
 
+    @Autowired
+    JsonLoader jsonLoader;
+
     public Hosting create(HostingVO data) {
         Hosting preData = voUtils.copy(data, Hosting.class);
         preData.setId(null);
@@ -42,6 +46,7 @@ public class DailyCreateService {
         preData.setId(null);
         preData.setUpdateAt(new Date());
         preData.setCreatedAt(new Date());
+        preData.setInviter(jsonLoader.loadPeople(preData.getInviterJson()));
         return reportRepository.save(preData);
     }
 
@@ -50,6 +55,7 @@ public class DailyCreateService {
         preData.setId(null);
         preData.setUpdateAt(new Date());
         preData.setCreatedAt(new Date());
+        preData.setTraveler(jsonLoader.loadPeople(preData.getTravelerJson()));
         return travelRepository.save(preData);
     }
 
@@ -58,6 +64,7 @@ public class DailyCreateService {
         preData.setId(null);
         preData.setUpdateAt(new Date());
         preData.setCreatedAt(new Date());
+        preData.setReceptionist(jsonLoader.loadPeople(preData.getReceptionistJson()));
         return visitRepository.save(preData);
     }
 

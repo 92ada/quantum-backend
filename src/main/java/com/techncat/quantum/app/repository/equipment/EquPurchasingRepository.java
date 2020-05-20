@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface EquPurchasingRepository extends JpaRepository<Purchasing, Long> {
     Page<Purchasing> findAll(Pageable pageable);
@@ -18,4 +19,6 @@ public interface EquPurchasingRepository extends JpaRepository<Purchasing, Long>
     Page<Purchasing> findAllByTitleLikeAndPi_IdIn(@Param("title") String title, List<Long> peopleIds, Pageable pageable);
 
     List<Purchasing> findAllByTitleLike(@Param("title") String title);
+
+    Optional<Purchasing> findFirstByTitle(String title);
 }

@@ -12,7 +12,7 @@ public class AuthUtil {
     @Autowired
     private AuthHandler authHandler;
     @Autowired
-    private static LabRunner runner;
+    private LabRunner runner;
 
 //    public <T> T process(@ForkiAser Aser aser, T data) throws IllegalAccessException {
 //        Visible.ROLE[] roles = aser.getRoles().stream().map(Visible.ROLE::valueOf).toArray(Visible.ROLE[]::new);
@@ -21,7 +21,7 @@ public class AuthUtil {
     // 没写好
 
     // 根据实验室范围，判断目标人员的id是否有访问权限
-    public static Boolean hasAuth(Aser aser, Long targetId) {
+    public Boolean hasAuth(Aser aser, Long targetId) {
         List<String> roles = aser.getRoles();
         if (roles.contains("root") || roles.contains("people") || roles.contains("delete_people") || roles.contains("edit_people")) {
             return true;
@@ -30,14 +30,14 @@ public class AuthUtil {
         return ids.contains(targetId);
     }
 
-    public static Boolean hasAuth(Aser aser, List<Long> targetIds) {
+    public Boolean hasAuth(Aser aser, List<Long> targetIds) {
         for (Long id : targetIds) {
             if (hasAuth(aser, id)) return true; // 有访问一个人的权限即可有权限
         }
         return false;
     }
 
-    public static Boolean hasAuthToLab(Aser aser, Long labId) {
+    public Boolean hasAuthToLab(Aser aser, Long labId) {
         return runner.findVisitableLabIds(aser.getSid()).contains(labId);
     }
 

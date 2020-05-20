@@ -60,6 +60,7 @@ public class ResearchUpdateService {
         BeanUtils.copyProperties(data, record);
         record.setId(id);
         record.setUpdateAt(new Date());
+        record.setLeader(jsonLoader.loadPeople(record.getLeaderJson()));
         return researchProjectRepository.save(record);
     }
 
@@ -68,6 +69,7 @@ public class ResearchUpdateService {
         BeanUtils.copyProperties(data, record);
         record.setId(id);
         record.setUpdateAt(new Date());
+        record.setRewarded(jsonLoader.loadPeople(record.getRewardedJson()));
         return researchRewardRepository.save(record);
     }
 }

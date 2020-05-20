@@ -10,6 +10,7 @@ import com.techncat.quantum.app.repository.daily.DailyReportRepository;
 import com.techncat.quantum.app.repository.daily.DailyTravelRepository;
 import com.techncat.quantum.app.repository.daily.DailyVisitRepository;
 import com.techncat.quantum.app.service.people.LabRunner;
+import com.techncat.quantum.app.service.people.People_SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -41,31 +42,49 @@ public class Daily_SearchService {
 
     public Page<Report> searchReport(Aser aser, Date start, Date end, PageRequest pageRequest) {
         if (isRoot(aser)) {
-            return reportRepository.findAll(pageRequest);
+            return avoidRef(reportRepository.findAll(pageRequest));
         }
         List<Long> peopleIds = runner.fixUserIds(aser.getSid());
 
-        if (start == null || end == null) return reportRepository.findAllByInviter_IdIn(peopleIds, pageRequest);
-        return reportRepository.findAllByTimeBetweenAndInviter_IdIn(start, end, peopleIds, pageRequest);
+        if (start == null || end == null) return avoidRef(reportRepository.findAllByInviter_IdIn(peopleIds, pageRequest));
+        return avoidRef(reportRepository.findAllByTimeBetweenAndInviter_IdIn(start, end, peopleIds, pageRequest));
     }
 
     public Page<Travel> searchTravel(Aser aser, Date start, Date end, PageRequest pageRequest) {
         if (isRoot(aser)) {
-            return travelRepository.findAll(pageRequest);
+            return avoidRef(travelRepository.findAll(pageRequest));
         }
         List<Long> peopleIds = runner.fixUserIds(aser.getSid());
 
-        if (start == null || end == null) return travelRepository.findAllByTraveler_IdIn(peopleIds, pageRequest);
-        return travelRepository.findAllByStartDateBetweenAndTraveler_IdIn(start, end, peopleIds, pageRequest);
+        if (start == null || end == null) return avoidRef(travelRepository.findAllByTraveler_IdIn(peopleIds, pageRequest));
+        return avoidRef(travelRepository.findAllByStartDateBetweenAndTraveler_IdIn(start, end, peopleIds, pageRequest));
     }
 
     public Page<Visit> searchVisit(Aser aser, Date start, Date end, PageRequest pageRequest) {
         if (isRoot(aser)) {
-            return visitRepository.findAll(pageRequest);
+            return avoidRef(visitRepository.findAll(pageRequest));
         }
         List<Long> peopleIds = runner.fixUserIds(aser.getSid());
 
-        if (start == null || end == null) return visitRepository.findAllByReceptionist_IdIn(peopleIds, pageRequest);
-        return visitRepository.findAllByTimeBetweenAndReceptionist_IdIn(start, end, peopleIds, pageRequest);
+        if (start == null || end == null) return avoidRef(visitRepository.findAllByReceptionist_IdIn(peopleIds, pageRequest));
+        return avoidRef(visitRepository.findAllByTimeBetweenAndReceptionist_IdIn(start, end, peopleIds, pageRequest));
+    }
+
+    private <T> Page<T> avoidRef(Page<T> source) {
+        return source.map(record -> {
+            if (record instanceof Travel) {
+                ((Travel) record).setTraveler(People_SearchService.avoidRef(((Travel) record).getTraveler()));
+                return record;
+            }
+            if (record instanceof Visit) {
+                ((Visit) record).setReceptionist(People_SearchService.avoidRef(((Visit) record).getReceptionist()));
+                return record;
+            }
+            if (record instanceof Report) {
+                ((Report) record).setInviter(People_SearchService.avoidRef(((Report) record).getInviter()));
+                return record;
+            }
+            return record;
+        });
     }
 }

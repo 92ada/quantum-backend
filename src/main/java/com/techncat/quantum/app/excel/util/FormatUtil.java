@@ -34,6 +34,11 @@ public class FormatUtil {
         return number.toString();
     }
 
+    public static String format(Float number) {
+        if (number == null) return null;
+        return number.toString();
+    }
+
     public static String format(Boolean bool) {
         if (bool == null) return null;
         return bool ? "true" : "false";
@@ -49,6 +54,12 @@ public class FormatUtil {
         if (data == null) return null;
         if (data.trim().equals("")) return null;
         return new Integer(data);
+    }
+
+    public static Float toFloat(String data) {
+        if (data == null) return null;
+        if (data.trim().equals("")) return null;
+        return new Float(data);
     }
 
     public static Boolean toBoolean(String data) {

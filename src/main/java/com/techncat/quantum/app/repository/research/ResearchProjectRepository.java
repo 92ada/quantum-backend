@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ResearchProjectRepository extends JpaRepository<Project, Long> {
     Page<Project> findAllByTitleLikeAndLeader_IdIn(
@@ -16,4 +17,6 @@ public interface ResearchProjectRepository extends JpaRepository<Project, Long> 
     Page<Project> findAllByLeader_IdIn(
             @Param("title") List<Long> title,
             Pageable pageable);
+
+    Optional<Project> findFirstByTitle(String title);
 }

@@ -1,5 +1,6 @@
 package com.techncat.quantum.app.model.research;
 
+import com.techncat.quantum.app.common.repo.JpaConverterJson;
 import com.techncat.quantum.app.model.people.People;
 import lombok.Data;
 import org.hibernate.annotations.NotFound;
@@ -38,6 +39,8 @@ public class Project {
     @NotFound(action= NotFoundAction.IGNORE)
     @JoinColumn(name = "leader_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People leader;
+    @Convert(converter = JpaConverterJson.class)
+    private Object leaderJson;
 
     @Temporal(TemporalType.DATE)
     private Date start_date;

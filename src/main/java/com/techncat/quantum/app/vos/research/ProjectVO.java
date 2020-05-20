@@ -20,7 +20,7 @@ public class ProjectVO {
     private Project.Category category;
 
     @ValueType(value = "people", option_url = "/api/people/options")
-    private People leader;
+    private Object leaderJson;
 
     private Date start_date;
     private Date end_date;

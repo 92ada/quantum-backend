@@ -1,14 +1,12 @@
 package com.techncat.quantum.app.excel.controller;
 
-
 import com.techncat.quantum.app.auth.annotation.ForkiAser;
 import com.techncat.quantum.app.auth.entity.Aser;
-import com.techncat.quantum.app.excel.model.equipment.PurchasingRow;
-import com.techncat.quantum.app.excel.service.EquipmentExcelService;
+import com.techncat.quantum.app.excel.model.research.PatentRow;
 import com.techncat.quantum.app.excel.service.ExcelService;
-import com.techncat.quantum.app.model.equipment.Purchasing;
-import com.techncat.quantum.app.repository.equipment.EquPurchasingRepository;
-import com.techncat.quantum.app.service.equipment.EquipmentPurchasingService;
+import com.techncat.quantum.app.excel.service.ResearchExcelService;
+import com.techncat.quantum.app.model.research.Patent;
+import com.techncat.quantum.app.service.research.ResearchSearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,44 +15,29 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/excel/equipment/purchasing")
+@RequestMapping("/api/excel/research/patent")
 @CrossOrigin(
         origins = "*",
         allowedHeaders = "*",
         allowCredentials = "true",
         methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS, RequestMethod.HEAD}
 )
-public class EquipmentPurchasingExcelController {
+public class ResearchPatentExcelController {
     @Autowired
-    private EquipmentPurchasingService equipmentPurchasingService;
+    private ResearchSearchService researchSearchService;
     @Autowired
-    private EquipmentExcelService equipmentExcelService;
+    private ResearchExcelService researchExcelService;
+
     @Autowired
     private ExcelService excelService;
-
-    /**
-     * 模版下载
-     *
-     * @param response
-     * @throws IOException
-     */
-    @GetMapping("/{anyname}-template.xlsx")
-    public void aexcelModel(HttpServletResponse response) throws IOException {
-        List<PurchasingRow> purchasingRows = new ArrayList<>();
-        PurchasingRow row = new PurchasingRow();
-        purchasingRows.add(row);
-        excelService.export(purchasingRows, response.getOutputStream());
-    }
 
     /**
      * 导出
@@ -78,9 +61,9 @@ public class EquipmentPurchasingExcelController {
             sort = Sort.by(byProp).ascending();
         }
         PageRequest request = PageRequest.of(0, 10000, sort); // max: 10000
-        Page<Purchasing> purchasingPage = null;
-        purchasingPage = equipmentPurchasingService.page(aser, word, request);
-        excelService.export(purchasingPage.getContent().parallelStream().map(PurchasingRow::render).collect(Collectors.toList()), response.getOutputStream());
+        Page<Patent> page = null;
+        page = researchSearchService.searchPatent(aser, word, request);
+        excelService.export(page.getContent().parallelStream().map(PatentRow::render).collect(Collectors.toList()), response.getOutputStream());
     }
 
     /**
@@ -94,8 +77,8 @@ public class EquipmentPurchasingExcelController {
     @Transactional
     public ResponseEntity excelImport(@RequestParam(required = false, defaultValue = "false") Boolean force,
                                       MultipartFile file) throws IOException {
-        List<Purchasing> data = excelService.read(file, PurchasingRow.class).parallelStream().map(PurchasingRow::load).filter(Objects::nonNull).collect(Collectors.toList());
-        long passCount = data.parallelStream().map(purchasing -> equipmentExcelService.create_or_update(purchasing, force)).count();
+        List<Patent> data = excelService.read(file, PatentRow.class).parallelStream().map(PatentRow::load).filter(Objects::nonNull).collect(Collectors.toList());
+        long passCount = data.parallelStream().map(purchasing -> researchExcelService.create_or_update(purchasing, force)).count();
 
         String message = "导入成功" + passCount + "条，失败" + (data.size() - passCount) + "条";
         return ResponseEntity.status(201).body(message);

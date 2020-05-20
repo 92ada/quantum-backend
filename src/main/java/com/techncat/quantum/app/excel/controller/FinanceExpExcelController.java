@@ -35,7 +35,7 @@ import java.util.stream.Collectors;
         allowCredentials = "true",
         methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS, RequestMethod.HEAD}
 )
-public class FinanceExcelController {
+public class FinanceExpExcelController {
     @Autowired
     private FinanceExp_SearchService financeExp_searchService;
     @Resource

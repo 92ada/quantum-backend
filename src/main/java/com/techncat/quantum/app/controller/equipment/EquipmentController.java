@@ -3,6 +3,7 @@ package com.techncat.quantum.app.controller.equipment;
 import com.techncat.quantum.app.auth.annotation.ForkiAser;
 import com.techncat.quantum.app.auth.annotation.ROLE;
 import com.techncat.quantum.app.auth.entity.Aser;
+import com.techncat.quantum.app.common.auth.AuthUtil;
 import com.techncat.quantum.app.common.voenhance.VOEnhanceUtil;
 import com.techncat.quantum.app.model.equipment.Purchasing;
 import com.techncat.quantum.app.model.equipment.Stock;
@@ -16,8 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
-
-import static com.techncat.quantum.app.common.auth.AuthUtil.hasAuth;
 
 @RestController
 @RequestMapping("/api/equipment")
@@ -35,6 +34,9 @@ public class EquipmentController {
     @Autowired
     private EquipmentStockService stockService;
 
+    @Autowired
+    private AuthUtil authUtil;
+
     /* purchasing */
 
     @GetMapping("/purchasing/structure")
@@ -49,7 +51,7 @@ public class EquipmentController {
     public ResponseEntity<PurchasingVO> showPurchasing(@ForkiAser(requiredRoles = {ROLE.equipment, ROLE.equipment_purchasing}) Aser aser,
                                                        @PathVariable("id") Long id) {
         Purchasing purchasing = purchasingService.fetch(id);
-        if (purchasing.getPi() != null && !hasAuth(aser, purchasing.getPi().getId()))
+        if (purchasing.getPi() != null && !authUtil.hasAuth(aser, purchasing.getPi().getId()))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         return ResponseEntity.ok(purchasingService.fetchVO(id));
@@ -59,7 +61,7 @@ public class EquipmentController {
     public ResponseEntity<Map> showPurchasingStructure(@ForkiAser(requiredRoles = {ROLE.equipment, ROLE.equipment_purchasing}) Aser aser,
                                                        @PathVariable("id") Long id) throws IllegalAccessException {
         Purchasing purchasing = purchasingService.fetch(id);
-        if (purchasing.getPi() != null && !hasAuth(aser, purchasing.getPi().getId()))
+        if (purchasing.getPi() != null && !authUtil.hasAuth(aser, purchasing.getPi().getId()))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         Map result = voEnhanceUtil.enhance("data", purchasingService.fetchVO(id));
@@ -79,7 +81,7 @@ public class EquipmentController {
     public ResponseEntity update(@ForkiAser(requiredRoles = {ROLE.edit_equipment, ROLE.edit_equipment_purchasing}) Aser aser,
                                  @PathVariable("id") Long id, @RequestBody PurchasingVO data) {
         Purchasing purchasing = purchasingService.fetch(id);
-        if (purchasing.getPi() != null && !hasAuth(aser, purchasing.getPi().getId()))
+        if (purchasing.getPi() != null && !authUtil.hasAuth(aser, purchasing.getPi().getId()))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         return ResponseEntity.status(201).body(purchasingService.update(id, data));
@@ -89,7 +91,7 @@ public class EquipmentController {
     public ResponseEntity deletePurchasing(@ForkiAser(requiredRoles = {ROLE.delete_equipment, ROLE.delete_equipment_purchasing}) Aser aser,
                                            @PathVariable("id") Long id) {
         Purchasing purchasing = purchasingService.fetch(id);
-        if (purchasing.getPi() != null && !hasAuth(aser, purchasing.getPi().getId()))
+        if (purchasing.getPi() != null && !authUtil.hasAuth(aser, purchasing.getPi().getId()))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         purchasingService.delete(id);
@@ -110,7 +112,7 @@ public class EquipmentController {
     public ResponseEntity<StockVO> showStock(@ForkiAser(requiredRoles = {ROLE.equipment, ROLE.equipment_stock}) Aser aser,
                                              @PathVariable("id") Long id) {
         Stock stock = stockService.fetch(id);
-        if (stock.getAdmin() != null && !hasAuth(aser, stock.getAdmin().getId()))
+        if (stock.getAdmin() != null && !authUtil.hasAuth(aser, stock.getAdmin().getId()))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         return ResponseEntity.ok(stockService.fetchVO(id));
@@ -120,7 +122,7 @@ public class EquipmentController {
     public ResponseEntity<Map> showStockStructure(@ForkiAser(requiredRoles = {ROLE.equipment, ROLE.equipment_stock}) Aser aser,
                                                   @PathVariable("id") Long id) throws IllegalAccessException {
         Stock stock = stockService.fetch(id);
-        if (stock.getAdmin() != null && !hasAuth(aser, stock.getAdmin().getId()))
+        if (stock.getAdmin() != null && !authUtil.hasAuth(aser, stock.getAdmin().getId()))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         Map result = voEnhanceUtil.enhance("data", stockService.fetchVO(id));
@@ -140,7 +142,7 @@ public class EquipmentController {
     public ResponseEntity update(@ForkiAser(requiredRoles = {ROLE.edit_equipment, ROLE.edit_equipment_stock}) Aser aser,
                                  @PathVariable("id") Long id, @RequestBody StockVO data) {
         Stock stock = stockService.fetch(id);
-        if (stock.getAdmin() != null && !hasAuth(aser, stock.getAdmin().getId()))
+        if (stock.getAdmin() != null && !authUtil.hasAuth(aser, stock.getAdmin().getId()))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         return ResponseEntity.status(201).body(stockService.update(id, data));
@@ -150,7 +152,7 @@ public class EquipmentController {
     public ResponseEntity deleteStock(@ForkiAser(requiredRoles = {ROLE.delete_equipment, ROLE.delete_equipment_stock}) Aser aser,
                                       @PathVariable("id") Long id) {
         Stock stock = stockService.fetch(id);
-        if (stock.getAdmin() != null && !hasAuth(aser, stock.getAdmin().getId()))
+        if (stock.getAdmin() != null && !authUtil.hasAuth(aser, stock.getAdmin().getId()))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         stockService.delete(id);

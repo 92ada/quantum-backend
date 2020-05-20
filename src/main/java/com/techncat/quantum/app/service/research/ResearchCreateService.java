@@ -61,6 +61,7 @@ public class ResearchCreateService {
         record.setId(null);
         record.setUpdateAt(new Date());
         record.setCreatedAt(new Date());
+        record.setLeader(jsonLoader.loadPeople(data.getLeaderJson()));
         return researchProjectRepository.save(record);
     }
 
@@ -69,6 +70,7 @@ public class ResearchCreateService {
         record.setId(null);
         record.setUpdateAt(new Date());
         record.setCreatedAt(new Date());
+        record.setRewarded(jsonLoader.loadPeople(data.getRewardedJson()));
         return researchRewardRepository.save(record);
     }
 }

@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.techncat.quantum.app.auth.annotation.ForkiAser;
 import com.techncat.quantum.app.auth.annotation.ROLE;
 import com.techncat.quantum.app.auth.entity.Aser;
+import com.techncat.quantum.app.common.auth.AuthUtil;
 import com.techncat.quantum.app.common.voenhance.VOEnhanceUtil;
 import com.techncat.quantum.app.common.voutils.VOUtils;
 import com.techncat.quantum.app.model.finance.Exp;
@@ -19,8 +20,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
-
-import static com.techncat.quantum.app.common.auth.AuthUtil.hasAuthToLab;
 
 @RestController
 @RequestMapping("/api/finance/exps")
@@ -43,12 +42,14 @@ public class FinanceExpController {
     private VOUtils voUtils;
     @Autowired
     private VOEnhanceUtil voEnhanceUtil;
+    @Autowired
+    private AuthUtil authUtil;
 
     @GetMapping("/{id}/base")
     public ResponseEntity getBase(@ForkiAser(requiredRoles = {ROLE.finance, ROLE.finance_expenditure}) Aser aser,
                                   @PathVariable Long id) {
         Exp record = financeExpShowService.fetch(id);
-        if (record.getLab() != null && !hasAuthToLab(aser, record.getLab().getId()))
+        if (record.getLab() != null && !authUtil.hasAuthToLab(aser, record.getLab().getId()))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         return ResponseEntity.ok(record);
@@ -58,7 +59,7 @@ public class FinanceExpController {
     public ResponseEntity<Map> baseStructureInfo(@ForkiAser(requiredRoles = {ROLE.finance, ROLE.finance_expenditure}) Aser aser,
                                                  @PathVariable("id") Long id) throws PeopleShowService.PeopleNotFoundException, IllegalAccessException {
         Exp exp = financeExpShowService.fetch(id);
-        if (exp.getLab() != null && !hasAuthToLab(aser, exp.getLab().getId()))
+        if (exp.getLab() != null && !authUtil.hasAuthToLab(aser, exp.getLab().getId()))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         ExpVO vo = voUtils.copy(exp, ExpVO.class);
@@ -76,7 +77,7 @@ public class FinanceExpController {
     public ResponseEntity getDeatil(@ForkiAser(requiredRoles = {ROLE.finance, ROLE.finance_expenditure}) Aser aser,
                                     @PathVariable Long id) {
         Exp exp = financeExpShowService.fetch(id);
-        if (exp.getLab() != null && !hasAuthToLab(aser, exp.getLab().getId()))
+        if (exp.getLab() != null && !authUtil.hasAuthToLab(aser, exp.getLab().getId()))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         return ResponseEntity.ok(financeExpShowService.fetchDetail(id));
@@ -86,7 +87,7 @@ public class FinanceExpController {
     public ResponseEntity<Map> extraStructureInfo(@ForkiAser(requiredRoles = {ROLE.finance, ROLE.finance_expenditure}) Aser aser,
                                                   @PathVariable("id") Long id) throws PeopleShowService.PeopleNotFoundException, IllegalAccessException {
         Exp exp = financeExpShowService.fetch(id);
-        if (exp.getLab() != null && !hasAuthToLab(aser, exp.getLab().getId()))
+        if (exp.getLab() != null && !authUtil.hasAuthToLab(aser, exp.getLab().getId()))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         Object obj = financeExpShowService.fetchDetailVO(id);
@@ -201,7 +202,7 @@ public class FinanceExpController {
     public ResponseEntity<Exp> update1(@ForkiAser(requiredRoles = {ROLE.edit_finance, ROLE.edit_finance_expenditure}) Aser aser,
                                        @PathVariable("exp_id") Long id, @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         Exp exp = financeExpShowService.fetch(id);
-        if (exp.getLab() != null && !hasAuthToLab(aser, exp.getLab().getId()))
+        if (exp.getLab() != null && !authUtil.hasAuthToLab(aser, exp.getLab().getId()))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         ExpVO baseVO = requestBody.getJSONObject("base").toJavaObject(ExpVO.class);
@@ -213,7 +214,7 @@ public class FinanceExpController {
     public ResponseEntity<Exp> update2(@ForkiAser(requiredRoles = {ROLE.edit_finance, ROLE.edit_finance_expenditure}) Aser aser,
                                        @PathVariable("exp_id") Long id, @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         Exp exp = financeExpShowService.fetch(id);
-        if (exp.getLab() != null && !hasAuthToLab(aser, exp.getLab().getId()))
+        if (exp.getLab() != null && !authUtil.hasAuthToLab(aser, exp.getLab().getId()))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         ExpVO baseVO = requestBody.getJSONObject("base").toJavaObject(ExpVO.class);
@@ -225,7 +226,7 @@ public class FinanceExpController {
     public ResponseEntity<Exp> update3(@ForkiAser(requiredRoles = {ROLE.edit_finance, ROLE.edit_finance_expenditure}) Aser aser,
                                        @PathVariable("exp_id") Long id, @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         Exp exp = financeExpShowService.fetch(id);
-        if (exp.getLab() != null && !hasAuthToLab(aser, exp.getLab().getId()))
+        if (exp.getLab() != null && !authUtil.hasAuthToLab(aser, exp.getLab().getId()))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         ExpVO baseVO = requestBody.getJSONObject("base").toJavaObject(ExpVO.class);
@@ -237,7 +238,7 @@ public class FinanceExpController {
     public ResponseEntity<Exp> update4(@ForkiAser(requiredRoles = {ROLE.edit_finance, ROLE.edit_finance_expenditure}) Aser aser,
                                        @PathVariable("exp_id") Long id, @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         Exp exp = financeExpShowService.fetch(id);
-        if (exp.getLab() != null && !hasAuthToLab(aser, exp.getLab().getId()))
+        if (exp.getLab() != null && !authUtil.hasAuthToLab(aser, exp.getLab().getId()))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         ExpVO baseVO = requestBody.getJSONObject("base").toJavaObject(ExpVO.class);
@@ -249,7 +250,7 @@ public class FinanceExpController {
     public ResponseEntity<Exp> update5(@ForkiAser(requiredRoles = {ROLE.edit_finance, ROLE.edit_finance_expenditure}) Aser aser,
                                        @PathVariable("exp_id") Long id, @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         Exp exp = financeExpShowService.fetch(id);
-        if (exp.getLab() != null && !hasAuthToLab(aser, exp.getLab().getId()))
+        if (exp.getLab() != null && !authUtil.hasAuthToLab(aser, exp.getLab().getId()))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         ExpVO baseVO = requestBody.getJSONObject("base").toJavaObject(ExpVO.class);
@@ -261,7 +262,7 @@ public class FinanceExpController {
     public ResponseEntity<Exp> update6(@ForkiAser(requiredRoles = {ROLE.edit_finance, ROLE.edit_finance_expenditure}) Aser aser,
                                        @PathVariable("exp_id") Long id, @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         Exp exp = financeExpShowService.fetch(id);
-        if (exp.getLab() != null && !hasAuthToLab(aser, exp.getLab().getId()))
+        if (exp.getLab() != null && !authUtil.hasAuthToLab(aser, exp.getLab().getId()))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         ExpVO baseVO = requestBody.getJSONObject("base").toJavaObject(ExpVO.class);
@@ -273,7 +274,7 @@ public class FinanceExpController {
     public ResponseEntity<Exp> update7(@ForkiAser(requiredRoles = {ROLE.edit_finance, ROLE.edit_finance_expenditure}) Aser aser,
                                        @PathVariable("exp_id") Long id, @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         Exp exp = financeExpShowService.fetch(id);
-        if (exp.getLab() != null && !hasAuthToLab(aser, exp.getLab().getId()))
+        if (exp.getLab() != null && !authUtil.hasAuthToLab(aser, exp.getLab().getId()))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         ExpVO baseVO = requestBody.getJSONObject("base").toJavaObject(ExpVO.class);
@@ -285,7 +286,7 @@ public class FinanceExpController {
     public ResponseEntity<Exp> update8(@ForkiAser(requiredRoles = {ROLE.edit_finance, ROLE.edit_finance_expenditure}) Aser aser,
                                        @PathVariable("exp_id") Long id, @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         Exp exp = financeExpShowService.fetch(id);
-        if (exp.getLab() != null && !hasAuthToLab(aser, exp.getLab().getId()))
+        if (exp.getLab() != null && !authUtil.hasAuthToLab(aser, exp.getLab().getId()))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         ExpVO baseVO = requestBody.getJSONObject("base").toJavaObject(ExpVO.class);
@@ -297,7 +298,7 @@ public class FinanceExpController {
     public ResponseEntity<Exp> update9(@ForkiAser(requiredRoles = {ROLE.edit_finance, ROLE.edit_finance_expenditure}) Aser aser,
                                        @PathVariable("exp_id") Long id, @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         Exp exp = financeExpShowService.fetch(id);
-        if (exp.getLab() != null && !hasAuthToLab(aser, exp.getLab().getId()))
+        if (exp.getLab() != null && !authUtil.hasAuthToLab(aser, exp.getLab().getId()))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         ExpVO baseVO = requestBody.getJSONObject("base").toJavaObject(ExpVO.class);
@@ -309,7 +310,7 @@ public class FinanceExpController {
     public ResponseEntity<Exp> update10(@ForkiAser(requiredRoles = {ROLE.edit_finance, ROLE.edit_finance_expenditure}) Aser aser,
                                         @PathVariable("exp_id") Long id, @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         Exp exp = financeExpShowService.fetch(id);
-        if (exp.getLab() != null && !hasAuthToLab(aser, exp.getLab().getId()))
+        if (exp.getLab() != null && !authUtil.hasAuthToLab(aser, exp.getLab().getId()))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         ExpVO baseVO = requestBody.getJSONObject("base").toJavaObject(ExpVO.class);
@@ -321,7 +322,7 @@ public class FinanceExpController {
     public ResponseEntity<Exp> update11(@ForkiAser(requiredRoles = {ROLE.edit_finance, ROLE.edit_finance_expenditure}) Aser aser,
                                         @PathVariable("exp_id") Long id, @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
         Exp exp = financeExpShowService.fetch(id);
-        if (exp.getLab() != null && !hasAuthToLab(aser, exp.getLab().getId()))
+        if (exp.getLab() != null && !authUtil.hasAuthToLab(aser, exp.getLab().getId()))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         ExpVO baseVO = requestBody.getJSONObject("base").toJavaObject(ExpVO.class);
@@ -335,7 +336,7 @@ public class FinanceExpController {
     public ResponseEntity delete(@ForkiAser(requiredRoles = {ROLE.delete_finance, ROLE.delete_finance_expenditure}) Aser aser,
                                  @PathVariable("exp_id") Long id) {
         Exp exp = financeExpShowService.fetch(id);
-        if (exp.getLab() != null && !hasAuthToLab(aser, exp.getLab().getId()))
+        if (exp.getLab() != null && !authUtil.hasAuthToLab(aser, exp.getLab().getId()))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         financeExpDeleteService.delete(id);

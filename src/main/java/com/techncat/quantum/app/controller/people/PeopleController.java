@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.techncat.quantum.app.auth.annotation.ForkiAser;
 import com.techncat.quantum.app.auth.annotation.ROLE;
 import com.techncat.quantum.app.auth.entity.Aser;
+import com.techncat.quantum.app.common.auth.AuthUtil;
 import com.techncat.quantum.app.common.voenhance.VOEnhanceUtil;
 import com.techncat.quantum.app.common.voutils.VOUtils;
 import com.techncat.quantum.app.model.people.FamilyInfo;
@@ -16,8 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
-
-import static com.techncat.quantum.app.common.auth.AuthUtil.hasAuth;
 
 @RestController
 @RequestMapping("/api/people")
@@ -41,12 +40,14 @@ public class PeopleController {
     private PeopleFamilyService familyService;
     @Autowired
     private VOEnhanceUtil voEnhanceUtil;
+    @Autowired
+    private AuthUtil authUtil;
 
     // show
     @GetMapping("/{people_id}/base")
     public ResponseEntity<PeopleVO> showBase(@ForkiAser(requiredRoles = {ROLE.people, ROLE.people_inlab}) Aser aser,
                                              @PathVariable("people_id") Long id) throws PeopleShowService.PeopleNotFoundException {
-        if (!hasAuth(aser, id))
+        if (!authUtil.hasAuth(aser, id))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
         else
             return ResponseEntity.ok(showService.showBase(id));
@@ -55,7 +56,7 @@ public class PeopleController {
     @GetMapping("/{people_id}/base/structure")
     public ResponseEntity<Map> baseStructureInfo(@ForkiAser(requiredRoles = {ROLE.people, ROLE.people_inlab}) Aser aser,
                                                  @PathVariable("people_id") Long peopleId) throws PeopleShowService.PeopleNotFoundException, IllegalAccessException {
-        if (!hasAuth(aser, peopleId))
+        if (!authUtil.hasAuth(aser, peopleId))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         PeopleVO peopleVO = showService.showBase(peopleId);
@@ -74,7 +75,7 @@ public class PeopleController {
     @GetMapping("/{people_id}/extra")
     public ResponseEntity<?> showExtra(@ForkiAser(requiredRoles = {ROLE.people, ROLE.people_inlab}) Aser aser,
                                        @PathVariable("people_id") Long id) throws PeopleShowService.PeopleNotFoundException {
-        if (!hasAuth(aser, id))
+        if (!authUtil.hasAuth(aser, id))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
         People people = showService.fetchBase(id);
         return ResponseEntity.ok(showService.showExtra(people, people.getType()));
@@ -83,7 +84,7 @@ public class PeopleController {
     @GetMapping("/{people_id}/extra/structure")
     public ResponseEntity<Map> extraStructureInfo(@ForkiAser(requiredRoles = {ROLE.people, ROLE.people_inlab}) Aser aser,
                                                   @PathVariable("people_id") Long peopleId) throws PeopleShowService.PeopleNotFoundException, IllegalAccessException {
-        if (!hasAuth(aser, peopleId))
+        if (!authUtil.hasAuth(aser, peopleId))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         People people = showService.fetchBase(peopleId);
@@ -100,7 +101,7 @@ public class PeopleController {
     @GetMapping("/{people_id}/families")
     public ResponseEntity<?> showFamilies(@ForkiAser(requiredRoles = {ROLE.people, ROLE.people_inlab}) Aser aser,
                                           @PathVariable("people_id") Long id) throws PeopleShowService.PeopleNotFoundException {
-        if (!hasAuth(aser, id))
+        if (!authUtil.hasAuth(aser, id))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         People people = showService.fetchBase(id);
@@ -110,7 +111,7 @@ public class PeopleController {
     @GetMapping("/{people_id}/families/structure")
     public ResponseEntity<?> familiesStructure(@ForkiAser(requiredRoles = {ROLE.people, ROLE.people_inlab}) Aser aser,
                                                @PathVariable("people_id") Long peopleId) throws IllegalAccessException, PeopleFamilyService.FamilyInfoNotFoundException {
-        if (!hasAuth(aser, peopleId))
+        if (!authUtil.hasAuth(aser, peopleId))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         Map result = voEnhanceUtil.enhance("data", new FamilyInfoVO());
@@ -124,7 +125,7 @@ public class PeopleController {
     public ResponseEntity<?> showFamily(@ForkiAser(requiredRoles = {ROLE.people, ROLE.people_inlab}) Aser aser,
                                         @PathVariable("people_id") Long id,
                                         @PathVariable("family_id") Long familyId) throws PeopleFamilyService.FamilyInfoNotFoundException {
-        if (!hasAuth(aser, id))
+        if (!authUtil.hasAuth(aser, id))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
         else
             return ResponseEntity.ok(familyService.fetch(familyId));
@@ -134,7 +135,7 @@ public class PeopleController {
     public ResponseEntity<?> familyStructure(@ForkiAser(requiredRoles = {ROLE.people, ROLE.people_inlab}) Aser aser,
                                              @PathVariable("people_id") Long peopleId,
                                              @PathVariable("family_id") Long familyId) throws IllegalAccessException, PeopleFamilyService.FamilyInfoNotFoundException {
-        if (!hasAuth(aser, peopleId))
+        if (!authUtil.hasAuth(aser, peopleId))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         Map result = voEnhanceUtil.enhance("data", familyService.fetch(familyId));
@@ -216,7 +217,7 @@ public class PeopleController {
     public ResponseEntity<People> updateBase(@ForkiAser(requiredRoles = {ROLE.edit_people}) Aser aser,
                                              @PathVariable("people_id") Long id,
                                              @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
-        if (!hasAuth(aser, id))
+        if (!authUtil.hasAuth(aser, id))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         PeopleVO peopleVO = requestBody.getJSONObject("base").toJavaObject(PeopleVO.class);
@@ -227,7 +228,7 @@ public class PeopleController {
     public ResponseEntity<People> updateAdmin(@ForkiAser(requiredRoles = {ROLE.edit_people, ROLE.edit_people_inlab}) Aser aser,
                                               @PathVariable("people_id") Long id,
                                               @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
-        if (!hasAuth(aser, id))
+        if (!authUtil.hasAuth(aser, id))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         PeopleVO peopleVO = requestBody.getJSONObject("base").toJavaObject(PeopleVO.class);
@@ -239,7 +240,7 @@ public class PeopleController {
     public ResponseEntity<People> updatePostdoctoral(@ForkiAser(requiredRoles = {ROLE.edit_people, ROLE.edit_people_inlab}) Aser aser,
                                                      @PathVariable("people_id") Long id,
                                                      @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
-        if (!hasAuth(aser, id))
+        if (!authUtil.hasAuth(aser, id))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         PeopleVO peopleVO = requestBody.getJSONObject("base").toJavaObject(PeopleVO.class);
@@ -251,7 +252,7 @@ public class PeopleController {
     public ResponseEntity<People> updateResearcher(@ForkiAser(requiredRoles = {ROLE.edit_people, ROLE.edit_people_inlab}) Aser aser,
                                                    @PathVariable("people_id") Long id,
                                                    @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
-        if (!hasAuth(aser, id))
+        if (!authUtil.hasAuth(aser, id))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         PeopleVO peopleVO = requestBody.getJSONObject("base").toJavaObject(PeopleVO.class);
@@ -263,7 +264,7 @@ public class PeopleController {
     public ResponseEntity<People> updateStudent(@ForkiAser(requiredRoles = {ROLE.edit_people, ROLE.edit_people_inlab}) Aser aser,
                                                 @PathVariable("people_id") Long id,
                                                 @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
-        if (!hasAuth(aser, id))
+        if (!authUtil.hasAuth(aser, id))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         PeopleVO peopleVO = requestBody.getJSONObject("base").toJavaObject(PeopleVO.class);
@@ -275,7 +276,7 @@ public class PeopleController {
     public ResponseEntity<People> updateTeacher(@ForkiAser(requiredRoles = {ROLE.edit_people, ROLE.edit_people_inlab}) Aser aser,
                                                 @PathVariable("people_id") Long id,
                                                 @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
-        if (!hasAuth(aser, id))
+        if (!authUtil.hasAuth(aser, id))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         PeopleVO peopleVO = requestBody.getJSONObject("base").toJavaObject(PeopleVO.class);
@@ -287,7 +288,7 @@ public class PeopleController {
     public ResponseEntity<People> updateVisitor(@ForkiAser(requiredRoles = {ROLE.edit_people, ROLE.edit_people_inlab}) Aser aser,
                                                 @PathVariable("people_id") Long id,
                                                 @RequestBody JSONObject requestBody) throws VOUtils.BeanCopyException {
-        if (!hasAuth(aser, id))
+        if (!authUtil.hasAuth(aser, id))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         PeopleVO peopleVO = requestBody.getJSONObject("base").toJavaObject(PeopleVO.class);
@@ -299,7 +300,7 @@ public class PeopleController {
     public ResponseEntity<FamilyInfo> update(@ForkiAser(requiredRoles = {ROLE.edit_people}) Aser aser,
                                              @PathVariable("people_id") Long peopleId,
                                              @PathVariable("family_id") Long familyId, @RequestBody FamilyInfo familyInfo) throws PeopleShowService.PeopleNotFoundException, PeopleFamilyService.FamilyInfoNotFoundException {
-        if (!hasAuth(aser, peopleId))
+        if (!authUtil.hasAuth(aser, peopleId))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         return ResponseEntity.status(200).body(familyService.update(peopleId, familyId, familyInfo));
@@ -310,7 +311,7 @@ public class PeopleController {
     @DeleteMapping("/{people_id}")
     public ResponseEntity delete(@ForkiAser(requiredRoles = {ROLE.delete_people, ROLE.delete_people_inlab}) Aser aser,
                                  @PathVariable("people_id") Long peopleId) throws PeopleShowService.PeopleNotFoundException {
-        if (!hasAuth(aser, peopleId))
+        if (!authUtil.hasAuth(aser, peopleId))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         deleteService.delete(peopleId);
@@ -320,7 +321,7 @@ public class PeopleController {
     @DeleteMapping("/{people_id}/families")
     public ResponseEntity deleteFamilies(@ForkiAser(requiredRoles = {ROLE.delete_people}) Aser aser,
                                          @PathVariable("people_id") Long peopleId) throws PeopleShowService.PeopleNotFoundException {
-        if (!hasAuth(aser, peopleId))
+        if (!authUtil.hasAuth(aser, peopleId))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         familyService.delete(peopleId);
@@ -331,7 +332,7 @@ public class PeopleController {
     public ResponseEntity deleteFamily(@ForkiAser(requiredRoles = {ROLE.delete_people}) Aser aser,
                                        @PathVariable("people_id") Long peopleId,
                                        @PathVariable("family_id") Long familyId) throws PeopleShowService.PeopleNotFoundException {
-        if (!hasAuth(aser, peopleId))
+        if (!authUtil.hasAuth(aser, peopleId))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
 
         familyService.delete(peopleId, familyId);

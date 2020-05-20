@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface EquStockRepository extends JpaRepository<Stock, Long> {
     Page<Stock> findAll(Pageable pageable);
@@ -18,5 +19,7 @@ public interface EquStockRepository extends JpaRepository<Stock, Long> {
     Page<Stock> findAllByTitleLikeAndAdmin_IdIn(@Param("title") String title, List<Long> peopleIds, Pageable pageable);
 
     List<Stock> findAllByTitleLike(@Param("title") String title);
+
+    Optional<Stock> findFirstByTitle(String title);
 
 }

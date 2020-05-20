@@ -10,10 +10,7 @@ import lombok.Data;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,9 +24,10 @@ public class LabRunner {
 
     public List<Long> fixUserIds(String visitSid) {
         List<PeopleLab> pls = peopleLabRepository.findAllByLabIdIn(this.findVisitableLabIds(visitSid));
-        return pls.parallelStream().map(PeopleLab::getPeopleId).distinct().collect(Collectors.toList());
+        Set<Long> ids = pls.parallelStream().map(PeopleLab::getPeopleId).collect(Collectors.toSet());
+        ids.add(peopleRepository.findFirstBySid(visitSid).getId());
+        return new ArrayList<>(ids);
     }
-
 
     // 找到合适的访问区间，根据该人员的所属实验室
     public List<Long> findVisitableLabIds(String sid) {
