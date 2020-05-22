@@ -47,7 +47,7 @@ public class DailySearcher {
             sort = Sort.by(byProp).ascending();
         }
         PageRequest request = PageRequest.of(page - 1, size, sort);
-        return searchService.searchHosting(aser, startDate, endDate, request);
+        return searchService.searchHosting(startDate, endDate, request);
     }
 
     @GetMapping("/report")
@@ -67,7 +67,7 @@ public class DailySearcher {
             sort = Sort.by(byProp).ascending();
         }
         PageRequest request = PageRequest.of(page - 1, size, sort);
-        return searchService.searchReport(aser, startDate, endDate, request);
+        return searchService.searchReport(startDate, endDate, request);
     }
 
     @GetMapping("/travel")
@@ -87,7 +87,7 @@ public class DailySearcher {
             sort = Sort.by(byProp).ascending();
         }
         PageRequest request = PageRequest.of(page - 1, size, sort);
-        return searchService.searchTravel(aser, startDate, endDate, request);
+        return searchService.searchTravel(startDate, endDate, request);
     }
 
     @GetMapping("/visit")
@@ -107,7 +107,7 @@ public class DailySearcher {
             sort = Sort.by(byProp).ascending();
         }
         PageRequest request = PageRequest.of(page - 1, size, sort);
-        return searchService.searchVisit(aser, startDate, endDate, request);
+        return searchService.searchVisit(startDate, endDate, request);
     }
 
 }

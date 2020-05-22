@@ -80,7 +80,7 @@ public class DailyReportExcelController {
             sort = Sort.by(byProp).ascending();
         }
         PageRequest request = PageRequest.of(page - 1, size, sort);
-        Page<Report> expPage = daily_searchService.searchReport(aser, startDate, endDate, request);
+        Page<Report> expPage = daily_searchService.searchReport(startDate, endDate, request);
         excelService.export(expPage.getContent().parallelStream().map(ReportRow::render).collect(Collectors.toList()), response.getOutputStream());
     }
 

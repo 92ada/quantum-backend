@@ -32,42 +32,25 @@ public class Daily_SearchService {
     private DailyTravelRepository travelRepository;
     @Resource
     private DailyVisitRepository visitRepository;
-    @Autowired
-    private LabRunner runner;
 
-    public Page<Hosting> searchHosting(Aser aser, Date start, Date end, PageRequest pageRequest) {
+    public Page<Hosting> searchHosting(Date start, Date end, PageRequest pageRequest) {
         if (start == null || end == null) return hostingRepository.findAll(pageRequest);
         return hostingRepository.findAllByTimeBetween(start, end, pageRequest);
     }
 
-    public Page<Report> searchReport(Aser aser, Date start, Date end, PageRequest pageRequest) {
-        if (isRoot(aser)) {
-            return avoidRef(reportRepository.findAll(pageRequest));
-        }
-        List<Long> peopleIds = runner.fixUserIds(aser.getSid());
-
-        if (start == null || end == null) return avoidRef(reportRepository.findAllByInviter_IdIn(peopleIds, pageRequest));
-        return avoidRef(reportRepository.findAllByTimeBetweenAndInviter_IdIn(start, end, peopleIds, pageRequest));
+    public Page<Report> searchReport(Date start, Date end, PageRequest pageRequest) {
+        if (start == null || end == null) return avoidRef(reportRepository.findAll(pageRequest));
+        return avoidRef(reportRepository.findAllByTimeBetween(start, end, pageRequest));
     }
 
-    public Page<Travel> searchTravel(Aser aser, Date start, Date end, PageRequest pageRequest) {
-        if (isRoot(aser)) {
-            return avoidRef(travelRepository.findAll(pageRequest));
-        }
-        List<Long> peopleIds = runner.fixUserIds(aser.getSid());
-
-        if (start == null || end == null) return avoidRef(travelRepository.findAllByTraveler_IdIn(peopleIds, pageRequest));
-        return avoidRef(travelRepository.findAllByStartDateBetweenAndTraveler_IdIn(start, end, peopleIds, pageRequest));
+    public Page<Travel> searchTravel(Date start, Date end, PageRequest pageRequest) {
+        if (start == null || end == null) return avoidRef(travelRepository.findAll(pageRequest));
+        return avoidRef(travelRepository.findAllByStartDateBetween(start, end, pageRequest));
     }
 
-    public Page<Visit> searchVisit(Aser aser, Date start, Date end, PageRequest pageRequest) {
-        if (isRoot(aser)) {
-            return avoidRef(visitRepository.findAll(pageRequest));
-        }
-        List<Long> peopleIds = runner.fixUserIds(aser.getSid());
-
-        if (start == null || end == null) return avoidRef(visitRepository.findAllByReceptionist_IdIn(peopleIds, pageRequest));
-        return avoidRef(visitRepository.findAllByTimeBetweenAndReceptionist_IdIn(start, end, peopleIds, pageRequest));
+    public Page<Visit> searchVisit(Date start, Date end, PageRequest pageRequest) {
+        if (start == null || end == null) return avoidRef(visitRepository.findAll(pageRequest));
+        return avoidRef(visitRepository.findAllByTimeBetween(start, end, pageRequest));
     }
 
     private <T> Page<T> avoidRef(Page<T> source) {

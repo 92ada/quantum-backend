@@ -6,10 +6,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Date;
-import java.util.List;
 
 public interface DailyReportRepository extends JpaRepository<Report, Long> {
-    Page<Report> findAllByTimeBetweenAndInviter_IdIn(Date start, Date end, List<Long> peopleIds, Pageable pageable);
-    Page<Report> findAllByInviter_IdIn(List<Long> peopleIds, Pageable pageable);
+    Page<Report> findAllByTimeBetween(Date start, Date end, Pageable pageable);
+    Page<Report> findAll(Pageable pageable);
 
 }

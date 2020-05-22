@@ -80,7 +80,7 @@ public class DailyTravelExcelController {
             sort = Sort.by(byProp).ascending();
         }
         PageRequest request = PageRequest.of(page - 1, size, sort);
-        Page<Travel> expPage = daily_searchService.searchTravel(aser, startDate, endDate, request);
+        Page<Travel> expPage = daily_searchService.searchTravel(startDate, endDate, request);
         excelService.export(expPage.getContent().parallelStream().map(TravelRow::render).collect(Collectors.toList()), response.getOutputStream());
     }
 

@@ -1,13 +1,7 @@
 package com.techncat.quantum.app.controller.daily;
 
-import com.techncat.quantum.app.auth.annotation.ForkiAser;
-import com.techncat.quantum.app.auth.annotation.ROLE;
-import com.techncat.quantum.app.auth.entity.Aser;
 import com.techncat.quantum.app.common.auth.AuthUtil;
 import com.techncat.quantum.app.common.voenhance.VOEnhanceUtil;
-import com.techncat.quantum.app.model.daily.Report;
-import com.techncat.quantum.app.model.daily.Travel;
-import com.techncat.quantum.app.model.daily.Visit;
 import com.techncat.quantum.app.service.daily.DailyCreateService;
 import com.techncat.quantum.app.service.daily.DailyDeleteService;
 import com.techncat.quantum.app.service.daily.DailyShowService;
@@ -17,7 +11,6 @@ import com.techncat.quantum.app.vos.daily.ReportVO;
 import com.techncat.quantum.app.vos.daily.TravelVO;
 import com.techncat.quantum.app.vos.daily.VisitVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -57,14 +50,12 @@ public class DailyController {
     }
 
     @GetMapping("/hosting/{id}")
-    public ResponseEntity<HostingVO> showHosting(@ForkiAser(requiredRoles = {ROLE.daily, ROLE.daily_hosting}) Aser aser,
-                                                 @PathVariable("id") Long id) {
+    public ResponseEntity<HostingVO> showHosting(@PathVariable("id") Long id) {
         return ResponseEntity.ok(showService.fetchHostingVO(id));
     }
 
     @GetMapping("/hosting/{id}/structure")
-    public ResponseEntity<Map> showHostingStructure(@ForkiAser(requiredRoles = {ROLE.daily, ROLE.daily_hosting}) Aser aser,
-                                                    @PathVariable("id") Long id) throws IllegalAccessException {
+    public ResponseEntity<Map> showHostingStructure(@PathVariable("id") Long id) throws IllegalAccessException {
         Map result = voEnhanceUtil.enhance("data", showService.fetchHostingVO(id));
         result.put("index", "daily.hosting");
         result.put("update_url", "/api/daily/hosting/" + id);
@@ -73,20 +64,17 @@ public class DailyController {
     }
 
     @PostMapping("/hosting")
-    public ResponseEntity create(@ForkiAser(requiredRoles = {ROLE.edit_daily, ROLE.edit_daily_hosting}) Aser aser,
-                                 @RequestBody HostingVO data) {
+    public ResponseEntity create(@RequestBody HostingVO data) {
         return ResponseEntity.status(201).body(createService.create(data));
     }
 
     @PutMapping("/hosting/{id}")
-    public ResponseEntity update(@ForkiAser(requiredRoles = {ROLE.edit_daily, ROLE.edit_daily_hosting}) Aser aser,
-                                 @PathVariable("id") Long id, @RequestBody HostingVO data) {
+    public ResponseEntity update(@PathVariable("id") Long id, @RequestBody HostingVO data) {
         return ResponseEntity.status(201).body(updateService.update(id, data));
     }
 
     @DeleteMapping("/hosting/{id}")
-    public ResponseEntity deleteHosting(@ForkiAser(requiredRoles = {ROLE.delete_daily, ROLE.delete_daily_hosting}) Aser aser,
-                                        @PathVariable("id") Long id) {
+    public ResponseEntity deleteHosting(@PathVariable("id") Long id) {
         deleteService.deleteHosting(id);
         return ResponseEntity.status(204).build();
     }
@@ -102,22 +90,12 @@ public class DailyController {
     }
 
     @GetMapping("/report/{id}")
-    public ResponseEntity<ReportVO> showReport(@ForkiAser(requiredRoles = {ROLE.daily, ROLE.daily_report}) Aser aser,
-                                               @PathVariable("id") Long id) {
-        Report report = showService.fetchReport(id);
-        if (report.getInviter() != null && !authUtil.hasAuth(aser, report.getInviter().getId()))
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
-
+    public ResponseEntity<ReportVO> showReport(@PathVariable("id") Long id) {
         return ResponseEntity.ok(showService.fetchReportVO(id));
     }
 
     @GetMapping("/report/{id}/structure")
-    public ResponseEntity<Map> showReportStructure(@ForkiAser(requiredRoles = {ROLE.daily, ROLE.daily_report}) Aser aser,
-                                                   @PathVariable("id") Long id) throws IllegalAccessException {
-        Report report = showService.fetchReport(id);
-        if (report.getInviter() != null && !authUtil.hasAuth(aser, report.getInviter().getId()))
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
-
+    public ResponseEntity<Map> showReportStructure(@PathVariable("id") Long id) throws IllegalAccessException {
         Map result = voEnhanceUtil.enhance("data", showService.fetchReportVO(id));
         result.put("index", "daily.report");
         result.put("update_url", "/api/daily/report/" + id);
@@ -126,28 +104,17 @@ public class DailyController {
     }
 
     @PostMapping("/report")
-    public ResponseEntity create(@ForkiAser(requiredRoles = {ROLE.edit_daily, ROLE.edit_daily_report}) Aser aser,
-                                 @RequestBody ReportVO data) {
+    public ResponseEntity create(@RequestBody ReportVO data) {
         return ResponseEntity.status(201).body(createService.create(data));
     }
 
     @PutMapping("/report/{id}")
-    public ResponseEntity update(@ForkiAser(requiredRoles = {ROLE.edit_daily, ROLE.edit_daily_report}) Aser aser,
-                                 @PathVariable("id") Long id, @RequestBody ReportVO data) {
-        Report report = showService.fetchReport(id);
-        if (report.getInviter() != null && !authUtil.hasAuth(aser, report.getInviter().getId()))
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
-
+    public ResponseEntity update(@PathVariable("id") Long id, @RequestBody ReportVO data) {
         return ResponseEntity.status(201).body(updateService.update(id, data));
     }
 
     @DeleteMapping("/report/{id}")
-    public ResponseEntity deleteReport(@ForkiAser(requiredRoles = {ROLE.delete_daily, ROLE.delete_daily_report}) Aser aser,
-                                       @PathVariable("id") Long id) {
-        Report report = showService.fetchReport(id);
-        if (report.getInviter() != null && !authUtil.hasAuth(aser, report.getInviter().getId()))
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
-
+    public ResponseEntity deleteReport(@PathVariable("id") Long id) {
         deleteService.deleteReport(id);
         return ResponseEntity.status(204).build();
     }
@@ -163,22 +130,12 @@ public class DailyController {
     }
 
     @GetMapping("/travel/{id}")
-    public ResponseEntity<TravelVO> showTravel(@ForkiAser(requiredRoles = {ROLE.daily, ROLE.daily_travel}) Aser aser,
-                                               @PathVariable("id") Long id) {
-        Travel travel = showService.fetchTravel(id);
-        if (travel.getTraveler() != null && !authUtil.hasAuth(aser, travel.getTraveler().getId()))
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
-
+    public ResponseEntity<TravelVO> showTravel(@PathVariable("id") Long id) {
         return ResponseEntity.ok(showService.fetchTravelVO(id));
     }
 
     @GetMapping("/travel/{id}/structure")
-    public ResponseEntity<Map> showTravelStructure(@ForkiAser(requiredRoles = {ROLE.daily, ROLE.daily_travel}) Aser aser,
-                                                   @PathVariable("id") Long id) throws IllegalAccessException {
-        Travel travel = showService.fetchTravel(id);
-        if (travel.getTraveler() != null && !authUtil.hasAuth(aser, travel.getTraveler().getId()))
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
-
+    public ResponseEntity<Map> showTravelStructure(@PathVariable("id") Long id) throws IllegalAccessException {
         Map result = voEnhanceUtil.enhance("data", showService.fetchTravelVO(id));
         result.put("index", "daily.travel");
         result.put("update_url", "/api/daily/travel/" + id);
@@ -187,28 +144,17 @@ public class DailyController {
     }
 
     @PostMapping("/travel")
-    public ResponseEntity create(@ForkiAser(requiredRoles = {ROLE.edit_daily, ROLE.edit_daily_travel}) Aser aser,
-                                 @RequestBody TravelVO data) {
+    public ResponseEntity create(@RequestBody TravelVO data) {
         return ResponseEntity.status(201).body(createService.create(data));
     }
 
     @PutMapping("/travel/{id}")
-    public ResponseEntity update(@ForkiAser(requiredRoles = {ROLE.edit_daily, ROLE.edit_daily_travel}) Aser aser,
-                                 @PathVariable("id") Long id, @RequestBody TravelVO data) {
-        Travel travel = showService.fetchTravel(id);
-        if (travel.getTraveler() != null && !authUtil.hasAuth(aser, travel.getTraveler().getId()))
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
-
+    public ResponseEntity update(@PathVariable("id") Long id, @RequestBody TravelVO data) {
         return ResponseEntity.status(201).body(updateService.update(id, data));
     }
 
     @DeleteMapping("/travel/{id}")
-    public ResponseEntity deleteTravel(@ForkiAser(requiredRoles = {ROLE.delete_daily, ROLE.delete_daily_travel}) Aser aser,
-                                       @PathVariable("id") Long id) {
-        Travel travel = showService.fetchTravel(id);
-        if (travel.getTraveler() != null && !authUtil.hasAuth(aser, travel.getTraveler().getId()))
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
-
+    public ResponseEntity deleteTravel(@PathVariable("id") Long id) {
         deleteService.deleteTravel(id);
         return ResponseEntity.status(204).build();
     }
@@ -224,22 +170,12 @@ public class DailyController {
     }
 
     @GetMapping("/visit/{id}")
-    public ResponseEntity<VisitVO> showVisit(@ForkiAser(requiredRoles = {ROLE.daily, ROLE.daily_visit}) Aser aser,
-                                             @PathVariable("id") Long id) {
-        Visit visit = showService.fetchVisit(id);
-        if (visit.getReceptionist() != null && !authUtil.hasAuth(aser, visit.getReceptionist().getId()))
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
-
+    public ResponseEntity<VisitVO> showVisit(@PathVariable("id") Long id) {
         return ResponseEntity.ok(showService.fetchVisitVO(id));
     }
 
     @GetMapping("/visit/{id}/structure")
-    public ResponseEntity<Map> showVisitStructure(@ForkiAser(requiredRoles = {ROLE.daily, ROLE.daily_visit}) Aser aser,
-                                                  @PathVariable("id") Long id) throws IllegalAccessException {
-        Visit visit = showService.fetchVisit(id);
-        if (visit.getReceptionist() != null && !authUtil.hasAuth(aser, visit.getReceptionist().getId()))
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
-
+    public ResponseEntity<Map> showVisitStructure(@PathVariable("id") Long id) throws IllegalAccessException {
         Map result = voEnhanceUtil.enhance("data", showService.fetchVisitVO(id));
         result.put("index", "daily.visit");
         result.put("update_url", "/api/daily/visit/" + id);
@@ -248,28 +184,17 @@ public class DailyController {
     }
 
     @PostMapping("/visit")
-    public ResponseEntity create(@ForkiAser(requiredRoles = {ROLE.edit_daily, ROLE.edit_daily_visit}) Aser aser,
-                                 @RequestBody VisitVO data) {
+    public ResponseEntity create(@RequestBody VisitVO data) {
         return ResponseEntity.status(201).body(createService.create(data));
     }
 
     @PutMapping("/visit/{id}")
-    public ResponseEntity update(@ForkiAser(requiredRoles = {ROLE.edit_daily, ROLE.edit_daily_visit}) Aser aser,
-                                 @PathVariable("id") Long id, @RequestBody VisitVO data) {
-        Visit visit = showService.fetchVisit(id);
-        if (visit.getReceptionist() != null && !authUtil.hasAuth(aser, visit.getReceptionist().getId()))
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
-
+    public ResponseEntity update(@PathVariable("id") Long id, @RequestBody VisitVO data) {
         return ResponseEntity.status(201).body(updateService.update(id, data));
     }
 
     @DeleteMapping("/visit/{id}")
-    public ResponseEntity deleteVisit(@ForkiAser(requiredRoles = {ROLE.delete_daily, ROLE.delete_daily_visit}) Aser aser,
-                                      @PathVariable("id") Long id) {
-        Visit visit = showService.fetchVisit(id);
-        if (visit.getReceptionist() != null && !authUtil.hasAuth(aser, visit.getReceptionist().getId()))
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
-
+    public ResponseEntity deleteVisit(@PathVariable("id") Long id) {
         deleteService.deleteVisit(id);
         return ResponseEntity.status(204).build();
     }

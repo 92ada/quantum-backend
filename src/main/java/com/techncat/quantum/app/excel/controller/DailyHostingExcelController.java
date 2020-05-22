@@ -78,7 +78,7 @@ public class DailyHostingExcelController {
             sort = Sort.by(byProp).ascending();
         }
         PageRequest request = PageRequest.of(page - 1, size, sort);
-        Page<Hosting> expPage = daily_searchService.searchHosting(aser, startDate, endDate, request);
+        Page<Hosting> expPage = daily_searchService.searchHosting(startDate, endDate, request);
         excelService.export(expPage.getContent().parallelStream().map(HostingRow::render).collect(Collectors.toList()), response.getOutputStream());
     }
 
