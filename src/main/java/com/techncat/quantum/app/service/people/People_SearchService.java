@@ -86,4 +86,42 @@ public class People_SearchService {
         target.setType(source.getType());
         return target;
     }
+
+
+    /**
+     * For excel export
+     */
+    public Page<People> export(String word, PageRequest pageRequest) {
+        if (word == null) {
+            return (peopleRepository.findAll(pageRequest));
+        }
+        String wordLike = "%" + word + "%";
+        return (peopleRepository.findAllByNameLikeOrSidLikeOrEmailLike(wordLike, wordLike, wordLike, pageRequest));
+    }
+
+    public Page<People> export(String word, People.Type type, PageRequest pageRequest) {
+        if (word == null) {
+            return (peopleRepository.findAllByType(type, pageRequest));
+        }
+        String wordLike = "%" + word + "%";
+        return (peopleRepository.findAllByTypeAndNameLikeOrTypeAndSidLikeOrTypeAndEmailLike(type, wordLike, type, wordLike, type, wordLike, pageRequest));
+    }
+
+    public Page<People> export(String word, String sid, PageRequest pageRequest) {
+        List<Long> ids = runner.fixUserIds(sid);
+        if (word == null) {
+            return (peopleRepository.findAllByIdIn(ids, pageRequest));
+        }
+        String wordLike = "%" + word + "%";
+        return (peopleRepository.findAllByNameLikeAndIdInOrSidLikeAndIdInOrEmailLikeAndIdIn(wordLike, ids, wordLike, ids, wordLike, ids, pageRequest));
+    }
+
+    public Page<People> export(String word, People.Type type, String sid, PageRequest pageRequest) {
+        List<Long> ids = runner.fixUserIds(sid);
+        if (word == null) {
+            return (peopleRepository.findAllByTypeAndIdIn(type, ids, pageRequest));
+        }
+        String wordLike = "%" + word + "%";
+        return (peopleRepository.findAllByTypeAndNameLikeAndIdInOrTypeAndSidLikeAndIdInOrTypeAndEmailLikeAndIdIn(type, wordLike, ids, type, wordLike, ids, type, wordLike, ids, pageRequest));
+    }
 }

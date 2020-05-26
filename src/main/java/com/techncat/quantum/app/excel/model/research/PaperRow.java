@@ -2,6 +2,7 @@ package com.techncat.quantum.app.excel.model.research;
 
 import com.github.houbb.iexcel.annotation.ExcelField;
 import com.techncat.quantum.app.excel.util.FormatUtil;
+import com.techncat.quantum.app.model.people.People;
 import com.techncat.quantum.app.model.research.Paper;
 import com.techncat.quantum.app.service.utils.JsonLoader;
 import lombok.Data;
@@ -26,6 +27,8 @@ public class PaperRow {
     private String is_under_sustech;
     @ExcelField(headName = "南科大单位排序")
     private String sustech_institution_rank;
+    @ExcelField(headName = "南科大作者工号")
+    private String authorSid;
     @ExcelField(headName = "南科大作者姓名")
     private String authorName;
     @ExcelField(headName = "作者排序")
@@ -48,7 +51,8 @@ public class PaperRow {
     public static PaperRow render(Paper paper) {
         PaperRow row = new PaperRow();
         if (paper.getSustech_people() != null && paper.getSustech_people().size() != 0) {
-            row.authorName = paper.getSustech_people().stream().map(people -> people.getName() + " (" + people.getId() + ")").collect(Collectors.joining(","));
+            row.authorName = paper.getSustech_people().stream().map(People::getName).collect(Collectors.joining(","));
+            row.authorSid = paper.getSustech_people().stream().map(People::getSid).collect(Collectors.joining(","));
         }
 
         row.title = paper.getTitle();
@@ -77,8 +81,8 @@ public class PaperRow {
         p.setUpdateAt(new Date());
         p.setCreatedAt(new Date());
 
-        p.setAuthorJson(RowUtil.loadJson(row.authorName));
-        p.setSustech_people(RowUtil.parsePeopleList(row.authorName));
+        p.setSustech_people(RowUtil.loadPeopleListFromSid(row.authorSid));
+        p.setAuthorJson(RowUtil.toJson(p.getSustech_people()));
         p.setTitle(row.title);
         p.setJournal_conference_title(row.journal_conference_title);
         p.setPublication_date(FormatUtil.formatDate(row.publication_date));

@@ -17,6 +17,8 @@ public class ProjectRow {
     private String type;
     @ExcelField(headName = "项目类别")
     private String category;
+    @ExcelField(headName = "项目负责人工号")
+    private String leaderSid;
     @ExcelField(headName = "项目负责人姓名")
     private String leaderName;
     @ExcelField(headName = "起始日期")
@@ -33,7 +35,8 @@ public class ProjectRow {
     public static ProjectRow render(Project project) {
         ProjectRow row = new ProjectRow();
         if (project.getLeader() != null) {
-            row.leaderName = project.getLeader().getName() + " (" + project.getLeader().getId() + ")";
+            row.leaderName = project.getLeader().getName();
+            row.leaderSid = project.getLeader().getSid();
         }
 
         row.title = project.getTitle();
@@ -60,8 +63,8 @@ public class ProjectRow {
         p.setUpdateAt(new Date());
         p.setCreatedAt(new Date());
 
-        p.setLeaderJson(RowUtil.loadJson(row.leaderName));
-        p.setLeader(RowUtil.parsePeople(row.leaderName));
+        p.setLeader(RowUtil.loadPeopleFromSid(row.leaderSid));
+        p.setLeaderJson(RowUtil.toJson(p.getLeader()));
         p.setTitle(row.title);
         p.setType(row.type);
         p.setCategory(FormatUtil.formatEnum(Project.Category.class, row.category));

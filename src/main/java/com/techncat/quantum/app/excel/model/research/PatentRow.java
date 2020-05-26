@@ -2,6 +2,7 @@ package com.techncat.quantum.app.excel.model.research;
 
 import com.github.houbb.iexcel.annotation.ExcelField;
 import com.techncat.quantum.app.excel.util.FormatUtil;
+import com.techncat.quantum.app.model.people.People;
 import com.techncat.quantum.app.model.research.Patent;
 import com.techncat.quantum.app.service.utils.JsonLoader;
 import lombok.Data;
@@ -12,6 +13,8 @@ import java.util.stream.Collectors;
 
 @Data
 public class PatentRow {
+    @ExcelField(headName = "申请人工号")
+    private String applicantSid;
     @ExcelField(headName = "申请人姓名")
     private String applicantName;
     @ExcelField(headName = "专利名称")
@@ -36,7 +39,8 @@ public class PatentRow {
     public static PatentRow render(Patent patent) {
         PatentRow row = new PatentRow();
         if (patent.getApplicant() != null && patent.getApplicant().size() != 0) {
-            row.applicantName = patent.getApplicant().stream().map(people -> people.getName() + " (" + people.getId() + ")").collect(Collectors.joining(","));
+            row.applicantName = patent.getApplicant().stream().map(People::getName).collect(Collectors.joining(","));
+            row.applicantSid = patent.getApplicant().stream().map(People::getSid).collect(Collectors.joining(","));
         }
 
         row.title = patent.getTitle();
@@ -61,8 +65,8 @@ public class PatentRow {
         p.setUpdateAt(new Date());
         p.setCreatedAt(new Date());
 
-        p.setApplicantJson(RowUtil.loadJson(row.applicantName));
-        p.setApplicant(RowUtil.parsePeopleList(row.applicantName));
+        p.setApplicant(RowUtil.loadPeopleListFromSid(row.applicantSid));
+        p.setApplicantJson(RowUtil.toJson(p.getApplicant()));
         p.setTitle(row.title);
         p.setType(FormatUtil.formatEnum(Patent.Type.class, row.type));
         p.setStatus(FormatUtil.formatEnum(Patent.Status.class, row.status));

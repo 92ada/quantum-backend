@@ -11,6 +11,8 @@ import java.util.Date;
 
 @Data
 public class RewardRow {
+    @ExcelField(headName = "获奖人工号")
+    private String rewardedSid;
     @ExcelField(headName = "获奖人姓名")
     private String rewardedName;
     @ExcelField(headName = "奖励名称")
@@ -29,7 +31,8 @@ public class RewardRow {
     public static RewardRow render(Reward reward) {
         RewardRow row = new RewardRow();
         if (reward.getRewarded() != null) {
-            row.rewardedName = reward.getRewarded().getName() + " (" + reward.getRewarded().getId() + ")";
+            row.rewardedName = reward.getRewarded().getName();
+            row.rewardedSid = reward.getRewarded().getSid();
         }
 
         row.title = reward.getTitle();
@@ -52,8 +55,8 @@ public class RewardRow {
         p.setUpdateAt(new Date());
         p.setCreatedAt(new Date());
 
-        p.setRewardedJson(RowUtil.loadJson(row.rewardedName));
-        p.setRewarded(RowUtil.parsePeople(row.rewardedName));
+        p.setRewarded(RowUtil.loadPeopleFromSid(row.rewardedSid));
+        p.setRewardedJson(RowUtil.toJson(p.getRewarded()));
         p.setTitle(row.title);
         p.setIssue_institution(row.issue_institution);
         p.setLevel(FormatUtil.formatEnum(Reward.Level.class, row.level));

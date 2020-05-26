@@ -83,16 +83,16 @@ public class PeopleExcelController {
 
         boolean isRoot = aser.getRoles().contains("ROOT") || aser.getRoles().contains("root");
         if (type == null && !isRoot) {
-            peoplePage = people_searchService.search(word, aser.getSid(), request);
+            peoplePage = people_searchService.export(word, aser.getSid(), request);
         }
         if (type == null && isRoot) {
-            peoplePage = people_searchService.search(word, request);
+            peoplePage = people_searchService.export(word, request);
         }
         if (type != null && !isRoot) {
-            peoplePage = people_searchService.search(word, type, aser.getSid(), request);
+            peoplePage = people_searchService.export(word, type, aser.getSid(), request);
         }
         if (type != null && isRoot) {
-            peoplePage = people_searchService.search(word, type, request);
+            peoplePage = people_searchService.export(word, type, request);
         }
         excelService.export(peoplePage
                         .getContent()
