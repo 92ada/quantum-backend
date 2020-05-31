@@ -3,6 +3,7 @@ package com.techncat.quantum.app.common.voenhance;
 import com.alibaba.fastjson.JSON;
 import com.techncat.quantum.app.common.voenhance.annotation.Editable;
 import com.techncat.quantum.app.common.voenhance.annotation.Hidden;
+import com.techncat.quantum.app.common.voenhance.annotation.Required;
 import com.techncat.quantum.app.common.voenhance.annotation.ValueType;
 import com.techncat.quantum.app.common.voenhance.vo.EnhancedVO;
 import com.techncat.quantum.app.common.voutils.VOUtils;
@@ -43,6 +44,7 @@ public class VOEnhanceUtil {
             field.setAccessible(true);
             TypeResult typeResult = getType(field);
             Boolean isEditable = getEditable(field);
+            Boolean isRequired = getRequired(field);
             Boolean isHidden = getHidden(field);
             String index = field.getName();
             Object value = field.get(object);
@@ -52,6 +54,7 @@ public class VOEnhanceUtil {
                     Object[] enumValue = getEnumValues(field);
                     vo = new EnhancedVO(index, value, typeResult.getValue().name(), enumValue);
                     vo.setEditable(isEditable);
+                    vo.setRequired(isRequired);
                     vo.setHidden(isHidden);
                     vos.add(vo);
                     break;
@@ -63,6 +66,7 @@ public class VOEnhanceUtil {
                     if (!isEmpty(typeResult.getOptionUrl())) {
                         vo = new EnhancedVO(index, value, typeResult.getValue().name(), typeResult.getOptionUrl());
                         vo.setEditable(isEditable);
+                        vo.setRequired(isRequired);
                         vo.setHidden(isHidden);
                         vos.add(vo);
                         break;
@@ -75,6 +79,7 @@ public class VOEnhanceUtil {
                 default:
                     vo = new EnhancedVO(index, value, typeResult.getValue().name());
                     vo.setEditable(isEditable);
+                    vo.setRequired(isRequired);
                     vo.setHidden(isHidden);
                     vos.add(vo);
             }
@@ -89,6 +94,14 @@ public class VOEnhanceUtil {
             return anno.value();
         }
         return true;
+    }
+
+    private Boolean getRequired(Field field) {
+        if (field.isAnnotationPresent(Required.class)) {
+            Required anno = field.getAnnotation(Required.class);
+            return anno.value();
+        }
+        return false;
     }
 
     private Boolean getHidden(Field field) {

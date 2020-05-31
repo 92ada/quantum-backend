@@ -13,7 +13,7 @@ public class EnhancedVO {
     private Object[] options;
     private String option_url;
 
-    private Boolean require;
+    private Boolean required;
     private Boolean editable = true;
     private Boolean hidden = false;
 
@@ -42,7 +42,7 @@ public class EnhancedVO {
                 ", type='" + type + '\'' +
                 ", options=" + Arrays.toString(options) +
                 ", option_url='" + option_url + '\'' +
-                ", require=" + require +
+                ", required=" + required +
                 ", editable=" + editable +
                 ", hidden=" + hidden +
                 '}';

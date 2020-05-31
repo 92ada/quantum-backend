@@ -31,6 +31,9 @@ public class AuthUtil {
     }
 
     public Boolean hasAuth(Aser aser, List<Long> targetIds) {
+        if (targetIds.size() == 0)
+            return true;
+
         for (Long id : targetIds) {
             if (hasAuth(aser, id)) return true; // 有访问一个人的权限即可有权限
         }

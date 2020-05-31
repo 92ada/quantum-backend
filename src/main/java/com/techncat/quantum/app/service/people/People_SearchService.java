@@ -74,6 +74,8 @@ public class People_SearchService {
     }
 
     public static People avoidRef(People source) {
+        if (source == null) return null;
+
         People target = new People();
         target.setId(source.getId());
         target.setSid(source.getSid());
