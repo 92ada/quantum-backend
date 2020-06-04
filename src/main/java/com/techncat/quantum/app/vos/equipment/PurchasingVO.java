@@ -1,7 +1,6 @@
 package com.techncat.quantum.app.vos.equipment;
 
 import com.techncat.quantum.app.common.voenhance.annotation.ValueType;
-import com.techncat.quantum.app.model.people.People;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -18,9 +17,9 @@ public class PurchasingVO {
     private String argument_method;
     private Date request_date;
 
-    @ValueType(value = "people", option_url = "/api/people/options")
+    @ValueType(value = "person", option_url = "/api/people/options")
     private Object handlerJson;
-    @ValueType(value = "people", option_url = "/api/people/options")
+    @ValueType(value = "person", option_url = "/api/people/options")
     private Object piJson;
 
     private Boolean is_finished;

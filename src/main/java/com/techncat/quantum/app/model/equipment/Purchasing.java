@@ -35,15 +35,14 @@ public class Purchasing {
     @NotFound(action= NotFoundAction.IGNORE)
     @JoinColumn(name = "handler_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People handler;
-    @Column(columnDefinition="json")
     @Convert(converter = JpaConverterJson.class)
     private Object handlerJson;
     @ManyToOne
     @NotFound(action= NotFoundAction.IGNORE)
     @JoinColumn(name = "pi_people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People pi;
-    @Column(columnDefinition="json")
-    private String piJson;
+    @Convert(converter = JpaConverterJson.class)
+    private Object piJson;
 
     private Boolean is_finished;
     private String status;

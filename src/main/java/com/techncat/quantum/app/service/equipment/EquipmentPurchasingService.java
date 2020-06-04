@@ -5,6 +5,7 @@ import com.techncat.quantum.app.common.voutils.VOUtils;
 import com.techncat.quantum.app.model.equipment.Purchasing;
 import com.techncat.quantum.app.repository.equipment.EquPurchasingRepository;
 import com.techncat.quantum.app.service.people.LabRunner;
+import com.techncat.quantum.app.service.people.People_SearchService;
 import com.techncat.quantum.app.service.utils.JsonLoader;
 import com.techncat.quantum.app.vos.equipment.PurchasingVO;
 import org.springframework.beans.BeanUtils;
@@ -33,23 +34,24 @@ public class EquipmentPurchasingService {
     private LabRunner runner;
 
     public Page<Purchasing> page(Aser aser, String word, Pageable pageable) {
-        if (isRoot(aser)) return purchasingRepository.findAll(pageable);
+        if (isRoot(aser)) return avoidRef(purchasingRepository.findAll(pageable));
 
         List<Long> peopleIds = runner.fixUserIds(aser.getSid());
-        if (word == null) return purchasingRepository.findAllByPi_IdIn(peopleIds, pageable);
+        if (word == null) return avoidRef(purchasingRepository.findAllByPi_IdIn(peopleIds, pageable));
 
         String wordLike = "%" + word + "%";
-        return purchasingRepository.findAllByTitleLikeAndPi_IdIn(wordLike, peopleIds, pageable);
+        return avoidRef(purchasingRepository.findAllByTitleLikeAndPi_IdIn(wordLike, peopleIds, pageable));
     }
 
     public List<Purchasing> list(String word) {
         if (word == null) return purchasingRepository.findAll();
         String wordLike = "%" + word + "%";
-        return purchasingRepository.findAllByTitleLike(wordLike);
+        return avoidRef(purchasingRepository.findAllByTitleLike(wordLike));
     }
 
     public PurchasingVO fetchVO(Long id) {
-        return voUtils.copy(fetch(id), PurchasingVO.class);
+        PurchasingVO vo = voUtils.copy(fetch(id), PurchasingVO.class);
+        return vo;
     }
 
     public Purchasing fetch(Long id) {
@@ -63,8 +65,8 @@ public class EquipmentPurchasingService {
         preData.setId(null);
         preData.setUpdateAt(new Date());
         preData.setCreatedAt(new Date());
-        preData.setHandler(jsonLoader.loadPeople(preData.getHandlerJson()));
-        preData.setPi(jsonLoader.loadPeople(preData.getPiJson()));
+        preData.setHandler(jsonLoader.loadPeople(data.getHandlerJson()));
+        preData.setPi(jsonLoader.loadPeople(data.getPiJson()));
         return purchasingRepository.save(preData);
     }
 
@@ -73,8 +75,8 @@ public class EquipmentPurchasingService {
         BeanUtils.copyProperties(data, record);
         record.setId(id);
         record.setUpdateAt(new Date());
-        record.setHandler(jsonLoader.loadPeople(record.getHandlerJson()));
-        record.setPi(jsonLoader.loadPeople(record.getPiJson()));
+        record.setHandler(jsonLoader.loadPeople(data.getHandlerJson()));
+        record.setPi(jsonLoader.loadPeople(data.getPiJson()));
         return purchasingRepository.save(record);
     }
 
@@ -88,4 +90,19 @@ public class EquipmentPurchasingService {
         }
     }
 
+    private Page<Purchasing> avoidRef(Page<Purchasing> source) {
+        return source.map(record -> {
+            record.setPi(People_SearchService.avoidRef(record.getPi()));
+            record.setHandler(People_SearchService.avoidRef(record.getHandler()));
+            return record;
+        });
+    }
+
+    private List<Purchasing> avoidRef(List<Purchasing> source) {
+        source.forEach(record -> {
+            record.setPi(People_SearchService.avoidRef(record.getPi()));
+            record.setHandler(People_SearchService.avoidRef(record.getHandler()));
+        });
+        return source;
+    }
 }

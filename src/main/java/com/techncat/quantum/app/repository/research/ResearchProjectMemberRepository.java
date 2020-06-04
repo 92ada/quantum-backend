@@ -11,17 +11,9 @@ import java.util.List;
 public interface ResearchProjectMemberRepository extends JpaRepository<ProjectMember, Long> {
     List<ProjectMember> findAllByProject(Project project);
 
-    List<ProjectMember> findAllByPeople(People people);
-
     ProjectMember findFirstById(Long id);
 
     void deleteAllByProject(Project project);
 
     void deleteAllByProjectAndId(Project project, @Param("id") Long id);
-
-    void deleteAllByPeople(People people);
-
-    void deleteAllByPeopleAndId(People people, @Param("id") Long id);
-
-    void deleteAllByPeopleAndProject(People people, Project project);
 }

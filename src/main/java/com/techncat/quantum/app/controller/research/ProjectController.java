@@ -55,14 +55,14 @@ public class ProjectController {
         return memberService.list(projectId);
     }
 
-    @PostMapping("/{project_id}/member/{people_id}")
-    public ProjectMember addMember(@PathVariable("project_id") Long projectId, @PathVariable("people_id") Long peopleId) throws ResearchShowService.ProjectNotFoundException {
-        return memberService.add(projectId, peopleId);
+    @PostMapping("/{project_id}/member")
+    public ProjectMember addMember(@PathVariable("project_id") Long projectId, @RequestBody ProjectMember data) throws ResearchShowService.ProjectNotFoundException {
+        return memberService.create(projectId, data);
     }
 
-    @DeleteMapping("/{project_id}/member/{people_id}")
-    public ResponseEntity removeMember(@PathVariable("project_id") Long projectId, @PathVariable("people_id") Long peopleId) throws ResearchShowService.ProjectNotFoundException {
-        memberService.remove(projectId, peopleId);
+    @DeleteMapping("/{project_id}/member/{member_info_id}")
+    public ResponseEntity removeMember(@PathVariable("project_id") Long projectId, @PathVariable("member_info_id") Long recordId) throws ResearchShowService.ProjectNotFoundException {
+        memberService.delete(projectId, recordId);
         return ResponseEntity.status(204).build();
     }
 

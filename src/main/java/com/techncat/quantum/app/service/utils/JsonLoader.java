@@ -1,6 +1,7 @@
 package com.techncat.quantum.app.service.utils;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.techncat.quantum.app.model.people.People;
 import com.techncat.quantum.app.repository.people.People_Repository;
 import org.springframework.stereotype.Service;
@@ -38,9 +39,15 @@ public class JsonLoader {
 
     public People loadPeople(Object applicantJson) {
         if (applicantJson == null) return null;
-        List<People> list = loadPeopleList(applicantJson);
-        if (list.size() == 0) return null;
-        return list.get(0);
+        try {
+            List<People> list = loadPeopleList(applicantJson);
+            if (list.size() == 0) return null;
+            return list.get(0);
+        } catch (JSONParseError jsonParseError) {
+            JSONObject jsonObject = (JSONObject) applicantJson;
+            Long id = Long.parseLong((String) jsonObject.get("id"));
+            return peopleRepository.findById(id).get();
+        }
     }
 
     public static class JSONParseError extends RuntimeException {
