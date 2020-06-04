@@ -24,6 +24,8 @@ public class ProjectMember {
     private Project project;
 
     private String memberName;
+    private String phone;
+    private String email;
     private String institution;
     private String position_title;
     private String degree;

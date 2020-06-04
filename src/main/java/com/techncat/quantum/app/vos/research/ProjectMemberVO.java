@@ -7,6 +7,8 @@ public class ProjectMemberVO {
     private Long id;
 
     private String memberName;
+    private String phone;
+    private String email;
     private String institution;
     private String position_title;
     private String degree;
