@@ -17,11 +17,11 @@ public class ProjectAdmin {
 
     @ManyToOne
     @NotFound(action= NotFoundAction.IGNORE)
-    @JoinColumn(name = "project_id", referencedColumnName = "id")
+    @JoinColumn(name = "project_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private Project project;
 
     @ManyToOne
     @NotFound(action= NotFoundAction.IGNORE)
-    @JoinColumn(name = "people_id", referencedColumnName = "id")
+    @JoinColumn(name = "people_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private People people;
 }

@@ -20,7 +20,7 @@ public class ProjectMember {
 
     @ManyToOne
     @NotFound(action= NotFoundAction.IGNORE)
-    @JoinColumn(name = "project_id", referencedColumnName = "id")
+    @JoinColumn(name = "project_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private Project project;
 
     private String memberName;
