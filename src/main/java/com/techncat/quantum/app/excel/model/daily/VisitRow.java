@@ -62,7 +62,7 @@ public class VisitRow {
         row.needs_pick_up = FormatUtil.format(visit.getNeeds_pick_up());
         row.expenditure = FormatUtil.format(visit.getExpenditure());
         row.budget = FormatUtil.format(visit.getBudget());
-        row.time = FormatUtil.formatDate(visit.getTime());
+        row.time = FormatUtil.formatDatetime(visit.getTime());
         return row;
     }
 
@@ -86,7 +86,7 @@ public class VisitRow {
         p.setNeeds_pick_up(FormatUtil.toBoolean(row.needs_pick_up));
         p.setExpenditure(FormatUtil.toBigDecimal(row.expenditure));
         p.setBudget(FormatUtil.toBigDecimal(row.budget));
-        p.setTime(FormatUtil.formatDate(row.time));
+        p.setTime(FormatUtil.formatDatetime(row.time));
         return p;
     }
 }

@@ -22,7 +22,7 @@ public class HostingRow {
     public static HostingRow render(Hosting hosting) {
         HostingRow row = new HostingRow();
 
-        row.time = FormatUtil.formatDateTime(hosting.getTime());
+        row.time = FormatUtil.formatDatetime(hosting.getTime());
         row.title = hosting.getTitle();
         row.site = hosting.getSite();
         row.is_reimbursement = FormatUtil.format(hosting.getIs_reimbursement());
@@ -36,7 +36,7 @@ public class HostingRow {
         p.setUpdateAt(new Date());
         p.setCreatedAt(new Date());
 
-        p.setTime(FormatUtil.formatDate(row.time));
+        p.setTime(FormatUtil.formatDatetime(row.time));
         p.setTitle(row.title);
         p.setSite(row.site);
         p.setIs_reimbursement(FormatUtil.toBoolean(row.is_reimbursement));

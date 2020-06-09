@@ -1,5 +1,6 @@
 package com.techncat.quantum.app.vos.daily;
 
+import com.techncat.quantum.app.common.voenhance.annotation.Required;
 import com.techncat.quantum.app.common.voenhance.annotation.ValueType;
 import com.techncat.quantum.app.model.daily.Visit;
 import lombok.Data;
@@ -11,6 +12,7 @@ import java.util.Date;
 public class VisitVO {
     private Long id;
 
+    @Required(true)
     private String name;
     @ValueType("enumerated")
     private Visit.Status approval_status;
@@ -29,6 +31,7 @@ public class VisitVO {
     private Boolean needs_pick_up;
     private BigDecimal expenditure;
     private BigDecimal budget;
+    @Required(true)
     @ValueType("datetime")
     private Date time;
 }

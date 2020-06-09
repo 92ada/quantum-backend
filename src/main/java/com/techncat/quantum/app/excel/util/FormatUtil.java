@@ -11,14 +11,22 @@ public class FormatUtil {
 
     public static Date formatDate(String date) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//        DateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
         if (date == null) return null;
         if (date.trim().equals("")) return null;
         try {
-//            if (date.trim().length() >= 16) return dateTimeFormat.parse(date);
-//            else
-                return dateFormat.parse(date);
+            return dateFormat.parse(date);
+        } catch (ParseException e) {
+            return null;
+        }
+    }
+
+    public static Date formatDatetime(String datetime) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+        if (datetime == null) return null;
+        try {
+            return dateFormat.parse(datetime);
         } catch (ParseException e) {
             return null;
         }
@@ -75,7 +83,7 @@ public class FormatUtil {
         return dateFormat.format(date);
     }
 
-    public static String formatDateTime(Date date) {
+    public static String formatDatetime(Date date) {
         DateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
         if (date == null) return null;

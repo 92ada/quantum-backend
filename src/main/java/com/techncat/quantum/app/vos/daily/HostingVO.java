@@ -14,6 +14,7 @@ public class HostingVO {
     @Required(true)
     @ValueType("datetime")
     private Date time;
+    @Required(true)
     private String title;
     private String site;
     private Boolean is_reimbursement;

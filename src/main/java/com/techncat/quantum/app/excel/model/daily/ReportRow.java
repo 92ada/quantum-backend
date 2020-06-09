@@ -33,7 +33,7 @@ public class ReportRow {
             row.inviterName = report.getInviter().getName();
         }
 
-        row.time = FormatUtil.formatDateTime(report.getTime());
+        row.time = FormatUtil.formatDatetime(report.getTime());
         row.title = report.getTitle();
         row.inviteeName = report.getInvitee_name();
         row.people_count = FormatUtil.format(report.getPeople_count());
@@ -48,7 +48,7 @@ public class ReportRow {
         p.setUpdateAt(new Date());
         p.setCreatedAt(new Date());
 
-        p.setTime(FormatUtil.formatDate(row.time));
+        p.setTime(FormatUtil.formatDatetime(row.time));
         p.setTitle(row.title);
         p.setInvitee_name(row.inviteeName);
         p.setPeople_count(FormatUtil.toInteger(row.people_count));

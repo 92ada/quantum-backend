@@ -87,7 +87,6 @@ public class StockRow {
     }
 
     public static Stock load(StockRow row) {
-        if (row.no == null || row.no.trim().length() == 0) return null;
         Stock stock = new Stock();
         stock.setId(null);
         stock.setUpdateAt(new Date());
