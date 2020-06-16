@@ -14,6 +14,7 @@ public class JpaConverterJson implements AttributeConverter<Object, String> {
 
     @Override
     public String convertToDatabaseColumn(Object meta) {
+        if (null == meta) return null;
         try {
             return objectMapper.writeValueAsString(meta);
         } catch (JsonProcessingException ex) {
@@ -24,6 +25,7 @@ public class JpaConverterJson implements AttributeConverter<Object, String> {
 
     @Override
     public Object convertToEntityAttribute(String dbData) {
+        if (null == dbData) return null;
         try {
             return objectMapper.readValue(dbData, Object.class);
         } catch (IOException ex) {
