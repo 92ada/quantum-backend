@@ -19,6 +19,6 @@ public class ExpConferenceVO {
     private BigDecimal transportation_expenses;
     private BigDecimal labor_expenses;
 
-    @ValueType(value = "people", option_url = "/api/people/options")
+    @ValueType(value = "person", option_url = "/api/people/options")
     private Object officersJson;
 }

@@ -9,8 +9,8 @@ public class ExpConsultationVO {
     private String matter;
     private String department;
 
-    @ValueType(value = "people", option_url = "/api/people/options")
+    @ValueType(value = "person", option_url = "/api/people/options")
     private Object handlerJson;
-    @ValueType(value = "people", option_url = "/api/people/options")
+    @ValueType(value = "person", option_url = "/api/people/options")
     private Object payeeJson;
 }

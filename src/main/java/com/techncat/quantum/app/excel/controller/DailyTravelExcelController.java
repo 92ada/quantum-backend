@@ -10,6 +10,7 @@ import com.techncat.quantum.app.model.people.People;
 import com.techncat.quantum.app.repository.daily.DailyTravelRepository;
 import com.techncat.quantum.app.service.daily.Daily_SearchService;
 import com.techncat.quantum.app.service.people.PeopleShowService;
+import com.techncat.quantum.app.service.utils.JsonLoader;
 import com.techncat.quantum.app.service.utils.TimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -47,6 +48,8 @@ public class DailyTravelExcelController {
     private TimeFormatter timeFormatter;
     @Autowired
     private ExcelService excelService;
+    @Autowired
+    private JsonLoader jsonLoader;
 
     /**
      * 模版下载
@@ -103,6 +106,7 @@ public class DailyTravelExcelController {
                     People people = peopleShowService.fetchBySid(sid);
                     Travel travel = TravelRow.load(travelRow);
                     travel.setTraveler(people);
+                    travel.setTravelerJson(jsonLoader.renderJson(people));
                     return travel;
                 }
         ).filter(Objects::nonNull).collect(Collectors.toList());

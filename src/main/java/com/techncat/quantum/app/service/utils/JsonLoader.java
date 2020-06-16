@@ -50,6 +50,10 @@ public class JsonLoader {
         }
     }
 
+    public Object renderJson(People people) {
+        return JSONObject.parse("{\"id\": \"" + people.getId().toString() + "\", \"name\" :\"" + people.getName() + "\"}");
+    }
+
     public static class JSONParseError extends RuntimeException {
         public JSONParseError(String message) {
             super(message);

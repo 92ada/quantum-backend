@@ -12,7 +12,7 @@ public class ExpInternationalVO {
     private Date start_date;
     private Date end_date;
 
-    @ValueType(value = "people", option_url = "/api/people/options")
+    @ValueType(value = "person", option_url = "/api/people/options")
     private Object peopleJson;
 
     private String matter;

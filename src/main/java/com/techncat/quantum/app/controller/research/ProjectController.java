@@ -60,6 +60,11 @@ public class ProjectController {
         return memberService.create(projectId, data);
     }
 
+    @PutMapping("/{project_id}/member/{member_info_id}")
+    public ProjectMember updateMember(@PathVariable("project_id") Long projectId, @PathVariable("member_info_id") Long recordId, @RequestBody ProjectMember data) throws ResearchShowService.ProjectNotFoundException, ProjectMemberService.ProjectMemberNotFoundException {
+        return memberService.update(projectId, recordId, data);
+    }
+
     @DeleteMapping("/{project_id}/member/{member_info_id}")
     public ResponseEntity removeMember(@PathVariable("project_id") Long projectId, @PathVariable("member_info_id") Long recordId) throws ResearchShowService.ProjectNotFoundException {
         memberService.delete(projectId, recordId);

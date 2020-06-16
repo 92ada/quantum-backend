@@ -5,6 +5,7 @@ import com.techncat.quantum.app.common.voutils.VOUtils;
 import com.techncat.quantum.app.model.equipment.Stock;
 import com.techncat.quantum.app.repository.equipment.EquStockRepository;
 import com.techncat.quantum.app.service.people.LabRunner;
+import com.techncat.quantum.app.service.people.People_SearchService;
 import com.techncat.quantum.app.service.utils.JsonLoader;
 import com.techncat.quantum.app.vos.equipment.StockVO;
 import org.springframework.beans.BeanUtils;
@@ -33,18 +34,18 @@ public class EquipmentStockService {
     private LabRunner runner;
 
     public Page<Stock> page(Aser aser, String word, Pageable pageable) {
-        if (isRoot(aser)) return stockRepository.findAll(pageable);
+        if (isRoot(aser)) return avoidRef(stockRepository.findAll(pageable));
 
         List<Long> peopleIds = runner.fixUserIds(aser.getSid());
-        if (word == null) return stockRepository.findAllByAdmin_IdIn(peopleIds, pageable);
+        if (word == null) return avoidRef(stockRepository.findAllByAdmin_IdIn(peopleIds, pageable));
         String wordLike = "%" + word + "%";
-        return stockRepository.findAllByTitleLikeAndAdmin_IdIn(wordLike, peopleIds, pageable);
+        return avoidRef(stockRepository.findAllByTitleLikeAndAdmin_IdIn(wordLike, peopleIds, pageable));
     }
 
     public List<Stock> list(String word) {
-        if (word == null) return stockRepository.findAll();
+        if (word == null) return avoidRef(stockRepository.findAll());
         String wordLike = "%" + word + "%";
-        return stockRepository.findAllByTitleLike(wordLike);
+        return avoidRef(stockRepository.findAllByTitleLike(wordLike));
     }
 
     public StockVO fetchVO(Long id) {
@@ -85,6 +86,22 @@ public class EquipmentStockService {
         StockNotFoundException(Long id) {
             super("Stock id=[" + id + "] Not Found");
         }
+    }
+
+    private Page<Stock> avoidRef(Page<Stock> source) {
+        return source.map(record -> {
+            record.setTaker(People_SearchService.avoidRef(record.getTaker()));
+            record.setAdmin(People_SearchService.avoidRef(record.getAdmin()));
+            return record;
+        });
+    }
+
+    private List<Stock> avoidRef(List<Stock> source) {
+        source.forEach(record -> {
+            record.setTaker(People_SearchService.avoidRef(record.getTaker()));
+            record.setAdmin(People_SearchService.avoidRef(record.getAdmin()));
+        });
+        return source;
     }
 
 }

@@ -19,7 +19,7 @@ public class ProjectVO {
     @ValueType("enumerated")
     private Project.Category category;
 
-    @ValueType(value = "people", option_url = "/api/people/options")
+    @ValueType(value = "person", option_url = "/api/people/options")
     private Object leaderJson;
 
     private Date start_date;

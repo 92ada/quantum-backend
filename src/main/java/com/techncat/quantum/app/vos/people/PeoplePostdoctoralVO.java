@@ -9,9 +9,9 @@ public class PeoplePostdoctoralVO {
     // detail
     @ValueType("enumerated")
     private PeoplePostdoctoral.Category category;
-    @ValueType(value = "people", option_url = "/api/people/options")
+    @ValueType(value = "person", option_url = "/api/people/options")
     private Object supervisorJson;
-    @ValueType(value = "people", option_url = "/api/people/options")
+    @ValueType(value = "person", option_url = "/api/people/options")
     private Object coSupervisorJson;
     private String midterm_assessment_status;
     private String opening_assessment_status;

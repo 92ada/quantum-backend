@@ -1,5 +1,6 @@
 package com.techncat.quantum.app.vos.daily;
 
+import com.techncat.quantum.app.common.voenhance.annotation.Required;
 import com.techncat.quantum.app.common.voenhance.annotation.ValueType;
 import com.techncat.quantum.app.model.daily.Travel;
 import lombok.Data;
@@ -11,11 +12,12 @@ import java.util.Date;
 public class TravelVO {
     private Long id;
 
-    @ValueType(value = "people", option_url = "/api/people/options")
+    @ValueType(value = "person", option_url = "/api/people/options")
     private Object travelerJson;
     @ValueType("enumerated")
     private Travel.Type type;
     private BigDecimal budget;
+    @Required(true)
     private Date startDate;
     private Date endDate;
 

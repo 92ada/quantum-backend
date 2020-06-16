@@ -20,7 +20,7 @@ public class VisitVO {
     private String visitor_institution;
     private String job_title;
 
-    @ValueType(value = "people", option_url = "/api/people/options")
+    @ValueType(value = "person", option_url = "/api/people/options")
     private Object receptionistJson;
     @ValueType("enumerated")
     private Visit.IdentityType identity_type;
