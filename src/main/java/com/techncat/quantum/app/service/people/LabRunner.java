@@ -89,7 +89,7 @@ public class LabRunner {
     // 提取 id
     private List<Long> fetchLabIds(LabNode node, Integer level) {
         List<Long> ids = new ArrayList<>();
-        if (node.getLevel() >= level) {
+        if (node.getLevel() <= level) {
             ids.add(node.getId());
             process(node, level, ids);
         }
@@ -99,7 +99,7 @@ public class LabRunner {
     private void process(LabNode father, Integer level, List<Long> container) {
         if (father == null || father.getChildren() == null) return;
         for (LabNode node : father.getChildren()) {
-            if (node.getLevel() >= level) { // 当等级在用户所属等级范围内时，符合要求
+            if (node.getLevel() <= level) { // 当等级在用户所属等级范围内时，符合要求
                 container.add(node.getId());
                 process(node, level, container);
             }
