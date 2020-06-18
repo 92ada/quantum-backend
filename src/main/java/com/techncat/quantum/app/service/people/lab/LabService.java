@@ -5,6 +5,7 @@ import com.techncat.quantum.app.common.voutils.VOUtils;
 import com.techncat.quantum.app.model.people.Lab;
 import com.techncat.quantum.app.model.people.People;
 import com.techncat.quantum.app.repository.people.LabRepository;
+import com.techncat.quantum.app.service.people.PeopleUpdateService;
 import com.techncat.quantum.app.vos.people.LabVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,6 +21,8 @@ import java.util.stream.Collectors;
 public class LabService {
     @Resource
     private LabRepository repository;
+    @Resource
+    private PeopleUpdateService peopleUpdateService;
 
     @Autowired
     private VOUtils voUtils;
@@ -73,19 +76,38 @@ public class LabService {
         data.setId(null);
         data.setCreatedAt(new Date());
         data.setUpdateAt(new Date());
-        return repository.save(data);
+        Lab newLab = repository.save(data);
+        addLabToPeople(newLab.getId(), vo.getPi());
+        return newLab;
     }
 
     public Lab update(Long id, LabVO vo) {
+        Lab oldLab = fetch(id);
+        removeLabFromPeople(id, oldLab.getPi());
         Lab data = voUtils.copy(vo, Lab.class);
         data.setId(id);
         data.setUpdateAt(new Date());
+        addLabToPeople(data.getId(), data.getPi());
         return repository.save(data);
     }
 
     public void delete(Long id) {
         Lab found = fetch(id);
+        removeLabFromPeople(id, found.getPi());
         repository.delete(found);
+    }
+
+    private void addLabToPeople(Long labId, People people) {
+        List<Lab> hisLabs = people.getLab();
+        hisLabs.add(fetch(labId));
+        peopleUpdateService.update(people.getId(), people);
+    }
+
+    private void removeLabFromPeople(Long labId, People people) {
+        List<Lab> oldLabs = people.getLab();
+        List<Lab> newLabs = oldLabs.stream().filter(lab -> !lab.getId().equals(labId)).collect(Collectors.toList());
+        people.setLab(newLabs);
+        peopleUpdateService.update(people.getId(), people);
     }
 
     public static class LabNotFoundException extends RuntimeException {

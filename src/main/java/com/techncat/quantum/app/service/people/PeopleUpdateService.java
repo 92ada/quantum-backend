@@ -38,6 +38,16 @@ public class PeopleUpdateService {
     @Autowired
     private PeopleLabService peopleLabService;
 
+    // For LabService use
+    public People update(Long peopleId, People people) {
+        List<Lab> labs = people.getLab();
+        people.setId(peopleId);
+        people.setLab(new ArrayList<>());
+        people.setUpdateAt(new Date());
+        peopleRepository.save(people);
+        peopleLabService.resetLabs(peopleId, LabVO.renderSimple(labs));
+        return people;
+    }
 
     // 1. base update
     public People update(Long peopleId, PeopleVO vo) {
