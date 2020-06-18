@@ -27,6 +27,8 @@ public class PeopleDeleteService {
     private PeopleTeacherRepository peopleTeacherRepository;
     @Resource
     private PeopleVisitorRepository peopleVisitorRepository;
+    @Resource
+    private PeopleLabRepository peopleLabRepository;
 
     @Transactional
     public void delete(Long id) throws PeopleShowService.PeopleNotFoundException {
@@ -59,6 +61,7 @@ public class PeopleDeleteService {
                     break;
             }
         }
+        peopleLabRepository.deleteAllByPeopleId(people.getId());
         peopleRepository.delete(people);
     }
 }
