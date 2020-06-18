@@ -1,5 +1,7 @@
 package com.techncat.quantum.app.service.people;
 
+import com.techncat.quantum.app.model.people.Lab;
+import com.techncat.quantum.app.model.people.People;
 import com.techncat.quantum.app.model.people.PeopleLab;
 import com.techncat.quantum.app.repository.people.PeopleLabRepository;
 import com.techncat.quantum.app.vos.people.LabVO;
@@ -35,5 +37,13 @@ public class PeopleLabService {
     public void update(Long peopleId, List<Long> labIds) {
         if (labIds == null) return;
         labIds.parallelStream().forEach(labId -> this.update(peopleId, labId));
+    }
+
+    public void deleteByPeople(People people) {
+        repository.deleteAllByPeopleId(people.getId());
+    }
+
+    public void deleteByLab(Lab lab) {
+        repository.deleteAllByLabId(lab.getId());
     }
 }

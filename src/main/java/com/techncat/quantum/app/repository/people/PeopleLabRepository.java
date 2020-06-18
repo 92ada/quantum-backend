@@ -12,4 +12,6 @@ public interface PeopleLabRepository extends JpaRepository<PeopleLab, Long> {
     PeopleLab findFirstByPeopleIdAndLabId(@Param("peopleId") Long peopleId, @Param("labId") Long labId);
 
     void deleteAllByPeopleId(@Param("peopleId") Long peopleId);
+
+    void deleteAllByLabId(@Param("labId") Long ladID);
 }

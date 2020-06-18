@@ -13,6 +13,8 @@ public class PeopleDeleteService {
 
     @Autowired
     private PeopleShowService peopleShowService;
+    @Autowired
+    private PeopleLabService peopleLabService;
     @Resource
     private People_Repository peopleRepository;
     @Resource
@@ -27,12 +29,12 @@ public class PeopleDeleteService {
     private PeopleTeacherRepository peopleTeacherRepository;
     @Resource
     private PeopleVisitorRepository peopleVisitorRepository;
-    @Resource
-    private PeopleLabRepository peopleLabRepository;
 
     @Transactional
     public void delete(Long id) throws PeopleShowService.PeopleNotFoundException {
         People people = peopleShowService.fetchBase(id);
+        peopleLabService.deleteByPeople(people);
+
         if (people.getType() != null) {
             switch (people.getType()) {
                 case administration:
@@ -61,7 +63,6 @@ public class PeopleDeleteService {
                     break;
             }
         }
-        peopleLabRepository.deleteAllByPeopleId(people.getId());
         peopleRepository.delete(people);
     }
 }
