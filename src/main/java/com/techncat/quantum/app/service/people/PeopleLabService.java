@@ -39,11 +39,8 @@ public class PeopleLabService {
         labIds.parallelStream().forEach(labId -> this.update(peopleId, labId));
     }
 
-    public void deleteByPeople(People people) {
-        repository.deleteAllByPeopleId(people.getId());
-    }
-
     public void deleteByLab(Lab lab) {
-        repository.deleteAllByLabId(lab.getId());
+        if (repository.findFirstByLabId(lab.getId()) != null)
+            repository.deleteAllByLabId(lab.getId());
     }
 }

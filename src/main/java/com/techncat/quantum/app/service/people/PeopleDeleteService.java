@@ -13,8 +13,6 @@ public class PeopleDeleteService {
 
     @Autowired
     private PeopleShowService peopleShowService;
-    @Autowired
-    private PeopleLabService peopleLabService;
     @Resource
     private People_Repository peopleRepository;
     @Resource
@@ -33,7 +31,6 @@ public class PeopleDeleteService {
     @Transactional
     public void delete(Long id) throws PeopleShowService.PeopleNotFoundException {
         People people = peopleShowService.fetchBase(id);
-        peopleLabService.deleteByPeople(people);
 
         if (people.getType() != null) {
             switch (people.getType()) {

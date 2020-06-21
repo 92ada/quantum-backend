@@ -14,6 +14,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,11 +28,8 @@ public class LabService {
     private PeopleUpdateService peopleUpdateService;
     @Autowired
     private PeopleLabService peopleLabService;
-
     @Autowired
     private VOUtils voUtils;
-    @Autowired
-    private AuthUtil authUtil;
 
     public List<Lab> list(String word) {
         List<Lab> labs;
@@ -53,9 +52,12 @@ public class LabService {
     }
 
     public static Lab avoidRef(Lab lab) {
+        if (lab == null) { return null; }
         People _pi = new People();
-        _pi.setId(lab.getPi().getId());
-        _pi.setName(lab.getPi().getName());
+        if (lab.getPi() != null) {
+            _pi.setId(lab.getPi().getId());
+            _pi.setName(lab.getPi().getName());
+        }
 
         Lab labCopy = new Lab();
         labCopy.setId(lab.getId());
@@ -74,6 +76,7 @@ public class LabService {
         return found;
     }
 
+    @Transactional
     public Lab create(LabVO vo) {
         Lab data = voUtils.copy(vo, Lab.class);
         data.setId(null);
@@ -84,6 +87,7 @@ public class LabService {
         return newLab;
     }
 
+    @Transactional
     public Lab update(Long id, LabVO vo) {
         Lab oldLab = fetch(id);
         removeLabFromPeople(id, oldLab.getPi());
@@ -94,6 +98,7 @@ public class LabService {
         return repository.save(data);
     }
 
+    @Transactional
     public void delete(Long id) {
         Lab found = fetch(id);
         removeLabFromPeople(id, found.getPi());
@@ -102,16 +107,19 @@ public class LabService {
     }
 
     private void addLabToPeople(Long labId, People people) {
+        if (people == null) return;
         List<Lab> hisLabs = people.getLab();
+        if (hisLabs == null) hisLabs = new ArrayList<>();
         hisLabs.add(fetch(labId));
-        peopleUpdateService.update(people.getId(), people);
+        peopleUpdateService.updateLab(people.getId(), hisLabs);
     }
 
     private void removeLabFromPeople(Long labId, People people) {
+        if (people == null) return;
         List<Lab> oldLabs = people.getLab();
+        if (oldLabs == null) oldLabs = new ArrayList<>();
         List<Lab> newLabs = oldLabs.stream().filter(lab -> !lab.getId().equals(labId)).collect(Collectors.toList());
-        people.setLab(newLabs);
-        peopleUpdateService.update(people.getId(), people);
+        peopleUpdateService.updateLab(people.getId(), newLabs);
     }
 
     public static class LabNotFoundException extends RuntimeException {

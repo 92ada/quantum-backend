@@ -7,12 +7,14 @@ import com.techncat.quantum.app.repository.people.*;
 import com.techncat.quantum.app.vos.people.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PeopleUpdateService {
@@ -38,10 +40,11 @@ public class PeopleUpdateService {
     @Autowired
     private PeopleLabService peopleLabService;
 
-    // For LabService use
-    public People update(Long peopleId, People people) {
-        List<Lab> labs = people.getLab();
-        people.setId(peopleId);
+    @Transactional
+    public People updateLab(Long peopleId, List<Lab> labs) {
+        Optional<People> optionalPeople = peopleRepository.findById(peopleId);
+        if (!optionalPeople.isPresent()) return null;
+        People people = optionalPeople.get();
         people.setLab(new ArrayList<>());
         people.setUpdateAt(new Date());
         peopleRepository.save(people);
