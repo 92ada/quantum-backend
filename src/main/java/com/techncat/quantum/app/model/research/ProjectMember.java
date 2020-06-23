@@ -1,9 +1,7 @@
 package com.techncat.quantum.app.model.research;
 
 import lombok.Data;
-import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
@@ -22,7 +20,6 @@ public class ProjectMember {
 
     @ManyToOne
     @NotFound(action= NotFoundAction.IGNORE)
-    @Cascade({CascadeType.REMOVE})
     @JoinColumn(name = "project_id", referencedColumnName = "id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private Project project;
 

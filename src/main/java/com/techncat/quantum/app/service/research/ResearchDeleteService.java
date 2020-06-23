@@ -10,6 +10,7 @@ import com.techncat.quantum.app.repository.research.ResearchProjectRepository;
 import com.techncat.quantum.app.repository.research.ResearchRewardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -25,22 +26,32 @@ public class ResearchDeleteService {
     private ResearchProjectRepository researchProjectRepository;
     @Resource
     private ResearchRewardRepository researchRewardRepository;
+    @Resource
+    private ProjectMemberService projectMemberService;
+    @Resource
+    private ProjectFundService projectFundService;
 
+    @Transactional
     public void deletePaper(Long id) throws ResearchShowService.PaperNotFoundException {
         Paper record = showService.fetchPaper(id);
         researchPaperRepository.delete(record);
     }
 
+    @Transactional
     public void deletePatent(Long id) throws ResearchShowService.PatentNotFoundException {
         Patent record = showService.fetchPatent(id);
         researchPatentRepository.delete(record);
     }
 
+    @Transactional
     public void deleteProject(Long id) throws ResearchShowService.ProjectNotFoundException {
         Project record = showService.fetchProject(id);
+        projectMemberService.delete(id);
+        projectFundService.delete(id);
         researchProjectRepository.delete(record);
     }
 
+    @Transactional
     public void deleteReward(Long id) throws ResearchShowService.RewardNotFoundException {
         Reward record = showService.fetchReward(id);
         researchRewardRepository.delete(record);

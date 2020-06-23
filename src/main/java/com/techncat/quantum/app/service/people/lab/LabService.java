@@ -1,6 +1,5 @@
 package com.techncat.quantum.app.service.people.lab;
 
-import com.techncat.quantum.app.common.auth.AuthUtil;
 import com.techncat.quantum.app.common.voutils.VOUtils;
 import com.techncat.quantum.app.model.people.Lab;
 import com.techncat.quantum.app.model.people.People;
