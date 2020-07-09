@@ -34,16 +34,14 @@ public class EquipmentStockService {
     private LabRunner runner;
 
     public Page<Stock> page(Aser aser, String word, Pageable pageable) {
-        if (isRoot(aser)) return avoidRef(stockRepository.findAll(pageable));
+        String wordLike = "%" + word + "%";
+        if (isRoot(aser)) return avoidRef(stockRepository.findAllByTitleLike(wordLike, pageable));
 
         List<Long> peopleIds = runner.fixUserIds(aser.getSid());
-        if (word == null) return avoidRef(stockRepository.findAllByAdmin_IdIn(peopleIds, pageable));
-        String wordLike = "%" + word + "%";
         return avoidRef(stockRepository.findAllByTitleLikeAndAdmin_IdIn(wordLike, peopleIds, pageable));
     }
 
     public List<Stock> list(String word) {
-        if (word == null) return avoidRef(stockRepository.findAll());
         String wordLike = "%" + word + "%";
         return avoidRef(stockRepository.findAllByTitleLike(wordLike));
     }

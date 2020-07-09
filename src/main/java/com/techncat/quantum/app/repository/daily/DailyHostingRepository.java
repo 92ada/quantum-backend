@@ -8,5 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Date;
 
 public interface DailyHostingRepository extends JpaRepository<Hosting, Long> {
-    Page<Hosting> findAllByTimeBetween(Date start, Date end, Pageable pageable);
+    Page<Hosting> findAllByTitleLike(String word, Pageable pageable);
+    Page<Hosting> findAllByTitleLikeAndTimeBetween(String word, Date start, Date end, Pageable pageable);
 }

@@ -34,17 +34,14 @@ public class EquipmentPurchasingService {
     private LabRunner runner;
 
     public Page<Purchasing> page(Aser aser, String word, Pageable pageable) {
-        if (isRoot(aser)) return avoidRef(purchasingRepository.findAll(pageable));
+        String wordLike = "%" + word + "%";
+        if (isRoot(aser)) return avoidRef(purchasingRepository.findAllByTitleLike(wordLike, pageable));
 
         List<Long> peopleIds = runner.fixUserIds(aser.getSid());
-        if (word == null) return avoidRef(purchasingRepository.findAllByPi_IdIn(peopleIds, pageable));
-
-        String wordLike = "%" + word + "%";
         return avoidRef(purchasingRepository.findAllByTitleLikeAndPi_IdIn(wordLike, peopleIds, pageable));
     }
 
     public List<Purchasing> list(String word) {
-        if (word == null) return purchasingRepository.findAll();
         String wordLike = "%" + word + "%";
         return avoidRef(purchasingRepository.findAllByTitleLike(wordLike));
     }

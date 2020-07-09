@@ -39,6 +39,11 @@ public class PeopleCreateService {
     // 1. base create
     public People create(PeopleVO vo) {
         Assert.notNull(vo, "data can not be null");
+
+        if (peopleRepository.findFirstBySid(vo.getSid()) != null) {
+            throw new PeopleCreateService.DuplicateSidException(vo.getSid());
+        }
+
         List<LabVO> labVOS = vo.getLab();
         People peopleSaved = repoUtils.process(peopleRepository, vo, People.class, model -> {
             People people = (People) model;
@@ -58,6 +63,10 @@ public class PeopleCreateService {
         Assert.notNull(peopleVO, "data can not be null");
         Assert.notNull(extraVo, "data can not be null");
         List<LabVO> labVOS = peopleVO.getLab();
+
+        if (peopleRepository.findFirstBySid(peopleVO.getSid()) != null) {
+            throw new PeopleCreateService.DuplicateSidException(peopleVO.getSid());
+        }
 
         People peopleSaved = repoUtils.process(peopleVO, extraVo, PeopleAdmin.class, preData1 -> {
             preData1.setId(null);
@@ -83,6 +92,10 @@ public class PeopleCreateService {
         Assert.notNull(extraVo, "data can not be null");
         List<LabVO> labVOS = peopleVO.getLab();
 
+        if (peopleRepository.findFirstBySid(peopleVO.getSid()) != null) {
+            throw new PeopleCreateService.DuplicateSidException(peopleVO.getSid());
+        }
+
         People peopleSaved = repoUtils.process(peopleVO, extraVo, PeoplePostdoctoral.class, preData1 -> {
             preData1.setId(null);
             preData1.setUpdateAt(new Date());
@@ -107,6 +120,10 @@ public class PeopleCreateService {
         Assert.notNull(extraVo, "data can not be null");
         List<LabVO> labVOS = peopleVO.getLab();
 
+        if (peopleRepository.findFirstBySid(peopleVO.getSid()) != null) {
+            throw new PeopleCreateService.DuplicateSidException(peopleVO.getSid());
+        }
+
         People peopleSaved = repoUtils.process(peopleVO, extraVo, PeopleResearcher.class, preData1 -> {
             preData1.setId(null);
             preData1.setUpdateAt(new Date());
@@ -129,6 +146,11 @@ public class PeopleCreateService {
     public People create(PeopleVO peopleVO, PeopleStudentVO extraVo) {
         Assert.notNull(peopleVO, "data can not be null");
         Assert.notNull(extraVo, "data can not be null");
+
+        if (peopleRepository.findFirstBySid(peopleVO.getSid()) != null) {
+            throw new PeopleCreateService.DuplicateSidException(peopleVO.getSid());
+        }
+
         List<LabVO> labVOS = peopleVO.getLab();
 
         People peopleSaved = repoUtils.process(peopleVO, extraVo, PeopleStudent.class, preData1 -> {
@@ -177,6 +199,11 @@ public class PeopleCreateService {
     public People create(PeopleVO peopleVO, PeopleVisitorVO extraVo) {
         Assert.notNull(peopleVO, "data can not be null");
         Assert.notNull(extraVo, "data can not be null");
+
+        if (peopleRepository.findFirstBySid(peopleVO.getSid()) != null) {
+            throw new PeopleCreateService.DuplicateSidException(peopleVO.getSid());
+        }
+
         List<LabVO> labVOS = peopleVO.getLab();
 
         People peopleSaved = repoUtils.process(peopleVO, extraVo, PeopleVisitor.class, preData1 -> {
@@ -195,6 +222,12 @@ public class PeopleCreateService {
         });
         peopleLabService.resetLabs(peopleSaved.getId(), labVOS);
         return peopleSaved;
+    }
+
+    public static class DuplicateSidException extends RuntimeException {
+        DuplicateSidException(String sid) {
+            super("SID: " + sid + " 已存在");
+        }
     }
 
 }

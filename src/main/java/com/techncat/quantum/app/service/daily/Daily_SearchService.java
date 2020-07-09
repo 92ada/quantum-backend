@@ -33,24 +33,28 @@ public class Daily_SearchService {
     @Resource
     private DailyVisitRepository visitRepository;
 
-    public Page<Hosting> searchHosting(Date start, Date end, PageRequest pageRequest) {
-        if (start == null || end == null) return hostingRepository.findAll(pageRequest);
-        return hostingRepository.findAllByTimeBetween(start, end, pageRequest);
+    public Page<Hosting> searchHosting(String word, Date start, Date end, PageRequest pageRequest) {
+        String wordLike = "%" + word + "%";
+        if (start == null || end == null) return hostingRepository.findAllByTitleLike(wordLike, pageRequest);
+        return hostingRepository.findAllByTitleLikeAndTimeBetween(wordLike, start, end, pageRequest);
     }
 
-    public Page<Report> searchReport(Date start, Date end, PageRequest pageRequest) {
-        if (start == null || end == null) return avoidRef(reportRepository.findAll(pageRequest));
-        return avoidRef(reportRepository.findAllByTimeBetween(start, end, pageRequest));
+    public Page<Report> searchReport(String word, Date start, Date end, PageRequest pageRequest) {
+        String wordLike = "%" + word + "%";
+        if (start == null || end == null) return avoidRef(reportRepository.findAllByTitleLike(wordLike, pageRequest));
+        return avoidRef(reportRepository.findAllByTitleLikeAndTimeBetween(wordLike, start, end, pageRequest));
     }
 
-    public Page<Travel> searchTravel(Date start, Date end, PageRequest pageRequest) {
-        if (start == null || end == null) return avoidRef(travelRepository.findAll(pageRequest));
-        return avoidRef(travelRepository.findAllByStartDateBetween(start, end, pageRequest));
+    public Page<Travel> searchTravel(String word, Date start, Date end, PageRequest pageRequest) {
+        String wordLike = "%" + word + "%";
+        if (start == null || end == null) return avoidRef(travelRepository.findAllByTraveler_NameLike(wordLike, pageRequest));
+        return avoidRef(travelRepository.findAllByTraveler_NameLikeAndStartDateBetween(wordLike, start, end, pageRequest));
     }
 
-    public Page<Visit> searchVisit(Date start, Date end, PageRequest pageRequest) {
-        if (start == null || end == null) return avoidRef(visitRepository.findAll(pageRequest));
-        return avoidRef(visitRepository.findAllByTimeBetween(start, end, pageRequest));
+    public Page<Visit> searchVisit(String word, Date start, Date end, PageRequest pageRequest) {
+        String wordLike = "%" + word + "%";
+        if (start == null || end == null) return avoidRef(visitRepository.findAllByNameLike(wordLike, pageRequest));
+        return avoidRef(visitRepository.findAllByNameLikeAndTimeBetween(wordLike, start, end, pageRequest));
     }
 
     private <T> Page<T> avoidRef(Page<T> source) {

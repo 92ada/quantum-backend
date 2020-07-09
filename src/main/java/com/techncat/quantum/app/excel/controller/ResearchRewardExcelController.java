@@ -61,8 +61,7 @@ public class ResearchRewardExcelController {
             sort = Sort.by(byProp).ascending();
         }
         PageRequest request = PageRequest.of(0, 10000, sort); // max: 10000
-        Page<Reward> page = null;
-        page = researchSearchService.searchReward(aser, word, request);
+        Page<Reward> page = researchSearchService.searchReward(aser, word, request);
         excelService.export(page.getContent().parallelStream().map(RewardRow::render).collect(Collectors.toList()), response.getOutputStream());
     }
 

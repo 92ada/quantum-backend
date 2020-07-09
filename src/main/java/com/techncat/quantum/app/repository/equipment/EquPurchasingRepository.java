@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface EquPurchasingRepository extends JpaRepository<Purchasing, Long> {
-    Page<Purchasing> findAll(Pageable pageable);
+    Page<Purchasing> findAllByTitleLike(String word, Pageable pageable);
 
     Page<Purchasing> findAllByPi_IdIn(List<Long> peopleIds, Pageable pageable);
 

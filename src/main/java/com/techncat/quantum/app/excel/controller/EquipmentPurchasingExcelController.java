@@ -7,7 +7,6 @@ import com.techncat.quantum.app.excel.model.equipment.PurchasingRow;
 import com.techncat.quantum.app.excel.service.EquipmentExcelService;
 import com.techncat.quantum.app.excel.service.ExcelService;
 import com.techncat.quantum.app.model.equipment.Purchasing;
-import com.techncat.quantum.app.repository.equipment.EquPurchasingRepository;
 import com.techncat.quantum.app.service.equipment.EquipmentPurchasingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,7 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.io.IOException;

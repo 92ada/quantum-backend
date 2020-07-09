@@ -61,8 +61,7 @@ public class ResearchPatentExcelController {
             sort = Sort.by(byProp).ascending();
         }
         PageRequest request = PageRequest.of(0, 10000, sort); // max: 10000
-        Page<Patent> page = null;
-        page = researchSearchService.searchPatent(aser, word, request);
+        Page<Patent> page = researchSearchService.searchPatent(aser, word, request);
         excelService.export(page.getContent().parallelStream().map(PatentRow::render).collect(Collectors.toList()), response.getOutputStream());
     }
 

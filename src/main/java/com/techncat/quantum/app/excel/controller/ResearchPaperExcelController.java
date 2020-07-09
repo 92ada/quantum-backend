@@ -61,8 +61,7 @@ public class ResearchPaperExcelController {
             sort = Sort.by(byProp).ascending();
         }
         PageRequest request = PageRequest.of(0, 10000, sort); // max: 10000
-        Page<Paper> page = null;
-        page = researchSearchService.searchPaper(aser, word, request);
+        Page<Paper> page = researchSearchService.searchPaper(aser, word, request);
         excelService.export(page.getContent().parallelStream().map(PaperRow::render).collect(Collectors.toList()), response.getOutputStream());
     }
 

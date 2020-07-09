@@ -28,7 +28,7 @@ public class EquipmentSearcher {
 
     @GetMapping("/purchasing")
     public Page<Purchasing> searchPurchasing(@ForkiAser Aser aser,
-                                             @RequestParam(value = "word", required = false) String word,
+                                             @RequestParam(value = "word", defaultValue = "") String word,
                                              @RequestParam(value = "page", defaultValue = "1") Integer page,
                                              @RequestParam(value = "limit", defaultValue = "10") Integer size,
                                              @RequestParam(value = "order", defaultValue = "desc") String order,
@@ -45,7 +45,7 @@ public class EquipmentSearcher {
 
     @GetMapping("/stock")
     public Page<Stock> searchStock(@ForkiAser Aser aser,
-                                   @RequestParam(value = "word", required = false) String word,
+                                   @RequestParam(value = "word", defaultValue = "") String word,
                                    @RequestParam(value = "page", defaultValue = "1") Integer page,
                                    @RequestParam(value = "limit", defaultValue = "10") Integer size,
                                    @RequestParam(value = "order", defaultValue = "desc") String order,

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.techncat.quantum.app.common.auth.annotation.Visible;
 import com.techncat.quantum.app.common.voenhance.annotation.Editable;
+import com.techncat.quantum.app.common.voenhance.annotation.Required;
 import com.techncat.quantum.app.common.voenhance.annotation.ValueType;
 import com.techncat.quantum.app.model.people.Lab;
 import com.techncat.quantum.app.model.people.People;
@@ -45,6 +46,7 @@ import java.util.stream.Collectors;
 @Data
 public class PeopleVO {
     private Long id;
+    @Required(true)
     private String sid;
     @ValueType("photo")
     private String identity_photo_url;

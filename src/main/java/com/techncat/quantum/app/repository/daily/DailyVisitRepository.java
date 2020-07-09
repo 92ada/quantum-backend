@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Date;
 
 public interface DailyVisitRepository extends JpaRepository<Visit, Long> {
-    Page<Visit> findAllByTimeBetween(Date start, Date end, Pageable pageable);
+    Page<Visit> findAllByNameLikeAndTimeBetween(String word, Date start, Date end, Pageable pageable);
 
-    Page<Visit> findAll(Pageable pageable);
+    Page<Visit> findAllByNameLike(String word, Pageable pageable);
 }

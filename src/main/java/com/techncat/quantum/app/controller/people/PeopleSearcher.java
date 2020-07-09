@@ -27,7 +27,7 @@ public class PeopleSearcher {
 
     @GetMapping
     public Page<People> search(@ForkiAser Aser aser,
-                               @RequestParam(value = "word", required = false) String word,
+                               @RequestParam(value = "word", defaultValue = "") String word,
                                @RequestParam(value = "type", required = false) People.Type type,
                                @RequestParam(value = "page", defaultValue = "1") Integer page,
                                @RequestParam(value = "limit", defaultValue = "10") Integer size,

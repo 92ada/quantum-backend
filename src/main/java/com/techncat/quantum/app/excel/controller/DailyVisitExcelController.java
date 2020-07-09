@@ -78,7 +78,8 @@ public class DailyVisitExcelController {
             sort = Sort.by(byProp).ascending();
         }
         PageRequest request = PageRequest.of(page - 1, size, sort);
-        Page<Visit> expPage = daily_searchService.searchVisit(startDate, endDate, request);
+        String wordLike = "";
+        Page<Visit> expPage = daily_searchService.searchVisit(wordLike, startDate, endDate, request);
         excelService.export(expPage.getContent().parallelStream().map(VisitRow::render).collect(Collectors.toList()), response.getOutputStream());
     }
 

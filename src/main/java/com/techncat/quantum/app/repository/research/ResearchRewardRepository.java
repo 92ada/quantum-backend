@@ -14,6 +14,9 @@ public interface ResearchRewardRepository extends JpaRepository<Reward, Long> {
             @Param("title") String title,
             List<Long> peopleIds, Pageable pageable);
 
+    Page<Reward> findAllByTitleLike(
+            @Param("title") String title, Pageable pageable);
+
     Page<Reward> findAllByRewarded_IdIn(
             List<Long> peopleIds, Pageable pageable);
 

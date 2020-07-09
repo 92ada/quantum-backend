@@ -14,6 +14,10 @@ public interface ResearchPatentRepository extends JpaRepository<Patent, Long> {
             @Param("title") String title,
             List<Long> longs, Pageable pageable);
 
+    Page<Patent> findAllByTitleLike(
+            @Param("title") String title,
+            Pageable pageable);
+
     Page<Patent> findAllByIdIn(
             List<Long> longs, Pageable pageable);
 

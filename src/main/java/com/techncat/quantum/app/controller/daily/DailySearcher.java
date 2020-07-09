@@ -32,6 +32,7 @@ public class DailySearcher {
 
     @GetMapping("/hosting")
     public Page<Hosting> searchHosting(@ForkiAser Aser aser,
+                                       @RequestParam(value = "word", defaultValue = "") String word,
                                        @RequestParam(value = "start", required = false) String start, // 2018-01-01
                                        @RequestParam(value = "end", required = false) String end,
                                        @RequestParam(value = "page", defaultValue = "1") Integer page,
@@ -47,11 +48,12 @@ public class DailySearcher {
             sort = Sort.by(byProp).ascending();
         }
         PageRequest request = PageRequest.of(page - 1, size, sort);
-        return searchService.searchHosting(startDate, endDate, request);
+        return searchService.searchHosting(word, startDate, endDate, request);
     }
 
     @GetMapping("/report")
     public Page<Report> searchReport(@ForkiAser Aser aser,
+                                     @RequestParam(value = "word", defaultValue = "") String word,
                                      @RequestParam(value = "start", required = false) String start, // 2018-01-01
                                      @RequestParam(value = "end", required = false) String end,
                                      @RequestParam(value = "page", defaultValue = "1") Integer page,
@@ -67,11 +69,12 @@ public class DailySearcher {
             sort = Sort.by(byProp).ascending();
         }
         PageRequest request = PageRequest.of(page - 1, size, sort);
-        return searchService.searchReport(startDate, endDate, request);
+        return searchService.searchReport(word, startDate, endDate, request);
     }
 
     @GetMapping("/travel")
     public Page<Travel> searchTravel(@ForkiAser Aser aser,
+                                     @RequestParam(value = "word", defaultValue = "") String word,
                                      @RequestParam(value = "start", required = false) String start, // 2018-01-01
                                      @RequestParam(value = "end", required = false) String end,
                                      @RequestParam(value = "page", defaultValue = "1") Integer page,
@@ -87,11 +90,12 @@ public class DailySearcher {
             sort = Sort.by(byProp).ascending();
         }
         PageRequest request = PageRequest.of(page - 1, size, sort);
-        return searchService.searchTravel(startDate, endDate, request);
+        return searchService.searchTravel(word, startDate, endDate, request);
     }
 
     @GetMapping("/visit")
     public Page<Visit> searchVisit(@ForkiAser Aser aser,
+                                   @RequestParam(value = "word", defaultValue = "") String word,
                                    @RequestParam(value = "start", required = false) String start, // 2018-01-01
                                    @RequestParam(value = "end", required = false) String end,
                                    @RequestParam(value = "page", defaultValue = "1") Integer page,
@@ -107,7 +111,7 @@ public class DailySearcher {
             sort = Sort.by(byProp).ascending();
         }
         PageRequest request = PageRequest.of(page - 1, size, sort);
-        return searchService.searchVisit(startDate, endDate, request);
+        return searchService.searchVisit(word, startDate, endDate, request);
     }
 
 }

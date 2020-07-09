@@ -27,7 +27,7 @@ public class ResearchSearcher {
 
     @GetMapping("/paper")
     public Page<Paper> searchPaper(@ForkiAser Aser aser,
-                                   @RequestParam(value = "word", required = false) String word,
+                                   @RequestParam(value = "word", defaultValue = "") String word,
                                    @RequestParam(value = "page", defaultValue = "1") Integer page,
                                    @RequestParam(value = "limit", defaultValue = "10") Integer size,
                                    @RequestParam(value = "order", defaultValue = "desc") String order,
@@ -44,7 +44,7 @@ public class ResearchSearcher {
 
     @GetMapping("/patent")
     public Page<Patent> searchPatent(@ForkiAser Aser aser,
-                                     @RequestParam(value = "word", required = false) String word,
+                                     @RequestParam(value = "word", defaultValue = "") String word,
                                      @RequestParam(value = "page", defaultValue = "1") Integer page,
                                      @RequestParam(value = "limit", defaultValue = "10") Integer size,
                                      @RequestParam(value = "order", defaultValue = "desc") String order,
@@ -61,7 +61,7 @@ public class ResearchSearcher {
 
     @GetMapping("/project")
     public Page<Project> searchProject(@ForkiAser Aser aser,
-                                       @RequestParam(value = "word", required = false) String word,
+                                       @RequestParam(value = "word", defaultValue = "") String word,
                                        @RequestParam(value = "page", defaultValue = "1") Integer page,
                                        @RequestParam(value = "limit", defaultValue = "10") Integer size,
                                        @RequestParam(value = "order", defaultValue = "desc") String order,
@@ -78,7 +78,7 @@ public class ResearchSearcher {
 
     @GetMapping("/reward")
     public Page<Reward> searchReward(@ForkiAser Aser aser,
-                                     @RequestParam(value = "word", required = false) String word,
+                                     @RequestParam(value = "word", defaultValue = "") String word,
                                      @RequestParam(value = "page", defaultValue = "1") Integer page,
                                      @RequestParam(value = "limit", defaultValue = "10") Integer size,
                                      @RequestParam(value = "order", defaultValue = "desc") String order,

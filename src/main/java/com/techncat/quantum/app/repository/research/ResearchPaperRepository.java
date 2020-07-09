@@ -14,6 +14,10 @@ public interface ResearchPaperRepository extends JpaRepository<Paper, Long> {
             @Param("title") String title,
             List<Long> longs, Pageable pageable);
 
+    Page<Paper> findAllByTitleLike(
+            @Param("title") String title,
+            Pageable pageable);
+
     Page<Paper> findAllByIdIn(
             List<Long> longs, Pageable pageable);
 

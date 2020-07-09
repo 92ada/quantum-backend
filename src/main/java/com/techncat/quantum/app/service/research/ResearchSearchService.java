@@ -36,13 +36,11 @@ public class ResearchSearchService {
     private LabRunner runner;
 
     public Page<Paper> searchPaper(Aser aser, String word, PageRequest pageRequest) {
-        if (isRoot(aser)) {
-            return paperRepository.findAll(pageRequest);
-        }
-        if (word == null) {
-            return paperRepository.findAllByIdIn(visiblePapers(aser), pageRequest);
-        }
         String wordLike = "%" + word + "%";
+
+        if (isRoot(aser)) {
+            return paperRepository.findAllByTitleLike(wordLike, pageRequest);
+        }
         return paperRepository.findAllByTitleLikeAndIdIn(wordLike, visiblePapers(aser), pageRequest);
     }
 
@@ -58,13 +56,11 @@ public class ResearchSearchService {
     }
 
     public Page<Patent> searchPatent(Aser aser, String word, PageRequest pageRequest) {
-        if (isRoot(aser)) {
-            return patentRepository.findAll(pageRequest);
-        }
-        if (word == null) {
-            return patentRepository.findAllByIdIn(visiblePatents(aser), pageRequest);
-        }
         String wordLike = "%" + word + "%";
+
+        if (isRoot(aser)) {
+            return patentRepository.findAllByTitleLike(wordLike, pageRequest);
+        }
         return patentRepository.findAllByTitleLikeAndIdIn(wordLike, visiblePatents(aser), pageRequest);
     }
 
@@ -80,26 +76,22 @@ public class ResearchSearchService {
     }
 
     public Page<Project> searchProject(Aser aser, String word, PageRequest pageRequest) {
+        String wordLike = "%" + word + "%";
+
         if (isRoot(aser)) {
-            return projectRepository.findAll(pageRequest);
+            return projectRepository.findAllByTitleLike(wordLike, pageRequest);
         }
         List<Long> peopleIds = runner.fixUserIds(aser.getSid());
-        if (word == null) {
-            return projectRepository.findAllByLeader_IdIn(peopleIds, pageRequest);
-        }
-        String wordLike = "%" + word + "%";
         return projectRepository.findAllByTitleLikeAndLeader_IdIn(wordLike, peopleIds, pageRequest);
     }
 
     public Page<Reward> searchReward(Aser aser, String word, PageRequest pageRequest) {
+        String wordLike = "%" + word + "%";
+
         if (isRoot(aser)) {
-            return rewardRepository.findAll(pageRequest);
+            return rewardRepository.findAllByTitleLike(wordLike, pageRequest);
         }
         List<Long> peopleIds = runner.fixUserIds(aser.getSid());
-        if (word == null) {
-            return rewardRepository.findAllByRewarded_IdIn(peopleIds, pageRequest);
-        }
-        String wordLike = "%" + word + "%";
         return rewardRepository.findAllByTitleLikeAndRewarded_IdIn(wordLike, peopleIds, pageRequest);
     }
 }

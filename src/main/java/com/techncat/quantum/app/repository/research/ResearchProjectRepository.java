@@ -14,6 +14,10 @@ public interface ResearchProjectRepository extends JpaRepository<Project, Long> 
             @Param("title") String title,
             List<Long> peopleIds, Pageable pageable);
 
+    Page<Project> findAllByTitleLike(
+            @Param("title") String title,
+            Pageable pageable);
+
     Page<Project> findAllByLeader_IdIn(
             @Param("title") List<Long> title,
             Pageable pageable);
