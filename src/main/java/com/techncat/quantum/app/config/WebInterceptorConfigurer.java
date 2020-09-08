@@ -4,12 +4,14 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.techncat.quantum.app.auth.resolver.AserMethodArgumentResolver;
+import com.techncat.quantum.app.auth.resolver.LogHandlerInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.ArrayList;
@@ -58,9 +60,20 @@ public class WebInterceptorConfigurer implements WebMvcConfigurer {
     @Autowired
     private AserMethodArgumentResolver aserMethodArgumentResolver;
 
+    /**
+     * 用户操作日志
+     */
+    @Autowired
+    private LogHandlerInterceptor logHandlerInterceptor;
+
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
         argumentResolvers.add(aserMethodArgumentResolver); // 用户信息注入 + 角色判断识别
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(logHandlerInterceptor);
     }
 
 }

@@ -11,6 +11,7 @@ import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
+import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
@@ -60,6 +61,7 @@ public class AserMethodArgumentResolver implements HandlerMethodArgumentResolver
 //                if (isRoleRequireSuccess(forkiAser.requiredRoles(), aser.getRoles())) {
                 // 权限判断，满足则返回 aser，否则抛异常终结此次 HTTP 请求
                 if (isRoleRequireSuccess(forkiAser.requiredRoles(), user.getRoles())) {
+                    nativeWebRequest.setAttribute("$qgfwerhgjrewughjksid", aser.getSid(), RequestAttributes.SCOPE_REQUEST);
                     return aser;
                 } else {
                     throw new AserNoAuthException(forkiAser.requiredRoles());

@@ -1,5 +1,6 @@
 package com.techncat.quantum.app.auth.cas;
 
+import com.techncat.quantum.app.repository.people.People_Repository;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.Header;
@@ -21,6 +22,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
@@ -35,10 +37,18 @@ import java.util.List;
 @Service
 @Slf4j
 public class CasService {
+    @Resource
+    People_Repository peopleRepository;
+
     public boolean login(String sid, String password) {
         if (sid.equals("test") && password.equals("test123")) {
             // 测试账号
             return true;
+        }
+
+        if (peopleRepository.findFirstBySid(sid) == null) {
+            // 人员不在库内，禁止登录
+            return false;
         }
 
         try {
