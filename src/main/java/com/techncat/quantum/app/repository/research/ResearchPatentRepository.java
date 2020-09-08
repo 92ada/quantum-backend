@@ -1,5 +1,6 @@
 package com.techncat.quantum.app.repository.research;
 
+import com.techncat.quantum.app.model.people.People;
 import com.techncat.quantum.app.model.research.Patent;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +21,8 @@ public interface ResearchPatentRepository extends JpaRepository<Patent, Long> {
 
     Page<Patent> findAllByIdIn(
             List<Long> longs, Pageable pageable);
+
+    List<Patent> findAllByApplicantContains(People people);
 
     Optional<Patent> findFirstByTitle(String title);
 }

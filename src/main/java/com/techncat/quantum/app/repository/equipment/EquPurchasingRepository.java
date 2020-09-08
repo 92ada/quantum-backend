@@ -1,6 +1,7 @@
 package com.techncat.quantum.app.repository.equipment;
 
 import com.techncat.quantum.app.model.equipment.Purchasing;
+import com.techncat.quantum.app.model.people.People;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,4 +22,6 @@ public interface EquPurchasingRepository extends JpaRepository<Purchasing, Long>
     List<Purchasing> findAllByTitleLike(@Param("title") String title);
 
     Optional<Purchasing> findFirstByTitle(String title);
+
+    List<Purchasing> findAllByPiOrHandler(@Param("pi")People pi, @Param("handler")People handler);
 }

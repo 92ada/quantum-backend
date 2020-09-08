@@ -58,7 +58,7 @@ public class EquipmentController {
     }
 
     @GetMapping("/purchasing/{id}/structure")
-    public ResponseEntity<Map> showPurchasingStructure(@ForkiAser(requiredRoles = {ROLE.equipment, ROLE.equipment_purchasing}) Aser aser,
+    public ResponseEntity<Map> showPurchasingStructure(@ForkiAser(requiredRoles = {}) Aser aser,
                                                        @PathVariable("id") Long id) throws IllegalAccessException {
         Purchasing purchasing = purchasingService.fetch(id);
         if (purchasing.getPi() != null && !authUtil.hasAuth(aser, purchasing.getPi().getId()))
@@ -119,7 +119,7 @@ public class EquipmentController {
     }
 
     @GetMapping("/stock/{id}/structure")
-    public ResponseEntity<Map> showStockStructure(@ForkiAser(requiredRoles = {ROLE.equipment, ROLE.equipment_stock}) Aser aser,
+    public ResponseEntity<Map> showStockStructure(@ForkiAser(requiredRoles = {}) Aser aser,
                                                   @PathVariable("id") Long id) throws IllegalAccessException {
         Stock stock = stockService.fetch(id);
         if (stock.getAdmin() != null && !authUtil.hasAuth(aser, stock.getAdmin().getId()))

@@ -69,7 +69,7 @@ public class ResearchController {
     }
 
     @GetMapping("/paper/{paper_id}/structure")
-    public ResponseEntity<Map> showPaperStructure(@ForkiAser(requiredRoles = {ROLE.research, ROLE.research_paper}) Aser aser,
+    public ResponseEntity<Map> showPaperStructure(@ForkiAser(requiredRoles = {}) Aser aser,
                                                   @PathVariable("paper_id") Long id) throws ResearchShowService.PaperNotFoundException, IllegalAccessException {
         Paper paper = showService.fetchPaper(id);
         if (paper.getSustech_people() != null && !authUtil.hasAuth(aser, paper.getSustech_people().stream().map(x -> x.getId()).collect(Collectors.toList())))
@@ -130,7 +130,7 @@ public class ResearchController {
     }
 
     @GetMapping("/patent/{patent_id}/structure")
-    public ResponseEntity<Map> showPatentStructure(@ForkiAser(requiredRoles = {ROLE.research, ROLE.research_patent}) Aser aser,
+    public ResponseEntity<Map> showPatentStructure(@ForkiAser(requiredRoles = {}) Aser aser,
                                                    @PathVariable("patent_id") Long id) throws ResearchShowService.PatentNotFoundException, IllegalAccessException {
         Patent patent = showService.fetchPatent(id);
         if (patent.getApplicant() != null && !authUtil.hasAuth(aser, patent.getApplicant().stream().map(x -> x.getId()).collect(Collectors.toList())))
@@ -191,7 +191,7 @@ public class ResearchController {
     }
 
     @GetMapping("/project/{project_id}/structure")
-    public ResponseEntity<Map> showProjectStructure(@ForkiAser(requiredRoles = {ROLE.research, ROLE.research_project}) Aser aser,
+    public ResponseEntity<Map> showProjectStructure(@ForkiAser(requiredRoles = {}) Aser aser,
                                                     @PathVariable("project_id") Long id) throws IllegalAccessException, ResearchShowService.ProjectNotFoundException {
         Project project = showService.fetchProject(id);
         if (project.getLeader() != null && !authUtil.hasAuth(aser, project.getLeader().getId()))
@@ -253,7 +253,7 @@ public class ResearchController {
     }
 
     @GetMapping("/reward/{reward_id}/structure")
-    public ResponseEntity<Map> showRewardStructure(@ForkiAser(requiredRoles = {ROLE.research, ROLE.research_reward}) Aser aser,
+    public ResponseEntity<Map> showRewardStructure(@ForkiAser(requiredRoles = {}) Aser aser,
                                                    @PathVariable("reward_id") Long id) throws IllegalAccessException, ResearchShowService.RewardNotFoundException {
         Reward reward = showService.fetchReward(id);
         if (reward.getRewarded() != null && !authUtil.hasAuth(aser, reward.getRewarded().getId()))

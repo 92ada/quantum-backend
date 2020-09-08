@@ -1,5 +1,6 @@
 package com.techncat.quantum.app.repository.research;
 
+import com.techncat.quantum.app.model.people.People;
 import com.techncat.quantum.app.model.research.Project;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +22,8 @@ public interface ResearchProjectRepository extends JpaRepository<Project, Long> 
     Page<Project> findAllByLeader_IdIn(
             @Param("title") List<Long> title,
             Pageable pageable);
+
+    List<Project> findAllByLeader(People people);
 
     Optional<Project> findFirstByTitle(String title);
 }

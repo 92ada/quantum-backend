@@ -1,5 +1,6 @@
 package com.techncat.quantum.app.repository.research;
 
+import com.techncat.quantum.app.model.people.People;
 import com.techncat.quantum.app.model.research.Reward;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,6 +20,8 @@ public interface ResearchRewardRepository extends JpaRepository<Reward, Long> {
 
     Page<Reward> findAllByRewarded_IdIn(
             List<Long> peopleIds, Pageable pageable);
+
+    List<Reward> findAllByRewarded(People people);
 
     Optional<Reward> findFirstByTitle(String title);
 }
